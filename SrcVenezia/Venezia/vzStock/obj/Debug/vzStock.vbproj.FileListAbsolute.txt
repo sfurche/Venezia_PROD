@@ -1,0 +1,52 @@
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\MySql.Data.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbprojResolveAssemblyReference.cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.Resources.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.Resources.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.xml

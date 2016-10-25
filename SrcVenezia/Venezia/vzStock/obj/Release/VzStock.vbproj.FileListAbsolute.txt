@@ -1,0 +1,13 @@
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\vzStock.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\vzStock.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\vzStock.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\bin\Release\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\VzStock.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\vzStock.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\VzStock.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\vzStock.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\vzStock.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\vzStock\obj\Release\vzStock.pdb

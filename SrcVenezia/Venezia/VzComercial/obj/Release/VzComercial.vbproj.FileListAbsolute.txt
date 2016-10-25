@@ -1,0 +1,13 @@
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzComercial.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Release\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Release\VzComercial.pdb

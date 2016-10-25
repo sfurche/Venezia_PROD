@@ -1,0 +1,81 @@
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\MySql.Data.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbprojResolveAssemblyReference.cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.frmLiquidacion.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.Resources.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\MySql.Data.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbprojResolveAssemblyReference.cache
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.Resources.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzTesoreria.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzAdmin.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.Resources.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\VzTesoreria\obj\Debug\VzTesoreria.pdb

@@ -1,0 +1,41 @@
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzDBCnn.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzLog.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzSecurity.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzDBCnn.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzDBCnn.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzLog.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzLog.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzSecurity.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\bin\Debug\VzSecurity.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\clComercial\obj\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.vbprojResolveAssemblyReference.cache

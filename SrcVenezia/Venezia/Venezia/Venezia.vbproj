@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5C5E0CC-6F35-46BF-B880-2D4187569D79}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Venezia.My.MyApplication</StartupObject>
+    <RootNamespace>Venezia</RootNamespace>
+    <AssemblyName>Venezia</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Venezia.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Venezia.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Venezia\Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comercial\frmComProveedoresConsulta.Designer.vb">
+      <DependentUpon>frmComProveedoresConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\frmComProveedoresConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Herramientas\cListViewSorting.vb" />
+    <Compile Include="Herramientas\frmConfiguracion.Designer.vb">
+      <DependentUpon>frmConfiguracion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Herramientas\frmConfiguracion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reporting\frmReporteBase1.Designer.vb">
+      <DependentUpon>frmReporteBase1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\frmReporteBase1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\frmStkArticulosCons.Designer.vb">
+      <DependentUpon>frmStkArticulosCons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\frmStkArticulosCons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\frmStkListasDePrecioCons.Designer.vb">
+      <DependentUpon>frmStkListasDePrecioCons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\frmStkListasDePrecioCons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\frmStkPreciosConsxLista.Designer.vb">
+      <DependentUpon>frmStkPreciosConsxLista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\frmStkPreciosConsxLista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkConsulta.Designer.vb">
+      <DependentUpon>frmTesoChkConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRptxProv.Designer.vb">
+      <DependentUpon>frmTesoChkRptxProv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRptxProv.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacionAnular.Designer.vb">
+      <DependentUpon>frmTesoLiqConciliacionAnular.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacionAnular.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoAlta.Designer.vb">
+      <DependentUpon>frmTesoOrdenDePagoAlta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoAlta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoConsulta.Designer.vb">
+      <DependentUpon>frmTesoOrdenDePagoConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\TemplateForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRptEnCartera.Designer.vb">
+      <DependentUpon>frmTesoChkRptEnCartera.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRptEnCartera.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacion.Designer.vb">
+      <DependentUpon>frmTesoLiqConciliacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqRptFDHVen.Designer.vb">
+      <DependentUpon>frmTesoLiqRptFDHVen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqRptFDHVen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqRptRendicionDiariaValores.Designer.vb">
+      <DependentUpon>frmTesoLiqRptRendicionDiariaValores.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqRptRendicionDiariaValores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesAltaRapida.Designer.vb">
+      <DependentUpon>frmTesoLiquidacionesAltaRapida.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesAltaRapida.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\FrmBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comercial\frmComVendedoresCons.Designer.vb">
+      <DependentUpon>frmComVendedoresCons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\frmComVendedoresCons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Herramientas\FrmFondoPantalla.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\frmConsultas.Designer.vb">
+      <DependentUpon>frmConsultas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmConsultas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\frmLogin.Designer.vb">
+      <DependentUpon>frmLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\frmMailSoporte.Designer.vb">
+      <DependentUpon>frmMailSoporte.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmMailSoporte.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\frmPrincipal.Designer.vb">
+      <DependentUpon>frmPrincipal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reporting\frmReporteBase.Designer.vb">
+      <DependentUpon>frmReporteBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\frmReporteBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\frmSplashScreen.Designer.vb">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmSplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesAlta.Designer.vb">
+      <DependentUpon>frmTesoLiquidacionesAlta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesAlta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesCons.Designer.vb">
+      <DependentUpon>frmTesoLiquidacionesCons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiquidacionesCons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Venezia\ModGlobal.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reporting\ReportObjectDefinitions.vb" />
+    <Compile Include="Venezia\Settings.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Comercial\frmComProveedoresConsulta.resx">
+      <DependentUpon>frmComProveedoresConsulta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Herramientas\frmConfiguracion.resx">
+      <DependentUpon>frmConfiguracion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\frmReporteBase1.resx">
+      <DependentUpon>frmReporteBase1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\rptTesoLiqRendDiariaVal.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\Template.rdlc" />
+    <EmbeddedResource Include="Reporting\TemplateLegal.rdlc" />
+    <EmbeddedResource Include="Reporting\TemplateA4.rdlc" />
+    <EmbeddedResource Include="Reporting\rptTesoLiqChequesCartera.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\rptTesoLiqHistFDHVenEst.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\rptTesoChkxProvFOPDH.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\TemplateLetter.rdlc" />
+    <EmbeddedResource Include="Stock\frmStkArticulosCons.resx">
+      <DependentUpon>frmStkArticulosCons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\frmStkListasDePrecioCons.resx">
+      <DependentUpon>frmStkListasDePrecioCons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\frmStkPreciosConsxLista.resx">
+      <DependentUpon>frmStkPreciosConsxLista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoChkConsulta.resx">
+      <DependentUpon>frmTesoChkConsulta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoChkRptEnCartera.resx">
+      <DependentUpon>frmTesoChkRptEnCartera.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoChkRptxProv.resx">
+      <DependentUpon>frmTesoChkRptxProv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiqConciliacion.resx">
+      <DependentUpon>frmTesoLiqConciliacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiqConciliacionAnular.resx">
+      <DependentUpon>frmTesoLiqConciliacionAnular.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiqRptFDHVen.resx">
+      <DependentUpon>frmTesoLiqRptFDHVen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiqRptRendicionDiariaValores.resx">
+      <DependentUpon>frmTesoLiqRptRendicionDiariaValores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiquidacionesAltaRapida.resx">
+      <DependentUpon>frmTesoLiquidacionesAltaRapida.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoOrdenDePagoAlta.resx">
+      <DependentUpon>frmTesoOrdenDePagoAlta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoOrdenDePagoConsulta.resx">
+      <DependentUpon>frmTesoOrdenDePagoConsulta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\FrmBase.resx">
+      <DependentUpon>FrmBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comercial\frmComVendedoresCons.resx">
+      <DependentUpon>frmComVendedoresCons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Herramientas\FrmFondoPantalla.resx">
+      <DependentUpon>FrmFondoPantalla.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmConsultas.resx">
+      <DependentUpon>frmConsultas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmLogin.resx">
+      <DependentUpon>frmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmMailSoporte.resx">
+      <DependentUpon>frmMailSoporte.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\frmReporteBase.resx">
+      <DependentUpon>frmReporteBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmSplashScreen.resx">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiquidacionesAlta.resx">
+      <DependentUpon>frmTesoLiquidacionesAlta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiquidacionesCons.resx">
+      <DependentUpon>frmTesoLiquidacionesCons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.cRptDefiniciones.datasource" />
+    <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefCheques.datasource" />
+    <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefChequesxProvFOPDH.datasource" />
+    <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefLiquidacion.datasource" />
+    <None Include="My Project\DataSources\VzTesoreria.cLiquidacion.datasource" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VzAdmin\VzAdmin.vbproj">
+      <Project>{70d874a7-6849-41fa-92c6-ad9dac900b71}</Project>
+      <Name>VzAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VzComercial\VzComercial.vbproj">
+      <Project>{80c1ccf7-48c5-4cfa-be88-75c176213e7f}</Project>
+      <Name>VzComercial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vzStock\VzStock.vbproj">
+      <Project>{56d1767d-3ab0-4b35-894c-974b74400756}</Project>
+      <Name>VzStock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VzTesoreria\VzTesoreria.vbproj">
+      <Project>{a5270da4-3698-4b06-9760-e650df59a3f4}</Project>
+      <Name>VzTesoreria</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Venezia\Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.ico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_ball_glass_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_ball_glass_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_ball_glass_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_ball_glass_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_preferences.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id_card_warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\line-chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mobilephone2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money_envelope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moneybag_dollar - Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\telephone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar_preferences.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\column-chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document_notebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanicButton1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanicButton2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x16-add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x16-delete2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24x24-add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24x24-delete2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

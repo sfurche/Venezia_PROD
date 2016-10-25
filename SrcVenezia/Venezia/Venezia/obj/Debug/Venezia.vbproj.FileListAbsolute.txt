@@ -1,0 +1,258 @@
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\bin\Debug\Venezia.exe.config
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.Configuracion.resources
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+c:\users\paris\documents\visual studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\Venezia.exe
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\Venezia.pdb
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\Venezia.xml
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzDBCnn.dll
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzLog.dll
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzDBCnn.pdb
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzDBCnn.xml
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzLog.pdb
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\bin\Debug\VzLog.xml
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.exe
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.xml
+C:\Users\Paris\Documents\Visual Studio 2015\Projects\Venezia\Venezia\obj\Debug\Venezia.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Configuracion.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Configuracion.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzDBCnn.dll
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzLog.dll
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzDBCnn.pdb
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzDBCnn.xml
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzLog.pdb
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzLog.xml
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Configuracion.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+F:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesCons.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmComVendedoresCons.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesAlta.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.dll
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.pdb
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.xml
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Configuracion.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmComVendedoresCons.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesAlta.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesCons.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+H:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\App.config
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.dll
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzAdmin.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzComercial.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\vzStock.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.pdb
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\VzTesoreria.xml
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbprojResolveAssemblyReference.cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.FrmBase.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmComVendedoresCons.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesAlta.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesCons.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.Resources.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmReporteBase.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.compiled
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqRendDiariaVal.rdlc
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqRptRendicionDiariaValores.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqRptFDHVen.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRptEnCartera.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqChequesCartera.rdlc
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesAltaRapida.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmConsultas.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmMailSoporte.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqConciliacion.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.g.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqConciliacionAnular.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmConfiguracion.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkConsulta.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmComProveedoresConsulta.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoOrdenDePagoAlta.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoOrdenDePagoConsulta.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmReporteBase1.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqHistFDHVenEst.rdlc
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRptxProv.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoChkxProvFOPDH.rdlc
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqRendDiariaVal.rdlc
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqChequesCartera.rdlc
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoLiqHistFDHVenEst.rdlc
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoChkxProvFOPDH.rdlc
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.g.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmComProveedoresConsulta.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmConfiguracion.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmReporteBase1.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkConsulta.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRptEnCartera.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRptxProv.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqConciliacion.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqConciliacionAnular.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqRptFDHVen.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqRptRendicionDiariaValores.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiquidacionesAltaRapida.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoOrdenDePagoAlta.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoOrdenDePagoConsulta.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmConsultas.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmMailSoporte.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmReporteBase.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.cache
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.compiled
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkArticulosCons.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkListasDePrecioCons.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkPreciosConsxLista.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkArticulosCons.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkListasDePrecioCons.resources
+E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkPreciosConsxLista.resources

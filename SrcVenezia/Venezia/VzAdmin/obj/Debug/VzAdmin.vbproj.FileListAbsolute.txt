@@ -1,0 +1,28 @@
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\bin\Debug\MySql.Data.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.Resources.resources
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.dll
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.xml
+C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.pdb
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\MySql.Data.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.Resources.resources
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.vbproj.GenerateResource.Cache
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.dll
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.xml
+E:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\bin\Debug\MySql.Data.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.Resources.resources
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.vbproj.GenerateResource.Cache
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.dll
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.xml
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.pdb
+H:\Trabajo\Proyecto CDSur\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.FrmBase.resources

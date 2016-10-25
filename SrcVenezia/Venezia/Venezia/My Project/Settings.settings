@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="DBCnn_DBPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
+    <Setting Name="DBCnn_Srv" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="DBCnn_DBName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">venezia_20161021</Value>
+    </Setting>
+    <Setting Name="AutoUpdatePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\192.168.0.19\VeneziaAutoUpdate\SetupVenezia.exe</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

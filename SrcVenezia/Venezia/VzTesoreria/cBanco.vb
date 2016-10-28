@@ -1,7 +1,16 @@
 ﻿Imports VzTesoreria
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
+'CLASE QUE REPRESENTA EL BANCO PARA LOS CHEQUE3S.
+
+=======
 ''probando merge juli
+>>>>>>> refs/remotes/origin/master
+>>>>>>> origin/20161031_0_Venezia
 Public Class cBanco
 
 #Region "Declaraciones"

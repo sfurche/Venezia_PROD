@@ -256,3 +256,7 @@ C:\Users\sebas_000\Documents\Trabajo\Venezia\SrcVenezia\Venezia\Venezia\obj\Debu
 E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkArticulosCons.resources
 E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkListasDePrecioCons.resources
 E:\Trabajo\Proyecto CDSur\Venezia\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmStkPreciosConsxLista.resources
+C:\Users\IBM_ADMIN\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\Venezia.exe.config
+C:\Users\IBM_ADMIN\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.exe
+C:\Users\IBM_ADMIN\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.xml
+C:\Users\IBM_ADMIN\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.pdb

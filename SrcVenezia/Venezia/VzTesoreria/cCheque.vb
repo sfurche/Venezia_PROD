@@ -1,7 +1,7 @@
 ﻿Imports VzTesoreria
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
-
+''probando merge juli
 Public Class cCheque
 
 #Region "Declaraciones"

@@ -776,9 +776,6 @@ Public Class frmPrincipal
     Private Sub ActualizarVeneziaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarVeneziaToolStripMenuItem.Click
         Dim lPath As String = ""
         Try
-            MsgBox("No tiene permisos para ejecutar esta opcion. Salga y vuelva a ingresar para obtener la nueva version", MsgBoxStyle.Exclamation, "Actualizacion")
-            Exit Sub
-
             If MsgBox("Esta seguro que desea actualizar la version?", vbYesNo + MsgBoxStyle.Question, "Actualizar") = MsgBoxResult.Yes Then
                 lPath = My.Settings.AutoUpdatePath
                 System.Diagnostics.Process.Start(lPath)

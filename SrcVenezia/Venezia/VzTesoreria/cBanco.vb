@@ -2,8 +2,6 @@
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
 
-'CLASE QUE REPRESENTA EL BANCO PARA LOS CHEQUE3S.
-
 Public Class cBanco
 
 #Region "Declaraciones"

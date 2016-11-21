@@ -67,8 +67,12 @@ Public Class frmTesoLiquidacionesAlta
         cmbBanco.Enabled = False
         cmbVendedores.Enabled = False
         chkCruzado.Enabled = False
-        chkDirecto.Enabled = False
-        chkOrden.Enabled = False
+        optDirecto.Enabled = False
+        optAlaOrden.Enabled = False
+        optNoAlaOrden.Enabled = False
+        optTerceros.Enabled = False
+        chkCertificado.Enabled = False
+        optAlPortador.Enabled = False
 
     End Sub
 
@@ -224,9 +228,9 @@ Public Class frmTesoLiquidacionesAlta
             lCheque.Numero = txtNroCheque.Text.Trim
             lCheque.Importe = txtImporte.Text.Trim
             lCheque.Propio = cCheque.enuBinario.No  'Como esta cargando una liquidacion, el cheque no es propio.
-            lCheque.Directo = IIf(chkDirecto.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
+            lCheque.Directo = IIf(optDirecto.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
             lCheque.Cruzado = IIf(chkCruzado.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
-            lCheque.Orden = IIf(chkOrden.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
+            lCheque.Orden = IIf(optAlaOrden.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
             lCheque.Banco = cmbBanco.SelectedItem
             lCheque.Fecha_Pago = dtpFecEmision.Value
             lCheque.NroCli = DirectCast(txtCliente.Tag, cCliente).NroCli
@@ -253,8 +257,8 @@ Public Class frmTesoLiquidacionesAlta
             '-Blanqueo los campos y vuelvo a posicionar para seguir cargando
             cmbBanco.SelectedItem = Nothing
             chkCruzado.Checked = False
-            chkDirecto.Checked = False
-            chkOrden.Checked = False
+            optDirecto.Checked = True
+            optAlaOrden.Checked = True
             dtpFecEmision.Value = Date.Today()
             txtImporte.Text = String.Empty
             txtObservac.Text = String.Empty
@@ -518,7 +522,11 @@ Public Class frmTesoLiquidacionesAlta
             '-Blanqueo los campos y vuelvo a posicionar para seguir cargando
             cmbBanco.SelectedItem = Nothing
             chkCruzado.Checked = False
-            chkDirecto.Checked = False
+            chkCertificado.Checked = False
+            optAlPortador.Checked = False
+            optNoAlaOrden.Checked = False
+            optDirecto.Checked = True
+            optTerceros.Checked = False
             dtpFecEmision.Value = Date.Today()
             txtImporte.Text = String.Empty
             txtObservac.Text = String.Empty
@@ -781,6 +789,5 @@ Public Class frmTesoLiquidacionesAlta
             e.Handled = True
         End If
     End Sub
-
 
 End Class

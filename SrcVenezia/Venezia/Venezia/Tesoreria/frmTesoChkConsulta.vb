@@ -33,12 +33,12 @@ Public Class frmTesoChkConsulta
             lvwConsulta.Columns.Add(New ColHeader("NroCheque", 80, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Importe", 80, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("Fec_Pago", 100, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Banco", 250, HorizontalAlignment.Left, True))
+            lvwConsulta.Columns.Add(New ColHeader("Banco", 140, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Cruzado", 70, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Directo", 70, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Orden", 70, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Vto", 80, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Estado", 80, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Estado", 100, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Cliente", 100, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("OrdenP", 100, HorizontalAlignment.Left, True))
 
@@ -60,6 +60,7 @@ Public Class frmTesoChkConsulta
         Dim lSumChk As Decimal = 0
         Dim lIdEstado As Integer = 99
         Dim lIdBanco As Integer = 0
+        Dim lLvwSI As ListViewItem.ListViewSubItem = Nothing
         Try
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             'VALIDACIONES
@@ -111,12 +112,24 @@ Public Class frmTesoChkConsulta
                     lItem.SubItems.Add(lChk.Numero)
                     lItem.SubItems.Add("$" & lChk.Importe.ToString)
                     lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lChk.Fecha_Pago, "DD/MM/YYYY"))
-                    lItem.SubItems.Add(lChk.Banco.Nombre)
+                    lItem.SubItems.Add(lChk.Banco.NombreRed)
                     lItem.SubItems.Add(lChk.Cruzado.ToString)
                     lItem.SubItems.Add(lChk.Directo.ToString)
                     lItem.SubItems.Add(lChk.Orden.ToString)
                     lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lChk.Fecha_Vencimiento.ToShortDateString, "DD/MM/YYYY"))
-                    lItem.SubItems.Add(lChk.Estado.Estado)
+
+                    lItem.UseItemStyleForSubItems = False 'Cambio la propieedd para que cada subitem tenga propiedades style.
+
+                    lLvwSI = New ListViewItem.ListViewSubItem
+                    lLvwSI.Text = lChk.Estado.Estado
+                    Select Case lChk.Estado.Id_Estado
+                        Case 0 'Si el cheque esta en cartera lo pongo en verde
+                            lLvwSI.ForeColor = Color.Green
+                        Case 2 'Si el cheque esta rechazado pendiente de gestion lo pongo en rojo
+                            lLvwSI.ForeColor = Color.Red
+                    End Select
+                    lItem.SubItems.Add(lLvwSI)
+
                     lItem.SubItems.Add(lChk.NroCli)
                     lItem.SubItems.Add(IIf(lChk.Id_Orden = 0, " ", lChk.Id_Orden))
                     lItem.Tag = lChk
@@ -428,4 +441,14 @@ Public Class frmTesoChkConsulta
 
     End Sub
 
+    Private Sub lvwConsulta_DoubleClick(sender As Object, e As EventArgs) Handles lvwConsulta.DoubleClick
+        Try
+
+            frmPrincipal.SubArirCheque(lvwConsulta.SelectedItems(0).Tag, Me.FrmLlamador, EnuOPERACION.CONS)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.lvwConsulta_DoubleClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.lvwConsulta_DoubleClick:" & ex.Message)
+        End Try
+    End Sub
 End Class

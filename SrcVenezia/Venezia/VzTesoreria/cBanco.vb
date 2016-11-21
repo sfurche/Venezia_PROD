@@ -1,20 +1,10 @@
 ﻿Imports VzTesoreria
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
-'CLASE QUE REPRESENTA EL BANCO PARA LOS CHEQUE3S.
-
-=======
-''probando merge juli
->>>>>>> refs/remotes/origin/master
->>>>>>> origin/20161031_0_Venezia
 Public Class cBanco
 
 #Region "Declaraciones"
-
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -130,6 +120,7 @@ Public Class cBanco
                     lBco.CodBCRA = lDr("cod_bco")
                     lBco.Nombre = lDr("nomb_bco")
                     lBco.NombreRed = lDr("nomb_bco_red")
+                    lBco.NombreComb = lBco.CodBCRA & " - " & lBco.NombreRed
                     lBco.EsNuevo = False
                 Next
 
@@ -161,6 +152,7 @@ Public Class cBanco
                     lBco.CodBCRA = lDr("cod_bco")
                     lBco.Nombre = lDr("nomb_bco")
                     lBco.NombreRed = lDr("nomb_bco_red")
+                    lBco.NombreComb = lBco.CodBCRA & " - " & lBco.NombreRed
                     lBco.EsNuevo = False
                     lArray.Add(lBco)
                 Next

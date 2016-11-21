@@ -93,6 +93,33 @@ Public Class frmPrincipal
 
     End Sub
 
+    Public Sub SubArirCheque(ByRef pCheque As cCheque, ByRef pFrmLlamador As FrmBase, ByVal pModo As FrmBase.EnuOPERACION)
+        Dim Ventana As New frmTesoChkAlta
+        Dim F As Form
+        Dim i As Integer
+        Try
+            Ventana.Text = "Cheque " & pCheque.Numero.ToString
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            Ventana.MdiParent = Me
+            Ventana.FrmLlamador = pFrmLlamador
+            Ventana.TipoDeOperacion = pModo
+            Ventana.mcheque = pCheque
+            Ventana.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "FrmPrincipal.SubArirCheque")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.SubArirCheque:" & ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
     Private Sub frmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load

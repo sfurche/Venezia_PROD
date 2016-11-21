@@ -459,6 +459,55 @@ Public Class cCheque
         End Try
     End Function
 
+    Public Function Rechazar() As Boolean
+        Rechazar = False
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+        Dim lDt As DataTable = Nothing
+
+        Try
+            If Not Me.Estado.Id_Estado = 1 Then 'En Cartera
+                MsgBox("El cheque no se puede anular por estar en estado '" & Me.Estado.Estado & "'", MsgBoxStyle.Exclamation)
+                Rechazar = False
+                Exit Function
+            End If
+
+            lCnn = Me.gAdmin.DbCnn.GetInstanceCon
+
+            '2 ES ESTADO RECHAZADO PENDIENTE DE GESTION
+            Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, 2, cEstado.enuTipoEstado.Cheque)
+
+            If Me.EsNuevo = False Then
+                lCnn = gAdmin.DbCnn.GetInstanceCon
+
+                Sql = "CALL vz_cheques_cambest ('#id_cheque#',#id_estado#, #idusr#)"
+                Sql = Sql.Replace("#id_cheque#", Me.Id_Cheque)
+                Sql = Sql.Replace("#id_estado#", Me.Estado.Id_Estado)
+                Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+                Cmd.Connection = lCnn
+                Cmd.CommandType = CommandType.Text
+                Cmd.CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+
+            End If
+
+            Rechazar = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Rechazar")
+            gAdmin.Log.fncGrabarLogERR("Error en cCheque.Rechazar:" & ex.Message)
+        End Try
+    End Function
+
+
 #End Region
 
 #Region "Shared Functions"

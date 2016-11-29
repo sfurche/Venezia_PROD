@@ -46,6 +46,7 @@ Public Class cEstado
         Liquidacion = 1
         Liquidacion_det = 2
         Orden_De_Pago = 3
+        Liquidacion_Conciliacion = 4
         EstadoError = 99
     End Enum
 
@@ -59,6 +60,8 @@ Public Class cEstado
                 Return "vz_liquidaciones_det"
             Case enuTipoEstado.Orden_De_Pago
                 Return "vz_ordenes_de_pago"
+            Case enuTipoEstado.Liquidacion_Conciliacion
+                Return "vz_liquidaciones_conciliacion"
             Case Else
                 Return ""
         End Select
@@ -74,6 +77,8 @@ Public Class cEstado
                 Return enuTipoEstado.Liquidacion_det
             Case "vz_ordenes_de_pago"
                 Return enuTipoEstado.Orden_De_Pago
+            Case "vz_liquidaciones_conciliacion"
+                Return enuTipoEstado.Liquidacion_Conciliacion
             Case Else
                 Return enuTipoEstado.EstadoError
         End Select

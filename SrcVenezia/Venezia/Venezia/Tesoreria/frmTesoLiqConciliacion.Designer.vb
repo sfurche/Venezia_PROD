@@ -29,6 +29,7 @@ Partial Class frmTesoLiqConciliacion
         Me.cmbLiquidacion = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkChequesRechaz = New System.Windows.Forms.CheckBox()
         Me.btnAplicarParcial = New System.Windows.Forms.Button()
         Me.chkAllVen = New System.Windows.Forms.CheckBox()
         Me.chkRecHist = New System.Windows.Forms.CheckBox()
@@ -113,6 +114,7 @@ Partial Class frmTesoLiqConciliacion
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkChequesRechaz)
         Me.GroupBox2.Controls.Add(Me.btnAplicarParcial)
         Me.GroupBox2.Controls.Add(Me.chkAllVen)
         Me.GroupBox2.Controls.Add(Me.chkRecHist)
@@ -125,12 +127,22 @@ Partial Class frmTesoLiqConciliacion
         Me.GroupBox2.Size = New System.Drawing.Size(1914, 827)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Recibos"
+        Me.GroupBox2.Text = "Recibos / Cheques Rechazados"
+        '
+        'chkChequesRechaz
+        '
+        Me.chkChequesRechaz.AutoSize = True
+        Me.chkChequesRechaz.Location = New System.Drawing.Point(593, 772)
+        Me.chkChequesRechaz.Name = "chkChequesRechaz"
+        Me.chkChequesRechaz.Size = New System.Drawing.Size(383, 36)
+        Me.chkChequesRechaz.TabIndex = 31
+        Me.chkChequesRechaz.Text = "Ver Cheques Rechazados"
+        Me.chkChequesRechaz.UseVisualStyleBackColor = True
         '
         'btnAplicarParcial
         '
         Me.btnAplicarParcial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAplicarParcial.Location = New System.Drawing.Point(615, 764)
+        Me.btnAplicarParcial.Location = New System.Drawing.Point(1012, 764)
         Me.btnAplicarParcial.Name = "btnAplicarParcial"
         Me.btnAplicarParcial.Size = New System.Drawing.Size(253, 50)
         Me.btnAplicarParcial.TabIndex = 15
@@ -247,4 +259,5 @@ Partial Class frmTesoLiqConciliacion
     Friend WithEvents chkAllVen As CheckBox
     Friend WithEvents chkRecHist As CheckBox
     Friend WithEvents btnAplicarParcial As Button
+    Friend WithEvents chkChequesRechaz As CheckBox
 End Class

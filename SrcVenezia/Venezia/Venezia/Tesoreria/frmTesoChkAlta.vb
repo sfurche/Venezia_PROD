@@ -11,9 +11,11 @@ Public Class frmTesoChkAlta
 
     Public Sub SetCliente(ByVal pCliente As cCliente)
         Try
+
             lblNomCliente.Text = pCliente.Nombre
             txtCliente.Text = pCliente.NroCli
             txtCliente.Tag = pCliente
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkAlta.SetCliente")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkAlta.SetCliente:" & ex.Message)
@@ -39,6 +41,7 @@ Public Class frmTesoChkAlta
     End Sub
 
     Private Sub subCargarDatos()
+        Dim lConcil As cConciliacionLiq = Nothing
         Try
 
             If Not IsNothing(mCheque) Then
@@ -88,9 +91,19 @@ Public Class frmTesoChkAlta
 
                 'Si el cheque esta liquidado permito que lo marquen como rechazado.
                 If mCheque.Estado.Id_Estado = 1 Then
+                    btnRechazado.Text = "Rechazado"
                     btnRechazado.Enabled = True
+                ElseIf mCheque.Estado.Id_Estado = 2 Then  'Si el cheque esta Rechazado Pte permito que lo marquen como recuperado.
+                    btnRechazado.Text = "Recuperado"
                 Else
-                    btnrechazado.Enabled = False
+                    btnRechazado.Enabled = False
+                End If
+
+                'Escribo un comentario sobre las liquidaciones asociadas
+                lblDatosLiquidaciones.Text = "Recibido en la liquidacion nro=" & mCheque.Id_Liquidacion.ToString
+                If mCheque.Estado.Id_Estado = 3 Then
+                    lConcil = cConciliacionLiq.GetDeudoresxIdCheque(gAdmin, mCheque.Id_Cheque)(0)
+                    lblDatosLiquidaciones.Text = lblDatosLiquidaciones.Text & " y recuperado en la nro=" & lConcil.Id_Liquidacion.ToString
                 End If
 
 
@@ -135,12 +148,27 @@ Public Class frmTesoChkAlta
 
     Private Sub btnRechazado_Click(sender As Object, e As EventArgs) Handles btnRechazado.Click
         Try
-            If MsgBox("Desea marcar este cheque como RECHAZADO ?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Marcar como rechazado") = MsgBoxResult.Yes Then
-                mCheque.Rechazar()
+
+            If btnRechazado.Text = "Rechazado" Then
+
+                If MsgBox("Desea marcar este cheque como RECHAZADO ?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Marcar como rechazado") = MsgBoxResult.Yes Then
+                    mCheque.Rechazar()
+                    subCargarBancos()
+                    subCargarDatos()
+                End If
+
+            Else
+                If MsgBox("Desea marcar este cheque como liquidado (RECUPERADO) ?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Marcar como recuperado") = MsgBoxResult.Yes Then
+                    mCheque.recuperar()
+                    subCargarBancos()
+                    subCargarDatos()
+                End If
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkAlta.btnRechazado_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkAlta.btnRechazado_Click:" & ex.Message)
         End Try
     End Sub
+
+
 End Class

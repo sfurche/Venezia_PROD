@@ -22,6 +22,7 @@ Partial Class frmTesoLiquidacionesAlta
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTesoLiquidacionesAlta))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblEst = New System.Windows.Forms.Label()
@@ -29,6 +30,16 @@ Partial Class frmTesoLiquidacionesAlta
         Me.btnAceptar = New System.Windows.Forms.Button()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.groupCheques = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.chkCertificado = New System.Windows.Forms.CheckBox()
+        Me.chkCruzado = New System.Windows.Forms.CheckBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.optTerceros = New System.Windows.Forms.RadioButton()
+        Me.optDirecto = New System.Windows.Forms.RadioButton()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.optAlPortador = New System.Windows.Forms.RadioButton()
+        Me.optNoAlaOrden = New System.Windows.Forms.RadioButton()
+        Me.optAlaOrden = New System.Windows.Forms.RadioButton()
         Me.txtObservac = New System.Windows.Forms.TextBox()
         Me.btnBusq = New System.Windows.Forms.Button()
         Me.lblNomCliente = New System.Windows.Forms.Label()
@@ -49,6 +60,7 @@ Partial Class frmTesoLiquidacionesAlta
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.groupGeneral = New System.Windows.Forms.GroupBox()
+        Me.PicTransfDet = New System.Windows.Forms.PictureBox()
         Me.txtTotalCheques = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.lblTotalLiq = New System.Windows.Forms.Label()
@@ -65,22 +77,14 @@ Partial Class frmTesoLiquidacionesAlta
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpFechaLiq = New System.Windows.Forms.DateTimePicker()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.chkCertificado = New System.Windows.Forms.CheckBox()
-        Me.chkCruzado = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.optTerceros = New System.Windows.Forms.RadioButton()
-        Me.optDirecto = New System.Windows.Forms.RadioButton()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.optAlPortador = New System.Windows.Forms.RadioButton()
-        Me.optNoAlaOrden = New System.Windows.Forms.RadioButton()
-        Me.optAlaOrden = New System.Windows.Forms.RadioButton()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Panel1.SuspendLayout()
         Me.groupCheques.SuspendLayout()
-        Me.groupGeneral.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.groupGeneral.SuspendLayout()
+        CType(Me.PicTransfDet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -127,7 +131,7 @@ Partial Class frmTesoLiquidacionesAlta
         Me.btnAceptar.Margin = New System.Windows.Forms.Padding(11, 10, 11, 10)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(253, 52)
-        Me.btnAceptar.TabIndex = 18
+        Me.btnAceptar.TabIndex = 24
         Me.btnAceptar.Text = "&Aceptar"
         Me.btnAceptar.UseVisualStyleBackColor = False
         '
@@ -140,8 +144,8 @@ Partial Class frmTesoLiquidacionesAlta
         Me.btnSalir.Margin = New System.Windows.Forms.Padding(11, 10, 11, 10)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(253, 52)
-        Me.btnSalir.TabIndex = 7
-        Me.btnSalir.Text = "&Salir"
+        Me.btnSalir.TabIndex = 25
+        Me.btnSalir.Text = "Salir"
         Me.btnSalir.UseVisualStyleBackColor = False
         '
         'groupCheques
@@ -178,6 +182,119 @@ Partial Class frmTesoLiquidacionesAlta
         Me.groupCheques.TabStop = False
         Me.groupCheques.Text = "Detalle de Cheques"
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.chkCertificado)
+        Me.GroupBox4.Controls.Add(Me.chkCruzado)
+        Me.GroupBox4.ForeColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox4.Location = New System.Drawing.Point(613, 226)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(241, 202)
+        Me.GroupBox4.TabIndex = 20
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Cobro"
+        '
+        'chkCertificado
+        '
+        Me.chkCertificado.AutoSize = True
+        Me.chkCertificado.Location = New System.Drawing.Point(31, 118)
+        Me.chkCertificado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.chkCertificado.Name = "chkCertificado"
+        Me.chkCertificado.Size = New System.Drawing.Size(190, 36)
+        Me.chkCertificado.TabIndex = 56
+        Me.chkCertificado.Text = "Certificado"
+        Me.chkCertificado.UseVisualStyleBackColor = True
+        '
+        'chkCruzado
+        '
+        Me.chkCruzado.AutoSize = True
+        Me.chkCruzado.Location = New System.Drawing.Point(31, 61)
+        Me.chkCruzado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.chkCruzado.Name = "chkCruzado"
+        Me.chkCruzado.Size = New System.Drawing.Size(160, 36)
+        Me.chkCruzado.TabIndex = 55
+        Me.chkCruzado.Text = "Cruzado"
+        Me.chkCruzado.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.optTerceros)
+        Me.GroupBox3.Controls.Add(Me.optDirecto)
+        Me.GroupBox3.ForeColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox3.Location = New System.Drawing.Point(365, 226)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(232, 202)
+        Me.GroupBox3.TabIndex = 19
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Origen"
+        '
+        'optTerceros
+        '
+        Me.optTerceros.AutoSize = True
+        Me.optTerceros.Location = New System.Drawing.Point(30, 118)
+        Me.optTerceros.Name = "optTerceros"
+        Me.optTerceros.Size = New System.Drawing.Size(163, 36)
+        Me.optTerceros.TabIndex = 3
+        Me.optTerceros.Text = "Terceros"
+        Me.optTerceros.UseVisualStyleBackColor = True
+        '
+        'optDirecto
+        '
+        Me.optDirecto.AutoSize = True
+        Me.optDirecto.Checked = True
+        Me.optDirecto.Location = New System.Drawing.Point(30, 60)
+        Me.optDirecto.Name = "optDirecto"
+        Me.optDirecto.Size = New System.Drawing.Size(142, 36)
+        Me.optDirecto.TabIndex = 2
+        Me.optDirecto.TabStop = True
+        Me.optDirecto.Text = "Directo"
+        Me.optDirecto.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.optAlPortador)
+        Me.GroupBox2.Controls.Add(Me.optNoAlaOrden)
+        Me.GroupBox2.Controls.Add(Me.optAlaOrden)
+        Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox2.Location = New System.Drawing.Point(56, 226)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(290, 202)
+        Me.GroupBox2.TabIndex = 18
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Beficiario"
+        '
+        'optAlPortador
+        '
+        Me.optAlPortador.AutoSize = True
+        Me.optAlPortador.Location = New System.Drawing.Point(38, 154)
+        Me.optAlPortador.Name = "optAlPortador"
+        Me.optAlPortador.Size = New System.Drawing.Size(194, 36)
+        Me.optAlPortador.TabIndex = 2
+        Me.optAlPortador.Text = "Al Portador"
+        Me.optAlPortador.UseVisualStyleBackColor = True
+        '
+        'optNoAlaOrden
+        '
+        Me.optNoAlaOrden.AutoSize = True
+        Me.optNoAlaOrden.Location = New System.Drawing.Point(38, 101)
+        Me.optNoAlaOrden.Name = "optNoAlaOrden"
+        Me.optNoAlaOrden.Size = New System.Drawing.Size(227, 36)
+        Me.optNoAlaOrden.TabIndex = 1
+        Me.optNoAlaOrden.Text = "No a la Orden"
+        Me.optNoAlaOrden.UseVisualStyleBackColor = True
+        '
+        'optAlaOrden
+        '
+        Me.optAlaOrden.AutoSize = True
+        Me.optAlaOrden.Checked = True
+        Me.optAlaOrden.Location = New System.Drawing.Point(38, 44)
+        Me.optAlaOrden.Name = "optAlaOrden"
+        Me.optAlaOrden.Size = New System.Drawing.Size(187, 36)
+        Me.optAlaOrden.TabIndex = 0
+        Me.optAlaOrden.TabStop = True
+        Me.optAlaOrden.Text = "A la Orden"
+        Me.optAlaOrden.UseVisualStyleBackColor = True
+        '
         'txtObservac
         '
         Me.txtObservac.Location = New System.Drawing.Point(260, 451)
@@ -185,7 +302,7 @@ Partial Class frmTesoLiquidacionesAlta
         Me.txtObservac.Multiline = True
         Me.txtObservac.Name = "txtObservac"
         Me.txtObservac.Size = New System.Drawing.Size(1774, 54)
-        Me.txtObservac.TabIndex = 17
+        Me.txtObservac.TabIndex = 23
         '
         'btnBusq
         '
@@ -237,7 +354,7 @@ Partial Class frmTesoLiquidacionesAlta
         Me.btnEliminarCheque.Margin = New System.Windows.Forms.Padding(11, 10, 11, 10)
         Me.btnEliminarCheque.Name = "btnEliminarCheque"
         Me.btnEliminarCheque.Size = New System.Drawing.Size(136, 83)
-        Me.btnEliminarCheque.TabIndex = 26
+        Me.btnEliminarCheque.TabIndex = 22
         Me.btnEliminarCheque.UseVisualStyleBackColor = False
         '
         'Label13
@@ -280,7 +397,7 @@ Partial Class frmTesoLiquidacionesAlta
         Me.btnGuardar.Margin = New System.Windows.Forms.Padding(11, 10, 11, 10)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(136, 83)
-        Me.btnGuardar.TabIndex = 18
+        Me.btnGuardar.TabIndex = 21
         Me.btnGuardar.UseVisualStyleBackColor = False
         '
         'Label10
@@ -375,6 +492,7 @@ Partial Class frmTesoLiquidacionesAlta
         '
         'groupGeneral
         '
+        Me.groupGeneral.Controls.Add(Me.PicTransfDet)
         Me.groupGeneral.Controls.Add(Me.txtTotalCheques)
         Me.groupGeneral.Controls.Add(Me.Label12)
         Me.groupGeneral.Controls.Add(Me.lblTotalLiq)
@@ -401,9 +519,19 @@ Partial Class frmTesoLiquidacionesAlta
         Me.groupGeneral.TabStop = False
         Me.groupGeneral.Text = "Datos Generales"
         '
+        'PicTransfDet
+        '
+        Me.PicTransfDet.Image = Global.Venezia.My.Resources.Resources.pencil
+        Me.PicTransfDet.Location = New System.Drawing.Point(1232, 136)
+        Me.PicTransfDet.Name = "PicTransfDet"
+        Me.PicTransfDet.Size = New System.Drawing.Size(60, 56)
+        Me.PicTransfDet.TabIndex = 29
+        Me.PicTransfDet.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicTransfDet, "Detalle de Transferencias")
+        '
         'txtTotalCheques
         '
-        Me.txtTotalCheques.Location = New System.Drawing.Point(538, 145)
+        Me.txtTotalCheques.Location = New System.Drawing.Point(532, 145)
         Me.txtTotalCheques.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtTotalCheques.Name = "txtTotalCheques"
         Me.txtTotalCheques.Size = New System.Drawing.Size(225, 38)
@@ -414,7 +542,7 @@ Partial Class frmTesoLiquidacionesAlta
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(395, 145)
+        Me.Label12.Location = New System.Drawing.Point(389, 145)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(137, 32)
         Me.Label12.TabIndex = 28
@@ -464,7 +592,7 @@ Partial Class frmTesoLiquidacionesAlta
         '
         'txtTotalRet
         '
-        Me.txtTotalRet.Location = New System.Drawing.Point(1480, 145)
+        Me.txtTotalRet.Location = New System.Drawing.Point(1502, 145)
         Me.txtTotalRet.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtTotalRet.Name = "txtTotalRet"
         Me.txtTotalRet.Size = New System.Drawing.Size(206, 38)
@@ -475,7 +603,7 @@ Partial Class frmTesoLiquidacionesAlta
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(1296, 145)
+        Me.Label6.Location = New System.Drawing.Point(1310, 145)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(182, 32)
         Me.Label6.TabIndex = 10
@@ -493,7 +621,7 @@ Partial Class frmTesoLiquidacionesAlta
         '
         'txtTotalTransf
         '
-        Me.txtTotalTransf.Location = New System.Drawing.Point(1016, 145)
+        Me.txtTotalTransf.Location = New System.Drawing.Point(997, 145)
         Me.txtTotalTransf.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtTotalTransf.Name = "txtTotalTransf"
         Me.txtTotalTransf.Size = New System.Drawing.Size(229, 38)
@@ -503,7 +631,7 @@ Partial Class frmTesoLiquidacionesAlta
         '
         'txtTotalNC
         '
-        Me.txtTotalNC.Location = New System.Drawing.Point(1787, 145)
+        Me.txtTotalNC.Location = New System.Drawing.Point(1809, 145)
         Me.txtTotalNC.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtTotalNC.Name = "txtTotalNC"
         Me.txtTotalNC.Size = New System.Drawing.Size(225, 38)
@@ -514,7 +642,7 @@ Partial Class frmTesoLiquidacionesAlta
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(1709, 145)
+        Me.Label4.Location = New System.Drawing.Point(1731, 145)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 32)
         Me.Label4.TabIndex = 6
@@ -523,7 +651,7 @@ Partial Class frmTesoLiquidacionesAlta
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(805, 145)
+        Me.Label3.Location = New System.Drawing.Point(786, 145)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(211, 32)
         Me.Label3.TabIndex = 5
@@ -557,119 +685,6 @@ Partial Class frmTesoLiquidacionesAlta
         Me.dtpFechaLiq.Size = New System.Drawing.Size(257, 38)
         Me.dtpFechaLiq.TabIndex = 1
         '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.chkCertificado)
-        Me.GroupBox4.Controls.Add(Me.chkCruzado)
-        Me.GroupBox4.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox4.Location = New System.Drawing.Point(613, 226)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(241, 202)
-        Me.GroupBox4.TabIndex = 32
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Cobro"
-        '
-        'chkCertificado
-        '
-        Me.chkCertificado.AutoSize = True
-        Me.chkCertificado.Location = New System.Drawing.Point(31, 118)
-        Me.chkCertificado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.chkCertificado.Name = "chkCertificado"
-        Me.chkCertificado.Size = New System.Drawing.Size(190, 36)
-        Me.chkCertificado.TabIndex = 56
-        Me.chkCertificado.Text = "Certificado"
-        Me.chkCertificado.UseVisualStyleBackColor = True
-        '
-        'chkCruzado
-        '
-        Me.chkCruzado.AutoSize = True
-        Me.chkCruzado.Location = New System.Drawing.Point(31, 61)
-        Me.chkCruzado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.chkCruzado.Name = "chkCruzado"
-        Me.chkCruzado.Size = New System.Drawing.Size(160, 36)
-        Me.chkCruzado.TabIndex = 55
-        Me.chkCruzado.Text = "Cruzado"
-        Me.chkCruzado.UseVisualStyleBackColor = True
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.optTerceros)
-        Me.GroupBox3.Controls.Add(Me.optDirecto)
-        Me.GroupBox3.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox3.Location = New System.Drawing.Point(365, 226)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(232, 202)
-        Me.GroupBox3.TabIndex = 31
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Origen"
-        '
-        'optTerceros
-        '
-        Me.optTerceros.AutoSize = True
-        Me.optTerceros.Location = New System.Drawing.Point(30, 118)
-        Me.optTerceros.Name = "optTerceros"
-        Me.optTerceros.Size = New System.Drawing.Size(163, 36)
-        Me.optTerceros.TabIndex = 3
-        Me.optTerceros.Text = "Terceros"
-        Me.optTerceros.UseVisualStyleBackColor = True
-        '
-        'optDirecto
-        '
-        Me.optDirecto.AutoSize = True
-        Me.optDirecto.Checked = True
-        Me.optDirecto.Location = New System.Drawing.Point(30, 60)
-        Me.optDirecto.Name = "optDirecto"
-        Me.optDirecto.Size = New System.Drawing.Size(142, 36)
-        Me.optDirecto.TabIndex = 2
-        Me.optDirecto.TabStop = True
-        Me.optDirecto.Text = "Directo"
-        Me.optDirecto.UseVisualStyleBackColor = True
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.optAlPortador)
-        Me.GroupBox2.Controls.Add(Me.optNoAlaOrden)
-        Me.GroupBox2.Controls.Add(Me.optAlaOrden)
-        Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox2.Location = New System.Drawing.Point(56, 226)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(290, 202)
-        Me.GroupBox2.TabIndex = 30
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Beficiario"
-        '
-        'optAlPortador
-        '
-        Me.optAlPortador.AutoSize = True
-        Me.optAlPortador.Location = New System.Drawing.Point(38, 154)
-        Me.optAlPortador.Name = "optAlPortador"
-        Me.optAlPortador.Size = New System.Drawing.Size(194, 36)
-        Me.optAlPortador.TabIndex = 2
-        Me.optAlPortador.Text = "Al Portador"
-        Me.optAlPortador.UseVisualStyleBackColor = True
-        '
-        'optNoAlaOrden
-        '
-        Me.optNoAlaOrden.AutoSize = True
-        Me.optNoAlaOrden.Location = New System.Drawing.Point(38, 101)
-        Me.optNoAlaOrden.Name = "optNoAlaOrden"
-        Me.optNoAlaOrden.Size = New System.Drawing.Size(227, 36)
-        Me.optNoAlaOrden.TabIndex = 1
-        Me.optNoAlaOrden.Text = "No a la Orden"
-        Me.optNoAlaOrden.UseVisualStyleBackColor = True
-        '
-        'optAlaOrden
-        '
-        Me.optAlaOrden.AutoSize = True
-        Me.optAlaOrden.Checked = True
-        Me.optAlaOrden.Location = New System.Drawing.Point(38, 44)
-        Me.optAlaOrden.Name = "optAlaOrden"
-        Me.optAlaOrden.Size = New System.Drawing.Size(187, 36)
-        Me.optAlaOrden.TabIndex = 0
-        Me.optAlaOrden.TabStop = True
-        Me.optAlaOrden.Text = "A la Orden"
-        Me.optAlaOrden.UseVisualStyleBackColor = True
-        '
         'frmTesoLiquidacionesAlta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
@@ -684,14 +699,15 @@ Partial Class frmTesoLiquidacionesAlta
         Me.Panel1.PerformLayout()
         Me.groupCheques.ResumeLayout(False)
         Me.groupCheques.PerformLayout()
-        Me.groupGeneral.ResumeLayout(False)
-        Me.groupGeneral.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.groupGeneral.ResumeLayout(False)
+        Me.groupGeneral.PerformLayout()
+        CType(Me.PicTransfDet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -749,4 +765,6 @@ Partial Class frmTesoLiquidacionesAlta
     Friend WithEvents optAlPortador As RadioButton
     Friend WithEvents optNoAlaOrden As RadioButton
     Friend WithEvents optAlaOrden As RadioButton
+    Friend WithEvents PicTransfDet As PictureBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

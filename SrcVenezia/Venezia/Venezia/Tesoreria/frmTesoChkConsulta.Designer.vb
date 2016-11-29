@@ -51,6 +51,7 @@ Partial Class frmTesoChkConsulta
         Me.cmbEstados = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnExportar = New System.Windows.Forms.Button()
+        Me.btnVerDetalle = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -371,12 +372,23 @@ Partial Class frmTesoChkConsulta
         Me.btnExportar.Text = "Exportar"
         Me.btnExportar.UseVisualStyleBackColor = False
         '
+        'btnVerDetalle
+        '
+        Me.btnVerDetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnVerDetalle.Location = New System.Drawing.Point(251, 1101)
+        Me.btnVerDetalle.Name = "btnVerDetalle"
+        Me.btnVerDetalle.Size = New System.Drawing.Size(208, 50)
+        Me.btnVerDetalle.TabIndex = 55
+        Me.btnVerDetalle.Text = "Ver Detalle"
+        Me.btnVerDetalle.UseVisualStyleBackColor = False
+        '
         'frmTesoChkConsulta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2418, 1161)
+        Me.Controls.Add(Me.btnVerDetalle)
         Me.Controls.Add(Me.btnExportar)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox2)
@@ -422,4 +434,5 @@ Partial Class frmTesoChkConsulta
     Friend WithEvents Label3 As Label
     Friend WithEvents cmbCruzado As ComboBox
     Friend WithEvents btnExportar As Button
+    Friend WithEvents btnVerDetalle As Button
 End Class

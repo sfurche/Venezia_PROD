@@ -790,4 +790,12 @@ Public Class frmTesoLiquidacionesAlta
         End If
     End Sub
 
+    Private Sub PicTransfDet_Click(sender As Object, e As EventArgs) Handles PicTransfDet.Click
+        Try
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.PicTransfDet_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.PicTransfDet_Click:" & ex.Message)
+        End Try
+    End Sub
 End Class

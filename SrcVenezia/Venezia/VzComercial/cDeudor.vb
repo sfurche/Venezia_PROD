@@ -496,6 +496,8 @@ Public Class cDeudor
 
     End Function
 
+
+
 #End Region
 
 #Region "Base de Datos"

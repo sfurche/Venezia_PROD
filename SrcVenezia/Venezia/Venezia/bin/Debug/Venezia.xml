@@ -212,6 +212,11 @@ Venezia
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Venezia.My.Resources.Resources.pencil">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Venezia.My.Resources.Resources.refresh">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.

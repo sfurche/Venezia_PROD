@@ -1,7 +1,8 @@
 ﻿Imports VzTesoreria
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
-''probando merge juli
+Imports VzComercial
+
 Public Class cCheque
 
 #Region "Declaraciones"
@@ -467,7 +468,7 @@ Public Class cCheque
         Dim lDt As DataTable = Nothing
 
         Try
-            If Not Me.Estado.Id_Estado = 1 Then 'En Cartera
+            If Not Me.Estado.Id_Estado = 1 Then 'Liquidado
                 MsgBox("El cheque no se puede anular por estar en estado '" & Me.Estado.Estado & "'", MsgBoxStyle.Exclamation)
                 Rechazar = False
                 Exit Function
@@ -504,6 +505,71 @@ Public Class cCheque
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Rechazar")
             gAdmin.Log.fncGrabarLogERR("Error en cCheque.Rechazar:" & ex.Message)
+        End Try
+    End Function
+
+
+    Public Function Recuperar() As Boolean
+        Recuperar = False
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+        Dim lDt As DataTable = Nothing
+        Dim lArrayConcil As ArrayList = Nothing
+        Dim lDeudor As cDeudor = Nothing
+
+        Try
+            If Not Me.Estado.Id_Estado = 2 Then 'Rechazado Pte
+                MsgBox("El cheque no se puede recuperar por estar en estado '" & Me.Estado.Estado & "'", MsgBoxStyle.Exclamation)
+                Recuperar = False
+                Exit Function
+            End If
+
+            'Valido si hay hay alguna conciliacion asociada al cheque rechazado. Si no hay, no le dejo cambiar el estado.
+            lArrayConcil = cConciliacionLiq.GetDeudoresxIdCheque(gAdmin, Me.Id_Cheque)
+            If IsNothing(lArrayConcil) Then
+                Recuperar = False
+                MsgBox("No se encontraron liquidaciones Asociadas a este cheque. Revise las conciliaciones.", MsgBoxStyle.Critical, "Error al Recuperar")
+                Exit Function
+            Else
+                If lArrayConcil.Count = 0 Then
+                    Recuperar = False
+                    MsgBox("No se encontraron liquidaciones Asociadas a este cheque. Revise las conciliaciones.", MsgBoxStyle.Critical, "Error al Recuperar")
+                    Exit Function
+                End If
+            End If
+
+            lCnn = Me.gAdmin.DbCnn.GetInstanceCon
+
+            '3 ES ESTADO RECHAZADO LIQUIDADO / RECUPERADO
+            Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, 3, cEstado.enuTipoEstado.Cheque)
+
+            If Me.EsNuevo = False Then
+                lCnn = gAdmin.DbCnn.GetInstanceCon
+
+                Sql = "CALL vz_cheques_cambest ('#id_cheque#',#id_estado#, #idusr#)"
+                Sql = Sql.Replace("#id_cheque#", Me.Id_Cheque)
+                Sql = Sql.Replace("#id_estado#", Me.Estado.Id_Estado)
+                Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+                Cmd.Connection = lCnn
+                Cmd.CommandType = CommandType.Text
+                Cmd.CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+
+            End If
+
+            Recuperar = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Recuperar")
+            gAdmin.Log.fncGrabarLogERR("Error en cCheque.Recuperar:" & ex.Message)
         End Try
     End Function
 
@@ -683,6 +749,36 @@ Public Class cCheque
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.GetChequesxIdLiq")
             pAdmin.Log.fncGrabarLogERR("Error en cCheque.GetChequesxIdLiq:" & ex.Message)
+        End Try
+
+        Return lArray
+
+    End Function
+
+    Public Shared Function GetChequesxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId_Estado As Integer) As ArrayList
+        Dim lDt As DataTable
+        Dim lDr As DataRow
+        Dim lChq As cCheque = Nothing
+        Dim lArray As ArrayList = Nothing
+
+        Try
+            lDt = Dat_GetChequesxEstado(pAdmin, pId_Estado)
+
+            If lDt.Rows.Count > 0 Then
+                lArray = New ArrayList
+
+                For Each lDr In lDt.Rows
+
+                    lChq = New cCheque(pAdmin)
+                    lChq.subCargarDatos(lDr)
+                    lArray.Add(lChq)
+                Next
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.GetChequesxEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.GetChequesxEstado:" & ex.Message)
         End Try
 
         Return lArray
@@ -1177,6 +1273,41 @@ Public Class cCheque
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetChequesConsulta")
             pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetChequesConsulta:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Private Shared Function Dat_GetChequesxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId_Estado As Integer) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "select * from vz_cheques where id_estado=#Id#"
+            Sql = Sql.Replace("#Id#", pId_Estado)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetChequesxEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetChequesxEstado:" & ex.Message)
             Return Nothing
         End Try
     End Function

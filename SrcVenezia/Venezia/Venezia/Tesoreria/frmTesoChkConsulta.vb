@@ -451,4 +451,15 @@ Public Class frmTesoChkConsulta
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.lvwConsulta_DoubleClick:" & ex.Message)
         End Try
     End Sub
+
+    Private Sub btnVerDetalle_Click(sender As Object, e As EventArgs) Handles btnVerDetalle.Click
+        Try
+
+            frmPrincipal.SubArirCheque(lvwConsulta.SelectedItems(0).Tag, Me.FrmLlamador, EnuOPERACION.CONS)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnVerDetalle_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.btnVerDetalle_Click:" & ex.Message)
+        End Try
+    End Sub
 End Class

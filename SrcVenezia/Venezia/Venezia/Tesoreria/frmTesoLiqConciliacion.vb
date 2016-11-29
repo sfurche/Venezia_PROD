@@ -10,6 +10,7 @@ Public Class frmTesoLiqConciliacion
 
     Private Sub btnAceptar_Click(sender As Object, e As EventArgs) Handles btnAceptar.Click
         Dim lRecibos As ArrayList = Nothing
+        Dim lCheques As ArrayList = Nothing
         Dim lLiq As cLiquidacion = Nothing
         Dim lItem As ListViewItem = Nothing
         Dim lComment As cComment = Nothing
@@ -108,7 +109,9 @@ Public Class frmTesoLiqConciliacion
     Private Sub subCargarRecibos()
         Dim lItem As ListViewItem
         Dim lRecibo As cDeudor = Nothing
+        Dim lCheque As cCheque = Nothing
         Dim lArrayRecibos As ArrayList = Nothing
+        Dim lArrayChkRech As ArrayList = Nothing
         Dim lSum As Decimal = 0
         Try
 
@@ -119,6 +122,10 @@ Public Class frmTesoLiqConciliacion
                 lArrayRecibos = cDeudor.GetRecibosxConciliar(gAdmin)
             Else
                 lArrayRecibos = cDeudor.GetRecibosxConciliarxVen(gAdmin, DirectCast(cmbLiquidacion.SelectedItem, cLiquidacion).Vendedor.IdVendedor, chkAllVen.Checked, chkRecHist.Checked)
+            End If
+
+            If chkChequesRechaz.Checked = True Then
+                lArrayChkRech = cCheque.GetChequesxEstado(gAdmin, 2)
             End If
 
             If Not IsNothing(lArrayRecibos) Then
@@ -144,6 +151,24 @@ Public Class frmTesoLiqConciliacion
                     lSum = lSum + lRecibo.TotalComp
                 Next
             End If
+
+            'Si lo pide, agrego los cheques rechazados
+            If Not IsNothing(lArrayChkRech) Then
+                For Each lCheque In lArrayChkRech
+                    lItem = New ListViewItem()
+                    lItem.Text = " "
+                    lItem.SubItems.Add(lCheque.Numero)
+                    lItem.SubItems.Add("Cheque Rechazado")
+                    lItem.SubItems.Add(cCliente.GetClientexNroCliente(gAdmin, lCheque.NroCli).Nombre)
+                    lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lCheque.Fecha_Pago, "DD/MM/YYYY"))
+                    lItem.SubItems.Add(lCheque.Importe)
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.Tag = lCheque
+                    lvwConsulta.Items.Add(lItem)
+                Next
+            End If
+
             lblTotalLiq.Text = "0"
 
         Catch ex As Exception
@@ -202,7 +227,11 @@ Public Class frmTesoLiqConciliacion
 
             For Each lItem In lvwConsulta.Items
                 If lItem.Checked Then
-                    lSum = lSum + DirectCast(lItem.Tag, cDeudor).TotalComp
+                    If (TypeOf lItem.Tag Is cDeudor) = True Then
+                        lSum = lSum + DirectCast(lItem.Tag, cDeudor).TotalComp
+                    ElseIf (TypeOf lItem.Tag Is cCheque) = True Then
+                        lSum = lSum + DirectCast(lItem.Tag, cCheque).Importe
+                    End If
                 End If
             Next
             lblTotalLiq.Text = lSum.ToString
@@ -335,10 +364,14 @@ Public Class frmTesoLiqConciliacion
                 lvwConsulta.EndUpdate()
             End If
 
-
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnAplicarParcial_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.btnAplicarParcial_Click:" & ex.Message)
         End Try
     End Sub
+
+    Private Sub chkChequesRechaz_CheckedChanged(sender As Object, e As EventArgs) Handles chkChequesRechaz.CheckedChanged
+        subCargarRecibos()
+    End Sub
+
 End Class

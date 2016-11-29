@@ -668,10 +668,6 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub GestionarChequeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GestionarChequeToolStripMenuItem.Click
-        MsgBox("No tiene permisos para ingresar a esta opcion.", MsgBoxStyle.Exclamation)
-    End Sub
-
     Private Sub SeguridadToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SeguridadToolStripMenuItem1.Click
         MsgBox("No tiene permisos para ingresar a esta opcion.", MsgBoxStyle.Exclamation)
     End Sub

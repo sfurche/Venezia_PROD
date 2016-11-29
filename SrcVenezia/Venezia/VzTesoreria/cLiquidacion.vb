@@ -495,6 +495,8 @@ Public Class cLiquidacion
 
     Public Sub Conciliar(ByVal lRecibos As ArrayList)
         Dim lRec As cDeudor = Nothing
+        Dim lCheque As cCheque = Nothing
+        Dim lItem As Object = Nothing
         Dim Sql As String = ""
         Dim lAjuste As Double = 0
         Dim lTotalRecibos As Double = 0
@@ -509,16 +511,31 @@ Public Class cLiquidacion
                 lCnn.Open()
             End If
 
-            For Each lRec In lRecibos
-                lTotalRecibos = lTotalRecibos + lRec.TotalComp
-                Sql = "Call vz_liquidaciones_conciliacion_ins(#IdLiq#, #IdDeudor#, #Importe#, '#Aplicacion#', '#Fecha#', '#Hora#', #idusr#)"
-                Sql = Sql.Replace("#IdLiq#", Me.Id_Liquidacion)
-                Sql = Sql.Replace("#IdDeudor#", lRec.Id_Deudores)
-                Sql = Sql.Replace("#Importe#", lRec.TotalComp)
-                Sql = Sql.Replace("#Aplicacion#", lRec.Aplicacion)
-                Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(lRec.FecOp, "YYYY/MM/DD"))
-                Sql = Sql.Replace("#Hora#", lRec.HoraOP.ToString)
-                Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+            For Each lItem In lRecibos
+                If (TypeOf lItem Is cDeudor) = True Then 'Valido si es un cDeudores 
+                    lRec = lItem
+                    lTotalRecibos = lTotalRecibos + lRec.TotalComp
+                    Sql = "Call vz_liquidaciones_conciliacion_ins(#IdLiq#, #IdDeudor#,  null, #Importe#, '#Aplicacion#', '#Fecha#', '#Hora#', #idusr#)"
+                    Sql = Sql.Replace("#IdLiq#", Me.Id_Liquidacion)
+                    Sql = Sql.Replace("#IdDeudor#", lRec.Id_Deudores)
+                    Sql = Sql.Replace("#Importe#", lRec.TotalComp)
+                    Sql = Sql.Replace("#Aplicacion#", lRec.Aplicacion)
+                    Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(lRec.FecOp, "YYYY/MM/DD"))
+                    Sql = Sql.Replace("#Hora#", lRec.HoraOP.ToString)
+                    Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+                ElseIf (TypeOf lItem Is cCheque) = True Then  'Si es un cheque rechazado
+                    lCheque = lItem
+                    lTotalRecibos = lTotalRecibos + lRec.TotalComp
+                    Sql = "Call vz_liquidaciones_conciliacion_ins(#IdLiq#, null, #IdCheque#, #Importe#, '#Aplicacion#', '#Fecha#', '#Hora#', #idusr#)"
+                    Sql = Sql.Replace("#IdLiq#", Me.Id_Liquidacion)
+                    Sql = Sql.Replace("#IdCheque#", lCheque.Id_Cheque)
+                    Sql = Sql.Replace("#Importe#", lCheque.Importe)
+                    Sql = Sql.Replace("#Aplicacion#", "P")
+                    Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(lCheque.Fecha_Pago, "YYYY/MM/DD"))
+                    Sql = Sql.Replace("#Hora#", "12:00:00")
+                    Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+                End If
+
                 Cmd.CommandText = Sql
                 Cmd.ExecuteNonQuery()
             Next
@@ -526,7 +543,7 @@ Public Class cLiquidacion
             lAjuste = Math.Round(Me.TotalLiq - lTotalRecibos, 2) 'CALCULO EL AJUSTE
 
             If Not lAjuste = 0 Then '--> INSERTO EL AJUSTE.
-                Sql = "Call vz_liquidaciones_conciliacion_ins(#IdLiq#, null, #Importe#, null,  '#Fecha#', '#Hora#', #idusr#)"
+                Sql = "Call vz_liquidaciones_conciliacion_ins(#IdLiq#, null, null,  #Importe#, null,  '#Fecha#', '#Hora#', #idusr#)"
                 Sql = Sql.Replace("#IdLiq#", Me.Id_Liquidacion)
                 'Sql = Sql.Replace("#IdDeudor#", lRec.Id_Deudores)
                 Sql = Sql.Replace("#Importe#", lAjuste.ToString)

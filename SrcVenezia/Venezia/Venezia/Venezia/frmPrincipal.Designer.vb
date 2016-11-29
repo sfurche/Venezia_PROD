@@ -63,7 +63,6 @@ Partial Class frmPrincipal
         Me.ComprobanteDeOrdenDePagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OrdenesDePagoXFechaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChequesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GestionarChequeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultaDeChequesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChequesEnCarteraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -366,16 +365,10 @@ Partial Class frmPrincipal
         '
         'ChequesToolStripMenuItem
         '
-        Me.ChequesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GestionarChequeToolStripMenuItem, Me.ConsultaDeChequesToolStripMenuItem, Me.AcaToolStripMenuItem})
+        Me.ChequesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDeChequesToolStripMenuItem, Me.AcaToolStripMenuItem})
         Me.ChequesToolStripMenuItem.Name = "ChequesToolStripMenuItem"
         Me.ChequesToolStripMenuItem.Size = New System.Drawing.Size(363, 46)
         Me.ChequesToolStripMenuItem.Text = "Cheques"
-        '
-        'GestionarChequeToolStripMenuItem
-        '
-        Me.GestionarChequeToolStripMenuItem.Name = "GestionarChequeToolStripMenuItem"
-        Me.GestionarChequeToolStripMenuItem.Size = New System.Drawing.Size(417, 46)
-        Me.GestionarChequeToolStripMenuItem.Text = "Gestionar Cheque"
         '
         'ConsultaDeChequesToolStripMenuItem
         '
@@ -619,7 +612,6 @@ Partial Class frmPrincipal
     Friend WithEvents ConsultaDeOrdenesDePagoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ComprobanteDeOrdenDePagoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OrdenesDePagoXFechaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GestionarChequeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultaDeChequesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConciliacionDeLiquidacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AnularConciliacionDeLiquidacionToolStripMenuItem As ToolStripMenuItem

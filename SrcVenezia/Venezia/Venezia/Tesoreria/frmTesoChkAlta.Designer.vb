@@ -51,6 +51,7 @@ Partial Class frmTesoChkAlta
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblEstadoChk = New System.Windows.Forms.Label()
         Me.btnRechazado = New System.Windows.Forms.Button()
+        Me.lblDatosLiquidaciones = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -59,6 +60,7 @@ Partial Class frmTesoChkAlta
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblDatosLiquidaciones)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
         Me.GroupBox1.Controls.Add(Me.txtObservac)
@@ -79,7 +81,7 @@ Partial Class frmTesoChkAlta
         Me.GroupBox1.ForeColor = System.Drawing.Color.Gainsboro
         Me.GroupBox1.Location = New System.Drawing.Point(12, 42)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1343, 699)
+        Me.GroupBox1.Size = New System.Drawing.Size(1343, 746)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos del Cheque"
@@ -92,7 +94,7 @@ Partial Class frmTesoChkAlta
         Me.GroupBox4.Location = New System.Drawing.Point(598, 312)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(241, 202)
-        Me.GroupBox4.TabIndex = 4
+        Me.GroupBox4.TabIndex = 9
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Cobro"
         '
@@ -126,7 +128,7 @@ Partial Class frmTesoChkAlta
         Me.GroupBox3.Location = New System.Drawing.Point(350, 312)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(232, 202)
-        Me.GroupBox3.TabIndex = 3
+        Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Origen"
         '
@@ -154,13 +156,13 @@ Partial Class frmTesoChkAlta
         '
         'txtObservac
         '
-        Me.txtObservac.Location = New System.Drawing.Point(254, 567)
+        Me.txtObservac.Location = New System.Drawing.Point(254, 604)
         Me.txtObservac.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtObservac.Multiline = True
         Me.txtObservac.Name = "txtObservac"
         Me.txtObservac.ReadOnly = True
-        Me.txtObservac.Size = New System.Drawing.Size(1066, 103)
-        Me.txtObservac.TabIndex = 61
+        Me.txtObservac.Size = New System.Drawing.Size(1066, 114)
+        Me.txtObservac.TabIndex = 10
         '
         'GroupBox2
         '
@@ -171,7 +173,7 @@ Partial Class frmTesoChkAlta
         Me.GroupBox2.Location = New System.Drawing.Point(41, 312)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(290, 202)
-        Me.GroupBox2.TabIndex = 2
+        Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Beficiario"
         '
@@ -216,7 +218,7 @@ Partial Class frmTesoChkAlta
         Me.btnBusq.Margin = New System.Windows.Forms.Padding(11, 10, 11, 10)
         Me.btnBusq.Name = "btnBusq"
         Me.btnBusq.Size = New System.Drawing.Size(55, 50)
-        Me.btnBusq.TabIndex = 59
+        Me.btnBusq.TabIndex = 6
         Me.btnBusq.Text = "..."
         Me.btnBusq.UseVisualStyleBackColor = False
         '
@@ -245,13 +247,13 @@ Partial Class frmTesoChkAlta
         Me.txtCliente.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtCliente.Name = "txtCliente"
         Me.txtCliente.Size = New System.Drawing.Size(233, 38)
-        Me.txtCliente.TabIndex = 58
+        Me.txtCliente.TabIndex = 5
         Me.txtCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(35, 567)
+        Me.Label13.Location = New System.Drawing.Point(35, 604)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(213, 32)
         Me.Label13.TabIndex = 63
@@ -274,7 +276,7 @@ Partial Class frmTesoChkAlta
         Me.dtpFecPago.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtpFecPago.Name = "dtpFecPago"
         Me.dtpFecPago.Size = New System.Drawing.Size(257, 38)
-        Me.dtpFecPago.TabIndex = 52
+        Me.dtpFecPago.TabIndex = 3
         '
         'txtImporte
         '
@@ -283,7 +285,7 @@ Partial Class frmTesoChkAlta
         Me.txtImporte.Name = "txtImporte"
         Me.txtImporte.ReadOnly = True
         Me.txtImporte.Size = New System.Drawing.Size(209, 38)
-        Me.txtImporte.TabIndex = 51
+        Me.txtImporte.TabIndex = 2
         Me.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label9
@@ -302,7 +304,7 @@ Partial Class frmTesoChkAlta
         Me.txtNroCheque.Name = "txtNroCheque"
         Me.txtNroCheque.ReadOnly = True
         Me.txtNroCheque.Size = New System.Drawing.Size(209, 38)
-        Me.txtNroCheque.TabIndex = 50
+        Me.txtNroCheque.TabIndex = 1
         '
         'cmbBanco
         '
@@ -313,7 +315,7 @@ Partial Class frmTesoChkAlta
         Me.cmbBanco.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbBanco.Name = "cmbBanco"
         Me.cmbBanco.Size = New System.Drawing.Size(652, 39)
-        Me.cmbBanco.TabIndex = 53
+        Me.cmbBanco.TabIndex = 4
         '
         'Label8
         '
@@ -337,7 +339,7 @@ Partial Class frmTesoChkAlta
         '
         Me.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Location = New System.Drawing.Point(1063, 759)
+        Me.btnSalir.Location = New System.Drawing.Point(1063, 812)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(269, 53)
         Me.btnSalir.TabIndex = 1
@@ -367,19 +369,29 @@ Partial Class frmTesoChkAlta
         '
         Me.btnRechazado.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRechazado.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnRechazado.Location = New System.Drawing.Point(9, 759)
+        Me.btnRechazado.Location = New System.Drawing.Point(9, 812)
         Me.btnRechazado.Name = "btnRechazado"
         Me.btnRechazado.Size = New System.Drawing.Size(269, 53)
-        Me.btnRechazado.TabIndex = 68
+        Me.btnRechazado.TabIndex = 11
         Me.btnRechazado.Text = "Rechazado"
         Me.btnRechazado.UseVisualStyleBackColor = True
+        '
+        'lblDatosLiquidaciones
+        '
+        Me.lblDatosLiquidaciones.AutoSize = True
+        Me.lblDatosLiquidaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDatosLiquidaciones.Location = New System.Drawing.Point(35, 544)
+        Me.lblDatosLiquidaciones.Name = "lblDatosLiquidaciones"
+        Me.lblDatosLiquidaciones.Size = New System.Drawing.Size(483, 32)
+        Me.lblDatosLiquidaciones.TabIndex = 66
+        Me.lblDatosLiquidaciones.Text = "Datos de las liquidaciones asociadas"
         '
         'frmTesoChkAlta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1375, 841)
+        Me.ClientSize = New System.Drawing.Size(1375, 890)
         Me.Controls.Add(Me.btnRechazado)
         Me.Controls.Add(Me.lblEstadoChk)
         Me.Controls.Add(Me.Label1)
@@ -429,4 +441,5 @@ Partial Class frmTesoChkAlta
     Friend WithEvents Label1 As Label
     Friend WithEvents lblEstadoChk As Label
     Friend WithEvents btnRechazado As Button
+    Friend WithEvents lblDatosLiquidaciones As Label
 End Class

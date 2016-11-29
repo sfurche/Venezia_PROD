@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="cBanco.vb" />
     <Compile Include="cCheque.vb" />
+    <Compile Include="cConciliacionLiq.vb" />
     <Compile Include="cLiquidacion.vb" />
     <Compile Include="cLiquidacion_Det.vb" />
     <Compile Include="cOrdenDePago.vb" />

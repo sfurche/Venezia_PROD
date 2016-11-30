@@ -63,3 +63,16 @@ C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\vzStock.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\MySql.Data.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzAdmin.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbprojResolveAssemblyReference.cache
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.Resources.resources
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\VzStock.vbproj.GenerateResource.Cache
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb

@@ -1173,7 +1173,23 @@ Public Class cCheque
         End Try
     End Function
 
-    Public Shared Function Dat_RptChequesxArrayCheques(ByRef pAdmin As VzAdmin.cAdmin, ByVal pArrayCheques As ArrayList) As DataTable
+
+    Public Enum Dat_RptChequesxArrayCheques_CAMPOS
+        NroCheque = 1
+        Importe = 2
+        Fec_Pago = 3
+        Banco = 4
+        Cruzado = 5
+        Directo = 6
+        Orden = 7
+        Vto = 8
+        Estado = 9
+        Cliente = 10
+        OrdenP = 11
+    End Enum
+
+
+    Public Shared Function Dat_RptChequesxArrayCheques(ByRef pAdmin As VzAdmin.cAdmin, ByVal pArrayCheques As ArrayList, ByVal pCampoOrden As Dat_RptChequesxArrayCheques_CAMPOS, ByVal pAsc As Boolean) As DataTable
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -1186,13 +1202,42 @@ Public Class cCheque
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
 
-            Sql = "   SELECT DISTINCT id_cheque , id_liquidacion ,propio ,B.nomb_bco_red banco,numero ,directo ,cruzado ,orden,fecha_pago, fecha_vencimiento ,"
+            Sql = "   Select DISTINCT id_cheque , id_liquidacion ,propio ,B.nomb_bco_red banco,numero ,directo ,cruzado ,orden,fecha_pago, fecha_vencimiento ,"
             Sql = Sql & " importe ,observaciones ,E.estado"
             Sql = Sql & " FROM vz_cheques As C "
-            Sql = Sql & " LEFT JOIN sis_bancos as B ON  C.id_bco = B.id_bco"
+            Sql = Sql & " LEFT JOIN sis_bancos As B On  C.id_bco = B.id_bco"
             Sql = Sql & " LEFT JOIN vz_estados E On C.id_estado = E.id_estado"
-            Sql = Sql & " WHERE C.id_cheque in (#arraycheques#)"
-            Sql = Sql & " And E.tabla = 'vz_cheques';"
+            Sql = Sql & " WHERE C.id_cheque In (#arraycheques#)"
+            Sql = Sql & " And E.tabla = 'vz_cheques' ORDER BY "
+
+
+            Select Case pCampoOrden
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Banco
+                    Sql = Sql & "id_banco" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Cliente
+                    Sql = Sql & "NroCli" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Cruzado
+                    Sql = Sql & "cruzado" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Directo
+                    Sql = Sql & "directo" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Estado
+                    Sql = Sql & "id_estado" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Fec_Pago
+                    Sql = Sql & "fecha_pago" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Importe
+                    Sql = Sql & "importe" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.NroCheque
+                    Sql = Sql & "numero" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Orden
+                    Sql = Sql & "orden" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.OrdenP
+                    Sql = Sql & "id_orden" & IIf(pAsc = True, " ASC", " DESC")
+                Case Dat_RptChequesxArrayCheques_CAMPOS.Vto
+            End Select
+
+
+
+            Sql = Sql & ";"
 
             If Not IsNothing(pArrayCheques) Then
                 For Each lCheque In pArrayCheques

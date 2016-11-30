@@ -154,6 +154,12 @@
     <Compile Include="Tesoreria\frmTesoOrdenDePagoConsulta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Venezia\frmManualOperativo.Designer.vb">
+      <DependentUpon>frmManualOperativo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmManualOperativo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Venezia\TemplateForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -352,6 +358,9 @@
     <EmbeddedResource Include="Venezia\frmMailSoporte.resx">
       <DependentUpon>frmMailSoporte.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmManualOperativo.resx">
+      <DependentUpon>frmManualOperativo.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Venezia\frmPrincipal.resx">
       <DependentUpon>frmPrincipal.vb</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +400,9 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ManualOperativo.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -491,6 +503,7 @@
     <None Include="Resources\form_yellow.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ManualOperativo.pdf" />
     <None Include="Resources\mobilephone2.png" />
   </ItemGroup>
   <ItemGroup>
@@ -543,6 +556,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

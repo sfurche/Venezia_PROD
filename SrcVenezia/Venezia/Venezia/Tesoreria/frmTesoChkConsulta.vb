@@ -141,11 +141,15 @@ Public Class frmTesoChkConsulta
 
             End If
 
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
         Catch ex As Exception
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.subCargarGrilla")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.subCargarGrilla:" & ex.Message)
         End Try
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
     End Sub
 
 
@@ -165,6 +169,10 @@ Public Class frmTesoChkConsulta
             cmbOrden.Items.Add("S")
             cmbOrden.Items.Add("N")
             cmbOrden.SelectedItem = " "
+
+
+            cmbCampos.DataSource = System.Enum.GetValues(GetType(cCheque.Dat_RptChequesxArrayCheques_CAMPOS))
+            cmbCampos.SelectedItem = cCheque.Dat_RptChequesxArrayCheques_CAMPOS.Fec_Pago
 
             subCargarEstados()
             subCargarBancos()
@@ -312,69 +320,6 @@ Public Class frmTesoChkConsulta
         Me.Close()
     End Sub
 
-    Private Sub btnExportar_Click(sender As Object, e As EventArgs) Handles btnExportar.Click
-        Try
-            Dim lDt As DataTable
-            Dim lBs As BindingSource = Nothing
-            Dim lArrDS As New ArrayList
-            Dim lArrayParameters As New ArrayList
-            Dim lRds As ReportDataSource = Nothing
-            Dim lRPar As ReportParameter = Nothing
-            Dim lPrintSettings As New System.Drawing.Printing.PageSettings
-            Dim lRDLC As String
-            Dim lNombreRpt As String = ""
-            Dim lArrayCheques As ArrayList = Nothing
-            Dim lItem As ListViewItem = Nothing
-
-
-            lRDLC = "rptTesoLiqChequesCartera.rdlc"
-
-            If lvwConsulta.Items.Count > 0 Then
-                lArrayCheques = New ArrayList
-                For Each lItem In lvwConsulta.Items
-                    lArrayCheques.Add(DirectCast(lItem.Tag, cCheque))
-                Next
-            End If
-
-            lDt = cCheque.Dat_RptChequesxArrayCheques(gAdmin, lArrayCheques)
-
-            lBs = New BindingSource
-            lBs.DataSource = lDt
-            lRds = New ReportDataSource("DataSet1", lBs)
-            lArrDS.Add(lRds)
-
-            lRPar = New ReportParameter("pTitulo", "Reporte de Cheques exportados de Consulta")
-            lArrayParameters.Add(lRPar)
-
-            lRPar = New ReportParameter("pFiltros", "")
-            lArrayParameters.Add(lRPar)
-
-            lNombreRpt = "Cheques_Exportados"
-
-            'A4  	 8.3in x 11.7in 210 × 297mm
-            'Letter  8.5in x 11in	216 x 279mm
-            'Legal   8.5in x 14in	216 x 356mm
-
-            'Seteo la configuracion de impresion.
-            lPrintSettings.Margins.Top = 10
-            lPrintSettings.Margins.Bottom = 10
-            lPrintSettings.Margins.Right = 10
-            lPrintSettings.Margins.Left = 10
-            lPrintSettings.Landscape = False
-            Dim lSize As New System.Drawing.Printing.PaperSize
-            lSize.RawKind = System.Drawing.Printing.PaperKind.Letter
-            lSize.Width = 850
-            lSize.Height = 1100
-            lPrintSettings.PaperSize = lSize
-
-            DirectCast(Me.MdiParent, frmPrincipal).SubArirReporteBase(lArrDS, lArrayParameters, lRDLC, lPrintSettings, "Reporte de Cheques x consulta", lNombreRpt)
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.btnExportar_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.btnExportar_Click:" & ex.Message)
-        End Try
-    End Sub
-
     Private Sub btnBusq_Click(sender As Object, e As EventArgs) Handles btnBusq.Click
         Try
             DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Cliente, Me)
@@ -460,6 +405,97 @@ Public Class frmTesoChkConsulta
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnVerDetalle_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.btnVerDetalle_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnExportar_Click(sender As Object, e As EventArgs) Handles btnExportar.Click
+        Try
+            If pnlExportar.Visible = True Then
+                pnlExportar.Visible = False
+            Else
+                pnlExportar.Visible = True
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.btnExportar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.btnExportar_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Try
+            Dim lDt As DataTable
+            Dim lBs As BindingSource = Nothing
+            Dim lArrDS As New ArrayList
+            Dim lArrayParameters As New ArrayList
+            Dim lRds As ReportDataSource = Nothing
+            Dim lRPar As ReportParameter = Nothing
+            Dim lPrintSettings As New System.Drawing.Printing.PageSettings
+            Dim lRDLC As String
+            Dim lNombreRpt As String = ""
+            Dim lArrayCheques As ArrayList = Nothing
+            Dim lItem As ListViewItem = Nothing
+
+
+            If cmbCampos.Text.Trim = "" Then
+                MsgBox("Debe seleccionar un campo para poder ordenar la informacion", MsgBoxStyle.Exclamation, "Faltan parametros")
+                Exit Sub
+            End If
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            btnAplicar_Click(Me, Nothing)
+
+            lRDLC = "rptTesoLiqChequesCartera.rdlc"
+
+            If lvwConsulta.Items.Count > 0 Then
+                lArrayCheques = New ArrayList
+                For Each lItem In lvwConsulta.Items
+                    lArrayCheques.Add(DirectCast(lItem.Tag, cCheque))
+                Next
+            End If
+
+            lDt = cCheque.Dat_RptChequesxArrayCheques(gAdmin, lArrayCheques, cmbCampos.SelectedItem, optAscendente.Checked)
+
+            lBs = New BindingSource
+            lBs.DataSource = lDt
+            lRds = New ReportDataSource("DataSet1", lBs)
+            lArrDS.Add(lRds)
+
+            lRPar = New ReportParameter("pTitulo", "Reporte de Cheques exportados de Consulta")
+            lArrayParameters.Add(lRPar)
+
+            lRPar = New ReportParameter("pFiltros", "")
+            lArrayParameters.Add(lRPar)
+
+            lNombreRpt = "Cheques_Exportados"
+
+            'A4  	 8.3in x 11.7in 210 × 297mm
+            'Letter  8.5in x 11in	216 x 279mm
+            'Legal   8.5in x 14in	216 x 356mm
+
+            'Seteo la configuracion de impresion.
+            lPrintSettings.Margins.Top = 10
+            lPrintSettings.Margins.Bottom = 10
+            lPrintSettings.Margins.Right = 10
+            lPrintSettings.Margins.Left = 10
+            lPrintSettings.Landscape = False
+            Dim lSize As New System.Drawing.Printing.PaperSize
+            lSize.RawKind = System.Drawing.Printing.PaperKind.Letter
+            lSize.Width = 850
+            lSize.Height = 1100
+            lPrintSettings.PaperSize = lSize
+
+            pnlExportar.Visible = False
+
+            DirectCast(Me.MdiParent, frmPrincipal).SubArirReporteBase(lArrDS, lArrayParameters, lRDLC, lPrintSettings, "Reporte de Cheques x consulta", lNombreRpt)
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+        Catch ex As Exception
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.btnOK_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.btnOK_Click:" & ex.Message)
         End Try
     End Sub
 End Class

@@ -400,6 +400,11 @@ Public Class frmTesoChkConsulta
     Private Sub btnVerDetalle_Click(sender As Object, e As EventArgs) Handles btnVerDetalle.Click
         Try
 
+            If lvwConsulta.SelectedItems.Count = 0 Then
+                MsgBox("Debe seleccionar el cheque que desea abrir.", MsgBoxStyle.Exclamation, "No selecciono cheque")
+                Exit Sub
+            End If
+
             frmPrincipal.SubArirCheque(lvwConsulta.SelectedItems(0).Tag, Me.FrmLlamador, EnuOPERACION.CONS)
 
         Catch ex As Exception

@@ -60,6 +60,9 @@ Public Class frmTesoOrdenDePagoAlta
             cmbDestino.Items.Add("Otro")
             cmbDestino.SelectedItem = "Deposito"
 
+            cmbDestino.DataSource = System.Enum.GetValues(GetType(cOrdenDePago.enuTipoDestinoOrdenPago))
+            cmbDestino.SelectedItem = cOrdenDePago.enuTipoDestinoOrdenPago.Deposito
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoAlta.CargarCombos")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoAlta.CargarCombos:" & ex.Message)
@@ -72,11 +75,20 @@ Public Class frmTesoOrdenDePagoAlta
             txtTotalEfectivo.Text = mOrdenDePago.Importe_cash
             txtTotalTransf.Text = mOrdenDePago.Importe_transferencia
             lblEstado.Text = mOrdenDePago.Estado.Estado
+            cmbDestino.SelectedItem = mOrdenDePago.Tipo_Destino
+            txtObservac.Text = mOrdenDePago.Observaciones.Trim
 
             If mOrdenDePago.Importe_cheques > 0 Then
                 AgregarCheques(mOrdenDePago.Cheques)
             End If
+
             subActualizarSumCheques()
+
+            If mOrdenDePago.Tipo_Destino = cOrdenDePago.enuTipoDestinoOrdenPago.Proveedores Then
+                txtProove.Text = mOrdenDePago.Proveedor.Id_Proveedor
+                txtProove_LostFocus(Me, Nothing)
+            End If
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoAlta.subCargarDatos")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoAlta.subCargarDatos:" & ex.Message)
@@ -100,7 +112,7 @@ Public Class frmTesoOrdenDePagoAlta
                         lItem.SubItems.Add(lChk.Numero)
                         lItem.SubItems.Add("$" & lChk.Importe.ToString)
                         lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lChk.Fecha_Pago, "DD/MM/YYYY"))
-                        lItem.SubItems.Add(lChk.Banco.Nombre)
+                        lItem.SubItems.Add(lChk.Banco.NombreRed)
                         lItem.SubItems.Add(lChk.Cruzado.ToString)
                         lItem.SubItems.Add(lChk.Directo.ToString)
                         lItem.SubItems.Add(lChk.Orden.ToString)
@@ -152,10 +164,10 @@ Public Class frmTesoOrdenDePagoAlta
             lvwConsulta.Columns.Add(New ColHeader("NroCheque", 80, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Importe", 80, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("Fec_Pago", 100, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Banco", 250, HorizontalAlignment.Left, True))
-            lvwConsulta.Columns.Add(New ColHeader("Cruzado", 70, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Directo", 70, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Orden", 70, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Banco", 130, HorizontalAlignment.Left, True))
+            lvwConsulta.Columns.Add(New ColHeader("Cruzado", 60, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Directo", 60, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Orden", 60, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Vto", 80, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Estado", 80, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Cliente", 250, HorizontalAlignment.Left, True))

@@ -12,7 +12,7 @@
               <Width>1.89272cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.99291cm</Width>
+              <Width>4.51124cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.14017cm</Width>
@@ -132,7 +132,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Left</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -1114,10 +1114,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>0.58477cm</Top>
+        <Top>0.3175cm</Top>
         <Left>0.3175cm</Left>
         <Height>1.8cm</Height>
-        <Width>19.95403cm</Width>
+        <Width>18.47236cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1125,7 +1125,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.32666in</Height>
+    <Height>0.98291in</Height>
     <Style />
   </Body>
   <Width>8.507in</Width>

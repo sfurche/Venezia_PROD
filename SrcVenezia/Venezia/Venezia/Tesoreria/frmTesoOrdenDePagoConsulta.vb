@@ -10,7 +10,6 @@ Public Class frmTesoOrdenDePagoConsulta
 
             SubSetCabecera()
             SubCargarCombos()
-
             subCargarGrilla()
 
         Catch ex As Exception
@@ -177,7 +176,7 @@ Public Class frmTesoOrdenDePagoConsulta
             lArray = cOrdenDePago.GetOrdenDePagoConsulta(gAdmin _
            , IIf(txtIdOrden.Text.Trim = "", 0, txtIdOrden.Text.Trim) _
             , IIf(txtIdOrden.Text.Trim = "", dtpFechaD.Value, Date.MinValue) _
-            , IIf(txtIdOrden.Text.Trim = "", dtpFechaD.Value, Date.MaxValue) _
+            , IIf(txtIdOrden.Text.Trim = "", dtpFechaH.Value, Date.MaxValue) _
             , IIf(cmbDestino.SelectedItem = " ", " ", cOrdenDePago.enuTipoDestinoOrdenPagoGetCodxStr(cmbDestino.Text)) _
             , IIf(txtProove.Text = "", 0, txtProove.Text) _
             , lIdEstado _
@@ -211,8 +210,8 @@ Public Class frmTesoOrdenDePagoConsulta
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.subCargarGrilla")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.subCargarGrilla:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.subCargarGrilla")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.subCargarGrilla:" & ex.Message)
         End Try
     End Sub
 
@@ -225,8 +224,8 @@ Public Class frmTesoOrdenDePagoConsulta
             DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Proveedores, Me)
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoAlta.btnBusq_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoAlta.btnBusq_Click:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.btnBusq_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.btnBusq_Click:" & ex.Message)
         End Try
     End Sub
 
@@ -246,18 +245,23 @@ Public Class frmTesoOrdenDePagoConsulta
             cmbEstados.SelectedItem = " "
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.subCargarEstados")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.subCargarEstados:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.subCargarEstados")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.subCargarEstados:" & ex.Message)
         End Try
     End Sub
 
     Private Sub btnAplicar_Click(sender As Object, e As EventArgs) Handles btnAplicar.Click
         Try
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             subCargarGrilla()
 
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.subCargarEstados")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.subCargarEstados:" & ex.Message)
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.btnAplicar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.btnAplicar_Click:" & ex.Message)
         End Try
     End Sub
 
@@ -276,9 +280,24 @@ Public Class frmTesoOrdenDePagoConsulta
                 lModo = EnuOPERACION.CONS
             End If
             DirectCast(MdiParent, frmPrincipal).SubArirOrdenDePago(DirectCast(lvwConsulta.SelectedItems(0).Tag, cOrdenDePago), Me, lModo)
+
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error en frmTesoLiquidacionesCons.btnAbrir_Click")
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.lvwConsulta_DoubleClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.lvwConsulta_DoubleClick:" & ex.Message)
         End Try
     End Sub
 
+    Private Sub btnAbrir_Click(sender As Object, e As EventArgs) Handles btnAbrir.Click
+        Try
+            If lvwConsulta.SelectedItems.Count = 0 Then
+                Exit Sub
+            Else
+                lvwConsulta_DoubleClick(Me, Nothing)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.subCargarEstados")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.subCargarEstados:" & ex.Message)
+        End Try
+    End Sub
 End Class

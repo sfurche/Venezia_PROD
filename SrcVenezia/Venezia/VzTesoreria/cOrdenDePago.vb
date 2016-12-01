@@ -330,9 +330,9 @@ Public Class cOrdenDePago
                 ''-- Primero guardo la cabecera y luego voy por cada detalle.
                 Sql = "Call vz_ordendepago_ins('#Fecha#', #Importe_cash#, #Importe_transferencia#, #Importe_cheques#,'#Tipo_Destino#','#Destino#', #CodProve#, #Estado# , '#Observac#', #idusr#)"
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
-                Sql = Sql.Replace("#Importe_cash#", Me.Importe_cash)
-                Sql = Sql.Replace("#Importe_transferencia#", Me.Importe_transferencia)
-                Sql = Sql.Replace("#Importe_cheques#", Me.Importe_cheques)
+                Sql = Sql.Replace("#Importe_cash#", Me.Importe_cash.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#Importe_transferencia#", Me.Importe_transferencia.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#Importe_cheques#", Me.Importe_cheques.ToString().Replace(",", "."))
                 Sql = Sql.Replace("#Tipo_Destino#", enuTipoDestinoOrdenPagoGetCod(Me.Tipo_Destino))
                 Sql = Sql.Replace("#Destino#", Me.Observaciones)
                 If Not IsNothing(Me.Proveedor) Then
@@ -370,9 +370,9 @@ Public Class cOrdenDePago
                 Sql = "Call vz_ordendepago_upd(#IdOrden#, '#Fecha#', #Importe_cash#, #Importe_transferencia#, #Importe_cheques#,'#Tipo_Destino#','#Destino#', #CodProve#, #Estado# , '#Observac#', #idusr#)"
                 Sql = Sql.Replace("#IdOrden#", Me.Id_orden)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
-                Sql = Sql.Replace("#Importe_cash#", Me.Importe_cash)
-                Sql = Sql.Replace("#Importe_transferencia#", Me.Importe_transferencia)
-                Sql = Sql.Replace("#Importe_cheques#", Me.Importe_cheques)
+                Sql = Sql.Replace("#Importe_cash#", Me.Importe_cash.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#Importe_transferencia#", Me.Importe_transferencia.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#Importe_cheques#", Me.Importe_cheques.ToString().Replace(",", "."))
                 Sql = Sql.Replace("#Tipo_Destino#", enuTipoDestinoOrdenPagoGetCod(Me.Tipo_Destino))
                 Sql = Sql.Replace("#Destino#", Me.Observaciones)
                 If Not IsNothing(Me.Proveedor) Then

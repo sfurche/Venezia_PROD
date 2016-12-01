@@ -33,10 +33,12 @@ Public Class frmTesoChkRptEnCartera
         Dim lNombreRpt As String = ""
 
         Try
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             lRDLC = "rptTesoLiqChequesCartera.rdlc"
 
 
-            lDt = cCheque.Dat_RptChequesFDFHEstado(gAdmin, "N", Date.MinValue, Date.MaxValue, dtpFvtoD.Value, dtpFvtoH.Value, 0)
+            lDt = cCheque.Dat_RptChequesFDFHEstado(gAdmin, "N", dtpFvtoD.Value, dtpFvtoH.Value, Date.MinValue, Date.MaxValue, 0)
 
 
             lBs = New BindingSource
@@ -70,9 +72,15 @@ Public Class frmTesoChkRptEnCartera
 
             DirectCast(Me.MdiParent, frmPrincipal).SubArirReporteBase(lArrDS, lArrayParameters, lRDLC, lPrintSettings, "Reporte de Cheques en Cartera - Vto " & gFncConvertDateToString(dtpFvtoD.Value, "DD/MM/YYYY") & " a " & gFncConvertDateToString(dtpFvtoH.Value, "DD/MM/YYYY"), lNombreRpt)
 
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptEnCartera.btnGenerar_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptEnCartera.btnGenerar_Click" & ex.Message)
         End Try
     End Sub
+
+
+
 End Class

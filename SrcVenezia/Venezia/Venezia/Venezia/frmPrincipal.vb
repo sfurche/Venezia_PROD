@@ -142,14 +142,17 @@ Public Class frmPrincipal
             'Valido la version del la app y de la bd
             lSetting = VzAdmin.cSetting.GetSettingxCodigo(gAdmin, "AppVersion")
             If Not My.Application.Info.Version.ToString.Trim = lSetting.Valor.Trim Then
-                MsgBox("Hay una nueva version disponible(" & lSetting.Valor.Trim & "). Actualice el aplicativo y vuelva a ingresar.", MsgBoxStyle.Information, "Version " & My.Application.Info.Version.ToString.Trim & " desactualizada.")
+                MsgBox("Hay una nueva version disponible(" & lSetting.Valor.Trim & "). Actualice el aplicativo desde el icono 'ACTUALIZAR VENEZIA' y vuelva a ingresar.", MsgBoxStyle.Information, "Version " & My.Application.Info.Version.ToString.Trim & " desactualizada.")
 
-                If MsgBox("Desea actualizar la version ahora?", vbYesNo + MsgBoxStyle.Question, "Actualizar") = MsgBoxResult.Yes Then
-                    lPath = My.Settings.AutoUpdatePath
-                    System.Diagnostics.Process.Start(lPath)
-                    End
-                End If
+                'If MsgBox("Desea actualizar la version ahora?", vbYesNo + MsgBoxStyle.Question, "Actualizar") = MsgBoxResult.Yes Then
+                '    lPath = My.Settings.AutoUpdatePath
+                '    System.Diagnostics.Process.Start(lPath)
+                '    End
+                'End If
+
+                'CIERRO LA APLICACION.
                 End
+
             End If
 
         Catch ex As Exception

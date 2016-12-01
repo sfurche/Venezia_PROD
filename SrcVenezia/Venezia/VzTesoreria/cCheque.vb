@@ -1092,7 +1092,7 @@ Public Class cCheque
         End Try
     End Function
 
-    Public Shared Function Dat_RptChequesFDFHEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pPropio As String, ByVal pFEmisD As Date, ByVal pFEmisH As Date, ByVal pFVtoD As Date, ByVal pFVtoH As Date, ByVal pEstado As Integer) As DataTable
+    Public Shared Function Dat_RptChequesFDFHEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pPropio As String, ByVal pFpagoD As Date, ByVal pFpagoH As Date, ByVal pFVtoD As Date, ByVal pFVtoH As Date, ByVal pEstado As Integer) As DataTable
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -1102,13 +1102,26 @@ Public Class cCheque
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
 
-            Sql = "   Call vz_spTesoLiqRptChequesFDFHEstado('#propio#','#fed#','#feh#','#fvtod#','#ftoh#',#estado#);"
+            Sql = "  SELECT  "
+            Sql = Sql & "id_cheque , id_liquidacion , propio , B.nomb_bco_red banco , numero , directo , cruzado ,	orden, fecha_pago, fecha_vencimiento , importe , observaciones ,  E.estado "
+            Sql = Sql & "From vz_cheques As C, sis_bancos As B, vz_estados E "
+            Sql = Sql & "Where C.id_bco = B.id_bco "
+            Sql = Sql & "And C.id_estado = E.id_estado "
+            Sql = Sql & " And E.tabla = 'vz_cheques' "
+            Sql = Sql & "And fecha_pago >= '#fed#' "
+            Sql = Sql & " And Fecha_Pago <= '#feh#' "
+            Sql = Sql & "And fecha_vencimiento >= '#fvtod#' "
+            Sql = Sql & "And Fecha_Vencimiento <= '#fvtoh#' "
+            Sql = Sql & "And C.id_estado= #estado# "
+            Sql = Sql & "And C.propio = '#propio#' "
+            Sql = Sql & "ORDER BY fecha_pago asc ; "
+
 
             Sql = Sql.Replace("#propio#", pPropio)
-            Sql = Sql.Replace("#fed#", VzAdmin.cFunciones.gFncConvertDateToString(pFEmisD, "YYYY/MM/DD"))
-            Sql = Sql.Replace("#feh#", VzAdmin.cFunciones.gFncConvertDateToString(pFEmisH, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#fed#", VzAdmin.cFunciones.gFncConvertDateToString(pFpagoD, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#feh#", VzAdmin.cFunciones.gFncConvertDateToString(pFpagoH, "YYYY/MM/DD"))
             Sql = Sql.Replace("#fvtod#", VzAdmin.cFunciones.gFncConvertDateToString(pFVtoD, "YYYY/MM/DD"))
-            Sql = Sql.Replace("#ftoh#", VzAdmin.cFunciones.gFncConvertDateToString(pFVtoH, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#fvtoh#", VzAdmin.cFunciones.gFncConvertDateToString(pFVtoH, "YYYY/MM/DD"))
             Sql = Sql.Replace("#estado#", pEstado.ToString)
 
             With Cmd

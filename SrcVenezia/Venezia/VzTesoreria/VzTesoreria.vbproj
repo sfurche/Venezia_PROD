@@ -72,6 +72,7 @@
     <Compile Include="cLiquidacion.vb" />
     <Compile Include="cLiquidacion_Det.vb" />
     <Compile Include="cOrdenDePago.vb" />
+    <Compile Include="cTransferencia.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

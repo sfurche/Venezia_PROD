@@ -7,6 +7,7 @@ Public Class frmTesoLiquidacionesAlta
 
     Public mLiq As cLiquidacion
     Public mLiqBkp As String
+    Dim mSettingClient As String = ""
 
     Private Sub frmTesoLiquidacionesAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim lPermiso As cPermiso = Nothing
@@ -17,6 +18,7 @@ Public Class frmTesoLiquidacionesAlta
             dtpFechaLiq.Enabled = False
 
             SubSetCabeceraCheque()
+            SubSetCabeceraTransferencias()
             subCargarBancos()
             subCargarVendedores()
 
@@ -74,13 +76,28 @@ Public Class frmTesoLiquidacionesAlta
         chkCertificado.Enabled = False
         optAlPortador.Enabled = False
 
+        'Inhabilito funcionalidad del panel de transferencias.
+        dtpTransfFecha.Enabled = False
+        btnBusqCliTransf.Enabled = False
+        txtTotalTransf.ReadOnly = True
+        txtTransfCli.ReadOnly = True
+        btnTransfAdd.Enabled = False
+        btnTransfDel.Enabled = False
+
     End Sub
 
     Public Sub SetCliente(ByVal pCliente As cCliente)
         Try
-            lblNomCliente.Text = pCliente.Nombre
-            txtCliente.Text = pCliente.NroCli
-            txtCliente.Tag = pCliente
+            If mSettingClient = "Cheque" Then
+                lblNomCliente.Text = pCliente.Nombre
+                txtCliente.Text = pCliente.NroCli
+                txtCliente.Tag = pCliente
+            ElseIf mSettingClient = "Transferencia" Then
+                lblCliTransf.Text = pCliente.Nombre
+                txtTransfCli.Text = pCliente.NroCli
+                txtTransfCli.Tag = pCliente
+            End If
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.SetCliente")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.SetCliente:" & ex.Message)
@@ -149,6 +166,59 @@ Public Class frmTesoLiquidacionesAlta
         End Try
     End Sub
 
+    Private Sub SubSetCabeceraTransferencias()
+        Try
+            lvwTransf.BeginUpdate()
+            lvwTransf.Clear()
+
+            lvwTransf.Columns.Add("IdTransf", 60, HorizontalAlignment.Center)
+            lvwTransf.Columns.Add("Fecha", 70, HorizontalAlignment.Center)
+            lvwTransf.Columns.Add("Importe", 60, HorizontalAlignment.Right)
+            lvwTransf.Columns.Add("Cliente", 150, HorizontalAlignment.Left)
+            lvwTransf.Columns.Add("Estado", 80, HorizontalAlignment.Center)
+            lvwTransf.Columns.Add("Observ", 160, HorizontalAlignment.Center)
+
+            lvwTransf.EndUpdate()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.SubSetCabeceraTransferencias")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.SubSetCabeceraTransferencias:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub subCargarTransferencias()
+        Dim lItem As ListViewItem
+        Dim lTransf As cTransferencia = Nothing
+        Dim lSumTr As Decimal = 0
+        Try
+
+            lblTotalTransf.Text = "$ 0"
+            SubSetCabeceraTransferencias()
+
+            If Not IsNothing(mLiq.Transferencias) Then
+
+                For Each lTransf In mLiq.Transferencias
+                    lItem = New ListViewItem()
+                    lItem.Text = lTransf.Id_Transferencia
+                    lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lTransf.Fecha, "DD/MM/YYYY"))
+                    lItem.SubItems.Add(lTransf.Importe.ToString("C"))
+                    lItem.SubItems.Add(cCliente.GetClientexNroCliente(gAdmin, lTransf.NroCli).Nombre.Trim)
+                    lItem.SubItems.Add(lTransf.Estado.Estado)
+                    lItem.SubItems.Add(lTransf.Observaciones)
+                    lItem.Tag = lTransf
+                    lvwTransf.Items.Add(lItem)
+                    lSumTr = lSumTr + lTransf.Importe
+                Next
+
+                lblTotalTransf.Text = "$ " & lSumTr.ToString()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.subCargarTransferencias")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.subCargarTransferencias:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub subCargarCheques()
         Dim lItem As ListViewItem
         Dim lChk As cCheque
@@ -166,7 +236,7 @@ Public Class frmTesoLiquidacionesAlta
                     For Each lChk In lLiqDet.Cheques
                         lItem = New ListViewItem()
                         lItem.Text = lChk.Numero
-                        lItem.SubItems.Add(lChk.Importe.ToString)
+                        lItem.SubItems.Add(lChk.Importe.ToString("C"))
                         lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lChk.Fecha_Pago, "DD/MM/YYYY"))
                         lItem.SubItems.Add(lChk.Banco.Nombre)
                         lItem.SubItems.Add(lChk.Cruzado.ToString)
@@ -292,6 +362,7 @@ Public Class frmTesoLiquidacionesAlta
             lblTotalLiq.Text = "$" & mLiq.TotalLiq()
             lblEstado.Text = mLiq.Estado.Estado
             subCargarCheques()
+            subCargarTransferencias()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.SubCargarDatosLiq")
@@ -363,7 +434,6 @@ Public Class frmTesoLiquidacionesAlta
             'Actualizo Datos Fijos
             Me.mLiq.Fecha = dtpFechaLiq.Value
             Me.mLiq.Vendedor = cmbVendedores.SelectedItem
-
 
             If mLiq.EsNuevo = True Then
 
@@ -665,6 +735,7 @@ Public Class frmTesoLiquidacionesAlta
 
     Private Sub btnBusq_Click(sender As Object, e As EventArgs) Handles btnBusq.Click
         Try
+            mSettingClient = "Cheque"
             DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Cliente, Me)
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnBusq_Click")
@@ -698,6 +769,7 @@ Public Class frmTesoLiquidacionesAlta
             If Not txtCliente.Text.Trim = "" Then
                 lCliente = cCliente.GetClientexNroCliente(gAdmin, txtCliente.Text.Trim)
                 If Not IsNothing(lCliente) Then
+                    mSettingClient = "Cheque"
                     SetCliente(lCliente)
                 Else
                     txtCliente.Text = ""
@@ -791,11 +863,161 @@ Public Class frmTesoLiquidacionesAlta
     End Sub
 
     Private Sub PicTransfDet_Click(sender As Object, e As EventArgs) Handles PicTransfDet.Click
+        If pnlTransferencias.Visible = True Then
+            pnlTransferencias.Visible = False
+        Else
+            pnlTransferencias.Visible = True
+        End If
+    End Sub
+
+    Private Sub lblCerrarTransf_Click(sender As Object, e As EventArgs) Handles lblCerrarTransf.Click
+        pnlTransferencias.Visible = False
+    End Sub
+
+    Private Sub btnTransfAdd_Click(sender As Object, e As EventArgs) Handles btnTransfAdd.Click
+        Dim lItem As ListViewItem = Nothing
+        Dim lTransf As cTransferencia = Nothing
+
         Try
+            'VALIDACIONES
+            If Not IsNumeric(txtTransfImporte.Text.Trim) Then
+                MsgBox("El importe ingresado no es valido", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            If dtpTransfFecha.Value.Date > Date.Today().Date Then
+                MsgBox("No se puede ingresar una transferencia futura", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            If IsNothing(txtTransfCli.Tag) Then
+                MsgBox("Debe seleccionar el Cliente emisor de la transferencia", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+            '----------------------------------------------------
+
+            lTransf = New cTransferencia(gAdmin)
+            If mLiq.EsNuevo = False Then
+                lTransf.Id_Liquidacion = mLiq.Id_Liquidacion
+            End If
+            lTransf.Fecha = dtpTransfFecha.Value
+            lTransf.Importe = txtTransfImporte.Text
+            lTransf.NroCli = DirectCast(txtTransfCli.Tag, cCliente).NroCli
+            lTransf.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, 0, cEstado.enuTipoEstado.Transferencia)
+            lTransf.Observaciones = txtTransfObserv.Text.Trim
+            lTransf.EsNuevo = True
+
+            If IsNothing(mLiq.Transferencias) Then  '--> valido si el array existe
+                mLiq.Transferencias = New ArrayList
+                mLiq.Transferencias.Add(lTransf)  '--> Agrego la transf al array
+            Else
+                mLiq.Transferencias.Add(lTransf)
+            End If
+
+            subCargarTransferencias()
+
+            '-Blanqueo los campos y vuelvo a posicionar para seguir cargando
+            dtpTransfFecha.Value = Date.Today()
+            txtTransfImporte.Text = "0"
+            txtTransfObserv.Text = String.Empty
+            txtTransfCli.Text = ""
+            lblCliTransf.Text = "_____________"
+            txtTransfCli.Tag = Nothing
+            dtpTransfFecha.Focus()
+            '---------------------------------
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.PicTransfDet_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.PicTransfDet_Click:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.btnTransfAdd_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.btnTransfAdd_Click:" & ex.Message)
         End Try
     End Sub
+
+    Private Sub btnTransfDel_Click(sender As Object, e As EventArgs) Handles btnTransfDel.Click
+        Dim lItem As ListViewItem = Nothing
+        Dim lTransf As cTransferencia = Nothing
+        Dim lTransfItem As cTransferencia = Nothing
+
+        Try
+            'VALIDACIONES
+            If lvwTransf.SelectedItems.Count = 0 Then
+                MsgBox("Debe seleccionar la transferencia que desea eliminar.", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            '----------------------------------------------------
+
+            lItem = lvwTransf.SelectedItems(0)
+            lTransf = lItem.Tag
+            If lTransf.EsNuevo = False Then
+                lTransf.Anular()
+            End If
+
+            For Each lTransfItem In mLiq.Transferencias
+                If lTransfItem Is lTransf Then
+                    mLiq.Transferencias.Remove(lTransfItem) 'Elimino la transf del array de la liquidacion.
+                    Exit For
+                End If
+            Next
+            subCargarTransferencias()
+
+            '-Blanqueo los campos y vuelvo a posicionar para seguir cargando
+            dtpTransfFecha.Value = Date.Today()
+            txtTransfImporte.Text = "0"
+            txtTransfObserv.Text = String.Empty
+            txtTransfCli.Text = ""
+            lblCliTransf.Text = "_____________"
+            txtTransfCli.Tag = Nothing
+            dtpTransfFecha.Focus()
+            '---------------------------------
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnTransfDel_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.btnTransfDel_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnBusqCliTransf_Click(sender As Object, e As EventArgs) Handles btnBusqCliTransf.Click
+        Try
+            mSettingClient = "Transferencia"
+            DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Cliente, Me)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.btnBusqCliTransf_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.btnBusqCliTransf_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub txtTransfCli_LostFocus(sender As Object, e As EventArgs) Handles txtTransfCli.LostFocus
+        Dim lCliente As cCliente = Nothing
+        Try
+            If Not txtCliente.Text.Trim = "" Then
+                lCliente = cCliente.GetClientexNroCliente(gAdmin, txtTransfCli.Text.Trim)
+                If Not IsNothing(lCliente) Then
+                    mSettingClient = "Transferencia"
+                    SetCliente(lCliente)
+                Else
+                    txtTransfCli.Text = ""
+                    lblCliTransf.Text = "_____________"
+                    txtTransfCli.Tag = Nothing
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.txtTransfCli_LostFocus")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.txtTransfCli_LostFocus:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub txtImporteTransfDet_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTransfImporte.KeyPress
+        ' Lista con los caracteres que deseo permitir.
+        Dim caracteresPermitidos As String = "1234567890.-+" & Convert.ToChar(8)
+        ' Carácter presionado.
+        Dim c As Char = e.KeyChar
+        ' Si la tecla presionada no se encuentra en la matriz 
+        ' de caracteres permitidos, anulamos la tecla pulsada.
+        If (Not (caracteresPermitidos.Contains(c))) Then
+            ' Deshechamos el carácter
+            e.Handled = True
+        End If
+    End Sub
+
 End Class

@@ -19,6 +19,7 @@ Public Class cLiquidacion
     Private _EsNuevo As Boolean = True
     Private _Completa As Boolean = False
     Private _Conciliada As Boolean = False
+    Private _Transferencias As ArrayList
 
 
     Private ObjetoInicial As String = ""   'Esta es la serializacion del objeto ni bien se instancia, antes de que sea modificado por el usuario.
@@ -166,6 +167,15 @@ Public Class cLiquidacion
 
     End Property
 
+    Public Property Transferencias As ArrayList
+        Get
+            Return _Transferencias
+        End Get
+        Set(value As ArrayList)
+            _Transferencias = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "EnuEstadoLiq"
@@ -209,6 +219,7 @@ Public Class cLiquidacion
             _Vendedor = VzComercial.cVendedor.GetVendedorexId(gAdmin, lDr("id_vendedor"))
             _EsNuevo = False
             _Liquidacion_Det = cLiquidacion_Det.LiqDet_BusqxIdLiquidacion(gAdmin, Me.Id_Liquidacion)
+            _Transferencias = cTransferencia.GetTransferenciasxIdLiq(gAdmin, Me.Id_Liquidacion)
 
             Me.ValidarCompletitudCheques()
 
@@ -299,6 +310,7 @@ Public Class cLiquidacion
         Dim lDt As DataTable
         Dim lCnn As MySqlConnection
         Dim lLiqDet As cLiquidacion_Det = Nothing
+        Dim lTransf As cTransferencia = Nothing
 
         Try
             ''-- Primero guardo la cabecera y luego voy por cada detalle.
@@ -341,13 +353,20 @@ Public Class cLiquidacion
                     lLiqDet.Guardar()
                 Next
 
+                If Not IsNothing(Me.Transferencias) Then
+                    For Each lTransf In Me.Transferencias
+                        lTransf.Id_Liquidacion = Me.Id_Liquidacion
+                        lTransf.Save()
+                    Next
+                End If
+
                 EsNuevo = False
-            Else  'ACA VA EL UPDATE ------------------------------------------------------------
+                Else  'ACA VA EL UPDATE ------------------------------------------------------------
 
-                ''-- Primero guardo la cabecera y luego voy por cada detalle.
+                    ''-- Primero guardo la cabecera y luego voy por cada detalle.
 
-                'CALL vz_liquidaciones_ins(3,'2016/01/05', 0, 305.55, 4654.99, 343.34, 4344.22, 'OBSERVAC',1 ,  9) 
-                Sql = "Call vz_liquidaciones_upd(#IdLiquidacion#, #IdVendedor#, '#Fecha#', #ImporteEfe#, #ImporteCh#, #ImporteRet#,#ImporteTra#,#ImporteNC#, '#Observac#' , #Estado# , #idusr#)"
+                    'CALL vz_liquidaciones_ins(3,'2016/01/05', 0, 305.55, 4654.99, 343.34, 4344.22, 'OBSERVAC',1 ,  9) 
+                    Sql = "Call vz_liquidaciones_upd(#IdLiquidacion#, #IdVendedor#, '#Fecha#', #ImporteEfe#, #ImporteCh#, #ImporteRet#,#ImporteTra#,#ImporteNC#, '#Observac#' , #Estado# , #idusr#)"
                 Sql = Sql.Replace("#IdLiquidacion#", Me.Id_Liquidacion)
                 Sql = Sql.Replace("#IdVendedor#", Me.Vendedor.IdVendedor)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
@@ -378,12 +397,18 @@ Public Class cLiquidacion
                     lLiqDet.Guardar()
                 Next
 
+                If Not IsNothing(Me.Transferencias) Then
+                    For Each lTransf In Me.Transferencias
+                        lTransf.Save()
+                    Next
+                End If
+
                 'Grabo el log de auditoria.
                 gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Me.ToXML, pLiqBkp)
 
-            End If
+                End If
 
-            Guardar = True
+                Guardar = True
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Guardar")
@@ -614,7 +639,7 @@ Public Class cLiquidacion
         ToXML = ""
         Try
             Using sw As New StringWriter()
-                Dim serialitzador As New XmlSerializer(GetType(cLiquidacion), New Type() {GetType(cLiquidacion_Det), GetType(cCheque), GetType(cEstado), GetType(cBanco), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cLiquidacion), New Type() {GetType(cLiquidacion_Det), GetType(cTransferencia), GetType(cCheque), GetType(cEstado), GetType(cBanco), GetType(cAdmin), GetType(cUser)})
                 serialitzador.Serialize(sw, Me)
                 ToXML = sw.ToString()
             End Using

@@ -125,3 +125,10 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\D
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.cache
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\RdlCompile.compiled
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\ManualOperativo.pdf
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.vbproj.ResolveComReference.cache
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\ManualOperativo.pdf
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmManualOperativo.resources

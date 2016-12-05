@@ -97,7 +97,6 @@ Public Class cBanco
         End Try
     End Sub
 
-
 #End Region
 
 
@@ -192,9 +191,7 @@ Public Class cBanco
                     lBco.EsNuevo = False
                     lArray.Add(lBco)
                 Next
-
             End If
-
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cBanco.Banco_GetAll")

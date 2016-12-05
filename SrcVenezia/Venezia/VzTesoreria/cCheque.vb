@@ -508,7 +508,6 @@ Public Class cCheque
         End Try
     End Function
 
-
     Public Function Recuperar() As Boolean
         Recuperar = False
         Dim Cmd As New MySqlCommand
@@ -1186,7 +1185,6 @@ Public Class cCheque
         End Try
     End Function
 
-
     Public Enum Dat_RptChequesxArrayCheques_CAMPOS
         NroCheque = 1
         Importe = 2
@@ -1200,7 +1198,6 @@ Public Class cCheque
         Cliente = 10
         OrdenP = 11
     End Enum
-
 
     Public Shared Function Dat_RptChequesxArrayCheques(ByRef pAdmin As VzAdmin.cAdmin, ByVal pArrayCheques As ArrayList, ByVal pCampoOrden As Dat_RptChequesxArrayCheques_CAMPOS, ByVal pAsc As Boolean) As DataTable
 

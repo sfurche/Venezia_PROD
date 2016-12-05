@@ -26,6 +26,7 @@ Public Class frmStkPreciosConsxLista
             lvwConsulta.Columns.Add(New ColHeader("PcioUni", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("Costo", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("%Margen", 70, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("%Comision", 70, HorizontalAlignment.Right, True))
 
             ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
             AddHandler Me.lvwConsulta.ColumnClick, AddressOf lvwConsulta_ColumnClick
@@ -67,10 +68,11 @@ Public Class frmStkPreciosConsxLista
                 lItem.SubItems.Add(lPrecio.Articulo.CodArt)
                 lItem.SubItems.Add(lPrecio.CodProd)
                 lItem.SubItems.Add(lPrecio.Articulo.Descripcion.Trim)
-                lItem.SubItems.Add(lPrecio.PcioUnitario)
-                lItem.SubItems.Add(lPrecio.Articulo.PcioCosto)
+                lItem.SubItems.Add(lPrecio.PcioUnitario.ToString("C"))
+                lItem.SubItems.Add(lPrecio.Articulo.PcioCosto.ToString("C"))
                 lMargen = Math.Round((lPrecio.PcioUnitario - lPrecio.Articulo.PcioCosto) * 100 / lPrecio.Articulo.PcioCosto, 2)
                 lItem.SubItems.Add(lMargen.ToString() & "%")
+                lItem.SubItems.Add(lPrecio.PorComision.ToString() & "%")
                 lItem.Tag = lPrecio
                 lvwConsulta.Items.Add(lItem)
             Next

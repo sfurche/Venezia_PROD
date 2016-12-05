@@ -107,6 +107,11 @@ Venezia
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Venezia.My.Resources.Resources.folder_view">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Venezia.My.Resources.Resources.form_blue">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -180,6 +185,11 @@ Venezia
 <member name="P:Venezia.My.Resources.Resources.Logo">
 <summary>
   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Venezia.My.Resources.Resources.ManualOperativo">
+<summary>
+  Looks up a localized resource of type System.Byte[].
 </summary>
 </member>
 <member name="P:Venezia.My.Resources.Resources.mobilephone2">

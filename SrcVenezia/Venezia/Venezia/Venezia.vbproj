@@ -100,6 +100,12 @@
     <Compile Include="Reporting\frmReporteBase1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Stock\frmStkCargaPrecios.Designer.vb">
+      <DependentUpon>frmStkCargaPrecios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\frmStkCargaPrecios.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Stock\frmStkArticulosCons.Designer.vb">
       <DependentUpon>frmStkArticulosCons.vb</DependentUpon>
     </Compile>
@@ -300,6 +306,9 @@
     <EmbeddedResource Include="Reporting\TemplateLetter.rdlc" />
     <EmbeddedResource Include="Stock\frmStkArticulosCons.resx">
       <DependentUpon>frmStkArticulosCons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\frmStkCargaPrecios.resx">
+      <DependentUpon>frmStkCargaPrecios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock\frmStkListasDePrecioCons.resx">
       <DependentUpon>frmStkListasDePrecioCons.vb</DependentUpon>
@@ -575,6 +584,9 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -233,6 +233,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property folder_view() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("folder_view", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property form_blue() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("form_blue", resourceCulture)
@@ -377,6 +387,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("Logo", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property ManualOperativo() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ManualOperativo", resourceCulture)
+                Return CType(obj,Byte())
             End Get
         End Property
         

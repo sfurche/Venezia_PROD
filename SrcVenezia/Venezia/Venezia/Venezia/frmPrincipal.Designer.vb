@@ -91,6 +91,8 @@ Partial Class frmPrincipal
         Me.EnviarMailASoporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVeneziaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManualOperativoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CargaMasivaDePreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.StBarPpal.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -421,7 +423,7 @@ Partial Class frmPrincipal
         '
         'ListasDePrecioToolStripMenuItem
         '
-        Me.ListasDePrecioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDePreciosXListaToolStripMenuItem, Me.ConsultaDeListasDePrecioToolStripMenuItem})
+        Me.ListasDePrecioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDePreciosXListaToolStripMenuItem, Me.ConsultaDeListasDePrecioToolStripMenuItem, Me.ToolStripMenuItem4, Me.CargaMasivaDePreciosToolStripMenuItem})
         Me.ListasDePrecioToolStripMenuItem.Name = "ListasDePrecioToolStripMenuItem"
         Me.ListasDePrecioToolStripMenuItem.Size = New System.Drawing.Size(175, 22)
         Me.ListasDePrecioToolStripMenuItem.Text = "Listas de Precio"
@@ -523,27 +525,38 @@ Partial Class frmPrincipal
         'AcercaDeVeneziaToolStripMenuItem
         '
         Me.AcercaDeVeneziaToolStripMenuItem.Name = "AcercaDeVeneziaToolStripMenuItem"
-        Me.AcercaDeVeneziaToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.AcercaDeVeneziaToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.AcercaDeVeneziaToolStripMenuItem.Text = "Acerca de Venezia..."
         '
         'EnviarMailASoporteToolStripMenuItem
         '
         Me.EnviarMailASoporteToolStripMenuItem.Image = CType(resources.GetObject("EnviarMailASoporteToolStripMenuItem.Image"), System.Drawing.Image)
         Me.EnviarMailASoporteToolStripMenuItem.Name = "EnviarMailASoporteToolStripMenuItem"
-        Me.EnviarMailASoporteToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.EnviarMailASoporteToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.EnviarMailASoporteToolStripMenuItem.Text = "Enviar Mail a Soporte"
         '
         'ActualizarVeneziaToolStripMenuItem
         '
         Me.ActualizarVeneziaToolStripMenuItem.Name = "ActualizarVeneziaToolStripMenuItem"
-        Me.ActualizarVeneziaToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.ActualizarVeneziaToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.ActualizarVeneziaToolStripMenuItem.Text = "Actualizar Venezia"
         '
         'ManualOperativoToolStripMenuItem
         '
         Me.ManualOperativoToolStripMenuItem.Name = "ManualOperativoToolStripMenuItem"
-        Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.ManualOperativoToolStripMenuItem.Text = "Manual Operativo"
+        '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(218, 6)
+        '
+        'CargaMasivaDePreciosToolStripMenuItem
+        '
+        Me.CargaMasivaDePreciosToolStripMenuItem.Name = "CargaMasivaDePreciosToolStripMenuItem"
+        Me.CargaMasivaDePreciosToolStripMenuItem.Size = New System.Drawing.Size(221, 22)
+        Me.CargaMasivaDePreciosToolStripMenuItem.Text = "Carga Masiva de Precios"
         '
         'frmPrincipal
         '
@@ -556,7 +569,7 @@ Partial Class frmPrincipal
         Me.Controls.Add(Me.MenuStrip1)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Margin = New System.Windows.Forms.Padding(3)
         Me.MaximizeBox = True
         Me.Name = "frmPrincipal"
         Me.Text = "VENEZIA - Plataforma de Gestion y Administracion del CDSur"
@@ -640,4 +653,6 @@ Partial Class frmPrincipal
     Friend WithEvents ConsultaDePreciosXListaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultaDeListasDePrecioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ManualOperativoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem4 As ToolStripSeparator
+    Friend WithEvents CargaMasivaDePreciosToolStripMenuItem As ToolStripMenuItem
 End Class

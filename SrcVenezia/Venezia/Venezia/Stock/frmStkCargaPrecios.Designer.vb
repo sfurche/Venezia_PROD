@@ -42,10 +42,10 @@ Partial Class frmStkCargaPrecios
         'btnSalir
         '
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Location = New System.Drawing.Point(599, 659)
-        Me.btnSalir.Margin = New System.Windows.Forms.Padding(1)
+        Me.btnSalir.Location = New System.Drawing.Point(1597, 1571)
+        Me.btnSalir.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSalir.Name = "btnSalir"
-        Me.btnSalir.Size = New System.Drawing.Size(95, 21)
+        Me.btnSalir.Size = New System.Drawing.Size(253, 50)
         Me.btnSalir.TabIndex = 26
         Me.btnSalir.Text = "&Salir"
         Me.btnSalir.UseVisualStyleBackColor = False
@@ -62,11 +62,11 @@ Partial Class frmStkCargaPrecios
         Me.GroupBox1.Controls.Add(Me.txtCriterioBusq)
         Me.GroupBox1.Controls.Add(Me.lblNombre)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 10)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(1)
+        Me.GroupBox1.Location = New System.Drawing.Point(27, 24)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox1.Size = New System.Drawing.Size(684, 125)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(1824, 298)
         Me.GroupBox1.TabIndex = 27
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos de Carga"
@@ -75,19 +75,20 @@ Partial Class frmStkCargaPrecios
         '
         Me.imgAbrir.Image = Global.Venezia.My.Resources.Resources.folder_view
         Me.imgAbrir.InitialImage = Global.Venezia.My.Resources.Resources.folder_view
-        Me.imgAbrir.Location = New System.Drawing.Point(66, 49)
+        Me.imgAbrir.Location = New System.Drawing.Point(176, 117)
+        Me.imgAbrir.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.imgAbrir.Name = "imgAbrir"
-        Me.imgAbrir.Size = New System.Drawing.Size(26, 22)
+        Me.imgAbrir.Size = New System.Drawing.Size(69, 52)
+        Me.imgAbrir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.imgAbrir.TabIndex = 23
         Me.imgAbrir.TabStop = False
         '
         'lblPath
         '
         Me.lblPath.AutoSize = True
-        Me.lblPath.Location = New System.Drawing.Point(96, 56)
-        Me.lblPath.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.lblPath.Location = New System.Drawing.Point(256, 134)
         Me.lblPath.Name = "lblPath"
-        Me.lblPath.Size = New System.Drawing.Size(313, 13)
+        Me.lblPath.Size = New System.Drawing.Size(780, 32)
         Me.lblPath.TabIndex = 22
         Me.lblPath.Text = "___________________________________________________"
         '
@@ -95,10 +96,9 @@ Partial Class frmStkCargaPrecios
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 93)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.Label2.Location = New System.Drawing.Point(43, 222)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(95, 13)
+        Me.Label2.Size = New System.Drawing.Size(227, 32)
         Me.Label2.TabIndex = 21
         Me.Label2.Text = "Observaciones:"
         '
@@ -106,49 +106,48 @@ Partial Class frmStkCargaPrecios
         '
         Me.cmbListaPrecios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbListaPrecios.FormattingEnabled = True
-        Me.cmbListaPrecios.Location = New System.Drawing.Point(62, 20)
+        Me.cmbListaPrecios.Location = New System.Drawing.Point(165, 48)
+        Me.cmbListaPrecios.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.cmbListaPrecios.Name = "cmbListaPrecios"
-        Me.cmbListaPrecios.Size = New System.Drawing.Size(456, 21)
+        Me.cmbListaPrecios.Size = New System.Drawing.Size(1209, 39)
         Me.cmbListaPrecios.TabIndex = 20
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(16, 23)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.Label1.Location = New System.Drawing.Point(43, 55)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(38, 13)
+        Me.Label1.Size = New System.Drawing.Size(90, 32)
         Me.Label1.TabIndex = 19
         Me.Label1.Text = "Lista:"
         '
         'btnSimular
         '
         Me.btnSimular.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSimular.Location = New System.Drawing.Point(581, 23)
-        Me.btnSimular.Margin = New System.Windows.Forms.Padding(1)
+        Me.btnSimular.Location = New System.Drawing.Point(1549, 55)
+        Me.btnSimular.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSimular.Name = "btnSimular"
-        Me.btnSimular.Size = New System.Drawing.Size(95, 28)
+        Me.btnSimular.Size = New System.Drawing.Size(253, 67)
         Me.btnSimular.TabIndex = 18
         Me.btnSimular.Text = "Simular"
         Me.btnSimular.UseVisualStyleBackColor = False
         '
         'txtCriterioBusq
         '
-        Me.txtCriterioBusq.Location = New System.Drawing.Point(116, 90)
-        Me.txtCriterioBusq.Margin = New System.Windows.Forms.Padding(1)
+        Me.txtCriterioBusq.Location = New System.Drawing.Point(309, 215)
+        Me.txtCriterioBusq.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtCriterioBusq.Name = "txtCriterioBusq"
-        Me.txtCriterioBusq.Size = New System.Drawing.Size(551, 20)
+        Me.txtCriterioBusq.Size = New System.Drawing.Size(1463, 38)
         Me.txtCriterioBusq.TabIndex = 4
         '
         'lblNombre
         '
         Me.lblNombre.AutoSize = True
         Me.lblNombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNombre.Location = New System.Drawing.Point(16, 56)
-        Me.lblNombre.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.lblNombre.Location = New System.Drawing.Point(43, 134)
         Me.lblNombre.Name = "lblNombre"
-        Me.lblNombre.Size = New System.Drawing.Size(48, 13)
+        Me.lblNombre.Size = New System.Drawing.Size(116, 32)
         Me.lblNombre.TabIndex = 3
         Me.lblNombre.Text = "Origen:"
         '
@@ -156,11 +155,11 @@ Partial Class frmStkCargaPrecios
         '
         Me.GroupBox2.Controls.Add(Me.lvwConsulta)
         Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox2.Location = New System.Drawing.Point(10, 137)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
+        Me.GroupBox2.Location = New System.Drawing.Point(27, 327)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Size = New System.Drawing.Size(684, 509)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox2.Size = New System.Drawing.Size(1824, 1214)
         Me.GroupBox2.TabIndex = 28
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Precios"
@@ -170,22 +169,23 @@ Partial Class frmStkCargaPrecios
         Me.lvwConsulta.AllowColumnReorder = True
         Me.lvwConsulta.FullRowSelect = True
         Me.lvwConsulta.GridLines = True
-        Me.lvwConsulta.Location = New System.Drawing.Point(6, 21)
-        Me.lvwConsulta.Margin = New System.Windows.Forms.Padding(1)
+        Me.lvwConsulta.Location = New System.Drawing.Point(16, 50)
+        Me.lvwConsulta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lvwConsulta.Name = "lvwConsulta"
-        Me.lvwConsulta.Size = New System.Drawing.Size(670, 475)
+        Me.lvwConsulta.Size = New System.Drawing.Size(1780, 1127)
         Me.lvwConsulta.TabIndex = 0
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
         '
         'frmStkCargaPrecios
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(713, 693)
+        Me.ClientSize = New System.Drawing.Size(1901, 1653)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnSalir)
+        Me.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.Name = "frmStkCargaPrecios"
         Me.Text = "Carga Masiva de Precios"
         Me.GroupBox1.ResumeLayout(False)

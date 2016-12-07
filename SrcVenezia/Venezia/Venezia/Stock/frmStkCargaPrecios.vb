@@ -1,4 +1,5 @@
-﻿Imports vzStock
+﻿Imports System.IO
+Imports vzStock
 
 Public Class frmStkCargaPrecios
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -47,7 +48,7 @@ Public Class frmStkCargaPrecios
 
         Try
             openFD.Title = "Seleccionar archivos"
-            openFD.Filter = "Archivos Excel(*.xls;*.xlsx)|*.xls;*xlsx|Todos los archivos(*.*)|*.*"
+            openFD.Filter = "Archivos Excel(*.txt)|*.txt|Todos los archivos(*.*)|*.*"
             openFD.Multiselect = False
             openFD.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
 
@@ -56,36 +57,57 @@ Public Class frmStkCargaPrecios
                 lblPath.Text = lPath
             End If
 
+
+            LoadArchivoPrecios(lPath)
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.imgAbrir_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.imgAbrir_Click:" & ex.Message)
         End Try
     End Sub
 
-    Private Sub LoadExcel(ByVal pFilePath As String)
+    Private Sub LoadArchivoPrecios(ByVal pFilePath As String)
 
-        Dim lCnn As String = String.Empty
-        Dim DS As System.Data.DataSet
-        Dim MyCommand As System.Data.OleDb.OleDbDataAdapter
-        Dim MyConnection As System.Data.OleDb.OleDbConnection
+
+        Dim objReader As New StreamReader(pFilePath)
+        Dim sLine As String = ""
+        Dim ArrText As New ArrayList()
+        Dim lItem As ListViewItem = Nothing
+        Dim lTxtRow As String() = Nothing
 
         Try
 
-            lCnn = "provider=Microsoft.Jet.OLEDB.4.0; -{}-data source=" & pFilePath.Trim  'C:\myData.XLS; "
-            lCnn = lCnn & ";Extended Properties=Excel 8.0;"
+            Do
+                sLine = objReader.ReadLine()
+                If Not sLine Is Nothing Then
+                    lTxtRow = Split(sLine, vbTab)
+                    ArrText.Add(lTxtRow)
+                End If
+            Loop Until sLine Is Nothing
+            objReader.Close()
 
-            MyConnection = New System.Data.OleDb.OleDbConnection(lCnn)
+            SubSetCabecera()
 
-            ' Ahora tiro el query como si la hoja fuera una tabla
-            MyCommand = New System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", MyConnection)
+            For Each lTxtRow In ArrText
+                lItem = New ListViewItem
+                If Not lTxtRow(0).ToString.Trim = "" Then
+                    lItem.Text = lTxtRow(0).ToString.Trim
+                    lItem.SubItems.Add(lTxtRow(1).ToString.Replace(",", "").Replace(".", ",").Trim)
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lvwConsulta.Items.Add(lItem)
+                End If
+            Next
 
-            DS = New System.Data.DataSet()
-            MyCommand.Fill(DS)
-            MyConnection.Close()
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.LoadExcel")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.LoadExcel:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.LoadArchivoPrecios")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.LoadArchivoPrecios:" & ex.Message)
+            'SubSetCabecera() ' Si falla borro la grilla.
         End Try
     End Sub
 
@@ -132,7 +154,9 @@ Public Class frmStkCargaPrecios
 
             ' Add columns using the ColHeader class. The fourth    
             ' parameter specifies true for an ascending sort order.
-            lvwConsulta.Columns.Add(New ColHeader("CodLista", 60, HorizontalAlignment.Center, True))
+            lvwConsulta.BeginUpdate()
+            lvwConsulta.Clear()
+
             lvwConsulta.Columns.Add(New ColHeader("CodArt", 60, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("CodProd", 80, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Articulo", 250, HorizontalAlignment.Left, True))
@@ -140,6 +164,8 @@ Public Class frmStkCargaPrecios
             lvwConsulta.Columns.Add(New ColHeader("PcioHoy", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("PcioNuevo", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("%Var", 70, HorizontalAlignment.Right, True))
+
+            lvwConsulta.EndUpdate()
 
             ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
             AddHandler Me.lvwConsulta.ColumnClick, AddressOf lvwConsulta_ColumnClick

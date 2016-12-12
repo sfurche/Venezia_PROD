@@ -118,7 +118,7 @@ Public Class frmTesoChkConsulta
                     lItem.SubItems.Add(lChk.Orden.ToString)
                     lItem.SubItems.Add(cFunciones.gFncConvertDateToString(lChk.Fecha_Vencimiento.ToShortDateString, "DD/MM/YYYY"))
 
-                    lItem.UseItemStyleForSubItems = False 'Cambio la propieedd para que cada subitem tenga propiedades style.
+                    lItem.UseItemStyleForSubItems = False 'Cambio la propiedad para que cada subitem tenga propiedades style.
 
                     lLvwSI = New ListViewItem.ListViewSubItem
                     lLvwSI.Text = lChk.Estado.Estado

@@ -34,6 +34,9 @@ Partial Class frmStkCargaPrecios
         Me.lblNombre = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
+        Me.lblTotalImp = New System.Windows.Forms.Label()
+        Me.lblProcOK = New System.Windows.Forms.Label()
+        Me.lblProcErr = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -153,6 +156,9 @@ Partial Class frmStkCargaPrecios
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.lblProcErr)
+        Me.GroupBox2.Controls.Add(Me.lblProcOK)
+        Me.GroupBox2.Controls.Add(Me.lblTotalImp)
         Me.GroupBox2.Controls.Add(Me.lvwConsulta)
         Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
         Me.GroupBox2.Location = New System.Drawing.Point(27, 327)
@@ -172,10 +178,42 @@ Partial Class frmStkCargaPrecios
         Me.lvwConsulta.Location = New System.Drawing.Point(16, 50)
         Me.lvwConsulta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lvwConsulta.Name = "lvwConsulta"
-        Me.lvwConsulta.Size = New System.Drawing.Size(1780, 1127)
+        Me.lvwConsulta.Size = New System.Drawing.Size(1780, 1075)
         Me.lvwConsulta.TabIndex = 0
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
+        '
+        'lblTotalImp
+        '
+        Me.lblTotalImp.AutoSize = True
+        Me.lblTotalImp.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalImp.Location = New System.Drawing.Point(69, 1152)
+        Me.lblTotalImp.Name = "lblTotalImp"
+        Me.lblTotalImp.Size = New System.Drawing.Size(258, 32)
+        Me.lblTotalImp.TabIndex = 20
+        Me.lblTotalImp.Text = "Total Importados: 0"
+        '
+        'lblProcOK
+        '
+        Me.lblProcOK.AutoSize = True
+        Me.lblProcOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProcOK.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.lblProcOK.Location = New System.Drawing.Point(583, 1152)
+        Me.lblProcOK.Name = "lblProcOK"
+        Me.lblProcOK.Size = New System.Drawing.Size(221, 32)
+        Me.lblProcOK.TabIndex = 21
+        Me.lblProcOK.Text = "Procesados OK:"
+        '
+        'lblProcErr
+        '
+        Me.lblProcErr.AutoSize = True
+        Me.lblProcErr.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProcErr.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblProcErr.Location = New System.Drawing.Point(1092, 1152)
+        Me.lblProcErr.Name = "lblProcErr"
+        Me.lblProcErr.Size = New System.Drawing.Size(334, 32)
+        Me.lblProcErr.TabIndex = 22
+        Me.lblProcErr.Text = "Procesados con ERROR:"
         '
         'frmStkCargaPrecios
         '
@@ -192,6 +230,7 @@ Partial Class frmStkCargaPrecios
         Me.GroupBox1.PerformLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -209,4 +248,7 @@ Partial Class frmStkCargaPrecios
     Friend WithEvents imgAbrir As PictureBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents lvwConsulta As ListView
+    Friend WithEvents lblProcErr As Label
+    Friend WithEvents lblProcOK As Label
+    Friend WithEvents lblTotalImp As Label
 End Class

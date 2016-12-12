@@ -7,7 +7,7 @@ Public Class cListaPreciosDet
 #Region "Propiedades"
     Private gAdmin As VzAdmin.cAdmin
 
-    Private idDetalleLista As Integer
+    Private _idDetalleLista As Integer
     Private _IdLista As Integer
     Private _CodLista As Integer
     Private _Articulo As cArticulo
@@ -15,13 +15,14 @@ Public Class cListaPreciosDet
     Private _PcioUnitario As Double
     Private _pcioCaja As Double
     Private _PorComision As Double
+    Private _Nuevo As Boolean = True
 
-    Public Property IdDetalleLista1 As Integer
+    Public Property IdDetalleLista As Integer
         Get
-            Return idDetalleLista
+            Return _idDetalleLista
         End Get
         Set(value As Integer)
-            idDetalleLista = value
+            _idDetalleLista = value
         End Set
     End Property
 
@@ -88,6 +89,15 @@ Public Class cListaPreciosDet
         End Set
     End Property
 
+    Public Property Nuevo As Boolean
+        Get
+            Return _Nuevo
+        End Get
+        Set(value As Boolean)
+            _Nuevo = value
+        End Set
+    End Property
+
 
 #End Region
 
@@ -100,7 +110,7 @@ Public Class cListaPreciosDet
     Private Sub subCargarDatos(ByVal lDr As DataRow)
         Try
 
-            idDetalleLista = lDr("IdDetalleLista")
+            IdDetalleLista = lDr("idDetalleLista")
             IdLista = lDr("id_CodLista")
             CodLista = lDr("CodLista")
             Articulo = cArticulo.GetArticuloxCod(gAdmin, lDr("CodArt"))
@@ -108,6 +118,7 @@ Public Class cListaPreciosDet
             PcioUnitario = cFunciones.gFncgetDbValue(lDr("PcioUnit"), cFunciones.TipoDato.NUMERO)
             PcioCaja = cFunciones.gFncgetDbValue(lDr("PcioCaja"), cFunciones.TipoDato.NUMERO)
             PorComision = cFunciones.gFncgetDbValue(lDr("PorComis"), cFunciones.TipoDato.NUMERO)
+            Me.Nuevo = False
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.subCargarDatos")
@@ -115,6 +126,21 @@ Public Class cListaPreciosDet
         End Try
 
     End Sub
+
+    Public Function Guardar() As Boolean
+        Try
+            Guardar = False
+            If Me.Nuevo = True Then
+                Dat_ListaDePredcioDet_INS(Me.IdLista, Me.CodLista, Me.Articulo.CodArt, PcioUnitario, Me.PorComision)
+            Else
+                Dat_ListaDePredcioDet_UPD(Me.IdDetalleLista, PcioUnitario, PorComision)
+            End If
+            Guardar = True
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Guardar")
+            gAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Guardar:" & ex.Message)
+        End Try
+    End Function
 
     Public Shared Function GetListaPreciosDetxIdDet(ByRef pAdmin As VzAdmin.cAdmin, ByVal pCodListaDet As Integer) As cListaPreciosDet
         Dim lDt As DataTable
@@ -138,7 +164,30 @@ Public Class cListaPreciosDet
         End Try
 
         Return lLista
+    End Function
 
+    Public Shared Function GetListaPreciosDetxListaxArt(ByRef pAdmin As VzAdmin.cAdmin, ByVal pCodLista As Integer, ByVal pCodArt As Integer) As cListaPreciosDet
+        Dim lDt As DataTable
+        Dim lDr As DataRow
+        Dim lPrecio As cListaPreciosDet = Nothing
+
+        Try
+            lDt = Dat_GetListaDePredcioDetxIdListaxCodArt(pAdmin, pCodLista, pCodArt)
+
+            If lDt.Rows.Count > 0 Then
+
+                For Each lDr In lDt.Rows
+                    lPrecio = New cListaPreciosDet(pAdmin)
+                    lPrecio.subCargarDatos(lDr)
+                Next
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.GetListaPreciosDetxIdDet")
+            pAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.GetListaPreciosDetxIdDet:" & ex.Message)
+        End Try
+
+        Return lPrecio
     End Function
 
     Public Shared Function GetListasDePreciosDetxLP(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdLista As Integer) As ArrayList
@@ -284,6 +333,43 @@ Public Class cListaPreciosDet
         End Try
     End Function
 
+    Private Shared Function Dat_GetListaDePredcioDetxIdListaxCodArt(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdLista As Integer, ByVal pCodArt As Integer) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+
+            Sql = "SELECT * FROM pro_detlista WHERE CodArt = #pCodArt# AND id_CodLista = #pCodLista#"
+            Sql = Sql.Replace("#pCodArt#", pCodArt)
+            Sql = Sql.Replace("#pCodLista#", pIdLista)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Dat_GetListaDePredcioDetxIdListaxCodArt")
+            pAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Dat_GetListaDePredcioDetxIdListaxCodArt:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
     Private Shared Function Dat_GetListaDePredcioDetxIdDet(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdListaDet As Integer) As DataTable
 
         Dim Cmd As New MySqlCommand
@@ -316,6 +402,82 @@ Public Class cListaPreciosDet
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Dat_GetListaDePredcioDetxIdDet")
             pAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Dat_GetListaDePredcioDetxIdDet:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Private Function Dat_ListaDePredcioDet_INS(ByVal pid_CodLista As Integer, ByVal pCodLista As Integer, ByVal pCodArt As Integer, ByVal pPcioUnit As Double, ByVal pPorComis As Double) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Try
+            Dat_ListaDePredcioDet_INS = False
+
+            lCnn = gAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL vz_ListaPreciosDet_ins(#id_CodLista#,#CodLista#,#CodArt#,#PcioUnit#,#PcioCaja#,#PorComis#,#idusr#)"
+            Sql = Sql.Replace("#id_CodLista#", pid_CodLista)
+            Sql = Sql.Replace("#CodLista#", pCodLista)
+            Sql = Sql.Replace("#CodArt#", pCodArt)
+            Sql = Sql.Replace("#PcioUnit#", pPcioUnit)
+            Sql = Sql.Replace("#PcioCaja#", 0)
+            Sql = Sql.Replace("#PorComis#", pPorComis)
+            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+            Dat_ListaDePredcioDet_INS = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Dat_ListaDePredcioDet_INS")
+            gAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Dat_ListaDePredcioDet_INS:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Private Function Dat_ListaDePredcioDet_UPD(ByVal pidDetalleLista As Integer, ByVal pPcioUnit As Double, ByVal pPorComis As Double) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Try
+            Dat_ListaDePredcioDet_UPD = False
+
+            lCnn = gAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL vz_ListaPreciosDet_upd(#idDetalleLista#,#PcioUnit#,#idusr#)"
+            Sql = Sql.Replace("#idDetalleLista#", pidDetalleLista)
+            Sql = Sql.Replace("#PcioUnit#", pPcioUnit)
+            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+            Dat_ListaDePredcioDet_UPD = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Dat_ListaDePredcioDet_UPD")
+            gAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Dat_ListaDePredcioDet_UPD:" & ex.Message)
             Return Nothing
         End Try
     End Function

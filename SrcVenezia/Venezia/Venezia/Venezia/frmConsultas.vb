@@ -34,6 +34,12 @@ Public Class frmConsultas
                             DirectCast(Me.FrmLlamador, frmTesoOrdenDePagoConsulta).SetProveedor(lvwConsulta.SelectedItems(0).Tag)
                             Me.Close()
                     End Select
+                ElseIf Me.FrmLlamador.Tag = "CONSULTAORDENESDEPAGOPORFECHA" Then
+                    Select Case pTipoObjeto
+                        Case cAdmin.EnuOBJETOS.Proveedores
+                            DirectCast(Me.FrmLlamador, frmTesoOrdenDePagoPorFecha).SetProveedor(lvwConsulta.SelectedItems(0).Tag)
+                            Me.Close()
+                    End Select
                 ElseIf Me.FrmLlamador.Tag = "TESOCHKRPTXPROV" Then
                     Select Case pTipoObjeto
                         Case cAdmin.EnuOBJETOS.Proveedores

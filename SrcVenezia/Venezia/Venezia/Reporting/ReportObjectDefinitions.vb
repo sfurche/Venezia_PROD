@@ -357,7 +357,154 @@
 
     End Class
 
+    Public Class RptObjDefOrdenDePagoPorFecha
 
+        Private _estado As String
+        Private _Nombre As String
+        Private _fechaD As Date
+        Private _fechaH As Date
+        Private _id_orden As Integer
+        Private _fecha As Date
+        Private _importe_cash As Double
+        Private _importe_transferencia As Double
+        Private _importe_cheques As Double
+        Private _tipo_destino As String
+        Private _destino As String
+        Private _CodProve As Integer
+        Private _id_estado As Integer
+        Private _observaciones As String
+
+        Public Property Estado As String
+            Get
+                Return _estado
+            End Get
+            Set(value As String)
+                _estado = value
+            End Set
+        End Property
+
+        Public Property Nombre As String
+            Get
+                Return _Nombre
+            End Get
+            Set(value As String)
+                _Nombre = value
+            End Set
+        End Property
+
+        Public Property FechaD As Date
+            Get
+                Return _fechaD
+            End Get
+            Set(value As Date)
+                _fechaD = value
+            End Set
+        End Property
+
+        Public Property FechaH As Date
+            Get
+                Return _fechaH
+            End Get
+            Set(value As Date)
+                _fechaH = value
+            End Set
+        End Property
+
+        Public Property Id_orden As Integer
+            Get
+                Return _id_orden
+            End Get
+            Set(value As Integer)
+                _id_orden = value
+            End Set
+        End Property
+
+        Public Property Fecha As Date
+            Get
+                Return _fecha
+            End Get
+            Set(value As Date)
+                _fecha = value
+            End Set
+        End Property
+
+        Public Property Importe_cash As Double
+            Get
+                Return _importe_cash
+            End Get
+            Set(value As Double)
+                _importe_cash = value
+            End Set
+        End Property
+
+        Public Property Importe_transferencia As Double
+            Get
+                Return _importe_transferencia
+            End Get
+            Set(value As Double)
+                _importe_transferencia = value
+            End Set
+        End Property
+
+        Public Property Importe_cheques As Double
+            Get
+                Return _importe_cheques
+            End Get
+            Set(value As Double)
+                _importe_cheques = value
+            End Set
+        End Property
+
+        Public Property Tipo_destino As String
+            Get
+                Return _tipo_destino
+            End Get
+            Set(value As String)
+                _tipo_destino = value
+            End Set
+        End Property
+
+        Public Property Destino As String
+            Get
+                Return _destino
+            End Get
+            Set(value As String)
+                _destino = value
+            End Set
+        End Property
+
+        Public Property CodProve As Integer
+            Get
+                Return _CodProve
+            End Get
+            Set(value As Integer)
+                _CodProve = value
+            End Set
+        End Property
+
+        Public Property Id_estado As Integer
+            Get
+                Return _id_estado
+            End Get
+            Set(value As Integer)
+                _id_estado = value
+            End Set
+        End Property
+
+        Public Property Observaciones As String
+            Get
+                Return _observaciones
+            End Get
+            Set(value As String)
+                _observaciones = value
+            End Set
+        End Property
+
+        Public Sub New()
+
+        End Sub
+
+    End Class
 #End Region
 
 End Namespace

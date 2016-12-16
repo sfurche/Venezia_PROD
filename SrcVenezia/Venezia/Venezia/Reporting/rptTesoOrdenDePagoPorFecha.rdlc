@@ -1151,7 +1151,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!Importe_cash.Value, "DataSet1") + Sum(Fields!Importe_transferencia.Value, "DataSet1")</Value>
+                              <Value>=Sum(Fields!Importe_cash.Value, "DataSet1") + Sum(Fields!Importe_transferencia.Value, "DataSet1")+Sum(Fields!Importe_cheques.Value, "DataSet1")</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -1174,6 +1174,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

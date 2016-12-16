@@ -25,7 +25,7 @@ CREATE TABLE `vz_precios_log` (
   INDEX `fk_precioslog_codlista_idx` (`id_CodLista` ASC),
   CONSTRAINT `fk_precioslog_codlista`
     FOREIGN KEY (`id_CodLista`)
-    REFERENCES `venezia_20161202`.`pro_listaprecio` (`Id_CodLista`)
+    REFERENCES `pro_listaprecio` (`Id_CodLista`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -35,7 +35,8 @@ DELIMITER //
 CREATE  PROCEDURE `vz_precios_log_ins`(  
   `_CodArt` VARCHAR(45) ,
   `_Precio` DOUBLE ,
-  `_id_CodLista` INT )
+  `_id_CodLista` INT,
+  `_idusr` INT   )
 BEGIN
 /*Inserta las liquidaciones.*/
 /*Ejemplo de invocacion:  CALL vz_precios_log_ins(14,'20160809','001000', 23333, 'observac',7)  */
@@ -109,7 +110,7 @@ CONCAT('001', LPAD(_CodArt,4,'0')),
   
 CALL vz_log_ins(now(), 'INS', 'vz_transferencias', v_nr,_idusr, '');
 
-CALL vz_precios_log_ins(_CodArt, _PcioUnit, _id_CodLista);
+CALL vz_precios_log_ins(_CodArt, _PcioUnit, _id_CodLista, _idusr);
    
 COMMIT;
 select v_nr;
@@ -131,7 +132,7 @@ DECLARE vCodLista INT;
 
 SET vCodArt =(select CodArt from pro_detlista where idDetalleLista = _idDetalleLista );
 
-SET vCodLista =(select CodLista from pro_detlista where idDetalleLista = _idDetalleLista );
+SET vCodLista =(select Id_CodLista from pro_detlista where idDetalleLista = _idDetalleLista );
 
 START TRANSACTION;
 
@@ -141,16 +142,38 @@ where idDetalleLista = _idDetalleLista;
   
 CALL vz_log_ins(now(), 'UPD', 'pro_detlista', _idDetalleLista,_idusr, _PcioUnit);
 
-CALL vz_precios_log_ins(vCodArt, _PcioUnit, vCodLista);
+CALL vz_precios_log_ins(vCodArt, _PcioUnit, vCodLista, _idusr);
    
 COMMIT;
 
 END //
 
 
-
-
 /*----------------------------------------------------------------------------------------*/
+
+DELIMITER //
+CREATE  PROCEDURE `pro_articulos_updcosto`(  
+  `_CodArt` int(11) ,
+  `_PcioCosto` double ,
+  `_idusr` INT )
+BEGIN
+/*Modifica el costo de los articulos*/
+
+START TRANSACTION;
+
+UPDATE  pro_articulos 
+SET PcioCosto =_PcioCosto
+where CodArt = _CodArt;
+  
+CALL vz_log_ins(now(), 'UPD', 'pro_articulos', _CodArt,_idusr, _PcioCosto);
+
+CALL vz_precios_log_ins(_CodArt, _PcioCosto, null, _idusr);
+   
+COMMIT;
+
+END //
+
+
 
 /*----------------------------------------------------------------------------------------*/
 

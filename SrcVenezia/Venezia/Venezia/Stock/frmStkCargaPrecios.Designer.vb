@@ -33,10 +33,10 @@ Partial Class frmStkCargaPrecios
         Me.txtCriterioBusq = New System.Windows.Forms.TextBox()
         Me.lblNombre = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.lvwConsulta = New System.Windows.Forms.ListView()
-        Me.lblTotalImp = New System.Windows.Forms.Label()
-        Me.lblProcOK = New System.Windows.Forms.Label()
         Me.lblProcErr = New System.Windows.Forms.Label()
+        Me.lblProcOK = New System.Windows.Forms.Label()
+        Me.lblTotalImp = New System.Windows.Forms.Label()
+        Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.GroupBox1.SuspendLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -45,7 +45,7 @@ Partial Class frmStkCargaPrecios
         'btnSalir
         '
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSalir.Location = New System.Drawing.Point(1597, 1571)
+        Me.btnSalir.Location = New System.Drawing.Point(1647, 1292)
         Me.btnSalir.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(253, 50)
@@ -69,7 +69,7 @@ Partial Class frmStkCargaPrecios
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(1824, 298)
+        Me.GroupBox1.Size = New System.Drawing.Size(1893, 298)
         Me.GroupBox1.TabIndex = 27
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos de Carga"
@@ -141,7 +141,7 @@ Partial Class frmStkCargaPrecios
         Me.txtCriterioBusq.Location = New System.Drawing.Point(309, 215)
         Me.txtCriterioBusq.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtCriterioBusq.Name = "txtCriterioBusq"
-        Me.txtCriterioBusq.Size = New System.Drawing.Size(1463, 38)
+        Me.txtCriterioBusq.Size = New System.Drawing.Size(1547, 38)
         Me.txtCriterioBusq.TabIndex = 4
         '
         'lblNombre
@@ -165,10 +165,42 @@ Partial Class frmStkCargaPrecios
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox2.Size = New System.Drawing.Size(1824, 1214)
+        Me.GroupBox2.Size = New System.Drawing.Size(1893, 944)
         Me.GroupBox2.TabIndex = 28
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Precios"
+        '
+        'lblProcErr
+        '
+        Me.lblProcErr.AutoSize = True
+        Me.lblProcErr.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProcErr.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblProcErr.Location = New System.Drawing.Point(1095, 877)
+        Me.lblProcErr.Name = "lblProcErr"
+        Me.lblProcErr.Size = New System.Drawing.Size(334, 32)
+        Me.lblProcErr.TabIndex = 22
+        Me.lblProcErr.Text = "Procesados con ERROR:"
+        '
+        'lblProcOK
+        '
+        Me.lblProcOK.AutoSize = True
+        Me.lblProcOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProcOK.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.lblProcOK.Location = New System.Drawing.Point(586, 877)
+        Me.lblProcOK.Name = "lblProcOK"
+        Me.lblProcOK.Size = New System.Drawing.Size(221, 32)
+        Me.lblProcOK.TabIndex = 21
+        Me.lblProcOK.Text = "Procesados OK:"
+        '
+        'lblTotalImp
+        '
+        Me.lblTotalImp.AutoSize = True
+        Me.lblTotalImp.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalImp.Location = New System.Drawing.Point(72, 877)
+        Me.lblTotalImp.Name = "lblTotalImp"
+        Me.lblTotalImp.Size = New System.Drawing.Size(258, 32)
+        Me.lblTotalImp.TabIndex = 20
+        Me.lblTotalImp.Text = "Total Importados: 0"
         '
         'lvwConsulta
         '
@@ -178,48 +210,16 @@ Partial Class frmStkCargaPrecios
         Me.lvwConsulta.Location = New System.Drawing.Point(16, 50)
         Me.lvwConsulta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lvwConsulta.Name = "lvwConsulta"
-        Me.lvwConsulta.Size = New System.Drawing.Size(1780, 1075)
+        Me.lvwConsulta.Size = New System.Drawing.Size(1857, 805)
         Me.lvwConsulta.TabIndex = 0
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
-        '
-        'lblTotalImp
-        '
-        Me.lblTotalImp.AutoSize = True
-        Me.lblTotalImp.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalImp.Location = New System.Drawing.Point(69, 1152)
-        Me.lblTotalImp.Name = "lblTotalImp"
-        Me.lblTotalImp.Size = New System.Drawing.Size(258, 32)
-        Me.lblTotalImp.TabIndex = 20
-        Me.lblTotalImp.Text = "Total Importados: 0"
-        '
-        'lblProcOK
-        '
-        Me.lblProcOK.AutoSize = True
-        Me.lblProcOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblProcOK.ForeColor = System.Drawing.Color.CornflowerBlue
-        Me.lblProcOK.Location = New System.Drawing.Point(583, 1152)
-        Me.lblProcOK.Name = "lblProcOK"
-        Me.lblProcOK.Size = New System.Drawing.Size(221, 32)
-        Me.lblProcOK.TabIndex = 21
-        Me.lblProcOK.Text = "Procesados OK:"
-        '
-        'lblProcErr
-        '
-        Me.lblProcErr.AutoSize = True
-        Me.lblProcErr.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblProcErr.ForeColor = System.Drawing.Color.OrangeRed
-        Me.lblProcErr.Location = New System.Drawing.Point(1092, 1152)
-        Me.lblProcErr.Name = "lblProcErr"
-        Me.lblProcErr.Size = New System.Drawing.Size(334, 32)
-        Me.lblProcErr.TabIndex = 22
-        Me.lblProcErr.Text = "Procesados con ERROR:"
         '
         'frmStkCargaPrecios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1901, 1653)
+        Me.ClientSize = New System.Drawing.Size(1934, 1365)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnSalir)

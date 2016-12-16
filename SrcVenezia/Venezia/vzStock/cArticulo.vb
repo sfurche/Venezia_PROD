@@ -234,6 +234,18 @@ Public Class cArticulo
 
     End Function
 
+    Public Function ActualizarCosto(ByVal pCosto As Double) As Boolean
+        Try
+            ActualizarCosto = False
+
+            Dat_Articulo_ActualizaCosto(pCosto)
+
+            ActualizarCosto = True
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.ActualizarCosto")
+            gAdmin.Log.fncGrabarLogERR("Error en cArticulo.ActualizarCosto:" & ex.Message)
+        End Try
+    End Function
 
 #End Region
 
@@ -340,6 +352,42 @@ Public Class cArticulo
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.Dat_GetArticuloGetAll")
             pAdmin.Log.fncGrabarLogERR("Error en cArticulo.Dat_GetArticuloGetAll:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Private Function Dat_Articulo_ActualizaCosto(ByVal pPcioCosto As Double) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Try
+            Dat_Articulo_ActualizaCosto = False
+
+            lCnn = gAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL pro_articulos_updcosto(#CodArt#,#PcioCosto#,#idusr#)"
+            Sql = Sql.Replace("#CodArt#", Me.CodArt)
+            Sql = Sql.Replace("#PcioCosto#", pPcioCosto)
+            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+            Dat_Articulo_ActualizaCosto = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.Dat_Articulo_ActualizaCosto")
+            gAdmin.Log.fncGrabarLogERR("Error en cArticulo.Dat_Articulo_ActualizaCosto:" & ex.Message)
             Return Nothing
         End Try
     End Function

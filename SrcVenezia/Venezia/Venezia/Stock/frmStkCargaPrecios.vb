@@ -82,6 +82,9 @@ Public Class frmStkCargaPrecios
         'Cargo el separador decimal que necesita el sistema.
         Dim lSysSepDec As String = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator
         Try
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             Do
                 sLine = objReader.ReadLine()
                 If Not sLine Is Nothing Then
@@ -91,6 +94,7 @@ Public Class frmStkCargaPrecios
             Loop Until sLine Is Nothing
             objReader.Close()
 
+            btnSimular.Text = "Simular"
             SubSetCabecera()
 
             'Cargo en los settings los separadores de miles y decimales con los que exporta excel a texto.
@@ -107,14 +111,14 @@ Public Class frmStkCargaPrecios
                     lItem.SubItems.Add(lNuevoValor.ToString("C"))
                     lItem.SubItems.Add("")
                     lItem.SubItems.Add("")
-                        lItem.SubItems.Add("")
-                        lItem.SubItems.Add("")
-                        lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
+                    lItem.SubItems.Add("")
                     lItem.SubItems.Add("")
                     lItem.SubItems.Add("")
                     lvwConsulta.Items.Add(lItem)
-                        lCant = lCant + 1
-                    End If
+                    lCant = lCant + 1
+                End If
             Next
 
             lblTotalImp.Text = "Total Importados: " & lCant.ToString
@@ -124,6 +128,7 @@ Public Class frmStkCargaPrecios
             gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.LoadArchivoPrecios:" & ex.Message)
             SubSetCabecera() ' Si falla borro la grilla.
         End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
     End Sub
 
     Private Sub lvwConsulta_ColumnClick(ByVal sender As Object, ByVal e As ColumnClickEventArgs)
@@ -174,8 +179,7 @@ Public Class frmStkCargaPrecios
 
             lvwConsulta.Columns.Add(New ColHeader("CodArt", 60, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("NuevoValor", 70, HorizontalAlignment.Right, True))
-            'lvwConsulta.Columns.Add(New ColHeader("CodProd", 80, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Articulo", 250, HorizontalAlignment.Left, True))
+            lvwConsulta.Columns.Add(New ColHeader("Articulo", 200, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Costo", 65, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("PcioHoy", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("%Var", 65, HorizontalAlignment.Right, True))
@@ -219,6 +223,11 @@ Public Class frmStkCargaPrecios
                     Exit Sub
                 End If
 
+                If lvwConsulta.Items.Count = 0 Then
+                    MsgBox("No hay datos para procesar.", MsgBoxStyle.Exclamation, "Sin datos")
+                    Exit Sub
+                End If
+
                 For Each lItem In lvwConsulta.Items
 
                     If Not IsNumeric(lItem.Text.Trim) Or (Not lItem.Text.Trim.Length = 5) Then 'Si el codigo de articulo no es numerico genero error
@@ -239,7 +248,7 @@ Public Class frmStkCargaPrecios
 
                         If IsNothing(lArt) Then
                             lItem.SubItems(2).Text = "Codigo de articulo no valido."
-                            lItem.Tag = "Error"
+                            lItem.Tag = "Error" 'Marco el error en el tag para despues no procesarlo.
                             lItem.ForeColor = Color.Red
                             lErr = lErr + 1
                         Else
@@ -248,8 +257,9 @@ Public Class frmStkCargaPrecios
                             Else
                                 lPrecio = cListaPreciosDet.GetListaPreciosDetxListaxArt(gAdmin, DirectCast(cmbListaPrecios.SelectedItem, cListaPrecios).IdLista, lArt.CodArt)
                             End If
-                            lItem.Tag = "OK"
+                            lItem.Tag = "OK"  'Marco como OK para despues procesarlo.
                             lItem.SubItems(2).Text = lArt.Descripcion
+                            lItem.SubItems(2).Tag = lArt
                             lItem.SubItems(3).Text = lArt.PcioCosto.ToString("C")  ' COSTO
 
                             If IsNothing(lPrecio) Then 'Valido si tiene precio en la lista.
@@ -262,13 +272,27 @@ Public Class frmStkCargaPrecios
 
                             lPrecioNuevo = Double.Parse(lItem.SubItems(1).Text.Replace("$", "").Trim)
 
-                            lVar = Math.Round((lPrecioNuevo - Double.Parse(lItem.SubItems(4).Text.Replace("$", ""))) / Double.Parse(lItem.SubItems(4).Text.Replace("$", "")), 2)
-                            lItem.SubItems(5).Text = lVar.ToString("P")
-                            lItem.SubItems(5).Tag = lVar
 
-                            lUtil = Math.Round((lPrecioNuevo - lArt.PcioCosto) / lArt.PcioCosto, 2)
-                            lItem.SubItems(6).Text = lUtil.ToString("P")
-                            lItem.SubItems(5).Tag = lUtil
+                            If cmbListaPrecios.SelectedItem.ToString = "COSTO" Then
+
+                                'Calcula la diferencia entre el costo cargado y el nuevol
+                                lVar = Math.Round((lPrecioNuevo - lArt.PcioCosto) / lArt.PcioCosto, 2)
+                                lItem.SubItems(5).Text = lVar.ToString("P")
+                                lItem.SubItems(5).Tag = lVar
+
+                                'Si esta actualizando el costo, la utilidad es 0.
+                                lItem.SubItems(6).Text = "$ 0"
+                                lItem.SubItems(6).Tag = Nothing
+
+                            Else
+                                lVar = Math.Round((lPrecioNuevo - Double.Parse(lItem.SubItems(4).Text.Replace("$", ""))) / Double.Parse(lItem.SubItems(4).Text.Replace("$", "")), 2)
+                                lItem.SubItems(5).Text = lVar.ToString("P")
+                                lItem.SubItems(5).Tag = lVar
+
+                                lUtil = Math.Round((lPrecioNuevo - lArt.PcioCosto) / lArt.PcioCosto, 2)
+                                lItem.SubItems(6).Text = lUtil.ToString("P")
+                                lItem.SubItems(6).Tag = lUtil
+                            End If
 
                             If lVar > 0 Then
                                 lItem.SubItems(4).ForeColor = Color.DarkOliveGreen
@@ -277,6 +301,8 @@ Public Class frmStkCargaPrecios
                                 lItem.SubItems(4).ForeColor = Color.Red
                                 lItem.SubItems(5).ForeColor = Color.Red
                             End If
+
+                            lItem.SubItems(7).Text = ""
 
                             lOK = lOK + 1
                         End If
@@ -304,11 +330,15 @@ Public Class frmStkCargaPrecios
                             If IsNothing(lItem.SubItems(4).Tag) Then
                                 lPrecio = New cListaPreciosDet(gAdmin)
                                 lPrecio.PcioUnitario = Double.Parse(lItem.SubItems(1).Text.Replace("$", ""))
-                                lPrecio.CodLista = DirectCast(cmbListaPrecios.SelectedItem, cListaPrecios).CodLista
-                                lPrecio.IdLista = DirectCast(cmbListaPrecios.SelectedItem, cListaPrecios).IdLista
+
+                                If Not cmbListaPrecios.SelectedItem.ToString = "COSTO" Then
+                                    lPrecio.CodLista = DirectCast(cmbListaPrecios.SelectedItem, cListaPrecios).CodLista
+                                    lPrecio.IdLista = DirectCast(cmbListaPrecios.SelectedItem, cListaPrecios).IdLista
+                                End If
+
                                 lPrecio.PcioCaja = 0
-                                lPrecio.CodProd = lItem.Text.Trim.PadLeft(4, "0")
-                                lPrecio.Articulo = cArticulo.GetArticuloxCod(gAdmin, lItem.Text.Trim)
+                                lPrecio.CodProd = lItem.Text.Trim
+                                lPrecio.Articulo = DirectCast(lItem.SubItems(2).Tag, cArticulo)
                                 lPrecio.PorComision = lPrecio.Articulo.PorComis
                                 lPrecio.Nuevo = True
                             Else
@@ -316,17 +346,33 @@ Public Class frmStkCargaPrecios
                                 lPrecio.PcioUnitario = Double.Parse(lItem.SubItems(1).Text.Replace("$", ""))
                             End If
 
-                            'GUARDO
-                            If lPrecio.Guardar() = True Then
-                                lItem.SubItems(6).Text = "OK"
-                                lItem.SubItems(6).ForeColor = Color.Blue
+                            If cmbListaPrecios.SelectedItem.ToString = "COSTO" Then
+                                'ACTUALIZO EL COSTO DE LOS ARTICULOS.
+                                If lPrecio.Articulo.ActualizarCosto(lPrecio.PcioUnitario) = True Then
+                                    lItem.SubItems(7).Text = "OK"
+                                    lItem.SubItems(7).ForeColor = Color.Blue
+                                Else
+                                    lItem.SubItems(7).Text = "NOK"
+                                    lItem.SubItems(7).ForeColor = Color.Red
+                                End If
                             Else
-                                lItem.SubItems(6).Text = "NOK"
-                                lItem.SubItems(6).ForeColor = Color.Red
+                                'ACTUALIZO LOS PRECIOS DE LA LISTA DE PRECIOS.
+                                If lPrecio.Guardar() = True Then
+                                    lItem.SubItems(7).Text = "OK"
+                                    lItem.SubItems(7).ForeColor = Color.Blue
+                                Else
+                                    lItem.SubItems(7).Text = "NOK"
+                                    lItem.SubItems(7).ForeColor = Color.Red
+                                End If
                             End If
+
                         End If
                     End If
                 Next
+                'Cuando termina el proceso, dejo preparado para que vuelvan a procesar.
+                btnSimular.Text = "Simular"
+                lblPath.Text = "___________________________________________________"
+
             End If
 
         Catch ex As Exception
@@ -334,6 +380,17 @@ Public Class frmStkCargaPrecios
             gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.btnSimular_Click:" & ex.Message)
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub cmbListaPrecios_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbListaPrecios.SelectedIndexChanged
+        Try
+
+            btnSimular.Text = "Simular"
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.cmbListaPrecios_SelectedIndexChanged")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.cmbListaPrecios_SelectedIndexChanged:" & ex.Message)
+        End Try
     End Sub
 End Class
 

@@ -553,6 +553,44 @@ Public Class cOrdenDePago
         End Try
     End Function
 
+    Public Shared Function Dat_OrdenesDePagoPorFecha(ByRef pAdmin As cAdmin, ByVal pEstado As String, ByVal pNombre As String, ByVal pFechaD As Date, ByVal pFechaH As Date) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "call vz_ordenes_de_pago_x_fecha ('#estado#','#Nombre#','#fechaD#','#fechaH#')"
+            Sql = Sql.Replace("#estado#", pEstado)
+            Sql = Sql.Replace("#Nombre#", pNombre)
+            Sql = Sql.Replace("#fechaD#", cFunciones.gFncConvertDateToString(pFechaD, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#fechaH#", cFunciones.gFncConvertDateToString(pFechaH, "YYYY/MM/DD"))
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenDePago.Dat_OrdenesDePagoPorFecha")
+            pAdmin.Log.fncGrabarLogERR("Error en cOrdenDePago.DDat_OrdenesDePagoPorFecha:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
 #End Region
 
 End Class

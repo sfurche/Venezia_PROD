@@ -160,6 +160,12 @@
     <Compile Include="Tesoreria\frmTesoOrdenDePagoConsulta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoPorFecha.Designer.vb">
+      <DependentUpon>frmTesoOrdenDePagoPorFecha.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoOrdenDePagoPorFecha.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Venezia\frmManualOperativo.Designer.vb">
       <DependentUpon>frmManualOperativo.vb</DependentUpon>
     </Compile>
@@ -291,6 +297,9 @@
     <EmbeddedResource Include="Reporting\rptTesoLiqRendDiariaVal.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\rptTesoOrdenDePagoPorFecha.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporting\Template.rdlc" />
     <EmbeddedResource Include="Reporting\TemplateLegal.rdlc" />
     <EmbeddedResource Include="Reporting\TemplateA4.rdlc" />
@@ -348,6 +357,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tesoreria\frmTesoOrdenDePagoConsulta.resx">
       <DependentUpon>frmTesoOrdenDePagoConsulta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoOrdenDePagoPorFecha.resx">
+      <DependentUpon>frmTesoOrdenDePagoPorFecha.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Venezia\FrmBase.resx">
       <DependentUpon>FrmBase.vb</DependentUpon>

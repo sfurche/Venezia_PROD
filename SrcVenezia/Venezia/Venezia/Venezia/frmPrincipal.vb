@@ -770,7 +770,31 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub OrdenesDePagoXFechaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrdenesDePagoXFechaToolStripMenuItem.Click
-        MsgBox("No tiene permisos para ingresar a esta opcion.", MsgBoxStyle.Exclamation)
+        Dim Ventana As New frmTesoOrdenDePagoPorFecha
+        Dim F As Form
+        Dim i As Integer
+        Dim Cant As Integer = 0
+        Try
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            Ventana.MdiParent = Me
+            If Cant > 0 Then
+                Ventana.Text = Ventana.Text & "" & Cant
+            End If
+            Ventana.TipoDeOperacion = EnuOPERACION.CONS
+            Ventana.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.OrdenesDePagoXFechaToolStripMenuItem_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.OrdenesDePagoXFechaToolStripMenuItem_Click:" & ex.Message)
+        End Try
     End Sub
 
     Private Sub ChequesXProveedorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChequesXProveedorToolStripMenuItem.Click

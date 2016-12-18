@@ -109,4 +109,40 @@ Public Class frmConfiguracion
         End Try
     End Sub
 
+    Private Sub lvwConsulta_MouseClick(sender As Object, e As MouseEventArgs) Handles lvwConsulta.MouseClick
+        Try
+
+            If e.Button = MouseButtons.Right Then
+                If lvwConsulta.FocusedItem.Bounds.Contains(e.Location) = True Then
+                    ContextMenuStrip1.Show(Cursor.Position)
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.lvwConsulta_MouseClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.lvwConsulta_MouseClick:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub tsmCambiarPrecio_Click(sender As Object, e As EventArgs) Handles tsmCambiarValor.Click
+        Dim lValor As String = ""
+        Dim lSetting As cSetting = Nothing
+        Try
+
+            lValor = InputBox("Ingerse el nuevo precio:", "Modificar precio", " ")
+            If Not lValor = " " Then
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+                lSetting = DirectCast(lvwConsulta.SelectedItems(0).Tag, cSetting)
+                lvwConsulta.SelectedItems(0).SubItems(3).Text = lValor
+                lSetting.Valor = lValor
+                lSetting.Guardar()
+                subCargarSettings()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.tsmCambiarPrecio_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.tsmCambiarPrecio_Click:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
 End Class

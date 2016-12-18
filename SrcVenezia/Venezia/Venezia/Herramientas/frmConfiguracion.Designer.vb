@@ -21,10 +21,14 @@ Partial Class frmConfiguracion
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmCambiarValor = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnSalir
@@ -41,7 +45,7 @@ Partial Class frmConfiguracion
         '
         Me.GroupBox2.Controls.Add(Me.lvwConsulta)
         Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 27)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 18)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(1914, 855)
         Me.GroupBox2.TabIndex = 15
@@ -51,6 +55,7 @@ Partial Class frmConfiguracion
         'lvwConsulta
         '
         Me.lvwConsulta.AllowColumnReorder = True
+        Me.lvwConsulta.FullRowSelect = True
         Me.lvwConsulta.GridLines = True
         Me.lvwConsulta.Location = New System.Drawing.Point(17, 42)
         Me.lvwConsulta.MultiSelect = False
@@ -60,18 +65,32 @@ Partial Class frmConfiguracion
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(40, 40)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmCambiarValor})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(319, 50)
+        '
+        'tsmCambiarValor
+        '
+        Me.tsmCambiarValor.Name = "tsmCambiarValor"
+        Me.tsmCambiarValor.Size = New System.Drawing.Size(318, 46)
+        Me.tsmCambiarValor.Text = "Cambiar Valor"
+        '
         'frmConfiguracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1947, 994)
+        Me.ClientSize = New System.Drawing.Size(1939, 966)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.GroupBox2)
         Me.Margin = New System.Windows.Forms.Padding(5, 7, 5, 7)
         Me.Name = "frmConfiguracion"
         Me.Text = "Configuracion"
         Me.GroupBox2.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -79,4 +98,6 @@ Partial Class frmConfiguracion
     Friend WithEvents btnSalir As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents lvwConsulta As ListView
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents tsmCambiarValor As ToolStripMenuItem
 End Class

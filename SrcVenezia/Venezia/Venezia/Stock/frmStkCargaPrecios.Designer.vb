@@ -22,6 +22,7 @@ Partial Class frmStkCargaPrecios
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.imgAbrir = New System.Windows.Forms.PictureBox()
@@ -37,9 +38,12 @@ Partial Class frmStkCargaPrecios
         Me.lblProcOK = New System.Windows.Forms.Label()
         Me.lblTotalImp = New System.Windows.Forms.Label()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmCambiarPrecio = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnSalir
@@ -215,6 +219,19 @@ Partial Class frmStkCargaPrecios
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(40, 40)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmCambiarPrecio})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(334, 105)
+        '
+        'tsmCambiarPrecio
+        '
+        Me.tsmCambiarPrecio.Name = "tsmCambiarPrecio"
+        Me.tsmCambiarPrecio.Size = New System.Drawing.Size(333, 46)
+        Me.tsmCambiarPrecio.Text = "Cambiar Precio"
+        '
         'frmStkCargaPrecios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
@@ -231,6 +248,7 @@ Partial Class frmStkCargaPrecios
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -251,4 +269,6 @@ Partial Class frmStkCargaPrecios
     Friend WithEvents lblProcErr As Label
     Friend WithEvents lblProcOK As Label
     Friend WithEvents lblTotalImp As Label
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents tsmCambiarPrecio As ToolStripMenuItem
 End Class

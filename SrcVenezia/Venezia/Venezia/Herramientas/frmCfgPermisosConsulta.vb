@@ -1,10 +1,18 @@
 ﻿Imports VzAdmin
 
 Public Class frmCfgPermisosConsulta
+    Dim mModif As Boolean = False 'Define si hubo modificaciones en los permisos del usuario seleccionado.
+    Dim mPermiso As cPermiso = Nothing
+    Dim mUser As cUser = Nothing
 
     Private Sub frmCfgPermisosConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             subCargarCombo()
             SubSetCabecera()
 
@@ -14,7 +22,28 @@ Public Class frmCfgPermisosConsulta
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
+    Private Sub SetPermisos()
+        Try
 
+            mPermiso = gAdmin.User.GetPermiso("Permisos")
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.Close()
+            End If
+
+            If Not mPermiso.Admin = cPermiso.enuBinario.Si Then
+                btnUpdPWD.Enabled = False
+            End If
+
+            If Not mPermiso.Modificacion = cPermiso.enuBinario.Si Then
+                btnGuardar.Enabled = False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
     Private Sub SubSetCabecera()
         Try
 
@@ -135,6 +164,8 @@ Public Class frmCfgPermisosConsulta
                 lvwConsulta.Items.Add(lItem)
             Next
 
+            mModif = False
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPermisosConsulta.CargarDatosGrilla")
             gAdmin.Log.fncGrabarLogERR("Error en frmPermisosConsulta.CargarDatosGrilla:" & ex.Message)
@@ -144,16 +175,87 @@ Public Class frmCfgPermisosConsulta
 
     Private Sub cmbUsuarios_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUsuarios.SelectedIndexChanged
         Try
+            If mModif = True Then
+                If MsgBox("Hay cambios que no se han guardado. Desea continuar y perder las modificaciones realizadas ?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "No guardar") = MsgBoxResult.No Then
+                    If Not IsNothing(mUser) Then
+                        cmbUsuarios.SelectedText = mUser.Usuario
+                        Exit Sub
+                    End If
+                End If
+            End If
 
             If cmbUsuarios.SelectedText = " " Then
                 SubSetCabecera()
             Else
-                CargarDatosGrilla(DirectCast(cmbUsuarios.SelectedItem, cUser))
+                mUser = DirectCast(cmbUsuarios.SelectedItem, cUser)
+                CargarDatosGrilla(mUser)
             End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.cmbUsuarios_SelectedIndexChanged")
             gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.cmbUsuarios_SelectedIndexChanged:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnUpdPWD_Click(sender As Object, e As EventArgs) Handles btnUpdPWD.Click
+        Try
+
+            MsgBox("La password del usuario es: '" & DirectCast(cmbUsuarios.SelectedItem, cUser).Pwd & "'", vbInformation, "Visor de clave")
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.btnUpdPWD_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.btnUpdPWD_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub lvwConsulta_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvwConsulta.MouseDoubleClick
+        Try
+
+            Dim info As ListViewHitTestInfo = lvwConsulta.HitTest(e.X, e.Y)
+            If Not IsNothing(info.SubItem) Then
+                'MsgBox(info.SubItem.Text)
+
+                If info.SubItem.Text = Chr(251) Then
+                    info.SubItem.Text = Chr(252)
+                    info.SubItem.ForeColor = Color.Green
+                    mModif = True
+                    lvwConsulta.Select()
+                ElseIf info.SubItem.Text = Chr(252) Then
+                    info.SubItem.Text = Chr(251)
+                    info.SubItem.ForeColor = Color.Red
+                    mModif = True
+                    lvwConsulta.HideSelection = True
+                End If
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.lvwConsulta_MouseDoubleClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.lvwConsulta_MouseDoubleClick:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        Try
+            If mModif = False Then
+                MsgBox("No hay modificaciones para guardar", MsgBoxStyle.Exclamation, "Sin modificaciones")
+                Exit Sub
+            End If
+
+            If MsgBox("Esta seguro que desea guardar los cambios?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Confirma guardar") = MsgBoxResult.Yes Then
+                'aca deberia recoorrere la grilla y guardar los cambios.
+
+                'Marco que ya no tiene cambios pendientes.
+                mModif = False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.btnGuardar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.btnGuardar_Click:" & ex.Message)
         End Try
     End Sub
 End Class

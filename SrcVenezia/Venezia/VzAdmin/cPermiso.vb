@@ -3,7 +3,6 @@ Imports VzAdmin
 
 Public Class cPermiso
 
-
 #Region "Declaraciones"
 
     Private _Id_Permiso As Integer
@@ -168,6 +167,16 @@ Public Class cPermiso
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Load")
             gLog.fncGrabarLogERR("Error en cPermiso.Load:" & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub Guardar()
+        Try
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Guardar")
+            gLog.fncGrabarLogERR("Error en cPermiso.Guardar:" & ex.Message)
         End Try
     End Sub
 

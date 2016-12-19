@@ -28,8 +28,8 @@ Partial Class frmCfgPermisosConsulta
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.btnSalir = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnUpdPWD = New System.Windows.Forms.Button()
+        Me.btnGuardar = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -82,6 +82,7 @@ Partial Class frmCfgPermisosConsulta
         Me.lvwConsulta.GridLines = True
         Me.lvwConsulta.Location = New System.Drawing.Point(6, 36)
         Me.lvwConsulta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.lvwConsulta.MultiSelect = False
         Me.lvwConsulta.Name = "lvwConsulta"
         Me.lvwConsulta.Size = New System.Drawing.Size(1999, 650)
         Me.lvwConsulta.TabIndex = 1
@@ -99,35 +100,35 @@ Partial Class frmCfgPermisosConsulta
         Me.btnSalir.Text = "&Salir"
         Me.btnSalir.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btnUpdPWD
         '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(305, 922)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(405, 50)
-        Me.Button1.TabIndex = 28
-        Me.Button1.Text = "Ver / Cambiar Contraseña"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnUpdPWD.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdPWD.Location = New System.Drawing.Point(305, 922)
+        Me.btnUpdPWD.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btnUpdPWD.Name = "btnUpdPWD"
+        Me.btnUpdPWD.Size = New System.Drawing.Size(405, 50)
+        Me.btnUpdPWD.TabIndex = 28
+        Me.btnUpdPWD.Text = "Ver / Cambiar Contraseña"
+        Me.btnUpdPWD.UseVisualStyleBackColor = False
         '
-        'Button2
+        'btnGuardar
         '
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(18, 922)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(253, 50)
-        Me.Button2.TabIndex = 29
-        Me.Button2.Text = "Guardar"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnGuardar.Location = New System.Drawing.Point(18, 922)
+        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.btnGuardar.Name = "btnGuardar"
+        Me.btnGuardar.Size = New System.Drawing.Size(253, 50)
+        Me.btnGuardar.TabIndex = 29
+        Me.btnGuardar.Text = "Guardar"
+        Me.btnGuardar.UseVisualStyleBackColor = False
         '
         'frmCfgPermisosConsulta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(2043, 1008)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btnUpdPWD)
+        Me.Controls.Add(Me.btnGuardar)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -146,6 +147,6 @@ Partial Class frmCfgPermisosConsulta
     Friend WithEvents cmbUsuarios As ComboBox
     Friend WithEvents btnSalir As Button
     Friend WithEvents lvwConsulta As ListView
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnUpdPWD As Button
+    Friend WithEvents btnGuardar As Button
 End Class

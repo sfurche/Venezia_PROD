@@ -45,3 +45,4 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzAdmin\obj\D
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.dll
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.xml
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.pdb
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzAdmin\obj\Debug\VzAdmin.vbprojResolveAssemblyReference.cache

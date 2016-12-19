@@ -134,7 +134,7 @@ Public Class cUser
             _FecBaja = pDr("fbaja")
             _Id = pDr("idusr")
             _Pwd = Dencry(_PwdEnc.Trim).Trim
-            _Usuario = pDr("idusr")
+            _Usuario = pDr("nombre")
             _Permisos = cPermiso.GetPermisosxUsuario(gadmin, Me.Id)
             _Validado = False
 
@@ -219,6 +219,27 @@ Public Class cUser
         End Try
     End Function
 
+    Public Shared Function GetUsuarioAll(ByRef pAdmin As cAdmin) As ArrayList
+        Dim lDt As DataTable = Nothing
+        GetUsuarioAll = New ArrayList
+        Dim lUser = Nothing
+        Dim lDr As DataRow = Nothing
+
+        Try
+            lDt = Dat_GetUsuarioAll(pAdmin)
+
+            For Each lDr In lDt.Rows
+                lUser = New cUser(pAdmin)
+                lUser.Load(lDr)
+                GetUsuarioAll.Add(lUser)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cUser.GetUsuarioAll")
+            gLog.fncGrabarLogERR("Error en cUser.GetUsuarioAll:" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"
@@ -289,6 +310,40 @@ Public Class cUser
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cUser.Dat_GetUsuarioxID")
             gLog.fncGrabarLogERR("Error en cUser.Dat_GetUsuarioxID:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetUsuarioAll(ByRef pAdmin As VzAdmin.cAdmin) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = gDbCnn.GetInstanceCon
+            Sql = "Select * from sis_usuarios"
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cUser.Dat_GetUsuarioAll")
+            gLog.fncGrabarLogERR("Error en cUser.Dat_GetUsuarioAll:" & ex.Message)
             Return Nothing
         End Try
     End Function

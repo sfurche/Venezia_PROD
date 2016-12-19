@@ -180,7 +180,6 @@ Public Class cPermiso
 
             lDt = Dat_GetPermisosUsuario(pAdmin, pidUser)
 
-
             For Each lDr In lDt.Rows
                 lPermiso = New cPermiso(pAdmin)
                 lPermiso.Load(lDr)
@@ -199,6 +198,7 @@ Public Class cPermiso
 #End Region
 
 #Region "Base de Datos"
+
     Public Shared Function Dat_GetPermisosUsuario(ByRef pAdmin As cAdmin, ByVal pidUser As Integer) As DataTable
 
         Dim Cmd As New MySqlCommand
@@ -233,6 +233,7 @@ Public Class cPermiso
             Return Nothing
         End Try
     End Function
+
 #End Region
 
 

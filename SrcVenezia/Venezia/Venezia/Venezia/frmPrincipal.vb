@@ -139,6 +139,7 @@ Public Class frmPrincipal
             Ventana.ShowDialog()
             Me.StTxtVersion.Text = My.Application.Info.Version.ToString
 
+
             'Valido la version del la app y de la bd
             lSetting = VzAdmin.cSetting.GetSettingxCodigo(gAdmin, "AppVersion")
             If Not My.Application.Info.Version.ToString.Trim = lSetting.Valor.Trim Then
@@ -673,10 +674,6 @@ Public Class frmPrincipal
         End Try
     End Sub
 
-    Private Sub SeguridadToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SeguridadToolStripMenuItem1.Click
-        MsgBox("No tiene permisos para ingresar a esta opcion.", MsgBoxStyle.Exclamation)
-    End Sub
-
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
         EnviarMailASoporteToolStripMenuItem_Click(sender, e)
     End Sub
@@ -953,6 +950,34 @@ Public Class frmPrincipal
 
     Private Sub CargaMasivaDePreciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CargaMasivaDePreciosToolStripMenuItem.Click
         Dim Ventana As New frmStkCargaPrecios
+        Dim F As Form
+        Dim i As Integer
+        Dim Cant As Integer = 0
+        Try
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            Ventana.MdiParent = Me
+            If Cant > 0 Then
+                Ventana.Text = Ventana.Text & "" & Cant
+            End If
+            Ventana.TipoDeOperacion = EnuOPERACION.ALTA
+            Ventana.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.CargaMasivaDePreciosToolStripMenuItem_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.CargaMasivaDePreciosToolStripMenuItem_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ConsultaDePermisosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultaDePermisosToolStripMenuItem.Click
+        Dim Ventana As New frmCfgPermisosConsulta
         Dim F As Form
         Dim i As Integer
         Dim Cant As Integer = 0

@@ -3,7 +3,6 @@ Imports VzAdmin
 
 Public Class cPermiso
 
-
 #Region "Declaraciones"
 
     Private _Id_Permiso As Integer
@@ -171,6 +170,16 @@ Public Class cPermiso
         End Try
     End Sub
 
+    Public Sub Guardar()
+        Try
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Guardar")
+            gLog.fncGrabarLogERR("Error en cPermiso.Guardar:" & ex.Message)
+        End Try
+    End Sub
+
     Public Shared Function GetPermisosxUsuario(ByRef pAdmin As cAdmin, ByVal pidUser As Integer) As ArrayList
         Dim lDt As DataTable
         Dim lDr As DataRow = Nothing
@@ -179,7 +188,6 @@ Public Class cPermiso
         Try
 
             lDt = Dat_GetPermisosUsuario(pAdmin, pidUser)
-
 
             For Each lDr In lDt.Rows
                 lPermiso = New cPermiso(pAdmin)
@@ -199,6 +207,7 @@ Public Class cPermiso
 #End Region
 
 #Region "Base de Datos"
+
     Public Shared Function Dat_GetPermisosUsuario(ByRef pAdmin As cAdmin, ByVal pidUser As Integer) As DataTable
 
         Dim Cmd As New MySqlCommand
@@ -233,6 +242,7 @@ Public Class cPermiso
             Return Nothing
         End Try
     End Function
+
 #End Region
 
 

@@ -4,6 +4,7 @@ Imports VzAdmin
 Imports vzStock
 
 Public Class frmStkCargaPrecios
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -392,6 +393,47 @@ Public Class frmStkCargaPrecios
             gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.cmbListaPrecios_SelectedIndexChanged:" & ex.Message)
         End Try
     End Sub
+
+    Private Sub lvwConsulta_MouseClick(sender As Object, e As MouseEventArgs) Handles lvwConsulta.MouseClick
+        Try
+
+            If e.Button = MouseButtons.Right Then
+                If lvwConsulta.FocusedItem.Bounds.Contains(e.Location) = True Then
+                    ContextMenuStrip1.Show(Cursor.Position)
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.lvwConsulta_MouseClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.lvwConsulta_MouseClick:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub tsmCambiarPrecio_Click(sender As Object, e As EventArgs) Handles tsmCambiarPrecio.Click
+        Dim lPrecio As Double = 0
+        Try
+
+            If Double.TryParse(InputBox("Ingerse el nuevo precio:", "Modificar precio"), lPrecio) Then
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+                lvwConsulta.SelectedItems(0).SubItems(1).Text = lPrecio.ToString("C")
+
+                'Si ya habia corrido la simulacion se la vuelvo a ejecutar automaticamente.
+                If btnSimular.Text = "Procesar" Then
+                    btnSimular.Text = "Simular"
+                    btnSimular_Click(Me, Nothing)
+                End If
+
+            Else
+                MsgBox("El valor ingresado debe ser numerico. Reintente", MsgBoxStyle.Exclamation, "Valor no valido")
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.tsmCambiarPrecio_CheckedChanged")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.tsmCambiarPrecio_CheckedChanged:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
 End Class
 
 

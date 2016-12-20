@@ -94,6 +94,12 @@
     <Compile Include="Herramientas\frmConfiguracion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Herramientas\frmCfgPermisosConsulta.Designer.vb">
+      <DependentUpon>frmCfgPermisosConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Herramientas\frmCfgPermisosConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reporting\frmReporteBase1.Designer.vb">
       <DependentUpon>frmReporteBase1.vb</DependentUpon>
     </Compile>
@@ -291,6 +297,9 @@
     <EmbeddedResource Include="Herramientas\frmConfiguracion.resx">
       <DependentUpon>frmConfiguracion.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Herramientas\frmCfgPermisosConsulta.resx">
+      <DependentUpon>frmCfgPermisosConsulta.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporting\frmReporteBase1.resx">
       <DependentUpon>frmReporteBase1.vb</DependentUpon>
     </EmbeddedResource>
@@ -402,6 +411,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\TemplateForm.resx">
+      <DependentUpon>TemplateForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -128,14 +128,15 @@ Public Class cListaPreciosDet
     End Sub
 
     Public Function Guardar() As Boolean
+        Guardar = False
+
         Try
-            Guardar = False
             If Me.Nuevo = True Then
-                Dat_ListaDePredcioDet_INS(Me.IdLista, Me.CodLista, Me.Articulo.CodArt, PcioUnitario, Me.PorComision)
+                Guardar = Dat_ListaDePredcioDet_INS(Me.IdLista, Me.CodLista, Me.Articulo.CodArt, PcioUnitario, Me.PorComision)
             Else
-                Dat_ListaDePredcioDet_UPD(Me.IdDetalleLista, PcioUnitario, PorComision)
+                Guardar = Dat_ListaDePredcioDet_UPD(Me.IdDetalleLista, PcioUnitario, PorComision)
             End If
-            Guardar = True
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.Guardar")
             gAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.Guardar:" & ex.Message)

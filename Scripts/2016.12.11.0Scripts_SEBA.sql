@@ -68,6 +68,7 @@ select v_nr;
 END //
 
 /*----------------------------------------------------------------------------------------*/
+drop procedure IF EXISTS vz_ListaPreciosDet_ins;
 
 DELIMITER //
 CREATE  PROCEDURE `vz_ListaPreciosDet_ins`(  
@@ -104,9 +105,14 @@ v_nr,
 `_CodLista`,
 `_CodArt`,
 CONCAT('001', LPAD(_CodArt,4,'0')),
-`PcioUnit`,
+`_PcioUnit`,
 0,
 `_PorComis`);
+  
+    IF _id_CodLista = 19 THEN 
+		update pro_articulos set PcioVta= _PcioUnit where CodArt = _CodArt;
+    END IF;
+    
   
 CALL vz_log_ins(now(), 'INS', 'vz_transferencias', v_nr,_idusr, '');
 
@@ -118,6 +124,7 @@ select v_nr;
 END //
 
 /*----------------------------------------------------------------------------------------*/
+drop procedure IF EXISTS vz_ListaPreciosDet_upd;
 
 DELIMITER //
 CREATE  PROCEDURE `vz_ListaPreciosDet_upd`(  
@@ -140,6 +147,10 @@ UPDATE  pro_detlista
 SET PcioUnit =_PcioUnit
 where idDetalleLista = _idDetalleLista;
   
+      IF vCodLista = 19 THEN 
+		update pro_articulos set PcioVta= _PcioUnit where CodArt = _CodArt;
+	  END IF;
+      
 CALL vz_log_ins(now(), 'UPD', 'pro_detlista', _idDetalleLista,_idusr, _PcioUnit);
 
 CALL vz_precios_log_ins(vCodArt, _PcioUnit, vCodLista, _idusr);
@@ -147,8 +158,6 @@ CALL vz_precios_log_ins(vCodArt, _PcioUnit, vCodLista, _idusr);
 COMMIT;
 
 END //
-
-
 /*----------------------------------------------------------------------------------------*/
 
 DELIMITER //

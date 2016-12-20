@@ -2,6 +2,7 @@
 Imports vzStock
 
 Public Class frmStkPreciosConsxLista
+
     Private Sub frmStkPreciosConsxLista_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             subCargarCombo()
@@ -110,7 +111,6 @@ Public Class frmStkPreciosConsxLista
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
 
-
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -157,7 +157,6 @@ Public Class frmStkPreciosConsxLista
         Me.lvwConsulta.EndUpdate()
     End Sub
 
-
     Private Sub txtCriterioBusq_KeyUp(sender As Object, e As KeyEventArgs) Handles txtCriterioBusq.KeyUp
         Select Case e.KeyCode
             Case Keys.Enter
@@ -175,4 +174,5 @@ Public Class frmStkPreciosConsxLista
                 Me.Close()
         End Select
     End Sub
+
 End Class

@@ -73,6 +73,14 @@
         Me.AutoSize = True
     End Sub
 
+    Private Sub InitializeComponent()
+        Me.SuspendLayout()
+        '
+        'TemplateForm
+        '
+        Me.ClientSize = New System.Drawing.Size(292, 212)
+        Me.Name = "TemplateForm"
+        Me.ResumeLayout(False)
 
-
+    End Sub
 End Class

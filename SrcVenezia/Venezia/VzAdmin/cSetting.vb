@@ -93,17 +93,21 @@ Public Class cSetting
 
     End Function
 
-    Public Sub Guardar()
+    Public Function Guardar() As Boolean
+        Guardar = False
         Try
 
             '''''  FALTA DESARROLLAR
+
+            Guardar = Dat_ActualizarValor(gAdmin, Me.Valor, Me.Cod_Setting)
+
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cSetting.Guardar")
             gAdmin.Log.fncGrabarLogERR("Error en cSetting.Guardar:" & ex.Message)
         End Try
 
-    End Sub
+    End Function
 
     Public Shared Function GetSettingxCodigo(ByRef pAdmin As VzAdmin.cAdmin, ByVal pCodSetting As String) As cSetting
         Dim lDt As DataTable
@@ -246,6 +250,39 @@ Public Class cSetting
             pAdmin.Log.fncGrabarLogERR("Error en cSetting.Dat_GetAllSettings:" & ex.Message)
             Return Nothing
         End Try
+    End Function
+
+    Private Shared Function Dat_ActualizarValor(ByRef pAdmin As VzAdmin.cAdmin, ByVal pValor As String, ByVal pCodSetting As String) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Dat_ActualizarValor = False
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "UPDATE vz_settings SET valor = '#pValor#' WHERE Cod_Setting ='#pCodSetting#'"
+            Sql = Sql.Replace("#pValor#", pValor)
+            Sql = Sql.Replace("#pCodSetting#", pCodSetting)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dat_ActualizarValor = Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cSetting.Dat_ActualizarValor")
+            pAdmin.Log.fncGrabarLogERR("Error en cSetting.Dat_ActualizarValor:" & ex.Message)
+            Return Nothing
+        End Try
+
     End Function
 
 #End Region

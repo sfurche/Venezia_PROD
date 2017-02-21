@@ -1,8 +1,16 @@
 ﻿Imports VzAdmin
 
 Public Class frmConfiguracion
+
+    Dim mPermiso As cPermiso = Nothing
     Private Sub Configuracion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             SubSetCabecera()
             subCargarSettings()
 
@@ -10,8 +18,26 @@ Public Class frmConfiguracion
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.Configuracion_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.Configuracion_Load:" & ex.Message)
         End Try
-
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
+
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("Variables")
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+                'Me.Close()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
@@ -145,4 +171,6 @@ Public Class frmConfiguracion
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
+
+
 End Class

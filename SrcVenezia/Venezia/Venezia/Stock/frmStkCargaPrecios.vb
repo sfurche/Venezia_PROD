@@ -5,6 +5,8 @@ Imports vzStock
 
 Public Class frmStkCargaPrecios
 
+    Dim mPermiso As cPermiso = Nothing
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -36,12 +38,39 @@ Public Class frmStkCargaPrecios
 
     Private Sub frmStkCargaPrecios_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             subCargarCombo()
             SubSetCabecera()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.frmStkCargaPrecios_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.frmStkCargaPrecios_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("STK_LP: Carga Masiva de Precios")
+
+            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkCargaPrecios.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkCargaPrecios.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

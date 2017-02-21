@@ -213,14 +213,15 @@ drop procedure IF EXISTS vz_permisos_usuario_ins;
 DELIMITER //
 CREATE PROCEDURE `vz_permisos_usuario_ins`(  
   `_id_permiso` INT  ,
-  `_idusr` INT  ,
+  `_idusr_permiso` INT  ,
   `_alta` VARCHAR(1) ,
   `_baja` VARCHAR(1) ,
   `_modifica` VARCHAR(1) ,
   `_consulta` VARCHAR(1) ,
   `_ejecuta` VARCHAR(1) ,
   `_supervisa` VARCHAR(1) ,
-  `_admin` VARCHAR(1) 
+  `_admin` VARCHAR(1),
+  `_idusr` INT 
   )
 BEGIN
 /*Inserta los permisos.*/
@@ -240,7 +241,7 @@ INSERT INTO vz_permisos_usuario
   `admin` )
 VALUES(
   `_id_permiso` ,
-  `_idusr` ,
+  `_idusr_permiso` ,
   `_alta` ,
   `_baja`,
   `_modifica` ,
@@ -257,27 +258,31 @@ COMMIT;
 
 END //
 
+
+
+
 /*----------------------------------------------------------------------------------------*/
 
-drop procedure IF EXISTS vz_permisos_usuario_ins;
+drop procedure IF EXISTS vz_permisos_usuario_upd;
 
 DELIMITER //
 CREATE PROCEDURE `vz_permisos_usuario_upd`(  
   `_id_permiso` INT  ,
-  `_idusr` INT  ,
+  `_idusr_permiso` INT  ,
   `_alta` VARCHAR(1) ,
   `_baja` VARCHAR(1) ,
   `_modifica` VARCHAR(1) ,
   `_consulta` VARCHAR(1) ,
   `_ejecuta` VARCHAR(1) ,
   `_supervisa` VARCHAR(1) ,
-  `_admin` VARCHAR(1) )
+  `_admin` VARCHAR(1),
+  `_idusr` INT  )
 BEGIN
 /*Actualiza las ordenes de pago.*/
 
 START TRANSACTION;
 
-UPDATE vz_ordenes_de_pago
+UPDATE vz_permisos_usuario
 SET alta = _alta,
   baja = _baja,
   modifica = _modifica,
@@ -286,7 +291,7 @@ SET alta = _alta,
   supervisa= _supervisa,
   admin = _admin
 WHERE  id_permiso = _id_permiso 
-and  idusr = _idusr;
+and  idusr = _idusr_permiso;
 
   
 CALL vz_log_ins(now(), 'UPD', 'vz_permisos_usuario', _id_permiso, _idusr, '');
@@ -296,7 +301,47 @@ COMMIT;
 END //
 
 
-
 /*----------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+
+truncate table vz_permisos_usuario;
+delete from vz_permisos;
+
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (1, 'TESO_LIQ: Nueva Liquidacion', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (2, 'TESO_LIQ: Nueva Liquidacion Alta Rapida', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (3, 'TESO_LIQ: Consulta de Liquidaciones', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (4, 'TESO_LIQ: Conciliacion de Liquidaciones', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (5, 'TESO_LIQ: Anular Conciliacion de Liquidaciones', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (6, 'TESO_LIQ_RPT: Rendicion Diaria de valores', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (7, 'TESO_LIQ_RPT: Liquidaciones Historicas', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (8, 'TESO_ORDP: Alta Orden de Pago', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (9, 'TESO_ORDP: Consulta Ordenes de Pago', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (10, 'TESO_ORDP_RPT: Comprobante de Orden de Pago', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (11, 'TESO_ORDP: Ordenes de Pago x Fecha', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (12, 'TESO_CHQ: Consulta de Cheques', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (13, 'TESO_CHQ_RPT: Cheques en Cartera', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (14, 'TESO_CHQ_RPT: Cheques x Fecha de Emision', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (15, 'TESO_CHQ_RPT: Cheques x Proveedor', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (16, 'COM_VEN: Consulta de Vendedores', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (17, 'COM_PRO: Consulta de Proveedores', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (18, 'STK_ART: Consulta de Articulos', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (19, 'STK_LP: Consulta Precios x Lista', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (20, 'STK_LP: Consulta de Listas de Precio', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (21, 'STK_LP: Carga Masiva de Precios', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (22, 'HERR_CFG: Fondo de Pantalla', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (23, 'HERR_CFG: Variables', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (24, 'HERR_SEG: Consulta de Permisos', '');
+
+
+/*-------------------------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------*/

@@ -26,10 +26,17 @@ Public Class frmCfgPermisosConsulta
     Private Sub SetPermisos()
         Try
 
-            mPermiso = gAdmin.User.GetPermiso("Permisos")
+            mPermiso = gAdmin.User.GetPermiso("HERR_SEG: Consulta de Permisos")
+
+
+            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+
             If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
-                Me.Close()
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
 
             If Not mPermiso.Admin = cPermiso.enuBinario.Si Then
@@ -55,7 +62,7 @@ Public Class frmCfgPermisosConsulta
             lvwConsulta.Clear()
 
             lvwConsulta.Columns.Add(New ColHeader("Id", 40, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Permiso", 100, HorizontalAlignment.Left, True))
+            lvwConsulta.Columns.Add(New ColHeader("Permiso", 250, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Alta", 65, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Baja", 65, HorizontalAlignment.Center, True))
             lvwConsulta.Columns.Add(New ColHeader("Modif", 65, HorizontalAlignment.Center, True))
@@ -217,7 +224,7 @@ Public Class frmCfgPermisosConsulta
 
     Private Sub lvwConsulta_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvwConsulta.MouseDoubleClick
         Try
-
+            Dim lPermiso As cPermiso = Nothing
             Dim info As ListViewHitTestInfo = lvwConsulta.HitTest(e.X, e.Y)
             If Not IsNothing(info.SubItem) Then
                 'MsgBox(info.SubItem.Text)
@@ -233,6 +240,17 @@ Public Class frmCfgPermisosConsulta
                     mModif = True
                     lvwConsulta.HideSelection = True
                 End If
+
+                'Actualizo la modificacion en el objeto Permiso
+                lPermiso = info.Item.Tag
+                lPermiso.Alta = IIf(info.Item.SubItems(2).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Baja = IIf(info.Item.SubItems(3).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Modificacion = IIf(info.Item.SubItems(4).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Ejecuta = IIf(info.Item.SubItems(5).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Consulta = IIf(info.Item.SubItems(6).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Supervisa = IIf(info.Item.SubItems(7).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+                lPermiso.Admin = IIf(info.Item.SubItems(8).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
+
 
             End If
 
@@ -268,4 +286,6 @@ Public Class frmCfgPermisosConsulta
             gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.btnGuardar_Click:" & ex.Message)
         End Try
     End Sub
+
+
 End Class

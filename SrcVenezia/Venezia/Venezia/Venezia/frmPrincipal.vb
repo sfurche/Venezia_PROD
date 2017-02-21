@@ -1003,4 +1003,5 @@ Public Class frmPrincipal
             gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.CargaMasivaDePreciosToolStripMenuItem_Click:" & ex.Message)
         End Try
     End Sub
+
 End Class

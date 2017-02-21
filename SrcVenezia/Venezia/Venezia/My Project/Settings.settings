@@ -9,7 +9,7 @@
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="DBCnn_DBName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">venezia_20161121</Value>
+      <Value Profile="(Default)">venezia_20170212</Value>
     </Setting>
     <Setting Name="AutoUpdatePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\192.168.0.19\VeneziaAutoUpdate\SetupVenezia.exe</Value>

@@ -185,9 +185,9 @@ Public Class cPermiso
     Public Sub Guardar()
         Try
             If Dat_DoesExistPermisosUsuario(gAdmin, Me.Idusr, Me.Id_Permiso) = True Then
-
+                Dat_PermisosUsuario_Upd(gAdmin, Me)
             Else
-
+                Dat_PermisosUsuario_Ins(gAdmin, Me)
             End If
 
         Catch ex As Exception
@@ -271,7 +271,7 @@ Public Class cPermiso
             lCnn = pAdmin.DbCnn.GetInstanceCon
             Sql = "Select count(*) from vz_permisos_usuario where id_permiso= #pIdPermiso# And idusr= #idusr#"
             Sql = Sql.Replace("#idusr#", pidUser)
-            Sql = Sql.Replace("#pIdPermiso#", pidUser)
+            Sql = Sql.Replace("#pIdPermiso#", pIdPermiso)
 
             With Cmd
                 .Connection = lCnn
@@ -298,6 +298,90 @@ Public Class cPermiso
             Return Nothing
         End Try
     End Function
+
+    Private Shared Function Dat_PermisosUsuario_Ins(ByRef pAdmin As VzAdmin.cAdmin, ByVal pPermiso As cPermiso) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Dat_PermisosUsuario_Ins = False
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL vz_permisos_usuario_ins(#pIdPermiso#, #idUsrPermiso#, '#Alta#', '#Baja#', '#Modifica#', '#Consulta#','#Ejecuta#', '#Supervisa#','#Admin#', #idUsr#)"
+            Sql = Sql.Replace("#pIdPermiso#", pPermiso.Id_Permiso)
+            Sql = Sql.Replace("#idUsrPermiso#", pPermiso.Idusr)
+            Sql = Sql.Replace("#Alta#", EnuBinarioGetCod(pPermiso.Alta))
+            Sql = Sql.Replace("#Baja#", EnuBinarioGetCod(pPermiso.Baja))
+            Sql = Sql.Replace("#Modifica#", EnuBinarioGetCod(pPermiso.Modificacion))
+            Sql = Sql.Replace("#Consulta#", EnuBinarioGetCod(pPermiso.Consulta))
+            Sql = Sql.Replace("#Ejecuta#", EnuBinarioGetCod(pPermiso.Ejecuta))
+            Sql = Sql.Replace("#Supervisa#", EnuBinarioGetCod(pPermiso.Supervisa))
+            Sql = Sql.Replace("#Admin#", EnuBinarioGetCod(pPermiso.Admin))
+            Sql = Sql.Replace("#idUsr#", pAdmin.User.Id)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dat_PermisosUsuario_Ins = Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Dat_PermisosUsuario_Ins")
+            pAdmin.Log.fncGrabarLogERR("Error en cPermiso.Dat_PermisosUsuario_Ins:" & ex.Message)
+            Return Nothing
+        End Try
+
+    End Function
+
+
+    Private Shared Function Dat_PermisosUsuario_Upd(ByRef pAdmin As VzAdmin.cAdmin, ByVal pPermiso As cPermiso) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Dat_PermisosUsuario_Upd = False
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL vz_permisos_usuario_upd(#pIdPermiso#, #idUsrPermiso#, '#Alta#', '#Baja#', '#Modifica#', '#Consulta#','#Ejecuta#', '#Supervisa#','#Admin#', #idUsr#)"
+            Sql = Sql.Replace("#pIdPermiso#", pPermiso.Id_Permiso)
+            Sql = Sql.Replace("#idUsrPermiso#", pPermiso.Idusr)
+            Sql = Sql.Replace("#Alta#", EnuBinarioGetCod(pPermiso.Alta))
+            Sql = Sql.Replace("#Baja#", EnuBinarioGetCod(pPermiso.Baja))
+            Sql = Sql.Replace("#Modifica#", EnuBinarioGetCod(pPermiso.Modificacion))
+            Sql = Sql.Replace("#Consulta#", EnuBinarioGetCod(pPermiso.Consulta))
+            Sql = Sql.Replace("#Ejecuta#", EnuBinarioGetCod(pPermiso.Ejecuta))
+            Sql = Sql.Replace("#Supervisa#", EnuBinarioGetCod(pPermiso.Supervisa))
+            Sql = Sql.Replace("#Admin#", EnuBinarioGetCod(pPermiso.Admin))
+            Sql = Sql.Replace("#idUsr#", pAdmin.User.Id)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dat_PermisosUsuario_Upd = Cmd.ExecuteNonQuery()
+                lCnn.Close()
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Dat_PermisosUsuario_Upd")
+            pAdmin.Log.fncGrabarLogERR("Error en cPermiso.Dat_PermisosUsuario_Upd:" & ex.Message)
+            Return Nothing
+        End Try
+
+    End Function
+
 
 #End Region
 

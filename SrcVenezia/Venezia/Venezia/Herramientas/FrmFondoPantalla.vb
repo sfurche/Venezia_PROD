@@ -1,4 +1,6 @@
 Imports System.Data.OleDb
+Imports VzAdmin
+
 Public Class frmFondoPantalla
 
 #Region " Código generado por el Diseñador de Windows Forms "
@@ -200,6 +202,7 @@ Public Class frmFondoPantalla
 #Region "Declaraciones"
     Dim gPathImagen As String = ""
     Dim gSizeModeImag As Integer
+    Dim mPermiso As cPermiso = Nothing
 #End Region
 
     Private Sub optNormal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles optNormal.CheckedChanged
@@ -278,6 +281,11 @@ Public Class frmFondoPantalla
     Private Sub frmFondoPantalla_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
             gPathImagen = gFncGetValorFondo_Registry("Background")
             gSizeModeImag = Integer.Parse(gFncGetValorFondo_Registry("BackGrSizeMode"))
             If gPathImagen = "" Then
@@ -294,5 +302,25 @@ Public Class frmFondoPantalla
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error cargando el fondo de pantalla")
         End Try
     End Sub
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("HERR_CFG: Fondo de Pantalla")
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+                btnAceptar.Enabled = False
+                btnAplicar.Enabled = False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmFondoPantalla.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmFondoPantalla.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
 
 End Class

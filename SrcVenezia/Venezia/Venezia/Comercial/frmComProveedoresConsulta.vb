@@ -1,13 +1,37 @@
 ﻿Imports VzComercial
+Imports VzAdmin
 
 Public Class frmComProveedoresConsulta
-
+    Dim mPermiso As cpermiso
     Private Sub frmComProveedoresConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             SubCargarGrilla()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmComProveedoresConsulta.frmComProveedoresConsulta_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmComProveedoresConsulta.frmComProveedoresConsulta_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("COM_PRO: Consulta de Proveedores")
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmComProveedoresConsulta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmComProveedoresConsulta.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

@@ -2,9 +2,15 @@
 Imports vzStock
 
 Public Class frmStkPreciosConsxLista
-
+    Dim mPermiso As cPermiso = Nothing
     Private Sub frmStkPreciosConsxLista_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             subCargarCombo()
 
             SubCargarGrilla()
@@ -12,6 +18,23 @@ Public Class frmStkPreciosConsxLista
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkListasDePrecioCons.frmStkListasDePrecioCons_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkListasDePrecioCons.frmStkListasDePrecioCons_Load:" & ex.Message)
+        End Try
+
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("STK_LP: Consulta Precios x Lista")
+            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkListasDePrecioCons.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkListasDePrecioCons.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

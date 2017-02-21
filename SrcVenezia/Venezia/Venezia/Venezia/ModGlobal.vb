@@ -3,7 +3,6 @@ Imports System.IO
 Imports System.Xml
 Imports VzAdmin
 
-
 Module ModGlobal
     '--Seteos
     Public Const gSeteosLICENCIA As String = "LICENCIA"
@@ -22,7 +21,6 @@ Module ModGlobal
         NUMERO = 2
         FECHA = 3
     End Enum
-
 
     'Public Function GetgLogInstance() As .cLog
     '    Return gLog

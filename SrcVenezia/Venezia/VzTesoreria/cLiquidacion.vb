@@ -5,6 +5,7 @@ Imports VzAdmin
 Imports VzComercial
 
 Public Class cLiquidacion
+
     Private _id_Liquidacion As Integer
     Private _Vendedor As VzComercial.cVendedor
     Private _Fecha As Date
@@ -361,12 +362,12 @@ Public Class cLiquidacion
                 End If
 
                 EsNuevo = False
-                Else  'ACA VA EL UPDATE ------------------------------------------------------------
+            Else  'ACA VA EL UPDATE ------------------------------------------------------------
 
-                    ''-- Primero guardo la cabecera y luego voy por cada detalle.
+                ''-- Primero guardo la cabecera y luego voy por cada detalle.
 
-                    'CALL vz_liquidaciones_ins(3,'2016/01/05', 0, 305.55, 4654.99, 343.34, 4344.22, 'OBSERVAC',1 ,  9) 
-                    Sql = "Call vz_liquidaciones_upd(#IdLiquidacion#, #IdVendedor#, '#Fecha#', #ImporteEfe#, #ImporteCh#, #ImporteRet#,#ImporteTra#,#ImporteNC#, '#Observac#' , #Estado# , #idusr#)"
+                'CALL vz_liquidaciones_ins(3,'2016/01/05', 0, 305.55, 4654.99, 343.34, 4344.22, 'OBSERVAC',1 ,  9) 
+                Sql = "Call vz_liquidaciones_upd(#IdLiquidacion#, #IdVendedor#, '#Fecha#', #ImporteEfe#, #ImporteCh#, #ImporteRet#,#ImporteTra#,#ImporteNC#, '#Observac#' , #Estado# , #idusr#)"
                 Sql = Sql.Replace("#IdLiquidacion#", Me.Id_Liquidacion)
                 Sql = Sql.Replace("#IdVendedor#", Me.Vendedor.IdVendedor)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
@@ -406,9 +407,9 @@ Public Class cLiquidacion
                 'Grabo el log de auditoria.
                 gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Me.ToXML, pLiqBkp)
 
-                End If
+            End If
 
-                Guardar = True
+            Guardar = True
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Guardar")

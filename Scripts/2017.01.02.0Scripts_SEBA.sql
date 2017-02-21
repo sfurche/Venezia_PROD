@@ -1,0 +1,302 @@
+
+update vz_settings
+set valor = '17.1.2.0'
+where id_setting = 4;
+
+/*----------------------------------------------------------------------------------------*/
+
+
+CREATE TABLE `vz_mailing` (
+  `id_mailing` INT NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  `asunto` VARCHAR(200) NOT NULL DEFAULT '',
+  `para` VARCHAR(500) NOT NULL DEFAULT '',
+  `cc` VARCHAR(500) NOT NULL DEFAULT '',
+  `bcc` VARCHAR(500) NOT NULL DEFAULT '',
+  `body` TEXT NOT NULL,
+  `html` BIT NOT NULL,
+  `tipo_mailing` VARCHAR(100) NULL,
+  `id_estado` INT NULL,
+  PRIMARY KEY (`id_mailing`),
+  INDEX `fk_vz_mailing_idestado_idx` (`id_estado` ASC),
+  CONSTRAINT `fk_vz_mailing_idestado`
+    FOREIGN KEY (`id_estado`)
+    REFERENCES `vz_estados` (`id_estado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+/*----------------------------------------------------------------------------------------*/
+
+INSERT INTO vz_estados values(0,'vz_mailing','Pendiente');
+INSERT INTO vz_estados values(1,'vz_mailing','Procesado');
+INSERT INTO vz_estados values(99,'vz_mailing','Anulado');
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_mailing_ins;
+
+DELIMITER //
+CREATE  PROCEDURE `vz_mailing_ins`(  
+  `_fecha` DATETIME ,
+  `_asunto` VARCHAR(200) ,
+  `_para` VARCHAR(500) ,
+  `_cc` VARCHAR(500) ,
+  `_bcc` VARCHAR(500),
+  `_body` TEXT ,
+  `_html` BIT ,
+  `_tipo_mailing` VARCHAR(100),
+   `_idusr` INT 
+ )
+BEGIN
+/*Inserta los mails para enviar.*/
+
+DECLARE v_nr INT;
+
+START TRANSACTION;
+
+SET v_nr =(select count(*) + 1 from vz_mailing);
+
+INSERT INTO vz_mailing
+(id_mailing,
+fecha,
+asunto,
+para,
+cc,
+bcc,
+body,
+html,
+tipo_mailing,
+id_estado)
+VALUES
+(v_nr,
+_fecha,
+_asunto,
+_para,
+_cc,
+_bcc,
+_body,
+_html,
+_tipo_mailing,
+0);
+  
+CALL vz_log_ins(now(), 'INS', 'vz_mailing', v_nr,_idusr, '');
+  
+COMMIT;
+select v_nr;
+
+END //
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_mailing_cambest;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_mailing_cambest`(
+ IN   _id_mailing INT,
+ IN   _id_estado INT,
+ IN    _idusr INT)
+BEGIN
+
+declare old_estado INT;
+
+START TRANSACTION;
+
+set old_estado = (select id_estado from vz_mailing where id_mailing = _id_mailing);
+
+UPDATE  vz_mailing 
+SET id_estado =_id_estado
+where id_mailing = _id_mailing;
+
+CALL vz_log_auditoria_ins(now(), 'CHEST', 'vz_mailing', _id_mailing, _idusr, '', _id_estado, old_estado);
+
+COMMIT;
+
+END //	
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_ListaPreciosDet_ins;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_ListaPreciosDet_ins`(  
+  `_id_CodLista` int(11) ,
+  `_CodLista` int(11) ,
+  `_CodArt` int(11) ,
+  `_PcioUnit` double ,
+  `_PcioCaja` double ,
+  `_PorComis` double ,
+  `_idusr` INT )
+BEGIN
+/*Inserta o modifica los precios por lista*/
+
+DECLARE v_nr INT;
+
+START TRANSACTION;
+
+SET v_nr =(select max(idDetalleLista) + 1 from pro_detlista);
+
+INSERT INTO pro_detlista
+(`Empre`,
+`idDetalleLista`,
+`id_CodLista`,
+`CodLista`,
+`CodArt`,
+`CodProd`,
+`PcioUnit`,
+`PcioCaja`,
+`PorComis`)
+VALUES
+('001',
+v_nr,
+`_id_CodLista`,
+`_CodLista`,
+`_CodArt`,
+CONCAT( LPAD(_CodLista,3,'0'), LPAD(_CodArt,4,'0')),
+`_PcioUnit`,
+0,
+`_PorComis`);
+  
+    IF _id_CodLista = 19 THEN 
+		update pro_articulos set PcioVta= _PcioUnit where CodArt = _CodArt;
+    END IF;
+    
+  
+CALL vz_log_ins(now(), 'INS', 'vz_transferencias', v_nr,_idusr, '');
+
+CALL vz_precios_log_ins(_CodArt, _PcioUnit, _id_CodLista, _idusr);
+   
+COMMIT;
+select v_nr;
+
+END //	
+
+/*----------------------------------------------------------------------------------------*/
+
+
+drop procedure IF EXISTS vz_permisos_usuarios_consulta;
+
+DELIMITER //
+CREATE PROCEDURE vz_permisos_usuarios_consulta(
+ IN _idusr int 
+  )
+BEGIN
+
+/*call vz_permisos_usuarios_consulta (19) */
+
+Select p.id_permiso, p.nombre, p.observaciones, _idusr idusr,
+ifnull(pu.alta, 'N') alta,
+ifnull(pu.baja, 'N') baja,
+ifnull(pu.modifica, 'N') modifica,
+ifnull(pu.consulta, 'N') consulta,
+ifnull(pu.ejecuta, 'N') ejecuta,
+ifnull(pu.supervisa, 'N') supervisa,
+ifnull(pu.admin, 'N') admin
+from  vz_permisos p 
+left join  vz_permisos_usuario pu 
+on  pu.id_permiso = p.id_permiso
+and  idusr=_idusr;
+
+END //
+
+
+
+
+/*----------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_permisos_usuario_ins;
+
+DELIMITER //
+CREATE PROCEDURE `vz_permisos_usuario_ins`(  
+  `_id_permiso` INT  ,
+  `_idusr` INT  ,
+  `_alta` VARCHAR(1) ,
+  `_baja` VARCHAR(1) ,
+  `_modifica` VARCHAR(1) ,
+  `_consulta` VARCHAR(1) ,
+  `_ejecuta` VARCHAR(1) ,
+  `_supervisa` VARCHAR(1) ,
+  `_admin` VARCHAR(1) 
+  )
+BEGIN
+/*Inserta los permisos.*/
+
+START TRANSACTION;
+
+INSERT INTO vz_permisos_usuario
+(
+  `id_permiso` ,
+  `idusr` ,
+  `alta` ,
+  `baja`,
+  `modifica` ,
+  `consulta` ,
+  `ejecuta`,
+  `supervisa`,
+  `admin` )
+VALUES(
+  `_id_permiso` ,
+  `_idusr` ,
+  `_alta` ,
+  `_baja`,
+  `_modifica` ,
+  `_consulta` ,
+  `_ejecuta`,
+  `_supervisa`,
+  `_admin` 
+);
+
+  
+CALL vz_log_ins(now(), 'INS', 'vz_permisos_usuario', _id_permiso,_idusr, '');
+  
+COMMIT;
+
+END //
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_permisos_usuario_ins;
+
+DELIMITER //
+CREATE PROCEDURE `vz_permisos_usuario_upd`(  
+  `_id_permiso` INT  ,
+  `_idusr` INT  ,
+  `_alta` VARCHAR(1) ,
+  `_baja` VARCHAR(1) ,
+  `_modifica` VARCHAR(1) ,
+  `_consulta` VARCHAR(1) ,
+  `_ejecuta` VARCHAR(1) ,
+  `_supervisa` VARCHAR(1) ,
+  `_admin` VARCHAR(1) )
+BEGIN
+/*Actualiza las ordenes de pago.*/
+
+START TRANSACTION;
+
+UPDATE vz_ordenes_de_pago
+SET alta = _alta,
+  baja = _baja,
+  modifica = _modifica,
+  consulta = _consulta,
+  ejecuta= _ejecuta,
+  supervisa= _supervisa,
+  admin = _admin
+WHERE  id_permiso = _id_permiso 
+and  idusr = _idusr;
+
+  
+CALL vz_log_ins(now(), 'UPD', 'vz_permisos_usuario', _id_permiso, _idusr, '');
+  
+COMMIT;
+
+END //
+
+
+
+/*----------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------------------*/

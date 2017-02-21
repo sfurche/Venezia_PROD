@@ -22,6 +22,7 @@ Public Class frmCfgPermisosConsulta
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
+
     Private Sub SetPermisos()
         Try
 
@@ -44,6 +45,7 @@ Public Class frmCfgPermisosConsulta
             gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.SetPermisos:" & ex.Message)
         End Try
     End Sub
+
     Private Sub SubSetCabecera()
         Try
 
@@ -150,6 +152,7 @@ Public Class frmCfgPermisosConsulta
 
             For Each lPermiso In lUser.Permisos
                 lItem = New ListViewItem()
+                lItem.Tag = lPermiso
                 lItem.Text = lPermiso.Id_Permiso
                 lItem.UseItemStyleForSubItems = False
                 lItem.SubItems.Add(lPermiso.Nombre)
@@ -240,6 +243,9 @@ Public Class frmCfgPermisosConsulta
     End Sub
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        Dim lItem As ListViewItem = Nothing
+        Dim lPermiso As cPermiso = Nothing
+
         Try
             If mModif = False Then
                 MsgBox("No hay modificaciones para guardar", MsgBoxStyle.Exclamation, "Sin modificaciones")
@@ -248,6 +254,10 @@ Public Class frmCfgPermisosConsulta
 
             If MsgBox("Esta seguro que desea guardar los cambios?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Confirma guardar") = MsgBoxResult.Yes Then
                 'aca deberia recoorrere la grilla y guardar los cambios.
+                For Each lItem In lvwConsulta.Items
+                    lPermiso = DirectCast(lItem.Tag, cPermiso)
+                    lPermiso.Guardar()
+                Next
 
                 'Marco que ya no tiene cambios pendientes.
                 mModif = False

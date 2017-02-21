@@ -15,6 +15,7 @@ Public Class cPermiso
     Private _Consulta As enuBinario
     Private _Supervisa As enuBinario
     Private _Admin As enuBinario
+    Private _idusr As Integer
 
     Private gAdmin As cAdmin
 
@@ -108,9 +109,19 @@ Public Class cPermiso
         End Set
     End Property
 
+    Public Property Idusr As Integer
+        Get
+            Return _idusr
+        End Get
+        Set(value As Integer)
+            _idusr = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "EnuBinario"
+
     Public Enum enuBinario
         Si = 1
         No = 2
@@ -163,6 +174,7 @@ Public Class cPermiso
             _Consulta = EnuBinarioGetEnu(pDr("consulta"))
             _Supervisa = EnuBinarioGetEnu(pDr("supervisa"))
             _Admin = EnuBinarioGetEnu(pDr("admin"))
+            _idusr = pDr("idusr")
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Load")
@@ -172,7 +184,11 @@ Public Class cPermiso
 
     Public Sub Guardar()
         Try
+            If Dat_DoesExistPermisosUsuario(gAdmin, Me.Idusr, Me.Id_Permiso) = True Then
 
+            Else
+
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Guardar")
@@ -235,6 +251,46 @@ Public Class cPermiso
             End With
 
             Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Dat_GetPermisosUsuario")
+            pAdmin.Log.fncGrabarLogERR("Error en cPermiso.Dat_GetPermisosUsuario:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_DoesExistPermisosUsuario(ByRef pAdmin As cAdmin, ByVal pidUser As Integer, ByVal pIdPermiso As Integer) As Boolean
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            Dat_DoesExistPermisosUsuario = False
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "Select count(*) from vz_permisos_usuario where id_permiso= #pIdPermiso# And idusr= #idusr#"
+            Sql = Sql.Replace("#idusr#", pidUser)
+            Sql = Sql.Replace("#pIdPermiso#", pidUser)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+            If lDt.Rows(0)(0) = 1 Then
+                Dat_DoesExistPermisosUsuario = True
+            Else
+                Dat_DoesExistPermisosUsuario = False
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cPermiso.Dat_GetPermisosUsuario")

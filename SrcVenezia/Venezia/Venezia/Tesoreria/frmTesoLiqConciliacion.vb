@@ -4,6 +4,47 @@ Imports VzAdmin
 
 Public Class frmTesoLiqConciliacion
 
+    Private Sub frmTesoLiqConciliacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            Me.Tag = "CONCILIACIONLIQUIDACION"
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            subCargarLiquidaciones()
+            subCargarRecibos()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqConciliacion.frmTesoLiqConciliacion_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacion.frmTesoLiqConciliacion_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ: Conciliacion de Liquidaciones")
+
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Ejecuta = cPermiso.enuBinario.Si Or lPermiso.Alta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqConciliacion.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacion.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -17,6 +58,7 @@ Public Class frmTesoLiqConciliacion
         Dim lComentario As String = ""
 
         Try
+
             '---------------------------VALIDACIONES ---------------------------------
 
             If lvwConsulta.CheckedItems.Count = 0 Or IsNothing(cmbLiquidacion.SelectedItem) Then
@@ -47,6 +89,8 @@ Public Class frmTesoLiqConciliacion
 
             '----------------------------------------------------------
 
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             lRecibos = New ArrayList
             lLiq = cmbLiquidacion.SelectedItem
             For Each lItem In lvwConsulta.CheckedItems
@@ -66,19 +110,8 @@ Public Class frmTesoLiqConciliacion
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacion.btnAceptar_Click:" & ex.Message)
         End Try
 
-    End Sub
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 
-    Private Sub frmTesoLiqConciliacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            Me.Tag = "CONCILIACIONLIQUIDACION"
-
-            subCargarLiquidaciones()
-            subCargarRecibos()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqConciliacion.frmTesoLiqConciliacion_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacion.frmTesoLiqConciliacion_Load:" & ex.Message)
-        End Try
     End Sub
 
     Private Sub SubSetCabecera()

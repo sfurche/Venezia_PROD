@@ -10,9 +10,13 @@ Public Class frmTesoLiquidacionesAlta
     Dim mSettingClient As String = ""
 
     Private Sub frmTesoLiquidacionesAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim lPermiso As cPermiso = Nothing
         Try
-            lPermiso = gAdmin.User.GetPermiso("Liquidaciones")
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             Me.Tag = "ALTALIQUIDACION"
             dtpFechaLiq.Enabled = False
@@ -29,11 +33,6 @@ Public Class frmTesoLiquidacionesAlta
                 Case FrmBase.EnuOPERACION.CONS
                     mLiqBkp = mLiq.ToXML
                     SubCargarDatosLiq(mLiq)
-
-                    If lPermiso.Admin = cPermiso.enuBinario.No Then
-                        SetReadOnly()
-                    End If
-
                 Case FrmBase.EnuOPERACION.ALTA
                     mLiq = New cLiquidacion(gAdmin)
                     SubSetCabeceraCheque()
@@ -47,7 +46,35 @@ Public Class frmTesoLiquidacionesAlta
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.frmTesoLiquidacionesAlta_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.frmTesoLiquidacionesAlta_Load:" & ex.Message)
         End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ: Nueva Liquidacion")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+            If Not (lPermiso.Alta = cPermiso.enuBinario.Si Or lPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+                SetReadOnly()
+            End If
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAlta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAlta.SetPermisos:" & ex.Message)
+        End Try
     End Sub
 
     Public Sub SetReadOnly()

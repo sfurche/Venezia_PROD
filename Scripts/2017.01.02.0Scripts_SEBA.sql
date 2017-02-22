@@ -322,6 +322,7 @@ insert vz_permisos(id_permiso, nombre, observaciones) values (9, 'TESO_ORDP: Con
 insert vz_permisos(id_permiso, nombre, observaciones) values (10, 'TESO_ORDP_RPT: Comprobante de Orden de Pago', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (11, 'TESO_ORDP: Ordenes de Pago x Fecha', '');
 
+
 insert vz_permisos(id_permiso, nombre, observaciones) values (12, 'TESO_CHQ: Consulta de Cheques', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (13, 'TESO_CHQ_RPT: Cheques en Cartera', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (14, 'TESO_CHQ_RPT: Cheques x Fecha de Emision', '');
@@ -341,6 +342,7 @@ insert vz_permisos(id_permiso, nombre, observaciones) values (23, 'HERR_CFG: Var
 
 insert vz_permisos(id_permiso, nombre, observaciones) values (24, 'HERR_SEG: Consulta de Permisos', '');
 
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (24,19,'S','S','S','S','S','S','S');
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 

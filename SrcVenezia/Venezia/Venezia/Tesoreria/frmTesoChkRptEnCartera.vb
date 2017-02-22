@@ -11,12 +11,41 @@ Public Class frmTesoChkRptEnCartera
 
     Private Sub frmTesoChkRptEnCartera_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             dtpFvtoD.Value = Date.Today
             dtpFvtoH.Value = DateAdd(DateInterval.Month, 1, Date.Today)
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptEnCartera.btnSalir_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptEnCartera.btnSalir_Click" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_CHQ_RPT: Cheques en Cartera")
+
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Admin = cPermiso.enuBinario.Si Or lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptEnCartera.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptEnCartera.SetPermisos:" & ex.Message)
         End Try
     End Sub
 
@@ -81,6 +110,7 @@ Public Class frmTesoChkRptEnCartera
         End Try
     End Sub
 
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
-
+    End Sub
 End Class

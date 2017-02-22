@@ -1,9 +1,53 @@
 ﻿Imports VzComercial
 Imports VzTesoreria
+Imports VzAdmin
 
 Public Class frmTesoChkAlta
 
     Public mCheque As cCheque
+    Dim mPermiso As cPermiso = Nothing
+    Private Sub frmTesoChkAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            subCargarBancos()
+            subCargarDatos()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkAlta.frmTesoChkAlta_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkAlta.frmTesoChkAlta_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Try
+
+            mPermiso = gAdmin.User.GetPermiso("TESO_CHQ: Consulta de Cheques")
+
+            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (mPermiso.Modificacion = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+            If Not mPermiso.Modificacion Then
+                btnRechazado.Enabled = False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
@@ -135,17 +179,6 @@ Public Class frmTesoChkAlta
         End Try
     End Sub
 
-    Private Sub frmTesoChkAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            subCargarBancos()
-            subCargarDatos()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkAlta.frmTesoChkAlta_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkAlta.frmTesoChkAlta_Load:" & ex.Message)
-        End Try
-    End Sub
-
     Private Sub btnRechazado_Click(sender As Object, e As EventArgs) Handles btnRechazado.Click
         Try
 
@@ -159,7 +192,7 @@ Public Class frmTesoChkAlta
 
             Else
                 If MsgBox("Desea marcar este cheque como liquidado (RECUPERADO) ?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Marcar como recuperado") = MsgBoxResult.Yes Then
-                    mCheque.recuperar()
+                    mCheque.Recuperar()
                     subCargarBancos()
                     subCargarDatos()
                 End If

@@ -24,13 +24,13 @@ Partial Class frmTesoChkRptEnCartera
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dtpFvtoH = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpFvtoD = New System.Windows.Forms.DateTimePicker()
         Me.btnGenerar = New System.Windows.Forms.Button()
         Me.btnSalir = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -63,6 +63,18 @@ Partial Class frmTesoChkRptEnCartera
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filtros"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.DarkGray
+        Me.Label3.Location = New System.Drawing.Point(13, 64)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(206, 13)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "Ordenado por fecha de pago ascendente."
         '
         'Label2
         '
@@ -129,18 +141,6 @@ Partial Class frmTesoChkRptEnCartera
         Me.btnSalir.TabIndex = 5
         Me.btnSalir.Text = "&Salir"
         Me.btnSalir.UseVisualStyleBackColor = False
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.DarkGray
-        Me.Label3.Location = New System.Drawing.Point(13, 64)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(206, 13)
-        Me.Label3.TabIndex = 12
-        Me.Label3.Text = "Ordenado por fecha de pago ascendente."
         '
         'frmTesoChkRptEnCartera
         '

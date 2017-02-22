@@ -7,6 +7,13 @@ Public Class frmTesoLiquidacionesCons
     Private Sub frmTesoLiquidacionesCons_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             dtpFechaD.Value = Date.Today
             dtpFechaH.Value = Date.Today
 
@@ -15,6 +22,31 @@ Public Class frmTesoLiquidacionesCons
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.frmTesoLiquidacionesCons_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.frmTesoLiquidacionesCons_Load:" & ex.Message)
+        End Try
+
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ: Consulta de Liquidaciones")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

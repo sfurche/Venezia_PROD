@@ -5,6 +5,48 @@ Imports VzTesoreria
 
 Public Class frmTesoOrdenDePagoPorFecha
 
+    Private Sub frmTesoChkRptxProv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+
+            Me.Tag = "CONSULTAORDENESDEPAGOPORFECHA"
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            subCargarEstados()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoPorFecha.frmTesoChkRptxProv_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoPorFecha.frmTesoOrdenDePagoPorFecha_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_ORDP: Consulta Ordenes de Pago")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoPorFecha.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoPorFecha.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -128,19 +170,6 @@ Public Class frmTesoOrdenDePagoPorFecha
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoPorFecha.btnBusq_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoPorFecha.btnBusq_Click:" & ex.Message)
         End Try
-    End Sub
-
-    Private Sub frmTesoChkRptxProv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-
-            Me.Tag = "CONSULTAORDENESDEPAGOPORFECHA"
-            subCargarEstados()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoPorFecha.frmTesoChkRptxProv_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoPorFecha.frmTesoOrdenDePagoPorFecha_Load:" & ex.Message)
-        End Try
-
     End Sub
 
     Private Sub subCargarEstados()

@@ -10,6 +10,13 @@ Public Class frmTesoChkConsulta
         Try
             Me.Tag = "CONSULTADECHQUES"
 
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             SubCargarCombos()
             If gLlamaDesdeOrdenDePago = True Then
                 cmbEstados.Text = "Cartera"
@@ -21,6 +28,36 @@ Public Class frmTesoChkConsulta
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkConsulta.frmTesoLiqConciliacion_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkConsulta.frmTesoLiqConciliacion_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Dim lPermisoOP As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_CHQ: Consulta de Cheques")
+            lPermisoOP = gAdmin.User.GetPermiso("TESO_ORDP: Alta Orden de Pago")
+
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Admin = cPermiso.enuBinario.Si Or lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+            If Not (lPermisoOP.Admin = cPermiso.enuBinario.Si Or lPermisoOP.Alta = cPermiso.enuBinario.Si) Then
+                btnGenOrdenPago.Enabled = False
+            End If
+
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

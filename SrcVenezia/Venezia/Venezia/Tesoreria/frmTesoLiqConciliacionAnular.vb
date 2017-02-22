@@ -1,13 +1,45 @@
 ﻿Imports VzTesoreria
+Imports VzAdmin
+
 
 Public Class frmTesoLiqConciliacionAnular
     Private Sub frmTesoLiqConciliacionAnular_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             subCargarLiquidaciones()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqConciliacionAnular.frmTesoLiqConciliacionAnular_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacionAnular.frmTesoLiqConciliacionAnular_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ: Anular Conciliacion de Liquidaciones")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Ejecuta = cPermiso.enuBinario.Si Or lPermiso.Alta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqConciliacionAnular.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqConciliacionAnular.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

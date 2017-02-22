@@ -6,7 +6,14 @@ Public Class frmTesoOrdenDePagoConsulta
 
     Private Sub frmTesoOrdenDePagoConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
             Me.Tag = "CONSULTAORDENESDEPAGO"
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             SubSetCabecera()
             SubCargarCombos()
@@ -16,7 +23,31 @@ Public Class frmTesoOrdenDePagoConsulta
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.frmTesoOrdenDePagoConsulta_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.frmTesoOrdenDePagoConsulta_Load:" & ex.Message)
         End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_ORDP: Consulta Ordenes de Pago")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoConsulta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoConsulta.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
 
     Private Sub SubCargarCombos()
         Try

@@ -4,6 +4,47 @@ Imports VzAdmin
 Imports VzComercial
 
 Public Class frmTesoChkRptxProv
+
+    Private Sub frmTesoChkRptxProv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            Me.Tag = "TESOCHKRPTXPROV"
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptxProv.frmTesoChkRptxProv_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptxProv.frmTesoChkRptxProv_Load:" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_CHQ_RPT: Cheques x Proveedor")
+
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Admin = cPermiso.enuBinario.Si Or lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptxProv.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptxProv.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -47,7 +88,7 @@ Public Class frmTesoChkRptxProv
             lFiltros = lFiltros & " y Proveedor = " & lProv.Nombre
             lFiltros = lFiltros & ")"
 
-            lRPar = New ReportParameter("pFiltros",lfiltros)
+            lRPar = New ReportParameter("pFiltros", lFiltros)
             lArrayParameters.Add(lRPar)
 
             lNombreRpt = "ChequesxProveed_" & cFunciones.gFncConvertDateToString(Date.Today, "YYYY/MM/DD")
@@ -116,15 +157,4 @@ Public Class frmTesoChkRptxProv
         End Try
     End Sub
 
-    Private Sub frmTesoChkRptxProv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-
-            Me.Tag = "TESOCHKRPTXPROV"
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkRptxProv.frmTesoChkRptxProv_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoChkRptxProv.frmTesoChkRptxProv_Load:" & ex.Message)
-        End Try
-
-    End Sub
 End Class

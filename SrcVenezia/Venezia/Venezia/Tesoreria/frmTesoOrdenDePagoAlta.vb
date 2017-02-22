@@ -12,6 +12,12 @@ Public Class frmTesoOrdenDePagoAlta
     Private Sub frmTesoOrdenDePagoAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             Me.Tag = "ALTAORDENDEPAGO"
             SubCargarCombos()
             SubSetCabecera()
@@ -28,6 +34,30 @@ Public Class frmTesoOrdenDePagoAlta
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoAlta.frmTesoOrdenDePagoAlta_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoAlta.frmTesoOrdenDePagoAlta_Load:" & ex.Message)
+        End Try
+
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_ORDP: Alta Orden de Pago")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Alta = cPermiso.enuBinario.Si Or lPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoOrdenDePagoAlta.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoOrdenDePagoAlta.SetPermisos:" & ex.Message)
         End Try
     End Sub
 

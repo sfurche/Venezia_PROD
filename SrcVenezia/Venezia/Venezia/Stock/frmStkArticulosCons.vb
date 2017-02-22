@@ -2,7 +2,7 @@
 Imports VzAdmin
 
 Public Class frmStkArticulosCons
-    Dim mPermiso As cPermiso = Nothing
+
 
     Private Sub frmComProveedoresConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -21,15 +21,17 @@ Public Class frmStkArticulosCons
     End Sub
 
     Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
         Try
 
-            mPermiso = gAdmin.User.GetPermiso("STK_ART: Consulta de Articulos")
+            lPermiso = gAdmin.User.GetPermiso("STK_ART: Consulta de Articulos")
 
-            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
                 Exit Sub
             End If
 
-            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+            If Not (lPermiso.Admin = cPermiso.enuBinario.Si Or lPermiso.Consulta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If

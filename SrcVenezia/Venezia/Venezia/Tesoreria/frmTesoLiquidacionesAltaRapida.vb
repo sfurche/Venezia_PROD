@@ -1,5 +1,6 @@
 ﻿Imports VzComercial
 Imports VzTesoreria
+Imports VzAdmin
 
 Public Class frmTesoLiquidacionesAltaRapida
 
@@ -9,6 +10,13 @@ Public Class frmTesoLiquidacionesAltaRapida
     Private Sub frmTesoLiquidacionesAlta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             subCargarVendedores()
             dtpFechaLiq.Enabled = False
             Select Case Me.TipoDeOperacion
@@ -32,7 +40,30 @@ Public Class frmTesoLiquidacionesAltaRapida
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAltaRapida.frmTesoLiquidacionesAlta_Load")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAltaRapida.frmTesoLiquidacionesAlta_Load:" & ex.Message)
         End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    End Sub
 
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ: Nueva Liquidacion Alta Rapida")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Alta = cPermiso.enuBinario.Si Or lPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesAltaRapida.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesAltaRapida.SetPermisos:" & ex.Message)
+        End Try
     End Sub
 
     Private Sub subCargarVendedores()

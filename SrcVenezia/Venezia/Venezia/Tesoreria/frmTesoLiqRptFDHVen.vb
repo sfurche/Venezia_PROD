@@ -4,6 +4,52 @@ Imports VzComercial
 Imports VzTesoreria
 
 Public Class frmTesoLiqRptFDHVen
+
+    Private Sub frmTesoLiqRptFDHVen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+
+            '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
+            SetPermisos()
+            '---------------------------------------------------------------------------------------------------
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            dtpFechaLiqD.Value = Date.Today
+            dtpFechaLiqH.Value = Date.Today
+
+            subCargarVendedores()
+            subCargarEstados()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqRptFDHVen.frmTesoLiqRptFDHVen_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqRptFDHVen.frmTesoLiqRptFDHVen_Load" & ex.Message)
+        End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+    End Sub
+
+    Private Sub SetPermisos()
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("TESO_LIQ_RPT: Liquidaciones Historicas")
+
+            'Si es admin hace tiene permiso pleno.
+            If lPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (lPermiso.Admin = cPermiso.enuBinario.Si Or lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqRptFDHVen.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqRptFDHVen.SetPermisos:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -79,21 +125,6 @@ Public Class frmTesoLiqRptFDHVen
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqRptFDHVen.btnGenerar_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqRptFDHVen.btnGenerar_Click" & ex.Message)
         End Try
-    End Sub
-
-    Private Sub frmTesoLiqRptFDHVen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            dtpFechaLiqD.Value = Date.Today
-            dtpFechaLiqH.Value = Date.Today
-
-            subCargarVendedores()
-            subCargarEstados()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiqRptFDHVen.frmTesoLiqRptFDHVen_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiqRptFDHVen.frmTesoLiqRptFDHVen_Load" & ex.Message)
-        End Try
-
     End Sub
 
     Private Sub subCargarVendedores()

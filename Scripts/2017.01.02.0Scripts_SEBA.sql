@@ -346,4 +346,12 @@ insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, e
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
+
+delete from vz_settings where cod_setting='Mailing_ChkRechazado';
+insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
+values(7,'Mailing_ChkRechazado', 1, 'sebastianfurche@gmail.com;gabrieladossena@gmail.com', 'Lista de distribucion mailing de cheques rechazados');
+
+
+
+
 /*----------------------------------------------------------------------------------------*/

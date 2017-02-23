@@ -454,11 +454,60 @@ Public Class cCheque
 
             Anular = True
 
+
+            'Genero un mail avisando que se anulo el cheque.
+            ChkAnulacionMailing()
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Anular")
             gAdmin.Log.fncGrabarLogERR("Error en cCheque.Anular:" & ex.Message)
         End Try
     End Function
+
+    Private Sub ChkAnulacionMailing()
+        Dim lMail As New cEmail
+        Dim lHtml As String = ""
+        Dim lCliente As cCliente = Nothing
+        Dim lSetting As cSetting = Nothing
+        Dim lOp As cOrdenDePago = Nothing
+        Try
+            lSetting = cSetting.GetSettingxCodigo(gAdmin, "Mailing_ChkRechazado")
+            lMail.Tipo_Mailing = "Cheque Rechazado"
+            lMail.Html = True
+            lMail.Para = lSetting.Valor.ToString.Trim
+            lMail.Asunto = "Nuevo Cheque Rechazado (Nro." & Me.Numero.ToString & " - " & Me.Banco.NombreRed.Trim & ")"
+
+            lHtml = "<HTML><HEAD>Notificacion Automatica de Cheque Rechazado</HEAD><BODY>"
+            lHtml = lHtml & "Se acaba de registrar un nuevo cheque rechazado. A continuacion los datos del mismmo: <P> "
+            lHtml = lHtml & "Banco: " & Me.Banco.NombreRed.Trim & " <BR>"
+            lHtml = lHtml & "Numero: " & Me.Numero & " <BR>"
+            lHtml = lHtml & "Importe: " & Me.Importe.ToString & " <BR>"
+            If Me.Propio = enuBinario.No Then
+                lCliente = cCliente.GetClientexNroCliente(gAdmin, Me.NroCli)
+                lHtml = lHtml & "Origen del Cheque: Terceros (" & lCliente.Nombre & ") <BR>"
+            Else
+                lHtml = lHtml & "Origen del cheque: Propio < BR > "
+            End If
+
+            lOp = cOrdenDePago.GetOrdenDePagoxId(gAdmin, Me.Id_Orden)
+            lHtml = lHtml & "Orden de Pago Nro: " & lOp.Id_Orden.ToString & " < BR > "
+            If lOp.Tipo_Destino = cOrdenDePago.enuTipoDestinoOrdenPago.Proveedores Then
+                lHtml = lHtml & "Destino del Cheque: Proveedor (" & lOp.Proveedor.Nombre & ") <BR>"
+            Else
+                lHtml = lHtml & "Destino del cheque: Cobro/Deposito < BR > "
+            End If
+
+            lHtml = lHtml &
+            lHtml = lHtml & "</BODY></HTML>"
+
+            lMail.Body = lHtml
+            lMail.Guardar()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.ChkAnulacionMailing")
+            gAdmin.Log.fncGrabarLogERR("Error en cCheque.ChkAnulacionMailing:" & ex.Message)
+        End Try
+    End Sub
 
     Public Function Rechazar() As Boolean
         Rechazar = False

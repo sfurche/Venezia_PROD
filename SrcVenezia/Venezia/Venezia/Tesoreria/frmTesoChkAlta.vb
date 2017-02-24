@@ -38,7 +38,7 @@ Public Class frmTesoChkAlta
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
 
-            If Not mPermiso.Modificacion Then
+            If Not mPermiso.Modificacion = cPermiso.enuBinario.Si Then
                 btnRechazado.Enabled = False
             End If
 
@@ -133,25 +133,28 @@ Public Class frmTesoChkAlta
                         lblEstadoChk.ForeColor = Color.Red
                 End Select
 
-                'Si el cheque esta liquidado permito que lo marquen como rechazado.
-                If mCheque.Estado.Id_Estado = 1 Then
-                    btnRechazado.Text = "Rechazado"
-                    btnRechazado.Enabled = True
-                ElseIf mCheque.Estado.Id_Estado = 2 Then  'Si el cheque esta Rechazado Pte permito que lo marquen como recuperado.
-                    btnRechazado.Text = "Recuperado"
-                Else
-                    btnRechazado.Enabled = False
+                'Si el boton rechazado esta habilitado por el esquema de permisos valido si es factible rechazarlo/recuperarlo
+                If btnRechazado.Enabled = True Then
+                    'Si el cheque esta liquidado permito que lo marquen como rechazado.
+                    If mCheque.Estado.Id_Estado = 1 Then
+                        btnRechazado.Text = "Rechazado"
+                        btnRechazado.Enabled = True
+                    ElseIf mCheque.Estado.Id_Estado = 2 Then  'Si el cheque esta Rechazado Pte permito que lo marquen como recuperado.
+                        btnRechazado.Text = "Recuperado"
+                    Else
+                        btnRechazado.Enabled = False
+                    End If
                 End If
 
                 'Escribo un comentario sobre las liquidaciones asociadas
                 lblDatosLiquidaciones.Text = "Recibido en la liquidacion nro=" & mCheque.Id_Liquidacion.ToString
-                If mCheque.Estado.Id_Estado = 3 Then
-                    lConcil = cConciliacionLiq.GetDeudoresxIdCheque(gAdmin, mCheque.Id_Cheque)(0)
-                    lblDatosLiquidaciones.Text = lblDatosLiquidaciones.Text & " y recuperado en la nro=" & lConcil.Id_Liquidacion.ToString
+                    If mCheque.Estado.Id_Estado = 3 Then
+                        lConcil = cConciliacionLiq.GetDeudoresxIdCheque(gAdmin, mCheque.Id_Cheque)(0)
+                        lblDatosLiquidaciones.Text = lblDatosLiquidaciones.Text & " y recuperado en la nro=" & lConcil.Id_Liquidacion.ToString
+                    End If
+
+
                 End If
-
-
-            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoChkAlta.subCargarDatos")

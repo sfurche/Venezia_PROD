@@ -4,7 +4,7 @@ set valor = '17.1.2.0'
 where id_setting = 4;
 
 /*----------------------------------------------------------------------------------------*/
-
+drop table vz_mailing;
 
 CREATE TABLE `vz_mailing` (
   `id_mailing` INT NOT NULL,

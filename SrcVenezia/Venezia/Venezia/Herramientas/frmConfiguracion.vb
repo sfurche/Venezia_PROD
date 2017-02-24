@@ -51,9 +51,9 @@ Public Class frmConfiguracion
             ' Add columns using the ColHeader class. The fourth    
             ' parameter specifies true for an ascending sort order.
             lvwConsulta.Columns.Add(New ColHeader("Id", 40, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Codigo", 80, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("Codigo", 120, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Tipo", 80, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Valor", 250, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("Valor", 3000, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Observaciones", 350, HorizontalAlignment.Left, True))
 
             ' Connect the ListView.ColumnClick event to the ColumnClick event handler.

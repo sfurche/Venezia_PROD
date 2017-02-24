@@ -197,6 +197,16 @@ Public Class cUser
         End Try
     End Function
 
+    Public Sub Actualizar_Permisos()
+        Try
+            _Permisos = cPermiso.GetPermisosxUsuario(gAdmin, Me.Id)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cUser.Actualizar_Permisos")
+            gLog.fncGrabarLogERR("Error en cUser.Actualizar_Permisos:" & ex.Message)
+        End Try
+    End Sub
+
+
 #End Region
 
 #Region "Shared Functions"

@@ -25,7 +25,7 @@ Partial Class frmPrincipal
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrincipal))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tbtnSalir = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.tbtnActualizarPermisos = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
@@ -102,7 +102,7 @@ Partial Class frmPrincipal
         '
         Me.ToolStrip1.AllowItemReorder = True
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(30, 30)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbtnSalir, Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripButton2, Me.ToolStripSeparator2})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbtnSalir, Me.tbtnActualizarPermisos, Me.ToolStripSeparator1, Me.ToolStripButton2, Me.ToolStripSeparator2})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1005, 48)
@@ -119,15 +119,15 @@ Partial Class frmPrincipal
         Me.tbtnSalir.Size = New System.Drawing.Size(44, 45)
         Me.tbtnSalir.Text = "Salir"
         '
-        'ToolStripButton1
+        'tbtnActualizarPermisos
         '
-        Me.ToolStripButton1.AutoSize = False
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(44, 45)
-        Me.ToolStripButton1.Text = "ToolStripButton1"
+        Me.tbtnActualizarPermisos.AutoSize = False
+        Me.tbtnActualizarPermisos.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.tbtnActualizarPermisos.Image = CType(resources.GetObject("tbtnActualizarPermisos.Image"), System.Drawing.Image)
+        Me.tbtnActualizarPermisos.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tbtnActualizarPermisos.Name = "tbtnActualizarPermisos"
+        Me.tbtnActualizarPermisos.Size = New System.Drawing.Size(44, 45)
+        Me.tbtnActualizarPermisos.Text = "Actualizar Permisos"
         '
         'ToolStripSeparator1
         '
@@ -205,7 +205,7 @@ Partial Class frmPrincipal
         '
         Me.SalirToolStripMenuItem.Image = CType(resources.GetObject("SalirToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(176, 46)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(96, 22)
         Me.SalirToolStripMenuItem.Text = "&Salir"
         '
         'ComercialToolStripMenuItem
@@ -219,7 +219,7 @@ Partial Class frmPrincipal
         '
         Me.VendedoresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDeVendedoresToolStripMenuItem})
         Me.VendedoresToolStripMenuItem.Name = "VendedoresToolStripMenuItem"
-        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.VendedoresToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.VendedoresToolStripMenuItem.Text = "Vendedores"
         '
         'ConsultaDeVendedoresToolStripMenuItem
@@ -232,7 +232,7 @@ Partial Class frmPrincipal
         '
         Me.ProveedoresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDeProveedoresToolStripMenuItem})
         Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
-        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
         '
         'ConsultaDeProveedoresToolStripMenuItem
@@ -461,25 +461,25 @@ Partial Class frmPrincipal
         'TesoreriaToolStripMenuItem1
         '
         Me.TesoreriaToolStripMenuItem1.Name = "TesoreriaToolStripMenuItem1"
-        Me.TesoreriaToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.TesoreriaToolStripMenuItem1.Size = New System.Drawing.Size(142, 22)
         Me.TesoreriaToolStripMenuItem1.Text = "Tesoreria"
         '
         'ComercialToolStripMenuItem1
         '
         Me.ComercialToolStripMenuItem1.Name = "ComercialToolStripMenuItem1"
-        Me.ComercialToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ComercialToolStripMenuItem1.Size = New System.Drawing.Size(142, 22)
         Me.ComercialToolStripMenuItem1.Text = "Comercial"
         '
         'StockToolStripMenuItem1
         '
         Me.StockToolStripMenuItem1.Name = "StockToolStripMenuItem1"
-        Me.StockToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.StockToolStripMenuItem1.Size = New System.Drawing.Size(142, 22)
         Me.StockToolStripMenuItem1.Text = "Stock"
         '
         'RendimientoToolStripMenuItem
         '
         Me.RendimientoToolStripMenuItem.Name = "RendimientoToolStripMenuItem"
-        Me.RendimientoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RendimientoToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.RendimientoToolStripMenuItem.Text = "Rendimiento"
         '
         'HerramientasToolStripMenuItem
@@ -493,7 +493,7 @@ Partial Class frmPrincipal
         '
         Me.ConfiguracionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FondosDePantallaToolStripMenuItem, Me.VariablesToolStripMenuItem})
         Me.ConfiguracionToolStripMenuItem.Name = "ConfiguracionToolStripMenuItem"
-        Me.ConfiguracionToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ConfiguracionToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
         Me.ConfiguracionToolStripMenuItem.Text = "&Configuracion"
         '
         'FondosDePantallaToolStripMenuItem
@@ -512,7 +512,7 @@ Partial Class frmPrincipal
         '
         Me.SeguridadToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDePermisosToolStripMenuItem})
         Me.SeguridadToolStripMenuItem.Name = "SeguridadToolStripMenuItem"
-        Me.SeguridadToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SeguridadToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
         Me.SeguridadToolStripMenuItem.Text = "Seguridad"
         '
         'ConsultaDePermisosToolStripMenuItem
@@ -524,7 +524,7 @@ Partial Class frmPrincipal
         'CalculadoraToolStripMenuItem
         '
         Me.CalculadoraToolStripMenuItem.Name = "CalculadoraToolStripMenuItem"
-        Me.CalculadoraToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CalculadoraToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
         Me.CalculadoraToolStripMenuItem.Text = "Calculadora"
         '
         'AyudaToolStripMenuItem
@@ -537,26 +537,26 @@ Partial Class frmPrincipal
         'AcercaDeVeneziaToolStripMenuItem
         '
         Me.AcercaDeVeneziaToolStripMenuItem.Name = "AcercaDeVeneziaToolStripMenuItem"
-        Me.AcercaDeVeneziaToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.AcercaDeVeneziaToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.AcercaDeVeneziaToolStripMenuItem.Text = "Acerca de Venezia..."
         '
         'EnviarMailASoporteToolStripMenuItem
         '
         Me.EnviarMailASoporteToolStripMenuItem.Image = CType(resources.GetObject("EnviarMailASoporteToolStripMenuItem.Image"), System.Drawing.Image)
         Me.EnviarMailASoporteToolStripMenuItem.Name = "EnviarMailASoporteToolStripMenuItem"
-        Me.EnviarMailASoporteToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.EnviarMailASoporteToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.EnviarMailASoporteToolStripMenuItem.Text = "Enviar Mail a Soporte"
         '
         'ActualizarVeneziaToolStripMenuItem
         '
         Me.ActualizarVeneziaToolStripMenuItem.Name = "ActualizarVeneziaToolStripMenuItem"
-        Me.ActualizarVeneziaToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.ActualizarVeneziaToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.ActualizarVeneziaToolStripMenuItem.Text = "Actualizar Venezia"
         '
         'ManualOperativoToolStripMenuItem
         '
         Me.ManualOperativoToolStripMenuItem.Name = "ManualOperativoToolStripMenuItem"
-        Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(209, 46)
+        Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.ManualOperativoToolStripMenuItem.Text = "Manual Operativo"
         '
         'frmPrincipal
@@ -599,7 +599,7 @@ Partial Class frmPrincipal
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents tbtnSalir As ToolStripButton
-    Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents tbtnActualizarPermisos As ToolStripButton
     Friend WithEvents ComercialToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents VendedoresToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TesoreriaToolStripMenuItem As ToolStripMenuItem

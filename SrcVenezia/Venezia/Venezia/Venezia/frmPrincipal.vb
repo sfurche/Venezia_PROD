@@ -1004,4 +1004,14 @@ Public Class frmPrincipal
         End Try
     End Sub
 
+    Private Sub tbtnActualizarPermisos_Click(sender As Object, e As EventArgs) Handles tbtnActualizarPermisos.Click
+        Try
+            gAdmin.User.Actualizar_Permisos()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.tbtnActualizarPermisos_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.tbtnActualizarPermisos_Click:" & ex.Message)
+        End Try
+
+    End Sub
 End Class

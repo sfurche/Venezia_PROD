@@ -465,7 +465,7 @@ Public Class cCheque
     End Function
 
     Private Sub ChkAnulacionMailing()
-        Dim lMail As New cEmail
+        Dim lMail As New cEmail(gAdmin)
         Dim lHtml As String = ""
         Dim lCliente As cCliente = Nothing
         Dim lSetting As cSetting = Nothing
@@ -473,32 +473,52 @@ Public Class cCheque
         Try
             lSetting = cSetting.GetSettingxCodigo(gAdmin, "Mailing_ChkRechazado")
             lMail.Tipo_Mailing = "Cheque Rechazado"
+            lMail.Fecha = Date.Today
             lMail.Html = True
             lMail.Para = lSetting.Valor.ToString.Trim
             lMail.Asunto = "Nuevo Cheque Rechazado (Nro." & Me.Numero.ToString & " - " & Me.Banco.NombreRed.Trim & ")"
 
-            lHtml = "<HTML><HEAD>Notificacion Automatica de Cheque Rechazado</HEAD><BODY>"
-            lHtml = lHtml & "Se acaba de registrar un nuevo cheque rechazado. A continuacion los datos del mismmo: <P> "
-            lHtml = lHtml & "Banco: " & Me.Banco.NombreRed.Trim & " <BR>"
-            lHtml = lHtml & "Numero: " & Me.Numero & " <BR>"
-            lHtml = lHtml & "Importe: " & Me.Importe.ToString & " <BR>"
+
+            'Armo el HTML con los valores para reemplazar:
+            '--------------------------------------------
+            lHtml = "<HTML><H1>Notificacion Automatica de Cheque Rechazado <HR> </H1>"
+            lHtml = lHtml & "<BODY> <BIG>Se acaba de registrar un nuevo cheque rechazado. A continuacion los datos del mismo: </BIG> <P>"
+            lHtml = lHtml & "<B> Banco: </B> #Banco_Nombre# <BR>"
+            lHtml = lHtml & "<B> Numero: </B> #Cheque_Numero# <BR>"
+            lHtml = lHtml & "<B> Importe: </B> #Cheque_Importe# <BR>"
+            lHtml = lHtml & "<B> Origen del Cheque:</B>  #Cheque_Origen# #Cheque_Cliente_Nombre# <BR>"
+            lHtml = lHtml & "<B> Orden de Pago Nro:</B>  #OrdenPago_Numero# <BR>"
+            lHtml = lHtml & "<B> Destino del Cheque: </B> #OrdenPago_Destino# #OrdenPago_Proveedor_Nombre# <BR>"
+            lHtml = lHtml & "</BODY></HTML>"
+
+
+            'Ahora solo reemplazo los valores en el HTML
+            '-------------------------------------------
+
+            lHtml = lHtml.Replace("#Banco_Nombre#", Me.Banco.NombreRed.Trim)
+            lHtml = lHtml.Replace("#Cheque_Numero#", Me.Numero)
+            lHtml = lHtml.Replace("#Cheque_Importe#", Me.Importe.ToString)
+
+
             If Me.Propio = enuBinario.No Then
                 lCliente = cCliente.GetClientexNroCliente(gAdmin, Me.NroCli)
-                lHtml = lHtml & "Origen del Cheque: Terceros (" & lCliente.Nombre & ") <BR>"
+                lHtml = lHtml.Replace("#Cheque_Origen#", "Terceros ")
+                lHtml = lHtml.Replace("#Cheque_Cliente_Nombre#", "(" & lCliente.Nombre & ")")
             Else
-                lHtml = lHtml & "Origen del cheque: Propio < BR > "
+                lHtml = lHtml.Replace("#Cheque_Origen#", " Propio")
+                lHtml = lHtml.Replace("#Cheque_Cliente_Nombre#", "")
             End If
+
 
             lOp = cOrdenDePago.GetOrdenDePagoxId(gAdmin, Me.Id_Orden)
-            lHtml = lHtml & "Orden de Pago Nro: " & lOp.Id_Orden.ToString & " < BR > "
+            lHtml = lHtml.Replace("#OrdenPago_Numero#", lOp.Id_Orden.ToString)
             If lOp.Tipo_Destino = cOrdenDePago.enuTipoDestinoOrdenPago.Proveedores Then
-                lHtml = lHtml & "Destino del Cheque: Proveedor (" & lOp.Proveedor.Nombre & ") <BR>"
+                lHtml = lHtml.Replace("#OrdenPago_Destino#", "Proveedor ")
+                lHtml = lHtml.Replace("#OrdenPago_Proveedor_Nombre#", "(" & lOp.Proveedor.Nombre & ")")
             Else
-                lHtml = lHtml & "Destino del cheque: Cobro/Deposito < BR > "
+                lHtml = lHtml.Replace("#OrdenPago_Destino#", "Cobro/Deposito ")
+                lHtml = lHtml.Replace("#OrdenPago_Proveedor_Nombre#", "")
             End If
-
-            lHtml = lHtml &
-            lHtml = lHtml & "</BODY></HTML>"
 
             lMail.Body = lHtml
             lMail.Guardar()
@@ -547,6 +567,7 @@ Public Class cCheque
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()
 
+                ChkAnulacionMailing()
             End If
 
             Rechazar = True

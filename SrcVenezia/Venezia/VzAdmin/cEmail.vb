@@ -149,9 +149,37 @@ Public Class cEmail
     End Sub
 
     Public Function Guardar() As Boolean
-        Guardar = False
-        Try
 
+        Guardar = False
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = gAdmin.DbCnn.GetInstanceCon
+
+            Sql = "CALL vz_mailing_ins ('#fecha#','#asunto#', '#para#','#cc#','#bcc#', '#body#', #html#,  '#tipo_mailing#',#idusr#)"
+            Sql = Sql.Replace("#fecha#", VzAdmin.cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#asunto#", Me.Asunto)
+            Sql = Sql.Replace("#para#", Me.Para)
+            Sql = Sql.Replace("#cc#", Me.CC)
+            Sql = Sql.Replace("#bcc#", Me.BCC)
+            Sql = Sql.Replace("#body#", Me.Body)
+            Sql = Sql.Replace("#html#", Convert.ToInt32(Me.Html))
+            Sql = Sql.Replace("#tipo_mailing#", Me.Tipo_Mailing)
+            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+            Cmd.Connection = lCnn
+            Cmd.CommandType = CommandType.Text
+            Cmd.CommandText = Sql
+
+            If lCnn.State = ConnectionState.Closed Then
+                lCnn.Open()
+            End If
+
+            Cmd.ExecuteNonQuery()
+
+            lCnn.Close()
 
             Guardar = True
         Catch ex As Exception

@@ -188,6 +188,83 @@ Public Class cEmail
         End Try
     End Function
 
+    Public Function Enviar() As Boolean
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lCnn As MySqlConnection
+        Dim lStr As String
+        Dim lPara As String() = Nothing
+
+        Try
+
+            Dim MMessage As System.Net.Mail.MailMessage = New System.Net.Mail.MailMessage()
+            MMessage.SubjectEncoding = System.Text.Encoding.UTF8
+            MMessage.From = New MailAddress("veneziasystemsmf@gmail.com", "Venezia System SMF", System.Text.Encoding.UTF8)
+            MMessage.Subject = Me.Asunto.Trim
+
+            If Me.Para.Trim.Length > 0 Then
+                lPara = Me.Para.Split(";")
+                For Each lStr In lPara
+                    MMessage.To.Add(lStr)
+                Next
+            End If
+
+            If Me.CC.Trim.Length > 0 Then
+                lPara = Me.CC.Split(";")
+                For Each lStr In lPara
+                    MMessage.To.Add(lStr)
+                Next
+            End If
+
+            If Me.BCC.Trim.Length > 0 Then
+                lPara = Me.BCC.Split(";")
+                For Each lStr In lPara
+                    MMessage.To.Add(lStr)
+                Next
+            End If
+
+            MMessage.IsBodyHtml = Me.Html
+            MMessage.Body = Me.Body
+
+            '-----Armo la clase para el envio con los datos del mail sin Proxy
+            Dim SClient As New SmtpClient()
+            SClient.Credentials = New System.Net.NetworkCredential("veneziasystemsmf@gmail.com", "trabajo.1979")
+            SClient.Host = "smtp.gmail.com" 'Servidor SMTP de Gmail
+            SClient.Port = 587 'Puerto del SMTP de Gmail
+            SClient.EnableSsl = True 'Habilita el SSL, necesio en Gmail
+
+            SClient.Send(MMessage)
+            SClient.Dispose()
+            MMessage.Dispose()
+
+            '-----------------------------------------------------------------------------------------------
+            'Si funciono el envio lo marco como procesado.
+            lCnn = gAdmin.DbCnn.GetInstanceCon
+            Sql = "CALL vz_mailing_cambest ('#id_mailing#',#id_estado#, #idusr#)"
+            Sql = Sql.Replace("#id_mailing#", Me.Id_Mailing)
+            Sql = Sql.Replace("#id_estado#", "1")
+            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Cmd.ExecuteNonQuery()
+
+                lCnn.Close()
+            End With
+            '-----------------------------------------------------------------------------------------------
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Enviar")
+            gAdmin.Log.fncGrabarLogERR("Error en cEmail.Enviar:" & ex.Message)
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Shared Functions"
@@ -354,39 +431,6 @@ Public Class cEmail
         End Try
     End Function
 
-    Public Function Enviar() As Boolean
-        Dim Cmd As New MySqlCommand
-        Dim Sql As String
-        Dim lCnn As MySqlConnection
-
-        Try
-            '-----------------------------------------------------------------------------------------------
-            'Si funciono el envio lo marco como procesado.
-            lCnn = gAdmin.DbCnn.GetInstanceCon
-            Sql = "CALL vz_mailing_cambest ('#id_mailing#',#id_estado#, #idusr#)"
-            Sql = Sql.Replace("#id_mailing#", Me.Id_Mailing)
-            Sql = Sql.Replace("#id_estado#", "1")
-            Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
-            With Cmd
-                .Connection = lCnn
-                .CommandType = CommandType.Text
-                .CommandText = Sql
-
-                If lCnn.State = ConnectionState.Closed Then
-                    lCnn.Open()
-                End If
-                Cmd.ExecuteNonQuery()
-
-                lCnn.Close()
-            End With
-            '-----------------------------------------------------------------------------------------------
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Enviar")
-            gAdmin.Log.fncGrabarLogERR("Error en cEmail.Enviar:" & ex.Message)
-        End Try
-
-    End Function
 
 #End Region
 

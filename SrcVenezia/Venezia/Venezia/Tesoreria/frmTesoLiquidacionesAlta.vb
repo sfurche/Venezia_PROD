@@ -15,7 +15,6 @@ Public Class frmTesoLiquidacionesAlta
             '----------------------------------P-E-R-M-I-S-O-S---------------------------------------------------
             SetPermisos()
             '---------------------------------------------------------------------------------------------------
-
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             Me.Tag = "ALTALIQUIDACION"

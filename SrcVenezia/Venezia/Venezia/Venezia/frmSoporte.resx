@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>ATENCION DE INCIDENTES
+Para pedir soporte sobre esta aplicacion, por favor escriba todo el detalle posible a continuacion y presione enviar.
+En caso de temas URGENTES, comunicarse direcatamente a los sigueintes telefonos:
+-Sebastian (15-5506-0783)
+-Julian (15-3387-6035)
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="PictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1950,10 +1958,5 @@
         UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAU
         UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//2Q==
 </value>
-  </data>
-  <data name="Label1.Text" xml:space="preserve">
-    <value>Con esta funcionalidad, puede enviar un mail directamente al area de soporte. 
-Es importante proveer la mayor cantidad de informacion posible para identificar la causa del error,  
-por ejemplo: que funcion estaba ejecutando, primera vez que da error, que datos utilizaba, etc. </value>
   </data>
 </root>

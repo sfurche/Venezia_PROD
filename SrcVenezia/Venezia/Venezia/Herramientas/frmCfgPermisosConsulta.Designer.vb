@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmCfgPermisosConsulta
     Inherits TemplateForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmCfgPermisosConsulta
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -29,7 +29,6 @@ Partial Class frmCfgPermisosConsulta
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnUpdPWD = New System.Windows.Forms.Button()
-        Me.btnGuardar = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -109,7 +108,7 @@ Partial Class frmCfgPermisosConsulta
         'btnUpdPWD
         '
         Me.btnUpdPWD.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdPWD.Location = New System.Drawing.Point(114, 387)
+        Me.btnUpdPWD.Location = New System.Drawing.Point(10, 377)
         Me.btnUpdPWD.Margin = New System.Windows.Forms.Padding(1)
         Me.btnUpdPWD.Name = "btnUpdPWD"
         Me.btnUpdPWD.Size = New System.Drawing.Size(217, 21)
@@ -117,24 +116,12 @@ Partial Class frmCfgPermisosConsulta
         Me.btnUpdPWD.Text = "Ver / Cambiar Contraseña"
         Me.btnUpdPWD.UseVisualStyleBackColor = False
         '
-        'btnGuardar
-        '
-        Me.btnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGuardar.Location = New System.Drawing.Point(7, 387)
-        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(1)
-        Me.btnGuardar.Name = "btnGuardar"
-        Me.btnGuardar.Size = New System.Drawing.Size(95, 21)
-        Me.btnGuardar.TabIndex = 29
-        Me.btnGuardar.Text = "Guardar"
-        Me.btnGuardar.UseVisualStyleBackColor = False
-        '
         'frmCfgPermisosConsulta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(858, 423)
         Me.Controls.Add(Me.btnUpdPWD)
-        Me.Controls.Add(Me.btnGuardar)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -155,5 +142,4 @@ Partial Class frmCfgPermisosConsulta
     Friend WithEvents btnSalir As Button
     Friend WithEvents lvwConsulta As ListView
     Friend WithEvents btnUpdPWD As Button
-    Friend WithEvents btnGuardar As Button
 End Class

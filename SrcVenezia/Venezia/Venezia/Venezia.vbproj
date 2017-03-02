@@ -184,6 +184,12 @@
     <Compile Include="Venezia\frmManualOperativo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Venezia\frmSoporte.Designer.vb">
+      <DependentUpon>frmSoporte.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Venezia\frmSoporte.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Venezia\TemplateForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -239,12 +245,6 @@
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="Venezia\frmLogin.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Venezia\frmMailSoporte.Designer.vb">
-      <DependentUpon>frmMailSoporte.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Venezia\frmMailSoporte.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Venezia\frmPrincipal.Designer.vb">
@@ -394,9 +394,6 @@
     <EmbeddedResource Include="Venezia\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Venezia\frmMailSoporte.resx">
-      <DependentUpon>frmMailSoporte.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Venezia\frmManualOperativo.resx">
       <DependentUpon>frmManualOperativo.vb</DependentUpon>
     </EmbeddedResource>
@@ -405,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\frmReporteBase.resx">
       <DependentUpon>frmReporteBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Venezia\frmSoporte.resx">
+      <DependentUpon>frmSoporte.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Venezia\frmSplashScreen.resx">
       <DependentUpon>frmSplashScreen.vb</DependentUpon>

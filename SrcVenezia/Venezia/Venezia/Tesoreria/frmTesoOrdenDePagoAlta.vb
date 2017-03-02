@@ -338,7 +338,7 @@ Public Class frmTesoOrdenDePagoAlta
                 Exit Sub
             End If
 
-            If cmbDestino.Text = "Proveedor" Then
+            If cmbDestino.Text = "Proveedores" Then
                 If IsNothing(txtProove.Tag) Then
                     MsgBox("Debe seleccionar el Proveedor destino", MsgBoxStyle.Exclamation, "Error de validacion")
                     Exit Sub

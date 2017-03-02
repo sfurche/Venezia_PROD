@@ -25,12 +25,17 @@ Public Class frmConfiguracion
     Private Sub SetPermisos()
         Try
 
-            mPermiso = gAdmin.User.GetPermiso("Variables")
-            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+            mPermiso = gAdmin.User.GetPermiso("HERR_CFG: Variables")
+
+            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+            If Not (mPermiso.Consulta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
-                'Me.Close()
             End If
+
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.SetPermisos")

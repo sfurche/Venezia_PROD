@@ -356,7 +356,7 @@ values(7,'Mailing_ChkRechazado', 1, 'sebastianfurche@gmail.com;gabrieladossena@g
 
 delete from vz_settings where cod_setting='Mailing_TesoInicioDia';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
-values(7,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;gabrieladossena@gmail.com', 'Lista de distribucion mailing de Tesoreria Inicio de Dia');
+values(8,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;gabrieladossena@gmail.com', 'Lista de distribucion mailing de Tesoreria Inicio de Dia');
 
 
 /*----------------------------------------------------------------------------------------*/
@@ -384,7 +384,6 @@ where id_estado =0
 and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)
 group by fecha_pago
 order by fecha_pago
-
 
 
 

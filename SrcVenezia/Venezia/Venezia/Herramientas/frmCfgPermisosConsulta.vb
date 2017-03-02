@@ -44,7 +44,7 @@ Public Class frmCfgPermisosConsulta
             End If
 
             If Not mPermiso.Modificacion = cPermiso.enuBinario.Si Then
-                btnGuardar.Enabled = False
+                lvwConsulta.Enabled = False
             End If
 
         Catch ex As Exception
@@ -226,6 +226,9 @@ Public Class frmCfgPermisosConsulta
         Try
             Dim lPermiso As cPermiso = Nothing
             Dim info As ListViewHitTestInfo = lvwConsulta.HitTest(e.X, e.Y)
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             If Not IsNothing(info.SubItem) Then
                 'MsgBox(info.SubItem.Text)
 
@@ -251,6 +254,7 @@ Public Class frmCfgPermisosConsulta
                 lPermiso.Supervisa = IIf(info.Item.SubItems(7).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
                 lPermiso.Admin = IIf(info.Item.SubItems(8).Text = Chr(252), cPermiso.enuBinario.Si, cPermiso.enuBinario.No)
 
+                subGuardarCambios()
 
             End If
 
@@ -258,34 +262,28 @@ Public Class frmCfgPermisosConsulta
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.lvwConsulta_MouseDoubleClick")
             gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.lvwConsulta_MouseDoubleClick:" & ex.Message)
         End Try
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
 
-    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+    Private Sub subGuardarCambios()
         Dim lItem As ListViewItem = Nothing
         Dim lPermiso As cPermiso = Nothing
 
         Try
-            If mModif = False Then
-                MsgBox("No hay modificaciones para guardar", MsgBoxStyle.Exclamation, "Sin modificaciones")
-                Exit Sub
-            End If
 
-            If MsgBox("Esta seguro que desea guardar los cambios?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Confirma guardar") = MsgBoxResult.Yes Then
-                'aca deberia recoorrere la grilla y guardar los cambios.
-                For Each lItem In lvwConsulta.Items
-                    lPermiso = DirectCast(lItem.Tag, cPermiso)
-                    lPermiso.Guardar()
-                Next
+            'aca deberia recoorrere la grilla y guardar los cambios.
+            For Each lItem In lvwConsulta.Items
+                lPermiso = DirectCast(lItem.Tag, cPermiso)
+                lPermiso.Guardar()
+            Next
 
-                'Marco que ya no tiene cambios pendientes.
-                mModif = False
-            End If
+            'Actualizo los permisos del usuario actual.
+            gAdmin.User.Actualizar_Permisos()
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.btnGuardar_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.btnGuardar_Click:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmCfgPermisosConsulta.subGuardarCambios")
+            gAdmin.Log.fncGrabarLogERR("Error en frmCfgPermisosConsulta.subGuardarCambios:" & ex.Message)
         End Try
     End Sub
-
 
 End Class

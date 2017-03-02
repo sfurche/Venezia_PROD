@@ -455,16 +455,13 @@ Public Class cCheque
             Anular = True
 
 
-            'Genero un mail avisando que se anulo el cheque.
-            ChkAnulacionMailing()
-
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Anular")
             gAdmin.Log.fncGrabarLogERR("Error en cCheque.Anular:" & ex.Message)
         End Try
     End Function
 
-    Private Sub ChkAnulacionMailing()
+    Private Sub ChkRechazadonMailing()
         Dim lMail As New cEmail(gAdmin)
         Dim lHtml As String = ""
         Dim lCliente As cCliente = Nothing
@@ -524,8 +521,8 @@ Public Class cCheque
             lMail.Guardar()
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.ChkAnulacionMailing")
-            gAdmin.Log.fncGrabarLogERR("Error en cCheque.ChkAnulacionMailing:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.ChkRechazadonMailing")
+            gAdmin.Log.fncGrabarLogERR("Error en cCheque.ChkRechazadonMailing:" & ex.Message)
         End Try
     End Sub
 
@@ -567,7 +564,7 @@ Public Class cCheque
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()
 
-                ChkAnulacionMailing()
+                ChkRechazadonMailing()
             End If
 
             Rechazar = True

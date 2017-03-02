@@ -44,6 +44,7 @@ Public Class frmTesoLiquidacionesCons
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
 
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmTesoLiquidacionesCons.SetPermisos")
             gAdmin.Log.fncGrabarLogERR("Error en frmTesoLiquidacionesCons.SetPermisos:" & ex.Message)

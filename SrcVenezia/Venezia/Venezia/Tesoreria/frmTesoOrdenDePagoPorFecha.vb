@@ -29,14 +29,14 @@ Public Class frmTesoOrdenDePagoPorFecha
         Dim lPermiso As cPermiso = Nothing
         Try
 
-            lPermiso = gAdmin.User.GetPermiso("TESO_ORDP: Consulta Ordenes de Pago")
+            lPermiso = gAdmin.User.GetPermiso("TESO_ORDP: Ordenes de Pago x Fecha")
 
             'Si es admin hace tiene permiso pleno.
             If lPermiso.Admin = cPermiso.enuBinario.Si Then
                 Exit Sub
             End If
 
-            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si) Then
+            If Not (lPermiso.Consulta = cPermiso.enuBinario.Si Or lPermiso.Ejecuta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If

@@ -361,12 +361,12 @@ Public Class cCliente
             lCliente = New cCliente(pAdmin)
             lCliente.NroCli = lDr("NroCli")
             lCliente.Nombre = lDr("Nombre")
-            lCliente.Domicilio = lDr("Domicilio")
-            lCliente.Localidad = lDr("Localidad")
-            lCliente.CodPost = lDr("CodPost")
-            lCliente.Tel = lDr("Tel")
-            lCliente.Mail = lDr("Mail")
-            lCliente.Cuit = lDr("Cuit")
+            lCliente.Domicilio = cFunciones.gFncgetDbValue(lDr("Domicilio"), cFunciones.TipoDato.TEXTO)
+            lCliente.Localidad = cFunciones.gFncgetDbValue(lDr("Localidad"), cFunciones.TipoDato.TEXTO)
+            lCliente.CodPost = cFunciones.gFncgetDbValue(lDr("CodPost"), cFunciones.TipoDato.TEXTO)
+            lCliente.Tel = cFunciones.gFncgetDbValue(lDr("Tel"), cFunciones.TipoDato.TEXTO)
+            lCliente.Mail = cFunciones.gFncgetDbValue(lDr("Mail"), cFunciones.TipoDato.TEXTO)
+            lCliente.Cuit = cFunciones.gFncgetDbValue(lDr("Cuit"), cFunciones.TipoDato.TEXTO)
             lCliente.CatIva = cCondicionIVA.GetCatIvaxCod(pAdmin, lDr("Id_CatIva"))
             lCliente.Id_CondPago = cCondicionPago.GetCondPagoxCod(pAdmin, lDr("Id_CondPago"))
             lCliente.CodProv = lDr("CodProv")
@@ -391,7 +391,7 @@ Public Class cCliente
             lCliente.MsgFicha = lDr("MsgFicha")
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCliente.Load_Cliente")
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCliente.Load_Cliente-" & lCliente.NroCli)
             pAdmin.Log.fncGrabarLogERR("Error en cCliente.Load_Cliente:" & ex.Message)
         End Try
 
@@ -495,8 +495,12 @@ Public Class cCliente
         Dim lCnn As MySqlConnection
 
         Try
+
+            '20170301 - Agregamos la condicion "WHERE NroCli REGEXP ('[0-9]') " para asegurarnos que todos los valores que devuelven, tienen codigo de cliente valido. Se habia encontrado un caso en que 
+            'el codigo de cliente estaba en blanco.
+
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "SELECT * FROM cl_clientes where NroCli like '%#pCli#%' or Nombre like '%#pCli#%'"
+            Sql = "SELECT * FROM cl_clientes where NroCli like '%#pCli#%' or Nombre like '%#pCli#%' and NroCli REGEXP ('[0-9]')"
             Sql = Sql.Replace("#pCli#", pCli.Trim)
 
             With Cmd
@@ -531,7 +535,7 @@ Public Class cCliente
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "SELECT * FROM cl_clientes"
+            Sql = "SELECT * FROM cl_clientes WHERE NroCli REGEXP ('[0-9]')"
 
             With Cmd
                 .Connection = lCnn

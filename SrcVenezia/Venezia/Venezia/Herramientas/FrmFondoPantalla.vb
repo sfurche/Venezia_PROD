@@ -307,15 +307,22 @@ Public Class frmFondoPantalla
         Try
 
             mPermiso = gAdmin.User.GetPermiso("HERR_CFG: Fondo de Pantalla")
-            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+
+            If mPermiso.Admin = cPermiso.enuBinario.Si Then
+                Exit Sub
+            End If
+
+
+            If Not (mPermiso.Consulta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
 
-            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+            If Not (mPermiso.Alta = cPermiso.enuBinario.Si Or mPermiso.Modificacion = cPermiso.enuBinario.Si) Then
                 btnAceptar.Enabled = False
                 btnAplicar.Enabled = False
             End If
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmFondoPantalla.SetPermisos")
             gAdmin.Log.fncGrabarLogERR("Error en frmFondoPantalla.SetPermisos:" & ex.Message)

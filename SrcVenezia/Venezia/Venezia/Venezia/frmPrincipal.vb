@@ -95,7 +95,7 @@ Public Class frmPrincipal
 
     End Sub
 
-    Public Sub SubArirCheque(ByRef pCheque As cCheque, ByRef pFrmLlamador As FrmBase, ByVal pModo As FrmBase.EnuOPERACION)
+    Public Sub SubArirCheque(ByRef pCheque As cCheque, ByRef pFrmLlamador As TemplateForm, ByVal pModo As FrmBase.EnuOPERACION)
         Dim Ventana As New frmTesoChkAlta
         Dim F As Form
         Dim i As Integer
@@ -114,7 +114,7 @@ Public Class frmPrincipal
             Ventana.MdiParent = Me
             Ventana.FrmLlamador = pFrmLlamador
             Ventana.TipoDeOperacion = pModo
-            Ventana.mcheque = pCheque
+            Ventana.mCheque = pCheque
             Ventana.Show()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "FrmPrincipal.SubArirCheque")
@@ -463,7 +463,7 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub EnviarMailASoporteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnviarMailASoporteToolStripMenuItem.Click
-        Dim Ventana As New frmMailSoporte
+        Dim Ventana As New frmSoporte
 
         Dim F As Form
         Dim i As Integer

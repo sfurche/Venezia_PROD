@@ -1,5 +1,7 @@
 ﻿Imports Microsoft.Win32
 Imports VzTesoreria
+Imports VzAdmin
+Imports VzProcesos
 
 Public Class frmPrincipal
     'Inherits System.Windows.Forms.Form
@@ -1042,5 +1044,31 @@ Public Class frmPrincipal
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.EnviarMailingPendienteToolStripMenuItem_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.EnviarMailingPendienteToolStripMenuItem_Click:" & ex.Message)
         End Try
+    End Sub
+
+    Private Sub MailingInicioDeDiaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MailingInicioDeDiaToolStripMenuItem.Click
+
+        Dim lPermiso As cPermiso = Nothing
+        Try
+
+            lPermiso = gAdmin.User.GetPermiso("HERR_PROC: Mailing TesoInicio de Dia")
+
+            If Not (lPermiso.Ejecuta = cPermiso.enuBinario.Si Or lPermiso.Admin = cPermiso.enuBinario.Si) Then
+                MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
+                Exit Sub
+            End If
+
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            VzProcesos.cMailingTesoInicioDia.Ejecutar(gAdmin)
+
+            MsgBox("Proceso ejecutado con exito!!", MsgBoxStyle.Information, "Proceso OK")
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.MailingInicioDeDiaToolStripMenuItem_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.MailingInicioDeDiaToolStripMenuItem_Click:" & ex.Message)
+        End Try
+
+        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
 End Class

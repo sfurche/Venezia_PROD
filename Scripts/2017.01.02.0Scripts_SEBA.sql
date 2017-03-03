@@ -342,6 +342,8 @@ insert vz_permisos(id_permiso, nombre, observaciones) values (23, 'HERR_CFG: Var
 
 insert vz_permisos(id_permiso, nombre, observaciones) values (24, 'HERR_SEG: Consulta de Permisos', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (25, 'HERR_PROC: Mailing Automatico', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (26, 'HERR_PROC: Mailing TesoInicio de Dia', '');
+
 
 insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (24,19,'S','S','S','S','S','S','S');
 
@@ -360,30 +362,4 @@ values(8,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;gabrieladossena@
 
 
 /*----------------------------------------------------------------------------------------*/
-
-
-Buenos dias,
-
-A continuacion se adjunta un breve resumen de la informacion mas importante para empezar el dia:
-
-CHQUES EN CARTERA
-Actualmente hay #CantChequesenCartera# cheques en cartera por un total de  #SumaChequesenCartera# pesos.
-
-Estos es la caida de cheques para los proximos dias:
-
-Cheques rechazados pendientes de levantar:
-
-
-/*--Cheques en cartera---*/
-select count(*) from vz_cheques where id_estado = 0;
-
-select round(sum(importe),2)  from vz_cheques  where id_estado = 0;
-
-select fecha_pago, round(sum(importe),2) from vz_cheques 
-where id_estado =0
-and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-group by fecha_pago
-order by fecha_pago
-
-
 

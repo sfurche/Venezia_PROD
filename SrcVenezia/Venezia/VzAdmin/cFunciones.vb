@@ -390,9 +390,9 @@ Public Class cFunciones
     Private Shared Function GetHeader(ByVal dTable As DataTable) As String
         Dim dString As New StringBuilder
 
-        dString.Append("<thead style='color:white ; background-color: blue; text-align:center; font-weight: bold;'><tr>")
+        dString.Append(" <thead style='color:white ; background-color: blue; text-align:center; font-weight: bold;'><tr>")
         For Each dColumn As DataColumn In dTable.Columns
-            dString.AppendFormat("<th>{0}</th>", dColumn.ColumnName)
+            dString.AppendFormat("<th align='center' >{0}</th>", dColumn.ColumnName)
         Next
         dString.Append("</tr></thead>")
 
@@ -401,13 +401,25 @@ Public Class cFunciones
 
     Private Shared Function GetBody(ByVal dTable As DataTable) As String
         Dim dString As New StringBuilder
-
+        Dim i As Int32
+        Dim d As Double
         dString.Append("<tbody>")
 
         For Each dRow As DataRow In dTable.Rows
             dString.Append("<tr>")
             For dCount As Integer = 0 To dTable.Columns.Count - 1
-                dString.AppendFormat("<td>{0}</td>", dRow(dCount))
+                If IsNumeric(dRow(dCount)) Then
+                    If Int32.TryParse(dRow(dCount), i) = True Then
+                        'dString.AppendFormat("<td align='right'>{0}</td>", dRow(dCount))
+                        dString.AppendFormat("<td align='right'>{0}</td>", Strings.FormatNumber(dRow(dCount), 0))
+                    ElseIf Double.TryParse(dRow(dCount), d) = True Then
+                        dString.AppendFormat("<td align='right'>{0}</td>", Strings.FormatNumber(dRow(dCount)))
+                    Else
+                        dString.AppendFormat("<td align='left'>{0}</td>", dRow(dCount))
+                    End If
+                Else
+                        dString.AppendFormat("<td align='left'>{0}</td>", dRow(dCount))
+                End If
             Next
             dString.Append("</tr>")
         Next

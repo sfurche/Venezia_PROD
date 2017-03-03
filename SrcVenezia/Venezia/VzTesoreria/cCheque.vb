@@ -939,6 +939,8 @@ Public Class cCheque
 
     End Function
 
+
+
 #End Region
 
 #Region "Base de Datos"
@@ -1430,6 +1432,150 @@ Public Class cCheque
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetChequesxEstado")
             pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetChequesxEstado:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetCantChequesxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId_Estado As Integer) As Integer
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "select count(*) from vz_cheques where id_estado = #Id# ;"
+            Sql = Sql.Replace("#Id#", pId_Estado)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt.Rows(0)(0)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetCantChequesxEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetCantChequesxEstado:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetTotalChequesxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId_Estado As Integer) As Double
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+
+            Sql = "select round(sum(importe),2)  from vz_cheques  where id_estado = #Id# ;"
+
+            Sql = Sql.Replace("#Id#", pId_Estado)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt.Rows(0)(0)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetTotalChequesxEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetTotalChequesxEstado:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetTotalCaidaChequesxDiasFuturo(ByRef pAdmin As VzAdmin.cAdmin, ByVal pCantDias As Integer) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "select DATE_FORMAT(fecha_pago, '%d/%m/%Y') Fecha_Pago, count(*) Cantidad, round(sum(importe),2) Total from vz_cheques where id_estado =0  and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL #CantDias# DAY) group by fecha_pago order by fecha_pago ;"
+
+            Sql = Sql.Replace("#CantDias#", pCantDias)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetTotalCaidaChequesxDiasFuturo")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetTotalCaidaChequesxDiasFuturo:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetDetalleChequesxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId_estado As Integer) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "select ch.id_cheque as Id,  ban.nomb_bco_red as Banco, ch.importe as Importe, cl.nombre as Origen, DATE_FORMAT(liq.fecha, '%d/%m/%Y') as Recibido from vz_cheques as ch, cl_clientes as cl, sis_bancos as ban, vz_liquidaciones as liq  where ch.id_liquidacion = liq.id_liquidacion and ch.NroCli = cl.NroCli and ch.id_bco = ban.id_bco and ch.id_estado = #id_estado#; "
+
+            Sql = Sql.Replace("#id_estado#", pId_estado)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_GetTotalCaidaChequesxDiasFuturo")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_GetTotalCaidaChequesxDiasFuturo:" & ex.Message)
             Return Nothing
         End Try
     End Function

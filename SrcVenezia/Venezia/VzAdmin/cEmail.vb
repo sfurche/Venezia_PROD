@@ -154,17 +154,21 @@ Public Class cEmail
         Dim Cmd As New MySqlCommand
         Dim Sql As String
         Dim lCnn As MySqlConnection
+        Dim lHtml As String = ""
 
         Try
             lCnn = gAdmin.DbCnn.GetInstanceCon
 
-            Sql = "CALL vz_mailing_ins ('#fecha#','#asunto#', '#para#','#cc#','#bcc#', '#body#', #html#,  '#tipo_mailing#',#idusr#)"
-            Sql = Sql.Replace("#fecha#", VzAdmin.cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
+            Sql = "CALL vz_mailing_ins ('#fecha#','#asunto#', '#para#','#cc#','#bcc#', '#body#', #html#,  '#tipo_mailing#',#idusr#);"
+            'Sql = Sql.Replace("#fecha#", VzAdmin.cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
+            Sql = Sql.Replace("'#fecha#'", "now()")
             Sql = Sql.Replace("#asunto#", Me.Asunto)
             Sql = Sql.Replace("#para#", Me.Para)
             Sql = Sql.Replace("#cc#", Me.CC)
             Sql = Sql.Replace("#bcc#", Me.BCC)
-            Sql = Sql.Replace("#body#", Me.Body)
+            lHtml = Me.Body
+            lHtml = lHtml.Replace("'", "\'")  'Le agrego una contrabarra adelante a los simple quotes para poder hace el insert en mysql.
+            Sql = Sql.Replace("#body#", lHtml)
             Sql = Sql.Replace("#html#", Convert.ToInt32(Me.Html))
             Sql = Sql.Replace("#tipo_mailing#", Me.Tipo_Mailing)
             Sql = Sql.Replace("#idusr#", gAdmin.User.Id)

@@ -3,6 +3,7 @@
 Public Class frmConfiguracion
 
     Dim mPermiso As cPermiso = Nothing
+
     Private Sub Configuracion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
@@ -21,7 +22,6 @@ Public Class frmConfiguracion
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
 
-
     Private Sub SetPermisos()
         Try
 
@@ -36,13 +36,17 @@ Public Class frmConfiguracion
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
 
+            If Not (mPermiso.Modificacion = cPermiso.enuBinario.Si) Then
+                btnModificar.Enabled = False
+                tsmCambiarValor.Enabled = False
+            End If
+
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.SetPermisos")
             gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.SetPermisos:" & ex.Message)
         End Try
     End Sub
-
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
@@ -160,10 +164,11 @@ Public Class frmConfiguracion
         Dim lSetting As cSetting = Nothing
         Try
 
-            lValor = InputBox("Ingerse el nuevo precio:", "Modificar precio", " ")
-            If Not lValor = " " Then
+            lSetting = DirectCast(lvwConsulta.SelectedItems(0).Tag, cSetting)
+            lValor = InputBox("Ingerse el nuevo precio:", "Modificar precio", lSetting.Valor)
+
+            If Not (lValor = lSetting.Valor Or lValor Is String.Empty) Then
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-                lSetting = DirectCast(lvwConsulta.SelectedItems(0).Tag, cSetting)
                 lvwConsulta.SelectedItems(0).SubItems(3).Text = lValor
                 lSetting.Valor = lValor
                 lSetting.Guardar()
@@ -177,5 +182,20 @@ Public Class frmConfiguracion
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
 
+    Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
+        Try
+            If lvwConsulta.SelectedItems.Count = 0 Then
+                MsgBox("Debe seleccionar el valor que desea modificar.", MsgBoxStyle.Exclamation, "Nada para modificar")
+                Exit Sub
+            End If
+
+            tsmCambiarPrecio_Click(Me, Nothing)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmConfiguracion.btnModificar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmConfiguracion.btnModificar_Click:" & ex.Message)
+        End Try
+
+    End Sub
 
 End Class

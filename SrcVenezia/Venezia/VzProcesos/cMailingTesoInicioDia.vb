@@ -1,77 +1,71 @@
 ﻿Imports VzAdmin
 Imports MySql.Data.MySqlClient
+Imports VzTesoreria
+
 Public Class cMailingTesoInicioDia
 
     Public Sub New(ByRef pAdmmin As cAdmin)
 
     End Sub
 
-    Public Shared Function Ejecutar(ByRef pAdmmin As cAdmin) As Boolean
-        'Ejecutar = False
-        'Dim lMail As New cEmail(pAdmmin)
-        'Dim lHtml As String = ""
-        '    Dim lCliente As cCliente = Nothing
-        '    Dim lSetting As cSetting = Nothing
+    Public Shared Function Ejecutar(ByRef pAdmin As cAdmin) As Boolean
+        Ejecutar = False
+        Dim lMail As New cEmail(pAdmin)
+        Dim lHtml As String = ""
+        Dim lSetting As cSetting = Nothing
+        Dim lDt As DataTable = Nothing
 
-        'Try
-        '    lSetting = cSetting.GetSettingxCodigo(pAdmmin, "Mailing_TesoInicioDia")
-        '    lMail.Tipo_Mailing = "TesoInicioDia"
-        '    lMail.Fecha = Date.Today
-        '        lMail.Html = True
-        '        lMail.Para = lSetting.Valor.ToString.Trim
-        '    lMail.Asunto = "Tesoreria - Inicio de Dia"
-
-
-        '    'Armo el HTML con los valores para reemplazar:
-        '    '--------------------------------------------
-        '    lHtml = "<HTML><H1>Notificacion Automatica de Cheque Rechazado <HR> </H1>"
-        '        lHtml = lHtml & "<BODY> <BIG>Se acaba de registrar un nuevo cheque rechazado. A continuacion los datos del mismo: </BIG> <P>"
-        '        lHtml = lHtml & "<B> Banco: </B> #Banco_Nombre# <BR>"
-        '        lHtml = lHtml & "<B> Numero: </B> #Cheque_Numero# <BR>"
-        '        lHtml = lHtml & "<B> Importe: </B> #Cheque_Importe# <BR>"
-        '        lHtml = lHtml & "<B> Origen del Cheque:</B>  #Cheque_Origen# #Cheque_Cliente_Nombre# <BR>"
-        '        lHtml = lHtml & "<B> Orden de Pago Nro:</B>  #OrdenPago_Numero# <BR>"
-        '        lHtml = lHtml & "<B> Destino del Cheque: </B> #OrdenPago_Destino# #OrdenPago_Proveedor_Nombre# <BR>"
-        '        lHtml = lHtml & "</BODY></HTML>"
+        Try
+            lSetting = cSetting.GetSettingxCodigo(pAdmin, "Mailing_TesoInicioDia")
+            lMail.Tipo_Mailing = "TesoInicioDia"
+            lMail.Fecha = Date.Today
+            lMail.Html = True
+            lMail.Para = lSetting.Valor.ToString.Trim
+            lMail.Asunto = "Tesoreria - Inicio de Dia"
 
 
-        '        'Ahora solo reemplazo los valores en el HTML
-        '        '-------------------------------------------
-
-        '        lHtml = lHtml.Replace("#Banco_Nombre#", Me.Banco.NombreRed.Trim)
-        '        lHtml = lHtml.Replace("#Cheque_Numero#", Me.Numero)
-        '        lHtml = lHtml.Replace("#Cheque_Importe#", Me.Importe.ToString)
-
-
-        '        If Me.Propio = enuBinario.No Then
-        '            lCliente = cCliente.GetClientexNroCliente(gAdmin, Me.NroCli)
-        '            lHtml = lHtml.Replace("#Cheque_Origen#", "Terceros ")
-        '            lHtml = lHtml.Replace("#Cheque_Cliente_Nombre#", "(" & lCliente.Nombre & ")")
-        '        Else
-        '            lHtml = lHtml.Replace("#Cheque_Origen#", " Propio")
-        '            lHtml = lHtml.Replace("#Cheque_Cliente_Nombre#", "")
-        '        End If
+            'Armo el HTML con los valores para reemplazar:
+            '--------------------------------------------
+            lHtml = "<HTML><H1> Notificacion Automatica de Inicio de Día <HR> </H1>"
+            lHtml = lHtml & "<BODY> Buenos días, <BR>"
+            lHtml = lHtml & "A continuación se adjunta un breve resúmen de la información mas importante para empezar el día. <BR> <P>"
+            lHtml = lHtml & "Actualmente hay #CantChequesenCartera# cheques en cartera por un total de<B> $#SumaChequesenCartera#</B> pesos. <BR> <P>"
+            lHtml = lHtml & "Estos es la caída de cheques para los próximos 7 días: <BR><BR>"
+            lHtml = lHtml & "#TablaDeCaidaDeCheques#"
+            lHtml = lHtml & "<BR>"
+            lHtml = lHtml & "Cheques rechazados pendientes de levantar: <BR><BR>"
+            lHtml = lHtml & "#TablaDeChequesRechazados#"
+            lHtml = lHtml & "<BR><BR> Muchas gracias. <BR> Sldos."
+            lHtml = lHtml & "</BODY></HTML>"
 
 
-        '        lOp = cOrdenDePago.GetOrdenDePagoxId(gAdmin, Me.Id_Orden)
-        '        lHtml = lHtml.Replace("#OrdenPago_Numero#", lOp.Id_Orden.ToString)
-        '        If lOp.Tipo_Destino = cOrdenDePago.enuTipoDestinoOrdenPago.Proveedores Then
-        '            lHtml = lHtml.Replace("#OrdenPago_Destino#", "Proveedor ")
-        '            lHtml = lHtml.Replace("#OrdenPago_Proveedor_Nombre#", "(" & lOp.Proveedor.Nombre & ")")
-        '        Else
-        '            lHtml = lHtml.Replace("#OrdenPago_Destino#", "Cobro/Deposito ")
-        '            lHtml = lHtml.Replace("#OrdenPago_Proveedor_Nombre#", "")
-        '        End If
+            'Ahora solo reemplazo los valores en el HTML
+            '-------------------------------------------
 
-        '        lMail.Body = lHtml
-        '        lMail.Guardar()
+            lHtml = lHtml.Replace("#SumaChequesenCartera#", Strings.FormatNumber(cCheque.Dat_GetTotalChequesxEstado(pAdmin, 0).ToString))
+            lHtml = lHtml.Replace("#CantChequesenCartera#", cCheque.Dat_GetCantChequesxEstado(pAdmin, 0).ToString)
+
+            'Busco los cheques que caen en los proximos 7 dias
+            lDt = cCheque.Dat_GetTotalCaidaChequesxDiasFuturo(pAdmin, 7)
+            lHtml = lHtml.Replace("#TablaDeCaidaDeCheques#", cFunciones.DataTableToHTMLTable(lDt))
 
 
+            'Traigo los cheques que estan rechazados y no levantados aun.
+            lDt = cCheque.Dat_GetDetalleChequesxEstado(pAdmin, 2)
 
-        'Ejecutar = True
-        'Catch ex As Exception
+            If lDt.Rows.Count > 0 Then
+                lHtml = lHtml.Replace("#TablaDeChequesRechazados#", cFunciones.DataTableToHTMLTable(lDt))
+            Else
+                lHtml = lHtml.Replace("#TablaDeChequesRechazados#", "No hay cheques rechazados pendientes de levantar. <BR>")
+            End If
 
-        'End Try
+            lMail.Body = lHtml
+            lMail.Guardar()
+
+            Ejecutar = True
+        Catch ex As Exception
+
+        End Try
     End Function
 
     Private Shared Function Dat_GetCantChequesEnCartera(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdChq As String) As Integer
@@ -83,7 +77,7 @@ Public Class cMailingTesoInicioDia
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select count(*) from vz_cheques where id_estado = 0;"
+            Sql = "Select count(*) from vz_cheques where id_estado = 0;"
             'Sql = Sql.Replace("#Id#", pIdChq)
 
             With Cmd

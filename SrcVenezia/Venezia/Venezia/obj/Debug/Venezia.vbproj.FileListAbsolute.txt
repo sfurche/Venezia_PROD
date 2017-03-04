@@ -44,7 +44,6 @@ C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmFondoPantalla.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmConsultas.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmLogin.resources
-C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmMailSoporte.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmPrincipal.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmReporteBase.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSplashScreen.resources
@@ -150,3 +149,6 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\D
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\VzProcesos.xml
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmBatchMailingAutomatico.resources
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSoporte.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSoporte.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRankingxCliente.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoChkRankingxCliente.rdlc

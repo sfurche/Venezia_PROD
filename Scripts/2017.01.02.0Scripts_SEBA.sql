@@ -196,8 +196,8 @@ ifnull(pu.admin, 'N') admin
 from  vz_permisos p 
 left join  vz_permisos_usuario pu 
 on  pu.id_permiso = p.id_permiso
-and  idusr=_idusr;
-
+and  idusr=_idusr
+order by nombre;
 END //
 
 
@@ -343,6 +343,8 @@ insert vz_permisos(id_permiso, nombre, observaciones) values (23, 'HERR_CFG: Var
 insert vz_permisos(id_permiso, nombre, observaciones) values (24, 'HERR_SEG: Consulta de Permisos', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (25, 'HERR_PROC: Mailing Automatico', '');
 insert vz_permisos(id_permiso, nombre, observaciones) values (26, 'HERR_PROC: Mailing TesoInicio de Dia', '');
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (27, 'TESO_CHQ_RPT: Ranking de Cheques x Cliente', '');
 
 
 insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (24,19,'S','S','S','S','S','S','S');

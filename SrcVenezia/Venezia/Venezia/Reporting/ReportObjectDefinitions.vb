@@ -506,6 +506,59 @@
 
     End Class
 
+    Public Class RptObjDefChequesRankingxCliente
+        Private _NroCli As String
+        Private _Cliente As String
+        Private _Total As Double
+        Private _Porcentaje As Double
+        Private _UltFPago As Date
+
+        Public Property NroCli As String
+            Get
+                Return _NroCli
+            End Get
+            Set(value As String)
+                _NroCli = value
+            End Set
+        End Property
+
+        Public Property Cliente As String
+            Get
+                Return _Cliente
+            End Get
+            Set(value As String)
+                _Cliente = value
+            End Set
+        End Property
+
+        Public Property Total As Double
+            Get
+                Return _Total
+            End Get
+            Set(value As Double)
+                _Total = value
+            End Set
+        End Property
+
+        Public Property Porcentaje As Double
+            Get
+                Return _Porcentaje
+            End Get
+            Set(value As Double)
+                _Porcentaje = value
+            End Set
+        End Property
+
+        Public Property UltFPago As Date
+            Get
+                Return _UltFPago
+            End Get
+            Set(value As Date)
+                _UltFPago = value
+            End Set
+        End Property
+    End Class
+
 #End Region
 
 End Namespace

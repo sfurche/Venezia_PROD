@@ -148,6 +148,12 @@
     <Compile Include="Tesoreria\frmTesoChkConsulta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRankingxCliente.Designer.vb">
+      <DependentUpon>frmTesoChkRankingxCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoChkRankingxCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tesoreria\frmTesoChkRptxProv.Designer.vb">
       <DependentUpon>frmTesoChkRptxProv.vb</DependentUpon>
     </Compile>
@@ -330,6 +336,9 @@
     <EmbeddedResource Include="Reporting\rptTesoChkxProvFOPDH.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\rptTesoChkRankingxCliente.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reporting\TemplateLetter.rdlc" />
     <EmbeddedResource Include="Stock\frmStkArticulosCons.resx">
       <DependentUpon>frmStkArticulosCons.vb</DependentUpon>
@@ -348,6 +357,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tesoreria\frmTesoChkConsulta.resx">
       <DependentUpon>frmTesoChkConsulta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoChkRankingxCliente.resx">
+      <DependentUpon>frmTesoChkRankingxCliente.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tesoreria\frmTesoChkRptEnCartera.resx">
       <DependentUpon>frmTesoChkRptEnCartera.vb</DependentUpon>
@@ -433,6 +445,7 @@
     </None>
     <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.cRptDefiniciones.datasource" />
     <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefCheques.datasource" />
+    <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefChequesRankingxCliente.datasource" />
     <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefChequesxProvFOPDH.datasource" />
     <None Include="My Project\DataSources\Venezia.ReportObjectDefinitions.RptObjDefLiquidacion.datasource" />
     <None Include="My Project\DataSources\VzTesoreria.cLiquidacion.datasource" />

@@ -1579,6 +1579,48 @@ Public Class cCheque
             Return Nothing
         End Try
     End Function
+    Public Shared Function Dat_RptChequesRankingxCliente(ByRef pAdmin As VzAdmin.cAdmin) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "Select ch.NroCli, cl.nombre As Cliente, round(sum(ch.importe),2) As Total"
+            Sql = Sql & " ,round((sum(ch.importe)*100/(Select Sum(importe) from vz_cheques where id_estado=0)),2) Porcentaje, max(fecha_pago) UltFPago"
+            Sql = Sql & " From vz_cheques As ch, cl_clientes As cl"
+            Sql = Sql & " Where ch.NroCli = cl.NroCli "
+            Sql = Sql & " And ch.id_estado = #id_estado#"
+            Sql = Sql & " group by ch.Nrocli"
+            Sql = Sql & " order by Porcentaje desc;"
+
+            'Solo cheques en cartera
+            Sql = Sql.Replace("#id_estado#", 0)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Dat_RptChequesxRankingxCliente")
+            pAdmin.Log.fncGrabarLogERR("Error en cCheque.Dat_RptChequesxRankingxCliente:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
 
 #End Region
 

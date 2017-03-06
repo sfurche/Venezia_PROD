@@ -14,6 +14,7 @@ Public Class frmBatchMailingAutomatico
             '---------------------------------------------------------------------------------------------------
 
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
             SubCargarGrilla()
 
         Catch ex As Exception
@@ -56,6 +57,8 @@ Public Class frmBatchMailingAutomatico
             lArray = cEmail.GetMailingxEstado(gAdmin, 0)
 
             DGConsulta.DataSource = lArray
+
+            DGConsulta.ForeColor = Color.Black
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmComVendedoresCons_Load.SubCargarGrilla")

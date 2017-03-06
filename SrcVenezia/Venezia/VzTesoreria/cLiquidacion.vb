@@ -1110,6 +1110,123 @@ Public Class cLiquidacion
         End Try
     End Function
 
+    Public Shared Function Dat_GetCantLiquidacionesdelDiaxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId As Integer) As Integer
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "Select count(*) Total from vz_liquidaciones where fecha = CURDATE() and id_estado= #IdEstado# ;"
+            Sql = Sql.Replace("#IdEstado#", pId)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return Integer.Parse(lDt.Rows(0)(0))
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Dat_GetCantLiquidaciones")
+            pAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.Dat_GetCantLiquidaciones:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetTotalLiquidacionesdelDiaxEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pId As Integer) As Double
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "Select round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Total from vz_liquidaciones where fecha = CURDATE() and id_estado= #IdEstado# ;"
+            Sql = Sql.Replace("#IdEstado#", pId)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return Double.Parse(lDt.Rows(0)(0))
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Dat_GetCantChequesEnCartera")
+            pAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.Dat_GetCantChequesEnCartera:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function Dat_GetTotalLiquidacionesdelDiaxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim lSql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            lSql = "SET @TotalLiq = (Select sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito) Total from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2);"
+            lSql = lSql & " Select 'Efectivo', ROUND(SUM(importe_cash),2) Total, ROUND((SUM(importe_cash) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2"
+            lSql = lSql & " union"
+            lSql = lSql & " Select 'Cheques', ROUND(SUM(importe_cheques),2) Total, ROUND((SUM(importe_cheques) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2"
+            lSql = lSql & " union"
+            lSql = lSql & " Select 'Transferencias', ROUND(SUM(importe_transferencias),2) Total, ROUND((SUM(importe_transferencias)* 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2"
+            lSql = lSql & " union"
+            lSql = lSql & " Select 'Retenciones', ROUND(SUM(importe_retenciones),2) Total, ROUND((SUM(importe_retenciones) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2"
+            lSql = lSql & " union"
+            lSql = lSql & " Select 'NCredito', ROUND(SUM(importe_ncredito),2) Total, ROUND((SUM(importe_ncredito) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '#Fecha#' and id_estado=2;"
+
+
+            lSql = lSql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = lSql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha")
+            pAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+
 #End Region
 
 End Class

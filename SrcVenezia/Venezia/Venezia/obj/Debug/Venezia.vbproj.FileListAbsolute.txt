@@ -152,3 +152,5 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\D
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmSoporte.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRankingxCliente.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoChkRankingxCliente.rdlc
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\Debug\Reporting\rptTesoChkRankingxCliente.rdlc
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRankingxCliente.resources

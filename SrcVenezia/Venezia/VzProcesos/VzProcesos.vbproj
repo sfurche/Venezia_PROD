@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cMailingAutomatico.vb" />
+    <Compile Include="cMailingTesoFinDia.vb" />
     <Compile Include="cMailingTesoInicioDia.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

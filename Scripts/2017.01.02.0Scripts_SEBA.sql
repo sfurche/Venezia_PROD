@@ -1,10 +1,9 @@
-
 update vz_settings
 set valor = '17.1.2.0'
 where id_setting = 4;
 
 /*----------------------------------------------------------------------------------------*/
-drop table vz_mailing;
+drop table  IF EXISTS vz_mailing;
 
 CREATE TABLE `vz_mailing` (
   `id_mailing` INT NOT NULL,
@@ -300,8 +299,54 @@ COMMIT;
 
 END //
 
-
 /*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_comments_ins;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_comments_ins`(  
+ 
+  `_text` TEXT ,
+  `_tabla` VARCHAR(100)  ,
+  `_evento` VARCHAR(150)  ,
+  `_id_objeto` INT  ,
+  `_idusr` INT )
+BEGIN
+/*Inserta las liquidaciones.*/
+/*Ejemplo de invocacion:  CALL vz_comments_ins('Texto de comentario','vz_liquidaciones','conciliacion', 2, 9)  */
+
+DECLARE v_nr INT;
+
+START TRANSACTION;
+
+SET v_nr =(select max(id_comment) + 1 from vz_comments);
+
+INSERT INTO vz_comments
+(`id_comment`,
+`text`,
+`fecha`,
+`tabla`,
+`evento`,
+`id_objeto`,
+`idusr`)
+VALUES
+(v_nr,
+`_text`,
+now(),
+`_tabla`,
+`_evento`,
+`_id_objeto`,
+`_idusr`);
+  
+CALL vz_log_ins(now(), 'INS', 'vz_comments', v_nr,_idusr, '');
+  
+COMMIT;
+select v_nr;
+
+END//
+
+
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -351,17 +396,19 @@ insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, e
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
-
 delete from vz_settings where cod_setting='Mailing_ChkRechazado';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
 values(7,'Mailing_ChkRechazado', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de cheques rechazados');
-
 
 
 delete from vz_settings where cod_setting='Mailing_TesoInicioDia';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
 values(8,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de Tesoreria Inicio de Dia');
 
+
+delete from vz_settings where cod_setting='Mailing_TesoFinDia';
+insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
+values(9,'Mailing_TesoFinDia', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de Tesoreria Resumen Fin del Dia');
 
 /*----------------------------------------------------------------------------------------*/
 

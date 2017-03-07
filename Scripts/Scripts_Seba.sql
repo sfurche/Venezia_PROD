@@ -21,23 +21,26 @@ order by Porcentaje desc;
 Select * from vz_liquidaciones where fecha = '20170303';
 
 
+
+
 /*-------------TESORERIA----------------------------------------*/
 /*Total de liquidaciones*/
-Select round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Total from vz_liquidaciones where fecha = '20170303';
+Select round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Total from vz_liquidaciones where fecha = CURDATE() and id_estado=2;
+
 /*Cantidad de liquidaciones*/
-Select 'Cantidad', count(*) Total from vz_liquidaciones where fecha = '20170303';
+Select count(*) Total from vz_liquidaciones where fecha = CURDATE() and id_estado=2;
 
 /*Ingresos de liquidaciones*/
-SET @TotalLiq = (Select sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito) Total from vz_liquidaciones where fecha = '20170303');
-Select 'Efectivo', ROUND(SUM(importe_cash),2) Total, ROUND((SUM(importe_cash) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303'
+SET @TotalLiq = (Select sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito) Total from vz_liquidaciones where fecha = '20170303' and id_estado=2);
+Select 'Efectivo', ROUND(SUM(importe_cash),2) Total, ROUND((SUM(importe_cash) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303' and id_estado=2
 union
-Select 'Cheques', ROUND(SUM(importe_cheques),2) Total, ROUND((SUM(importe_cheques) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303'
+Select 'Cheques', ROUND(SUM(importe_cheques),2) Total, ROUND((SUM(importe_cheques) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303' and id_estado=2
 union
-Select 'Transferencias', ROUND(SUM(importe_transferencias),2) Total, ROUND((SUM(importe_transferencias)* 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303'
+Select 'Transferencias', ROUND(SUM(importe_transferencias),2) Total, ROUND((SUM(importe_transferencias)* 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303' and id_estado=2
 union
-Select 'Retenciones', ROUND(SUM(importe_retenciones),2) Total, ROUND((SUM(importe_retenciones) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303'
+Select 'Retenciones', ROUND(SUM(importe_retenciones),2) Total, ROUND((SUM(importe_retenciones) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303' and id_estado=2
 union
-Select 'NCredito', ROUND(SUM(importe_ncredito),2) Total, ROUND((SUM(importe_ncredito) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303';
+Select 'NCredito', ROUND(SUM(importe_ncredito),2) Total, ROUND((SUM(importe_ncredito) * 100/ @TotalLiq),2) Porc from vz_liquidaciones where fecha = '20170303' and id_estado=2;
 
 /*Diferencia de Caja*/
 
@@ -46,8 +49,10 @@ Select ven.NombreVen, round(sum(importe_cash + importe_cheques + importe_retenci
 from vz_liquidaciones as liq, ven_vendedor as ven
 where liq.id_vendedor = ven.id_vendedor
 and liq.fecha = '20170303'
+and liq.id_estado=2
 Group by liq.id_vendedor;
 
+/*FACTURAS */
 select f.CodForm,s.Descripcion  from ven_facturas as f, sis_formularios as s
 WHERE f.CodForm = s.CodForm
 group by f.CodForm 
@@ -56,5 +61,39 @@ select * from ven_facturas
 where FecOp = '20170303'
 and MarcaAnulado ='N'
 
+/*FACTURAS PROFORMAS*/
+select f.CodForm,s.Descripcion  from ven_factprof as f, sis_formularios as s
+WHERE f.CodForm = s.CodForm
+group by f.CodForm 
+
+
+select * from ven_factprof
 
 SELECT * FROM sis_formularios
+
+
+
+
+sql="select v.NombreVen, count(*) Cant, round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  round(Sum(f.Tot_Fact),2) TotalcIVA,  round(Sum(Tot_Comi),2) Comision "
+sql=sql & " from ven_facturas as f, ven_vendedor as v"
+sql=sql & " where FecOp = '20170303'"
+sql=sql & " and f.Id_Vendedor = v.Id_Vendedor "
+sql=sql & " and MarcaAnulado ='N'"
+sql=sql & " and CodForm in('0151', '0101')"
+sql=sql & " group by v.NombreVen ""
+
+
+
+sql="select ifnull(sum(abs(Importe)),0) Total from vz_liquidaciones_conciliacion"
+sql=sql & " where Id_Deudores is null"
+sql=sql & " AND fecha = '20160812'"
+sql=sql & " and id_estado =0"
+
+
+sql="Select ven.NombreVen, round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Cobrado"
+sql=sql & "from vz_liquidaciones as liq, ven_vendedor as ven"
+sql=sql&"where liq.id_vendedor = ven.id_vendedor"
+sql=sql&"and liq.fecha = '20170303'"
+sql=sql&"and liq.id_estado=2"
+sql=sql&"Group by liq.id_vendedor;"
+

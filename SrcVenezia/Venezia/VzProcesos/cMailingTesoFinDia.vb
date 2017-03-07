@@ -29,11 +29,14 @@ Public Class cMailingTesoFinDia
             lHtml = "<HTML><H1> Notificacion Automatica de Inicio de Día <HR> </H1>"
             lHtml = lHtml & "<BODY> Buenos días, <BR>"
             lHtml = lHtml & "A continuación se adjunta un breve resúmen de fin de día. <BR> <P>"
-
-            lHtml = lHtml & "Hoy se cargaron #CantLiquidacionesDelDia# liquidaciones por un total de<B> $#SumaLiquidacionesDelDia#</B> pesos. <BR> <P>"
-            lHtml = lHtml & "#TotalLiquidacionesdelDia#"
-            lHtml = lHtml & "<BR>"
-            lHtml = lHtml & "Cheques rechazados pendientes de levantar: <BR><BR>"
+            lHtml = lHtml & "<B>TESORERIA:  <BR> <P>"
+            lHtml = lHtml & "Hoy se cargaron #CantLiquidacionesDelDia# liquidaciones por un total de<B> $#SumaLiquidacionesDelDia#</B> pesos. <BR>"
+            lHtml = lHtml & "En la conciliacion se registro una diferencia de caja de $#DiferenciaDeCaja# pesos. <BR> <P>"
+            lHtml = lHtml & "#TotalLiquidacionesdelDia# <BR>"
+            lHtml = lHtml & "#TotalLiquidacionesXVendedor# <BR>"
+            lHtml = lHtml & " <BR> "
+            lHtml = lHtml & " <B> VENTAS:  <BR> <P>"
+            lHtml = lHtml & "Hoy se ingesaron Cheques rechazados pendientes de levantar: <BR><BR>"
             lHtml = lHtml & "#TablaDeChequesRechazados#"
             lHtml = lHtml & "<BR><BR> Muchas gracias. <BR> Sldos."
             lHtml = lHtml & "</BODY></HTML>"
@@ -46,6 +49,12 @@ Public Class cMailingTesoFinDia
 
             lDt = cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha(pAdmin, Date.Today)
             lHtml = lHtml.Replace("#TablaDeCaidaDeCheques#", cFunciones.DataTableToHTMLTable(lDt))
+
+            lDt = cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado(pAdmin, Date.Today, 2)
+            lHtml = lHtml.Replace("#TotalLiquidacionesXVendedor#", cFunciones.DataTableToHTMLTable(lDt))
+
+            lHtml = lHtml.Replace("#DiferenciaDeCaja#", Strings.FormatNumber(cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado(pAdmin, Date.Today, 0).ToString))
+
 
 
             ''Traigo los cheques que estan rechazados y no levantados aun.
@@ -62,45 +71,8 @@ Public Class cMailingTesoFinDia
 
             Ejecutar = True
         Catch ex As Exception
-
+            pAdmin.Log.fncGrabarLogERR("Error en cMailingTesoFinDia.Ejecutar:" & ex.Message)
         End Try
     End Function
-
-
-
-    'Private Shared Function Dat_GetTotalLiquidacionesdelDiaxEstado(ByRef pAdmin As VzAdmin.cAdmin) As Double
-
-    '    Dim Cmd As New MySqlCommand
-    '    Dim Sql As String
-    '    Dim lDt As DataTable
-    '    Dim lCnn As MySqlConnection
-
-    '    Try
-    '        lCnn = pAdmin.DbCnn.GetInstanceCon
-    '        Sql = "Select round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Total from vz_liquidaciones where fecha = CURDATE() and id_estado=2;"
-    '        'Sql = Sql.Replace("#Id#", pIdChq)
-
-    '        With Cmd
-    '            .Connection = lCnn
-    '            .CommandType = CommandType.Text
-    '            .CommandText = Sql
-
-    '            If lCnn.State = ConnectionState.Closed Then
-    '                lCnn.Open()
-    '            End If
-    '            Dim lAdap As New MySqlDataAdapter(Cmd)
-    '            lDt = New DataTable
-    '            lAdap.Fill(lDt)
-    '            lCnn.Close()
-    '        End With
-
-    '        Return Double.Parse(lDt.Rows(0)(0))
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message, MsgBoxStyle.Critical, "cMailingTesoInicioDia.Dat_GetCantChequesEnCartera")
-    '        pAdmin.Log.fncGrabarLogERR("Error en cMailingTesoInicioDia.Dat_GetCantChequesEnCartera:" & ex.Message)
-    '        Return Nothing
-    '    End Try
-    'End Function
 
 End Class

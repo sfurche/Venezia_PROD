@@ -69,6 +69,8 @@
     <Compile Include="cCondicionPago.vb" />
     <Compile Include="cDeudor.vb" />
     <Compile Include="cDeudor_Mov.vb" />
+    <Compile Include="cFactura.vb" />
+    <Compile Include="cFacturaProforma.vb" />
     <Compile Include="cFormulario.vb" />
     <Compile Include="cMedioEnvio.vb" />
     <Compile Include="cProveedor.vb" />

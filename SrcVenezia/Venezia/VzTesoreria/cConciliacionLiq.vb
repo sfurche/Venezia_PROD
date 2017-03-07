@@ -211,6 +211,48 @@ Public Class cConciliacionLiq
         End Try
     End Function
 
+    Public Shared Function Dat_GetTotalAjustesxFechaEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date, ByVal pIdEstado As Integer) As Double
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "select ifnull(sum(abs(Importe)),0) Total from vz_liquidaciones_conciliacion"
+            Sql = Sql & " where Id_Deudores is null"
+            Sql = Sql & " AND fecha = '#IdEstado#'"
+            Sql = Sql & " and id_estado = #IdEstado# "
+
+            Sql = Sql.Replace("#IdEstado#", pIdEstado)
+            Sql = Sql.Replace("#IdEstado#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return Double.Parse(lDt.Rows(0)(0))
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+
+
 #End Region
 
 End Class

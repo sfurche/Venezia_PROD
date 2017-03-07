@@ -1226,6 +1226,48 @@ Public Class cLiquidacion
         End Try
     End Function
 
+    Public Shared Function Dat_GetTotLiqGroupVendedorxFechaEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date, ByVal pIdEstado As Integer) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "Select ven.NombreVen, round(sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito),2) Cobrado"
+            Sql = Sql & " from vz_liquidaciones as liq, ven_vendedor as ven"
+            Sql = Sql & " where liq.id_vendedor = ven.id_vendedor"
+            Sql = Sql & " and liq.fecha = '#Fecha#'"
+            Sql = Sql & " and liq.id_estado = #idEstado#"
+            Sql = Sql & " Group by liq.id_vendedor;"
+
+            Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#idEstado#", pIdEstado.ToString)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado")
+            pAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
 
 #End Region
 

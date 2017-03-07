@@ -64,7 +64,7 @@ Public Class cMailingTesoInicioDia
 
             Ejecutar = True
         Catch ex As Exception
-
+            pAdmin.Log.fncGrabarLogERR("Error en cMailingTesoInicioDia.Ejecutar:" & ex.Message)
         End Try
     End Function
 

@@ -1,6 +1,7 @@
 ﻿Imports VzAdmin
 Imports MySql.Data.MySqlClient
 Imports VzTesoreria
+Imports VzComercial
 
 Public Class cMailingTesoFinDia
 
@@ -8,7 +9,7 @@ Public Class cMailingTesoFinDia
 
     End Sub
 
-    Public Shared Function Ejecutar(ByRef pAdmin As cAdmin) As Boolean
+    Public Shared Function Ejecutar(ByRef pAdmin As cAdmin, ByVal pFecha As Date) As Boolean
         Ejecutar = False
         Dim lMail As New cEmail(pAdmin)
         Dim lHtml As String = ""
@@ -26,52 +27,72 @@ Public Class cMailingTesoFinDia
 
             'Armo el HTML con los valores para reemplazar:
             '--------------------------------------------
-            lHtml = "<HTML><H1> Notificacion Automatica de Inicio de Día <HR> </H1>"
+            lHtml = "<HTML><H1> Notificación Automática de Fin de Día <HR> </H1>"
             lHtml = lHtml & "<BODY> Buenos días, <BR>"
             lHtml = lHtml & "A continuación se adjunta un breve resúmen de fin de día. <BR> <P>"
             lHtml = lHtml & "<B>TESORERIA:  <BR> <P>"
             lHtml = lHtml & "Hoy se cargaron #CantLiquidacionesDelDia# liquidaciones por un total de<B> $#SumaLiquidacionesDelDia#</B> pesos. <BR>"
-            lHtml = lHtml & "En la conciliacion se registro una diferencia de caja de $#DiferenciaDeCaja# pesos. <BR> <P>"
+            lHtml = lHtml & "La diferencia de caja en el proceso de conciliacion fue de $#DiferenciaDeCaja# pesos. <BR> <P>"
             lHtml = lHtml & "#TotalLiquidacionesdelDia# <BR>"
             lHtml = lHtml & "#TotalLiquidacionesXVendedor# <BR>"
             lHtml = lHtml & " <BR> "
             lHtml = lHtml & " <B> VENTAS:  <BR> <P>"
-            lHtml = lHtml & "Hoy se ingesaron Cheques rechazados pendientes de levantar: <BR><BR>"
-            lHtml = lHtml & "#TablaDeChequesRechazados#"
+            lHtml = lHtml & "Hoy se registraron #CantFacturas# facturas por un total de<B> $#TotalFacturacion#</B> pesos (IVA incluido). A continuacion el detalle por vendedor:  <BR><BR>"
+            lHtml = lHtml & "#TablaFacturasxVendedor# <BR>"
+            lHtml = lHtml & "Total NC: $#NotasDeCredito# / Total ND: $#NotasDeDebito#  <BR>"
+            lHtml = lHtml & "Facturas proforma se ingresaron #CantProformas# por un total de $#TotalProformas# (IVA incluido).<BR>"
             lHtml = lHtml & "<BR><BR> Muchas gracias. <BR> Sldos."
             lHtml = lHtml & "</BODY></HTML>"
 
 
             'Ahora solo reemplazo los valores en el HTML
             '-------------------------------------------
-            lHtml = lHtml.Replace("#CantLiquidacionesDelDia#", cLiquidacion.Dat_GetCantLiquidacionesdelDiaxEstado(pAdmin, 2).ToString)
-            lHtml = lHtml.Replace("#SumaLiquidacionesDelDia#", Strings.FormatNumber(cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxEstado(pAdmin, 2).ToString))
+            'Cantidad de liquidaciones registradas en el dia.
+            lHtml = lHtml.Replace("#CantLiquidacionesDelDia#", cLiquidacion.Dat_GetCantLiquidacionesdelDiaxEstado(pAdmin, pFecha, 2).ToString)
 
-            lDt = cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha(pAdmin, Date.Today)
-            lHtml = lHtml.Replace("#TablaDeCaidaDeCheques#", cFunciones.DataTableToHTMLTable(lDt))
+            'Suma de las liquidaciones registradas en el dia.
+            lHtml = lHtml.Replace("#SumaLiquidacionesDelDia#", Strings.FormatNumber(cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxEstado(pAdmin, pFecha, 2).ToString))
 
-            lDt = cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado(pAdmin, Date.Today, 2)
+            'Tabla con los totales de las liquidaciones del dia, discriminando total cheques, efectivo, transferencias y retenciones. 
+            lDt = cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha(pAdmin, pFecha)
+            lHtml = lHtml.Replace("#TotalLiquidacionesdelDia#", cFunciones.DataTableToHTMLTable(lDt))
+
+            'Tabla con los totales de liquidaciones ingresadas en el dia por vendedor.
+            lDt = cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado(pAdmin, pFecha, 2)
             lHtml = lHtml.Replace("#TotalLiquidacionesXVendedor#", cFunciones.DataTableToHTMLTable(lDt))
 
-            lHtml = lHtml.Replace("#DiferenciaDeCaja#", Strings.FormatNumber(cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado(pAdmin, Date.Today, 0).ToString))
+            'Este muestra la suma absoluta de los ajustes ingresados en el proceso de conciliacion de las liquidaciones del dia.
+            lHtml = lHtml.Replace("#DiferenciaDeCaja#", Strings.FormatNumber(cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado(pAdmin, pFecha, 0).ToString))
 
+            'Cantidad de facturas registradas en el dia.
+            lHtml = lHtml.Replace("#CantFacturas#", cFactura.Dat_GetCantFacturasxFecha(pAdmin, pFecha).ToString)
 
+            'Monto total de facturas registradas en el dia con iva incluido.
+            lHtml = lHtml.Replace("#TotalFacturacion#", Strings.FormatNumber(cFactura.Dat_GetTotalFacturasCIVAxFecha(pAdmin, pFecha).ToString))
 
-            ''Traigo los cheques que estan rechazados y no levantados aun.
-            'lDt = cCheque.Dat_GetDetalleChequesxEstado(pAdmin, 2)
+            'Tabla de totales de facturas por vendedor, discriminando con iva, sin iva y comision.
+            lDt = cFactura.Dat_GetTotalFactAgrupVendxFecha(pAdmin, pFecha)
+            lHtml = lHtml.Replace("#TablaFacturasxVendedor#", cFunciones.DataTableToHTMLTable(lDt))
 
-            'If lDt.Rows.Count > 0 Then
-            '    lHtml = lHtml.Replace("#TablaDeChequesRechazados#", cFunciones.DataTableToHTMLTable(lDt))
-            'Else
-            '    lHtml = lHtml.Replace("#TablaDeChequesRechazados#", "No hay cheques rechazados pendientes de levantar. <BR>")
-            'End If
+            'Monto total de notas de credito registradas en el dia.
+            lHtml = lHtml.Replace("#NotasDeCredito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasCreditoxFecha(pAdmin, pFecha).ToString))
+
+            'Monto total de notas de debito registradas en el dia.
+            lHtml = lHtml.Replace("#NotasDeDebito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasDebitoxFecha(pAdmin, pFecha).ToString))
+
+            'Cantidad de facturas proforma registradas en el dia.
+            lHtml = lHtml.Replace("#CantProformas#", cFacturaProforma.Dat_GetCantFacturasxFecha(pAdmin, pFecha).ToString)
+
+            'Monto total de facturas proforma registradas en el dia con iva incluido.
+            lHtml = lHtml.Replace("#TotalProformas#", Strings.FormatNumber(cFacturaProforma.Dat_GetTotalFacturasCIVAxFecha(pAdmin, pFecha).ToString))
+
 
             lMail.Body = lHtml
             lMail.Guardar()
 
             Ejecutar = True
         Catch ex As Exception
-            pAdmin.Log.fncGrabarLogERR("Error en cMailingTesoFinDia.Ejecutar:" & ex.Message)
+            pAdmin.Log.fncGrabarLogERR("Error en cMailingTesoFinDia.Ejecutar: " & ex.Message)
         End Try
     End Function
 

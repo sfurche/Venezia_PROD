@@ -26,7 +26,7 @@ Public Class cMailingTesoInicioDia
 
             'Armo el HTML con los valores para reemplazar:
             '--------------------------------------------
-            lHtml = "<HTML><H1> Notificacion Automatica de Inicio de Día <HR> </H1>"
+            lHtml = "<HTML><H1> Notificación Automática de Inicio de Día <HR> </H1>"
             lHtml = lHtml & "<BODY> Buenos días, <BR>"
             lHtml = lHtml & "A continuación se adjunta un breve resúmen de la información mas importante para empezar el día. <BR> <P>"
             lHtml = lHtml & "Actualmente hay #CantChequesenCartera# cheques en cartera por un total de<B> $#SumaChequesenCartera#</B> pesos. <BR> <P>"

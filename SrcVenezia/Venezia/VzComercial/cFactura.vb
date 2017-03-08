@@ -6,7 +6,7 @@ Public Class cFactura
 
 #Region "Base de Datos"
 
-    Private Shared Function Dat_GetTotalFactAgrupVendxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date) As DataTable
+    Public Shared Function Dat_GetTotalFactAgrupVendxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date) As DataTable
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -22,6 +22,7 @@ Public Class cFactura
             Sql = Sql & " and MarcaAnulado ='N'"
             Sql = Sql & " and CodForm in('0151', '0101')"
             Sql = Sql & " group by v.NombreVen "
+            Sql = Sql & " order by TotalsIVA desc; "
 
             Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
 

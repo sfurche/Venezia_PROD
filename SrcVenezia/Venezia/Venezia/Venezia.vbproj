@@ -94,6 +94,12 @@
     <Compile Include="Herramientas\frmBatchMailingAutomatico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Herramientas\frmBatchMailingTesoFinDia.Designer.vb">
+      <DependentUpon>frmBatchMailingTesoFinDia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Herramientas\frmBatchMailingTesoFinDia.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Herramientas\frmConfiguracion.Designer.vb">
       <DependentUpon>frmConfiguracion.vb</DependentUpon>
     </Compile>
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Herramientas\frmBatchMailingAutomatico.resx">
       <DependentUpon>frmBatchMailingAutomatico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Herramientas\frmBatchMailingTesoFinDia.resx">
+      <DependentUpon>frmBatchMailingTesoFinDia.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Herramientas\frmConfiguracion.resx">
       <DependentUpon>frmConfiguracion.vb</DependentUpon>

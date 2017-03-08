@@ -347,8 +347,45 @@ select v_nr;
 END//
 
 
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+drop procedure IF EXISTS vz_liquidaciones_TotalDetxFecha;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_liquidaciones_TotalDetxFecha`(
+`_fecha` DATETIME 
+  )
+BEGIN
+
+DECLARE vTotalLiq DOUBLE;
+
+SET vTotalLiq = (Select sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito) Total from vz_liquidaciones where fecha = _fecha and id_estado=2); 
+
+Select 'Efectivo', ROUND(SUM(importe_cash),2) Total, ROUND((SUM(importe_cash) * 100/ vTotalLiq),2) Porc from vz_liquidaciones where fecha = _fecha and id_estado=2 
+union 
+Select 'Cheques', ROUND(SUM(importe_cheques),2) Total, ROUND((SUM(importe_cheques) * 100/ vTotalLiq),2) Porc from vz_liquidaciones where fecha = _fecha and id_estado=2 
+union 
+Select 'Transferencias', ROUND(SUM(importe_transferencias),2) Total, ROUND((SUM(importe_transferencias)* 100/ vTotalLiq),2) Porc from vz_liquidaciones where fecha = _fecha and id_estado=2 
+union 
+Select 'Retenciones', ROUND(SUM(importe_retenciones),2) Total, ROUND((SUM(importe_retenciones) * 100/ vTotalLiq),2) Porc from vz_liquidaciones where fecha = _fecha and id_estado=2 
+union 
+Select 'NCredito', ROUND(SUM(importe_ncredito),2) Total, ROUND((SUM(importe_ncredito) * 100/ vTotalLiq),2) Porc from vz_liquidaciones where fecha = _fecha and id_estado=2;
+
+
+END//
+
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
 
 truncate table vz_permisos_usuario;
 delete from vz_permisos;
@@ -390,9 +427,38 @@ insert vz_permisos(id_permiso, nombre, observaciones) values (25, 'HERR_PROC: Ma
 insert vz_permisos(id_permiso, nombre, observaciones) values (26, 'HERR_PROC: Mailing TesoInicio de Dia', '');
 
 insert vz_permisos(id_permiso, nombre, observaciones) values (27, 'TESO_CHQ_RPT: Ranking de Cheques x Cliente', '');
+insert vz_permisos(id_permiso, nombre, observaciones) values (28, 'HERR_PROC: Mailing TesoInicio Fin de Dia', '');
 
 
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (1,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (2,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (3,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (4,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (5,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (6,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (7,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (8,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (9,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (10,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (11,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (12,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (13,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (14,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (15,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (16,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (17,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (18,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (19,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (20,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (21,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (22,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (23,19,'S','S','S','S','S','S','S');
 insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (24,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (25,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (26,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (27,19,'S','S','S','S','S','S','S');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (28,19,'S','S','S','S','S','S','S');
+
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 

@@ -15,6 +15,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VzAdmin", "VzAdmin\VzAdmin.
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VzProcesos", "VzProcesos\VzProcesos.vbproj", "{6FBDB9D7-4546-4D1E-9596-7C888DD108D0}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Venezia_Scheduler", "Venezia_Scheduler\Venezia_Scheduler.vbproj", "{A1732DEA-68DC-447A-8B46-B84A17CB344B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{6FBDB9D7-4546-4D1E-9596-7C888DD108D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FBDB9D7-4546-4D1E-9596-7C888DD108D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FBDB9D7-4546-4D1E-9596-7C888DD108D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1732DEA-68DC-447A-8B46-B84A17CB344B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1732DEA-68DC-447A-8B46-B84A17CB344B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1732DEA-68DC-447A-8B46-B84A17CB344B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1732DEA-68DC-447A-8B46-B84A17CB344B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

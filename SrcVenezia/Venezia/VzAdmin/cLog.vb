@@ -30,9 +30,16 @@ Public Class cLog
 
     Public Shared Function NegLog_Ins(ByVal pMensaje As String, ByVal pCategoria As String) As Boolean
         NegLog_Ins = False
-        'Dim Rta As Boolean
-        'Rta = DatLog_Ins(pMensaje, pCategoria)
-        'Return Rta
+
+        Dim EventLogPpal As New System.Diagnostics.EventLog
+
+        If Not System.Diagnostics.EventLog.SourceExists("Venezia") Then
+            System.Diagnostics.EventLog.CreateEventSource("Venezia", "Venezia_Log")
+        End If
+        EventLogPpal.Source = "Venezia"
+
+        EventLogPpal.WriteEntry("Tipo: " & pCategoria.Trim & vbCrLf & pMensaje)
+
     End Function
 
     Public Shared Function NegLog_BusqxFDFH(ByVal pFDesde As Date, ByVal pFHasta As Date) As ArrayList

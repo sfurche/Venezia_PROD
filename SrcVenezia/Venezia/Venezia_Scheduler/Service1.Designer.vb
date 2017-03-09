@@ -1,11 +1,11 @@
 ﻿Imports System.ServiceProcess
 
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Service1
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class Venezia__Scheduler
     Inherits System.ServiceProcess.ServiceBase
 
     'UserService overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -17,9 +17,9 @@ Partial Class Service1
     End Sub
 
     ' The main entry point for the process
-    <MTAThread()> _
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Shared Sub Main()
+    <MTAThread()>
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Public Shared Sub Main()
         Dim ServicesToRun() As System.ServiceProcess.ServiceBase
 
         ' More than one NT Service may run within the same process. To add
@@ -28,7 +28,7 @@ Partial Class Service1
         '
         '   ServicesToRun = New System.ServiceProcess.ServiceBase () {New Service1, New MySecondUserService}
         '
-        ServicesToRun = New System.ServiceProcess.ServiceBase() {New Service1}
+        ServicesToRun = New System.ServiceProcess.ServiceBase() {New Venezia__Scheduler}
 
         System.ServiceProcess.ServiceBase.Run(ServicesToRun)
     End Sub
@@ -39,23 +39,17 @@ Partial Class Service1
     ' NOTE: The following procedure is required by the Component Designer
     ' It can be modified using the Component Designer.  
     ' Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.EventLogPpal = New System.Diagnostics.EventLog()
-        Me.TimerPpal = New System.Windows.Forms.Timer(Me.components)
         CType(Me.EventLogPpal, System.ComponentModel.ISupportInitialize).BeginInit()
         '
-        'TimerPpal
+        'Venezia__Scheduler
         '
-        '
-        'Service1
-        '
-        Me.ServiceName = "Service1"
+        Me.ServiceName = "Venezia_Scheduler"
         CType(Me.EventLogPpal, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
 
     Friend WithEvents EventLogPpal As EventLog
-    Friend WithEvents TimerPpal As System.Windows.Forms.Timer
 End Class

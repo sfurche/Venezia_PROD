@@ -21,4 +21,11 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Sched
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.exe
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.xml
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.pdb
-C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.Service1.resources
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.ProjectInstaller.resources
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.Venezia__Scheduler.resources
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\bin\Debug\Registrador.bat
+C:\Venezia_Scheduler\Registrador.bat
+C:\Venezia_Scheduler\Venezia_Scheduler.exe.config
+C:\Venezia_Scheduler\Venezia_Scheduler.exe
+C:\Venezia_Scheduler\Venezia_Scheduler.pdb
+C:\Venezia_Scheduler\Venezia_Scheduler.xml

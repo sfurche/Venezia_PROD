@@ -261,7 +261,7 @@ Public Class cSetting
         Dat_ActualizarValor = False
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "UPDATE vz_settings SET valor = '#pValor#' WHERE Cod_Setting ='#pCodSetting#'"
+            Sql = "UPDATE vz_settings SET valor = '#pValor#' WHERE cod_setting ='#pCodSetting#'"
             Sql = Sql.Replace("#pValor#", pValor)
             Sql = Sql.Replace("#pCodSetting#", pCodSetting)
 

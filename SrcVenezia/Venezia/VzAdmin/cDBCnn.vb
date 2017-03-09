@@ -5,6 +5,7 @@ Imports MySql.Data.MySqlClient
 Public Class cDBCnn
     Private Cnn As New MySqlConnection
     Private StrConection As String
+    Private EventLogPpal As New System.Diagnostics.EventLog
 
     Public Sub New(ByVal pSrv As String, ByVal pBD As String, ByVal pUser As String, ByVal pPass As String, ByVal pPort As String)
         Dim strCon As String
@@ -19,6 +20,12 @@ Public Class cDBCnn
         strCon = strCon & "password=" & pPass.Trim & ";"
 
         Cnn.ConnectionString = strCon
+
+
+        If Not System.Diagnostics.EventLog.SourceExists("Venezia") Then
+            System.Diagnostics.EventLog.CreateEventSource("Venezia", "Venezia_Log")
+        End If
+        EventLogPpal.Source = "Venezia"
 
     End Sub
 
@@ -89,6 +96,7 @@ Public Class cDBCnn
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Fallo en GetUltimoLogIn")
+            EventLogPpal.WriteEntry("Error en cDBCnn.GetUltimoLogIn : " & ex.Message)
             Throw
         End Try
     End Function
@@ -158,8 +166,8 @@ Public Class cDBCnn
 
             Return True
         Catch ex As Exception
+            EventLogPpal.WriteEntry("Error en cDBCnn.TestConnection : " & ex.Message)
             MsgBox(ex.Message)
-
             Return False
         End Try
     End Function

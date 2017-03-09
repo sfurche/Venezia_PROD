@@ -193,6 +193,7 @@ Public Class cEmail
     End Function
 
     Public Function Enviar() As Boolean
+        Enviar = False
         Dim Cmd As New MySqlCommand
         Dim Sql As String
         Dim lCnn As MySqlConnection
@@ -262,10 +263,14 @@ Public Class cEmail
             End With
             '-----------------------------------------------------------------------------------------------
 
+            Enviar = True
+
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Enviar")
             gAdmin.Log.fncGrabarLogERR("Error en cEmail.Enviar:" & ex.Message)
+            Enviar = False
         End Try
+
 
     End Function
 

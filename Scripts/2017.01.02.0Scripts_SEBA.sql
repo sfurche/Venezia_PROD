@@ -380,13 +380,6 @@ END//
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
 
-
-
-
-
-
-
-
 truncate table vz_permisos_usuario;
 delete from vz_permisos;
 
@@ -478,3 +471,24 @@ values(9,'Mailing_TesoFinDia', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.c
 
 /*----------------------------------------------------------------------------------------*/
 
+drop table  IF EXISTS vz_scheduler;
+
+CREATE TABLE `vz_scheduler` (
+  `id_schedule` INT NOT NULL,
+  `proceso` VARCHAR(200) NOT NULL,
+  `inicio` TIME(6) NOT NULL,
+  `fin` TIME(6) NOT NULL,
+  `rate` INT NOT NULL,
+  `nohabiles` INT NOT NULL,
+  `ultejec` DATETIME NOT NULL,
+  `descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_schedule`),
+  UNIQUE INDEX `id_schedule_UNIQUE` (`id_schedule` ASC));
+     
+/*----------------------------------------------------------------------------------------*/
+	 
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec,  descripcion) values(1, 'EnvioMailsPendientes','06:00:00' , '21:00:00', 60000 , 1, '2000/01/01 12:00', 'Envia todos los mails pendientes.');  
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(2, 'MailingInicioDia','07:00:00', '07:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de inicio de dia.');
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(3, 'MailingInicioDia','19:00:00', '19:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de fin de dia.');
+  
+  /*----------------------------------------------------------------------------------------*/

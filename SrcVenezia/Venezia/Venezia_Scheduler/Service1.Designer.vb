@@ -1,7 +1,7 @@
 ﻿Imports System.ServiceProcess
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Venezia__Scheduler
+Partial Class Venezia_Scheduler
     Inherits System.ServiceProcess.ServiceBase
 
     'UserService overrides dispose to clean up the component list.
@@ -28,7 +28,7 @@ Partial Class Venezia__Scheduler
         '
         '   ServicesToRun = New System.ServiceProcess.ServiceBase () {New Service1, New MySecondUserService}
         '
-        ServicesToRun = New System.ServiceProcess.ServiceBase() {New Venezia__Scheduler}
+        ServicesToRun = New System.ServiceProcess.ServiceBase() {New Venezia_Scheduler}
 
         System.ServiceProcess.ServiceBase.Run(ServicesToRun)
     End Sub
@@ -44,7 +44,7 @@ Partial Class Venezia__Scheduler
         Me.EventLogPpal = New System.Diagnostics.EventLog()
         CType(Me.EventLogPpal, System.ComponentModel.ISupportInitialize).BeginInit()
         '
-        'Venezia__Scheduler
+        'Venezia_Scheduler
         '
         Me.ServiceName = "Venezia_Scheduler"
         CType(Me.EventLogPpal, System.ComponentModel.ISupportInitialize).EndInit()

@@ -90,7 +90,7 @@ Public Class cAdmin
             GetDate = lDt(0)(0)
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cAdmin.GetDate")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cAdmin.GetDate")
             Me.Log.fncGrabarLogERR("Error en cAdmin.GetDate:  " & ex.Message)
             Return Nothing
         End Try

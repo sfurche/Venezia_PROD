@@ -70,6 +70,7 @@
     <Compile Include="cDBCnn.vb" />
     <Compile Include="cEmail.vb" />
     <Compile Include="cEstado.vb" />
+    <Compile Include="cFeriado.vb" />
     <Compile Include="cFunciones.vb" />
     <Compile Include="cLog.vb" />
     <Compile Include="cPermiso.vb" />

@@ -199,9 +199,6 @@ and  idusr=_idusr
 order by nombre;
 END //
 
-
-
-
 /*----------------------------------------------------------------------------------------*/
 
 
@@ -489,6 +486,35 @@ CREATE TABLE `vz_scheduler` (
 	 
   INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec,  descripcion) values(1, 'EnvioMailsPendientes','06:00:00' , '21:00:00', 60000 , 1, '2000/01/01 12:00', 'Envia todos los mails pendientes.');  
   INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(2, 'MailingInicioDia','07:00:00', '07:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de inicio de dia.');
-  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(3, 'MailingInicioDia','19:00:00', '19:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de fin de dia.');
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(3, 'MailingFinDia','19:00:00', '19:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de fin de dia.');
   
   /*----------------------------------------------------------------------------------------*/
+    
+  drop table  IF EXISTS vz_Feriados;
+  
+  CREATE TABLE `vz_Feriados` (
+  `fecha` DATETIME NOT NULL,
+  `Descripcion` VARCHAR(200) NOT NULL,
+    PRIMARY KEY (`fecha`),
+  UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC));
+  
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/02/27','Carnaval');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/02/28','Carnaval');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/03/24','Día Nacional de la Memoria por la Verdad y la Justicia');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/04/02','Día del Veterano y de los Caídos en la Guerra de Malvinas');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/04/13','Jueves Santo');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/04/14','Viernes Santo');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/05/01','Día del Trabajador');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/05/25','Día de la Revolución de Mayo');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/06/17','Día Paso a la Inmortalidad del General Martín Miguel de Güemes');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/06/20','Día Paso a la Inmortalidad del General Manuel Belgrano');  
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/07/09','Día de la Independencia');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/08/21','Paso a la Inmortalidad del General José de San Martín');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/10/16','Día del Respeto a la Diversidad Cultural');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/11/20','Día de la Soberanía Nacional Original');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/12/08','Inmaculada Concepción de María');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2017/12/25','Navidad');
+  INSERT INTO vz_feriados (fecha, descripcion) values ('2018/01/01','Año Nuevo');
+  
+  
+  

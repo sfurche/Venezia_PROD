@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A1732DEA-68DC-447A-8B46-B84A17CB344B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Venezia_Scheduler.Venezia__Scheduler</StartupObject>
+    <StartupObject>Venezia_Scheduler.Venezia_Scheduler</StartupObject>
     <RootNamespace>Venezia_Scheduler</RootNamespace>
     <AssemblyName>Venezia_Scheduler</AssemblyName>
     <FileAlignment>512</FileAlignment>

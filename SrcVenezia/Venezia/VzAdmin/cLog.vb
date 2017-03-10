@@ -36,9 +36,12 @@ Public Class cLog
         If Not System.Diagnostics.EventLog.SourceExists("Venezia") Then
             System.Diagnostics.EventLog.CreateEventSource("Venezia", "Venezia_Log")
         End If
+
         EventLogPpal.Source = "Venezia"
 
         EventLogPpal.WriteEntry("Tipo: " & pCategoria.Trim & vbCrLf & pMensaje)
+
+        EventLogPpal.Dispose()
 
     End Function
 

@@ -8,12 +8,13 @@ Public Class cSchedule
 
     Private _Id_Schedule As Integer
     Private _Proceso As String
-    Private _Inicio As DateTime
-    Private _Fin As DateTime
-    Private _Rate As String
+    Private _Inicio As TimeSpan
+    Private _Fin As TimeSpan
+    Private _Rate As Integer
     Private _NoHabiles As Boolean
-    Private _UltEjecucion As Boolean
+    Private _UltEjecucion As DateTime
     Private _Descripcion As String
+    Private _IsRunning As Boolean
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -35,29 +36,29 @@ Public Class cSchedule
         End Set
     End Property
 
-    Public Property Inicio As Date
+    Public Property Inicio As TimeSpan
         Get
             Return _Inicio
         End Get
-        Set(value As Date)
+        Set(value As TimeSpan)
             _Inicio = value
         End Set
     End Property
 
-    Public Property Fin As Date
+    Public Property Fin As TimeSpan
         Get
             Return _Fin
         End Get
-        Set(value As Date)
+        Set(value As TimeSpan)
             _Fin = value
         End Set
     End Property
 
-    Public Property Rate As String
+    Public Property Rate As Integer
         Get
             Return _Rate
         End Get
-        Set(value As String)
+        Set(value As Integer)
             _Rate = value
         End Set
     End Property
@@ -71,11 +72,11 @@ Public Class cSchedule
         End Set
     End Property
 
-    Public Property UltEjecucion As Boolean
+    Public Property UltEjecucion As DateTime
         Get
             Return _UltEjecucion
         End Get
-        Set(value As Boolean)
+        Set(value As DateTime)
             _UltEjecucion = value
         End Set
     End Property
@@ -86,6 +87,15 @@ Public Class cSchedule
         End Get
         Set(value As String)
             _Descripcion = value
+        End Set
+    End Property
+
+    Public Property IsRunning As Boolean
+        Get
+            Return _IsRunning
+        End Get
+        Set(value As Boolean)
+            _IsRunning = value
         End Set
     End Property
 #End Region
@@ -101,7 +111,7 @@ Public Class cSchedule
     End Sub
 
     Public Shared Function Load_Schedule(ByRef pAdmin As cAdmin, ByVal lDr As DataRow) As cSchedule
-
+        Load_Schedule = Nothing
         Dim lSchedule As cSchedule = Nothing
 
         Try
@@ -112,21 +122,21 @@ Public Class cSchedule
                 .Inicio = lDr("inicio")
                 .Fin = lDr("fin")
                 .Rate = lDr("rate")
-                .NoHabiles = Boolean.Parse(lDr("nohabil"))
+                .NoHabiles = lDr("nohabiles")
                 .UltEjecucion = lDr("ultejec")
                 .Descripcion = lDr("descripcion")
             End With
+
+            Load_Schedule = lSchedule
 
         Catch ex As Exception
             pAdmin.Log.fncGrabarLogERR("Error en cSchedule.Load_Schedule:" & ex.Message)
         End Try
 
-        Return lSchedule
 
     End Function
 
     Public Shared Function GetSchedulexProceso(ByRef pAdmin As VzAdmin.cAdmin, ByVal pProceso As String) As cSchedule
-        Dim lDr As DataRow
         Dim lSchedule As cSchedule = Nothing
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -135,8 +145,11 @@ Public Class cSchedule
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "Select * from vz_scheduler where cod_setting='#pProceso#'"
+            Sql = "Select * from vz_scheduler where proceso='#pProceso#'"
             Sql = Sql.Replace("#pProceso#", pProceso)
+
+
+            pAdmin.Log.fncGrabarLogERR(Sql)
 
             With Cmd
                 .Connection = lCnn
@@ -153,10 +166,7 @@ Public Class cSchedule
             End With
 
             If lDt.Rows.Count > 0 Then
-
-                For Each lDr In lDt.Rows
-                    lSchedule = Load_Schedule(pAdmin, lDr)
-                Next
+                lSchedule = Load_Schedule(pAdmin, lDt.Rows(0))
             End If
 
         Catch ex As Exception

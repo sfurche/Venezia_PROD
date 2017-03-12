@@ -38,6 +38,7 @@ Public Class cLog
         End If
 
         EventLogPpal.Source = "Venezia"
+        EventLogPpal.Log = "Venezia_Log"
 
         EventLogPpal.WriteEntry("Tipo: " & pCategoria.Trim & vbCrLf & pMensaje)
 

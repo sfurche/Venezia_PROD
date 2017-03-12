@@ -185,14 +185,14 @@ Public Class frmCfgPermisosConsulta
 
     Private Sub cmbUsuarios_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUsuarios.SelectedIndexChanged
         Try
-            If mModif = True Then
-                If MsgBox("Hay cambios que no se han guardado. Desea continuar y perder las modificaciones realizadas ?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "No guardar") = MsgBoxResult.No Then
-                    If Not IsNothing(mUser) Then
-                        cmbUsuarios.SelectedText = mUser.Usuario
-                        Exit Sub
-                    End If
-                End If
-            End If
+            'If mModif = True Then
+            '    If MsgBox("Hay cambios que no se han guardado. Desea continuar y perder las modificaciones realizadas ?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "No guardar") = MsgBoxResult.No Then
+            '        If Not IsNothing(mUser) Then
+            '            cmbUsuarios.SelectedText = mUser.Usuario
+            '            Exit Sub
+            '        End If
+            '    End If
+            'End If
 
             If cmbUsuarios.SelectedText = " " Then
                 SubSetCabecera()

@@ -30,7 +30,7 @@ Public Class cMailingTesoInicioDia
             lHtml = lHtml & "<BODY> Buenos días, <BR>"
             lHtml = lHtml & "A continuación se adjunta un breve resúmen de la información mas importante para empezar el día. <BR> <P>"
             lHtml = lHtml & "Actualmente hay #CantChequesenCartera# cheques en cartera por un total de<B> $#SumaChequesenCartera#</B> pesos. <BR> <P>"
-            lHtml = lHtml & "Estos es la caída de cheques para los próximos 7 días: <BR><BR>"
+            lHtml = lHtml & "Esto es la caída de cheques para los próximos 7 días: <BR><BR>"
             lHtml = lHtml & "#TablaDeCaidaDeCheques#"
             lHtml = lHtml & "<BR>"
             lHtml = lHtml & "Cheques rechazados pendientes de levantar: <BR><BR>"

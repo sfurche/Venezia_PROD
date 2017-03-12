@@ -454,17 +454,17 @@ insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, e
 
 delete from vz_settings where cod_setting='Mailing_ChkRechazado';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
-values(7,'Mailing_ChkRechazado', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de cheques rechazados');
+values(7,'Mailing_ChkRechazado', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com;osvaldo.gonzalez@cdsurargentina.com.ar;consultas@cdsurargentina.com.ar', 'Lista de distribucion mailing de cheques rechazados');
 
 
 delete from vz_settings where cod_setting='Mailing_TesoInicioDia';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
-values(8,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de Tesoreria Inicio de Dia');
+values(8,'Mailing_TesoInicioDia', 1, 'sebastianfurche@gmail.com;osvaldo.gonzalez@cdsurargentina.com.ar;consultas@cdsurargentina.com.ar', 'Lista de distribucion mailing de Tesoreria Inicio de Dia');
 
 
 delete from vz_settings where cod_setting='Mailing_TesoFinDia';
 insert into vz_settings (id_setting, cod_setting, tipo_dato, valor, observaciones)
-values(9,'Mailing_TesoFinDia', 1, 'sebastianfurche@gmail.com;loirajulian@gmail.com', 'Lista de distribucion mailing de Tesoreria Resumen Fin del Dia');
+values(9,'Mailing_TesoFinDia', 1, 'sebastianfurche@gmail.com;osvaldo.gonzalez@cdsurargentina.com.ar;consultas@cdsurargentina.com.ar', 'Lista de distribucion mailing de Tesoreria Resumen Fin del Dia');
 
 /*----------------------------------------------------------------------------------------*/
 
@@ -484,9 +484,9 @@ CREATE TABLE `vz_scheduler` (
      
 /*----------------------------------------------------------------------------------------*/
 	 
-  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec,  descripcion) values(1, 'EnvioMailsPendientes','06:00:00' , '21:00:00', 60000 , 1, '2000/01/01 12:00', 'Envia todos los mails pendientes.');  
-  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(2, 'MailingInicioDia','07:00:00', '07:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de inicio de dia.');
-  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(3, 'MailingFinDia','19:00:00', '19:00:10', 7000,1, '2000/01/01 12:00' , 'Generacion de mailing de fin de dia.');
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec,  descripcion) values(1, 'EnvioMailsPendientes','06:00:00' , '21:00:00', 300 , 1, '2000/01/01 12:00', 'Envia todos los mails pendientes.');  
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(2, 'MailingInicioDia','07:00:00', '07:35:00', 1800,1, '2000/01/01 12:00' , 'Generacion de mailing de inicio de dia.');
+  INSERT INTO vz_scheduler (id_schedule, proceso, inicio, fin, rate, nohabiles, ultejec, descripcion) values(3, 'MailingFinDia','18:00:00', '18:35:00', 1800,1, '2000/01/01 12:00' , 'Generacion de mailing de fin de dia.');
   
   /*----------------------------------------------------------------------------------------*/
     
@@ -516,5 +516,11 @@ CREATE TABLE `vz_scheduler` (
   INSERT INTO vz_feriados (fecha, descripcion) values ('2017/12/25','Navidad');
   INSERT INTO vz_feriados (fecha, descripcion) values ('2018/01/01','Año Nuevo');
   
-  
-  
+/*----------------------------------------------------------------------------------------*/
+insert into sis_usuarios(Empre, idusr, nombre, clave, nivelacceso,falta,fbaja,clavemy)
+values ('001','21','Venezia_Schedule','aaa', '2' ,'2017/03/01','3001/01/01','');
+
+set @Clave = (select clave from sis_usuarios where idusr=19);
+update sis_usuarios
+set clave = @Clave
+where idusr=21;

@@ -11,5 +11,8 @@
     <Setting Name="DBCnn_DBName" Type="System.String" Scope="User">
       <Value Profile="(Default)">venezia_20170303</Value>
     </Setting>
+    <Setting Name="RatetPpal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

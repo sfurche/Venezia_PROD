@@ -89,6 +89,18 @@ Namespace My
                 Me("DBCnn_DBName") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
+        Public Property RatetPpal() As String
+            Get
+                Return CType(Me("RatetPpal"),String)
+            End Get
+            Set
+                Me("RatetPpal") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

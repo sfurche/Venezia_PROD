@@ -44,6 +44,10 @@ Partial Class Venezia_Scheduler
         Me.EventLogPpal = New System.Diagnostics.EventLog()
         CType(Me.EventLogPpal, System.ComponentModel.ISupportInitialize).BeginInit()
         '
+        'EventLogPpal
+        '
+        Me.EventLogPpal.Source = "Venezia_Schedule"
+        '
         'Venezia_Scheduler
         '
         Me.ServiceName = "Venezia_Scheduler"

@@ -143,7 +143,7 @@ Public Class cEmail
             Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, pDr("id_estado"), cEstado.enuTipoEstado.Mailing)
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Load")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Load")
             gLog.fncGrabarLogERR("Error en cEmail.Load:" & ex.Message)
         End Try
     End Sub
@@ -187,7 +187,7 @@ Public Class cEmail
 
             Guardar = True
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Guardar")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Guardar")
             gAdmin.Log.fncGrabarLogERR("Error en cEmail.Guardar:" & ex.Message)
         End Try
     End Function
@@ -266,7 +266,7 @@ Public Class cEmail
             Enviar = True
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Enviar")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Enviar")
             gAdmin.Log.fncGrabarLogERR("Error en cEmail.Enviar:" & ex.Message)
             Enviar = False
         End Try
@@ -294,7 +294,7 @@ Public Class cEmail
             Return lMail
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.GetMailingxId")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.GetMailingxId")
             pAdmin.Log.fncGrabarLogERR("Error en cEmail.GetMailingxId:" & ex.Message)
             Return Nothing
         End Try
@@ -318,7 +318,7 @@ Public Class cEmail
             Return lArray
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.GetMailingxEstado")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.GetMailingxEstado")
             pAdmin.Log.fncGrabarLogERR("Error en cEmail.GetMailingxEstado:" & ex.Message)
             Return Nothing
         End Try
@@ -357,7 +357,7 @@ Public Class cEmail
             Return lDt
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_GetMailingxId")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_GetMailingxId")
             pAdmin.Log.fncGrabarLogERR("Error en cEmail.Dat_GetMailingxId:" & ex.Message)
             Return Nothing
         End Try
@@ -392,7 +392,7 @@ Public Class cEmail
             Return lDt
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_GetMailingxEstado")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_GetMailingxEstado")
             pAdmin.Log.fncGrabarLogERR("Error en cEmail.Dat_GetMailingxEstado:" & ex.Message)
             Return Nothing
         End Try
@@ -435,7 +435,7 @@ Public Class cEmail
 
             Dat_Mailing_Ins = True
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_Mailing_Ins")
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, "cEmail.Dat_Mailing_Ins")
             gAdmin.Log.fncGrabarLogERR("Error en cEmail.Dat_Mailing_Ins:" & ex.Message)
         End Try
     End Function

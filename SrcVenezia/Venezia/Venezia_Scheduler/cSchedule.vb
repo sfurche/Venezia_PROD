@@ -148,9 +148,6 @@ Public Class cSchedule
             Sql = "Select * from vz_scheduler where proceso='#pProceso#'"
             Sql = Sql.Replace("#pProceso#", pProceso)
 
-
-            pAdmin.Log.fncGrabarLogERR(Sql)
-
             With Cmd
                 .Connection = lCnn
                 .CommandType = CommandType.Text

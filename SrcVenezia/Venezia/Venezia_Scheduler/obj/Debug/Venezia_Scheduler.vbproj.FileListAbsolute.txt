@@ -29,3 +29,11 @@ C:\Venezia_Scheduler\Venezia_Scheduler.exe
 C:\Venezia_Scheduler\Venezia_Scheduler.pdb
 C:\Venezia_Scheduler\Venezia_Scheduler.xml
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.Venezia_Scheduler.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.vbprojResolveAssemblyReference.cache
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.Resources.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.ProjectInstaller.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.Venezia_Scheduler.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.vbproj.GenerateResource.Cache
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.exe
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.xml
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia_Scheduler\obj\Debug\Venezia_Scheduler.pdb

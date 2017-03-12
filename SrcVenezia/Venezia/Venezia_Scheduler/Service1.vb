@@ -1,6 +1,7 @@
 ﻿Imports System.Timers
 Imports System.Diagnostics
 Imports VzAdmin
+Imports VzProcesos
 
 Public Class Venezia_Scheduler
 
@@ -17,18 +18,16 @@ Public Class Venezia_Scheduler
     Public lSch_MailingInicioDia As cSchedule = Nothing
     Public lSch_MailingFinDia As cSchedule = Nothing
 
-
 #Region "Eventos del Servicio"
 
     Public Sub New()
 
         MyBase.New()
         InitializeComponent()
-        If Not System.Diagnostics.EventLog.SourceExists("Venezia_Scheduler") Then
-            System.Diagnostics.EventLog.CreateEventSource("Venezia_Scheduler", "Venezia_Scheduler_Log")
+        If Not System.Diagnostics.EventLog.SourceExists("Venezia_Schedule") Then
+            System.Diagnostics.EventLog.CreateEventSource("Venezia_Schedule", "Venezia_Log")
         End If
-        EventLogPpal.Source = "Venezia_Scheduler"
-
+        EventLogPpal.Source = "Venezia_Schedule"
 
     End Sub
 
@@ -37,9 +36,10 @@ Public Class Venezia_Scheduler
             '====================================================
             '=============SOLO PARA DEBUGGEAR EL SERVICIO======== 
             'Para debuggear se deja abierta la solucion en el visual studio pero sin ejecutar.
-            'Se activa la linea  System.Diagnostics.Debugger.Launch() 
             'Luego se compila y se instala el servicio. 
-            'Al iniciar el servicio abre el mensaje de debug y ahi seleccionamos la instancia de visual studio que tenemos abierta y listo.
+            'Iniciar el servicio y desde el visual studio asociar el proceso. (Menu Debug-> Attach to Process -> Seleccionar el servicio)
+            'Detener el servicio, y activar la linea  System.Diagnostics.Debugger.Launch() en el evento en OnStart
+            'Compilar y al iniciar el servicio desde servies.mcs abre el mensaje de debug y ahi seleccionamos la instancia de visual studio que tenemos abierta y listo.
 
             'System.Diagnostics.Debugger.Launch()
 
@@ -47,6 +47,7 @@ Public Class Venezia_Scheduler
             '====================================================
 
             'Creo la conexion a la base de datos del servicio.
+
             gAdmin = New VzAdmin.cAdmin(My.Settings.DBCnn_Srv, My.Settings.DBCnn_DBName, My.Settings.DBCnn_DBPort)
 
             'pruebo la conexion y si no funciona, bajo el servicio.
@@ -55,12 +56,16 @@ Public Class Venezia_Scheduler
                 Me.Stop()
             End If
 
+            'Cargo el usuario del sistema para poder loguear actividad.
+            gAdmin.User.Load(cUser.Dat_GetUsuarioxID(gAdmin, "21").Rows(0))
+            gAdmin.User.Validar("Venezia_Schedule", "furche.1")
+
             EventLogPpal.WriteEntry("El servicio fue iniciado. -" & Now.ToString)
 
             LoadScheduler()
 
         Catch ex As Exception
-            EventLogPpal.WriteEntry("Error en Venezia__Scheduler.OnStart : " & ex.Message)
+            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.OnStart : " & ex.Message)
             Me.Stop()
         End Try
 
@@ -88,59 +93,51 @@ Public Class Venezia_Scheduler
     Private Sub LoadScheduler()
         Dim lConfiguracion As String = ""
         Try
-
             gArraySchedules = cSchedule.GetAllSchedules(gAdmin)
 
             '=============CONFIGURACION DE TIMERS ==============
-
-
-
             '------Configuracion Principal--------------------------------------------
 
             AddHandler tPpal.Elapsed, AddressOf tPpal_Elapsed
-            tPpal.Interval = 5 * 1000 '5 segundos
-            lConfiguracion = "Proceso tPpal Rate= " & tPpal.Interval.ToString & " segundos." & vbCrLf
-            tPpal.Start()
+            tPpal.Interval = My.Settings.RatetPpal * 1000
+            lConfiguracion = "Proceso tPpal:" & vbCrLf
+            lConfiguracion = lConfiguracion & "Rate= " & tPpal.Interval.ToString & " segundos." & vbCrLf & vbCrLf
 
             '------EnvioMailsPendientes ------------------------------------------------------
             lSch_EnvioMailsPendientes = cSchedule.GetSchedulexProceso(gAdmin, "EnvioMailsPendientes")
-
-            EventLogPpal.WriteEntry("1" & IIf(IsNothing(lSch_EnvioMailsPendientes), "Nada", "lleno"))
-            EventLogPpal.WriteEntry("1" & IIf(IsNothing(gAdmin), "cnn Nada", "cnn lleno"))
-
             AddHandler tPEnvioMailsPendientes.Elapsed, AddressOf tPEnvioMailsPendientes_Elapsed
-            tPEnvioMailsPendientes.Interval = lSch_EnvioMailsPendientes.Rate
-            lConfiguracion = lConfiguracion & "Proceso tPEnvioMailsPendientes Rate= " & tPEnvioMailsPendientes.Interval.ToString & " segundos." & vbCrLf
-
-
+            tPEnvioMailsPendientes.Interval = lSch_EnvioMailsPendientes.Rate * 1000
+            lConfiguracion = lConfiguracion & "Proceso tPEnvioMailsPendientes:" & vbCrLf
+            lConfiguracion = lConfiguracion & "Rate= " & (tPEnvioMailsPendientes.Interval / 1000).ToString & " segundos." & vbCrLf
+            lConfiguracion = lConfiguracion & "Inicio= " & lSch_EnvioMailsPendientes.Inicio.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "Fin= " & lSch_EnvioMailsPendientes.Fin.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "No Habiles= " & lSch_EnvioMailsPendientes.NoHabiles.ToString & vbCrLf & vbCrLf
 
             '------MailingInicioDia ------------------------------------------------------
             lSch_MailingInicioDia = cSchedule.GetSchedulexProceso(gAdmin, "MailingInicioDia")
             AddHandler tPMailingInicioDia.Elapsed, AddressOf tPMailingInicioDia_Elapsed
-            tPMailingInicioDia.Interval = lSch_MailingInicioDia.Rate
-            lConfiguracion = lConfiguracion & "Proceso tPMailingInicioDia Rate= " & tPMailingInicioDia.Interval.ToString & " segundos." & vbCrLf
-
-
-            'EventLogPpal.WriteEntry("PASO3")
+            tPMailingInicioDia.Interval = lSch_MailingInicioDia.Rate * 1000
+            lConfiguracion = lConfiguracion & "Proceso tPMailingInicioDia:" & vbCrLf
+            lConfiguracion = lConfiguracion & "Rate= " & (tPMailingInicioDia.Interval / 1000).ToString & " segundos." & vbCrLf
+            lConfiguracion = lConfiguracion & "Inicio= " & lSch_MailingInicioDia.Inicio.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "Fin= " & lSch_MailingInicioDia.Fin.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "No Habiles= " & lSch_MailingInicioDia.NoHabiles.ToString & vbCrLf & vbCrLf
 
             '------MailingFinDia ------------------------------------------------------
             lSch_MailingFinDia = cSchedule.GetSchedulexProceso(gAdmin, "MailingFinDia")
             AddHandler tPMailingFinDia.Elapsed, AddressOf tPMailingFinDia_Elapsed
-            tPMailingFinDia.Interval = lSch_MailingFinDia.Rate
-            lConfiguracion = lConfiguracion & "Proceso tPMailingFinDia Rate= " & tPMailingFinDia.Interval.ToString & " segundos." & vbCrLf
-
-            'EventLogPpal.WriteEntry("PASO4")
+            tPMailingFinDia.Interval = lSch_MailingFinDia.Rate * 1000
+            lConfiguracion = lConfiguracion & "Proceso tPMailingInicioDia:" & vbCrLf
+            lConfiguracion = lConfiguracion & "Rate= " & (tPMailingFinDia.Interval / 1000).ToString & " segundos." & vbCrLf
+            lConfiguracion = lConfiguracion & "Inicio= " & lSch_MailingFinDia.Inicio.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "Fin= " & lSch_MailingFinDia.Fin.ToString & " hs." & vbCrLf
+            lConfiguracion = lConfiguracion & "No Habiles= " & lSch_MailingFinDia.NoHabiles.ToString & vbCrLf & vbCrLf
 
             EventLogPpal.WriteEntry("La configuración se cargo de la siguiente manera: " & vbCrLf & lConfiguracion)
 
-            'BORRARRR PRUEBA DE FERIADOS. 
-            EventLogPpal.WriteEntry("Es Feriado 24/03 fer " & cFeriado.EsFeriado(gAdmin, "2017/03/24"))
-            EventLogPpal.WriteEntry("Es Feriado 26/03dom " & cFeriado.EsFeriado(gAdmin, "2017/03/26"))
-            EventLogPpal.WriteEntry("Es Feriado 28/03 mar " & cFeriado.EsFeriado(gAdmin, "2017/03/28"))
-            EventLogPpal.WriteEntry("Es Feriado 29/03 mi " & cFeriado.EsFeriado(gAdmin, "2017/03/29"))
-            EventLogPpal.WriteEntry("Es Feriado 30/03 ju " & cFeriado.EsFeriado(gAdmin, "2017/03/30"))
-            EventLogPpal.WriteEntry("Es Feriado 31/03 vi " & cFeriado.EsFeriado(gAdmin, "2017/03/31"))
-
+            '---------------Enciendo el timer principal del servicio.
+            tPpal.Start()
+            tPpal_Elapsed()
 
         Catch ex As Exception
             EventLogPpal.WriteEntry("Error en Venezia_Scheduler.LoadScheduler : " & ex.Message)
@@ -151,14 +148,21 @@ Public Class Venezia_Scheduler
         Try
             If lSch_EnvioMailsPendientes.NoHabiles = False Then
                 If cFeriado.EsFeriado(gAdmin, Date.Today) = True Then
-                    tPEnvioMailsPendientes.Stop()
-                Else
-                    tPEnvioMailsPendientes.Start()
+                    If tPEnvioMailsPendientes.Enabled = True Then
+                        tPEnvioMailsPendientes.Stop()
+                        EventLogPpal.WriteEntry(Now.ToString & " - El timer tPEnvioMailsPendientes fue detenido. ")
+                    End If
+                    Exit Sub
+                    End If
                 End If
+
+            If tPEnvioMailsPendientes.Enabled = False Then
+                tPEnvioMailsPendientes.Start()
+                EventLogPpal.WriteEntry(Now.ToString & " - El timer tPEnvioMailsPendientes fue iniciado. ")
             End If
 
         Catch ex As Exception
-            EventLogPpal.WriteEntry("Error en Venezia__Scheduler.Validar_tPEnvioMailsPendientes : " & ex.Message)
+            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.Validar_tPEnvioMailsPendientes : " & ex.Message)
         End Try
 
     End Sub
@@ -167,14 +171,20 @@ Public Class Venezia_Scheduler
         Try
             If lSch_MailingInicioDia.NoHabiles = False Then
                 If cFeriado.EsFeriado(gAdmin, Date.Today) = True Then
-                    tPMailingInicioDia.Stop()
-                Else
-                    tPMailingInicioDia.Start()
+                    If tPMailingInicioDia.Enabled = True Then
+                        tPMailingInicioDia.Stop()
+                        EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingInicioDia fue detenido. ")
+                    End If
+                    Exit Sub
                 End If
+            End If
+            If tPMailingInicioDia.Enabled = False Then
+                tPMailingInicioDia.Start()
+                EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingInicioDia fue iniciado. ")
             End If
 
         Catch ex As Exception
-            EventLogPpal.WriteEntry("Error en Venezia__Scheduler.Validar_tPMailingInicioDia : " & ex.Message)
+            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.Validar_tPMailingInicioDia : " & ex.Message)
         End Try
 
     End Sub
@@ -183,26 +193,33 @@ Public Class Venezia_Scheduler
         Try
             If lSch_MailingFinDia.NoHabiles = False Then
                 If cFeriado.EsFeriado(gAdmin, Date.Today) = True Then
-                    tPMailingFinDia.Stop()
-                Else
-                    tPMailingFinDia.Start()
+                    If tPMailingFinDia.Enabled = True Then
+                        tPMailingFinDia.Stop()
+                        EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingFinDia fue detenido. ")
+                    End If
+                    Exit Sub
                 End If
             End If
 
+            If tPMailingFinDia.Enabled = False Then
+                tPMailingFinDia.Start()
+                EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingFinDia fue iniciado. ")
+            End If
+
         Catch ex As Exception
-            EventLogPpal.WriteEntry("Error en Venezia__Scheduler.Validar_tPMailingFinDia : " & ex.Message)
+            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.Validar_tPMailingFinDia : " & ex.Message)
         End Try
 
     End Sub
 
-    Private Sub DeternerTimers()
+    Private Sub DetenerTimers()
         Try
             tPEnvioMailsPendientes.Stop()
             tPMailingInicioDia.Stop()  'Este el timer asociado al proceso "MailingInicioDia"
             tPMailingFinDia.Stop()    'Este el timer asociado al proceso "MailingFinDia"
 
         Catch ex As Exception
-            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.DeternerTimers : " & ex.Message)
+            EventLogPpal.WriteEntry("Error en Venezia_Scheduler.DetenerTimers : " & ex.Message)
         End Try
 
     End Sub
@@ -214,7 +231,8 @@ Public Class Venezia_Scheduler
     Private Sub tPpal_Elapsed()
         Try
             Validar_tPEnvioMailsPendientes()
-
+            Validar_tPMailingInicioDia()
+            Validar_tPMailingFinDia()
 
         Catch ex As Exception
             EventLogPpal.WriteEntry("Error en Venezia_Scheduler.tPpal_Elapsed : " & ex.Message)
@@ -223,52 +241,59 @@ Public Class Venezia_Scheduler
 
     Private Sub tPEnvioMailsPendientes_Elapsed()
         Try
+            EventLogPpal.WriteEntry(Now.ToString & " - Se ejecuta tPEnvioMailsPendientes_Elapsed. ")
+
             'valido si el proceso esta corriendo
             If lSch_EnvioMailsPendientes.IsRunning = True Then
                 Exit Sub
-            Else
+            ElseIf (lSch_EnvioMailsPendientes.Inicio < Date.Now.TimeOfDay And Date.Now.TimeOfDay < lSch_EnvioMailsPendientes.Fin) Then
                 lSch_EnvioMailsPendientes.IsRunning = True
+                VzProcesos.cMailingAutomatico.EnviarMailsPendientes(gAdmin)
+                'Cuando termina el proceso retorno a habilitar el procso
+                lSch_EnvioMailsPendientes.IsRunning = False
             End If
-
-            'Cuando termina el proceso retorno a habilitar el procso
-            lSch_EnvioMailsPendientes.IsRunning = False
         Catch ex As Exception
             EventLogPpal.WriteEntry("Error en Venezia_Scheduler.tPEnvioMailsPendientes_Elapsed : " & ex.Message)
+            lSch_EnvioMailsPendientes.IsRunning = False
         End Try
-    End Sub
 
+    End Sub
 
     Private Sub tPMailingInicioDia_Elapsed()
         Try
+            EventLogPpal.WriteEntry(Now.ToString & " - Se ejecuta tPMailingInicioDia_Elapsed. ")
             'valido si el proceso esta corriendo
-            If lSch_MailingInicioDia.IsRunning = True Then
+            If lSch_EnvioMailsPendientes.IsRunning = True Then
                 Exit Sub
-            Else
+            ElseIf (lSch_MailingInicioDia.Inicio < Date.Now.TimeOfDay And Date.Now.TimeOfDay < lSch_MailingInicioDia.Fin) Then
                 lSch_MailingInicioDia.IsRunning = True
+                VzProcesos.cMailingTesoInicioDia.Ejecutar(gAdmin)
+                'Cuando termina el proceso retorno a habilitar el procso
+                lSch_MailingInicioDia.IsRunning = False
             End If
-
-            'Cuando termina el proceso retorno a habilitar el procso
-            lSch_MailingInicioDia.IsRunning = False
 
         Catch ex As Exception
             EventLogPpal.WriteEntry("Error en Venezia_Scheduler.tPMailingInicioDia_Elapsed : " & ex.Message)
+            lSch_MailingInicioDia.IsRunning = False
         End Try
     End Sub
 
     Private Sub tPMailingFinDia_Elapsed()
         Try
+            EventLogPpal.WriteEntry(Now.ToString & " - Se ejecuta tPMailingFinDia_Elapsed. ")
             'valido si el proceso esta corriendo
             If lSch_MailingFinDia.IsRunning = True Then
                 Exit Sub
-            Else
+            ElseIf (lSch_MailingFinDia.Inicio < Date.Now.TimeOfDay And Date.Now.TimeOfDay < lSch_MailingFinDia.Fin) Then
                 lSch_MailingFinDia.IsRunning = True
+                VzProcesos.cMailingTesoFinDia.Ejecutar(gAdmin, Date.Today)
+                'Cuando termina el proceso retorno a habilitar el procso
+                lSch_MailingFinDia.IsRunning = False
             End If
-
-            'Cuando termina el proceso retorno a habilitar el procso
-            lSch_MailingFinDia.IsRunning = False
 
         Catch ex As Exception
             EventLogPpal.WriteEntry("Error en Venezia_Scheduler.tPMailingFinDia_Elapsed : " & ex.Message)
+            lSch_MailingFinDia.IsRunning = False
         End Try
     End Sub
 

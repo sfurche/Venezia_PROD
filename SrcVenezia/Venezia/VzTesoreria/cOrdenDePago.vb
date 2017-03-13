@@ -144,7 +144,7 @@ Public Class cOrdenDePago
         Proveedores = 2
         Retiro = 3
         Otro = 4
-        Null = 99
+        '        Null = 99
 
     End Enum
 
@@ -161,7 +161,7 @@ Public Class cOrdenDePago
             Case enuTipoDestinoOrdenPago.Otro
                 Return "O"
             Case Else
-                Return "99"
+                Return "4"
         End Select
     End Function
 
@@ -178,7 +178,7 @@ Public Class cOrdenDePago
             Case "C"
                 Return enuTipoDestinoOrdenPago.Cobro
             Case Else
-                Return enuTipoDestinoOrdenPago.Null
+                Return enuTipoDestinoOrdenPago.Otro
         End Select
     End Function
 
@@ -195,7 +195,7 @@ Public Class cOrdenDePago
             Case "Cobro"
                 Return enuTipoDestinoOrdenPago.Cobro
             Case Else
-                Return enuTipoDestinoOrdenPago.Null
+                Return enuTipoDestinoOrdenPago.Otro
         End Select
     End Function
 
@@ -212,7 +212,7 @@ Public Class cOrdenDePago
             Case enuTipoDestinoOrdenPago.Cobro
                 Return "Cobro"
             Case Else
-                Return " "
+                Return "Otro"
         End Select
     End Function
 
@@ -229,7 +229,7 @@ Public Class cOrdenDePago
             Case "Cobro"
                 Return "C"
             Case Else
-                Return enuTipoDestinoOrdenPago.Null
+                Return "O"
         End Select
     End Function
 
@@ -267,18 +267,21 @@ Public Class cOrdenDePago
     End Sub
 
     Public Function ToXML() As String
-        'ToXML = ""
-        'Try
-        '    Using sw As New StringWriter()
-        '        Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-        '        serialitzador.Serialize(sw, Me)
-        '        ToXML = sw.ToString()
-        '    End Using
+        ToXML = ""
+        Try
+            Using sw As New StringWriter()
+                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                MsgBox Me.ToString()
+                serialitzador.Serialize(sw, Me)
+                ToXML = sw.ToString()
+            End Using
 
-        'Catch ex As Exception
-        '    MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenDePago.ToXML")
-        '    gAdmin.Log.fncGrabarLogERR("Error en cOrdenDePago.ToXML" & ex.Message)
-        'End Try
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenDePago.ToXML")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenDePago.ToXML" & ex.Message)
+        End Try
+
 
     End Function
 

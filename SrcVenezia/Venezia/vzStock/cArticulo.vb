@@ -235,6 +235,7 @@ Public Class cArticulo
     End Function
 
     Public Function ActualizarCosto(ByVal pCosto As Double) As Boolean
+        ActualizarCosto = False
         Try
             ActualizarCosto = False
 

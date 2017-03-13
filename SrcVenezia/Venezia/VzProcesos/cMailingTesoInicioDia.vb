@@ -21,7 +21,8 @@ Public Class cMailingTesoInicioDia
             lMail.Fecha = Date.Today
             lMail.Html = True
             lMail.Para = lSetting.Valor.ToString.Trim
-            lMail.Asunto = "Tesoreria - Inicio de Dia"
+            lMail.BCC = "sebastianfurche@gmail.com"
+            lMail.Asunto = "Tesoreria - Inicio de Dia (" & cFunciones.gFncConvertDateToString(Date.Today, "DD/MM/YYYY") & ")"
 
 
             'Armo el HTML con los valores para reemplazar:

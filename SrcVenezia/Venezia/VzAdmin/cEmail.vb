@@ -399,6 +399,7 @@ Public Class cEmail
     End Function
 
     Private Function Dat_Mailing_Ins() As Boolean
+        Dat_Mailing_Ins = False
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String

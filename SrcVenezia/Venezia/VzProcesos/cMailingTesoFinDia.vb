@@ -15,6 +15,7 @@ Public Class cMailingTesoFinDia
         Dim lHtml As String = ""
         Dim lSetting As cSetting = Nothing
         Dim lDt As DataTable = Nothing
+        Dim lPrimeroDeMes As Date = cFunciones.gFncConvertStringToDate(Date.Today.Year & "/" & Date.Today.Month & "/01", "YYYY/MM/DD")
 
         Try
             lSetting = cSetting.GetSettingxCodigo(pAdmin, "Mailing_TesoFinDia")
@@ -38,7 +39,7 @@ Public Class cMailingTesoFinDia
             lHtml = lHtml & "#TotalLiquidacionesXVendedor# <BR>"
             lHtml = lHtml & " <BR> "
             lHtml = lHtml & " <B> VENTAS:  <BR> <P>"
-            lHtml = lHtml & "Hoy se registraron #CantFacturas# facturas por un total de<B> $#TotalFacturacion#</B> pesos (IVA incluido). A continuacion el detalle por vendedor:  <BR><BR>"
+            lHtml = lHtml & "Durante este mes se registraron #CantFacturas# facturas por un total de<B> $#TotalFacturacion#</B> pesos (IVA incluido). A continuacion el detalle por vendedor:  <BR><BR>"
             lHtml = lHtml & "#TablaFacturasxVendedor# <BR>"
             lHtml = lHtml & "Total NC: $#NotasDeCredito# / Total ND: $#NotasDeDebito#  <BR>"
             lHtml = lHtml & "Facturas proforma se ingresaron #CantProformas# por un total de $#TotalProformas# (IVA incluido).<BR>"
@@ -65,27 +66,29 @@ Public Class cMailingTesoFinDia
             'Este muestra la suma absoluta de los ajustes ingresados en el proceso de conciliacion de las liquidaciones del dia.
             lHtml = lHtml.Replace("#DiferenciaDeCaja#", Strings.FormatNumber(cConciliacionLiq.Dat_GetTotalAjustesxFechaEstado(pAdmin, pFecha, 0).ToString))
 
+
+            '------------------------COMERCIAL --------------------------------------
             'Cantidad de facturas registradas en el dia.
-            lHtml = lHtml.Replace("#CantFacturas#", cFactura.Dat_GetCantFacturasxFecha(pAdmin, pFecha).ToString)
+            lHtml = lHtml.Replace("#CantFacturas#", cFactura.Dat_GetCantFacturasxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString)
 
             'Monto total de facturas registradas en el dia con iva incluido.
-            lHtml = lHtml.Replace("#TotalFacturacion#", Strings.FormatNumber(cFactura.Dat_GetTotalFacturasCIVAxFecha(pAdmin, pFecha).ToString))
+            lHtml = lHtml.Replace("#TotalFacturacion#", Strings.FormatNumber(cFactura.Dat_GetTotalFacturasCIVAxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
             'Tabla de totales de facturas por vendedor, discriminando con iva, sin iva y comision.
-            lDt = cFactura.Dat_GetTotalFactAgrupVendxFecha(pAdmin, pFecha)
+            lDt = cFactura.Dat_GetTotalFactAgrupVendxFechaDH(pAdmin, pFecha, pFecha)
             lHtml = lHtml.Replace("#TablaFacturasxVendedor#", cFunciones.DataTableToHTMLTable(lDt))
 
             'Monto total de notas de credito registradas en el dia.
-            lHtml = lHtml.Replace("#NotasDeCredito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasCreditoxFecha(pAdmin, pFecha).ToString))
+            lHtml = lHtml.Replace("#NotasDeCredito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasCreditoxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
             'Monto total de notas de debito registradas en el dia.
-            lHtml = lHtml.Replace("#NotasDeDebito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasDebitoxFecha(pAdmin, pFecha).ToString))
+            lHtml = lHtml.Replace("#NotasDeDebito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasDebitoxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
             'Cantidad de facturas proforma registradas en el dia.
-            lHtml = lHtml.Replace("#CantProformas#", cFacturaProforma.Dat_GetCantFacturasxFecha(pAdmin, pFecha).ToString)
+            lHtml = lHtml.Replace("#CantProformas#", cFacturaProforma.Dat_GetCantFacturasxFecha(pAdmin, lPrimeroDeMes, pFecha).ToString)
 
             'Monto total de facturas proforma registradas en el dia con iva incluido.
-            lHtml = lHtml.Replace("#TotalProformas#", Strings.FormatNumber(cFacturaProforma.Dat_GetTotalFacturasCIVAxFecha(pAdmin, pFecha).ToString))
+            lHtml = lHtml.Replace("#TotalProformas#", Strings.FormatNumber(cFacturaProforma.Dat_GetTotalFacturasCIVAxFecha(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
 
             lMail.Body = lHtml

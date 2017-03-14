@@ -3,7 +3,7 @@ Imports VzAdmin
 
 Public Class cFacturaProforma
 
-    Public Shared Function Dat_GetTotalFacturasCIVAxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date) As Double
+    Public Shared Function Dat_GetTotalFacturasCIVAxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFechaD As Date, ByVal pFechaH As Date) As Double
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -12,8 +12,9 @@ Public Class cFacturaProforma
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select ifnull(round(Sum(Abs(Tot_Fact)),2), 0) Total from ven_factprof where FecOp = '#Fecha#'  and MarcaAnulado ='N';"
-            Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
+            Sql = "select ifnull(round(Sum(Abs(Tot_Fact)),2), 0) Total from ven_factprof where  FecEmi >= '#pFechaD#' and  FecEmi <= '#pFechaH#' and MarcaAnulado ='N';"
+            Sql = Sql.Replace("#pFechaD#", cFunciones.gFncConvertDateToString(pFechaD, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#pFechaH#", cFunciones.gFncConvertDateToString(pFechaH, "YYYY/MM/DD"))
 
             With Cmd
                 .Connection = lCnn
@@ -39,7 +40,7 @@ Public Class cFacturaProforma
     End Function
 
 
-    Public Shared Function Dat_GetCantFacturasxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFecha As Date) As Integer
+    Public Shared Function Dat_GetCantFacturasxFecha(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFechaD As Date, ByVal pFechaH As Date) As Integer
 
         Dim Cmd As New MySqlCommand
         Dim Sql As String
@@ -48,8 +49,9 @@ Public Class cFacturaProforma
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select count(*) from ven_factprof where FecOp = '#Fecha#'  and MarcaAnulado ='N' ;"
-            Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(pFecha, "YYYY/MM/DD"))
+            Sql = "select count(*) from ven_factprof where FecEmi >= '#pFechaD#' and  FecEmi <= '#pFechaH#' and MarcaAnulado ='N' ;"
+            Sql = Sql.Replace("#pFechaD#", cFunciones.gFncConvertDateToString(pFechaD, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#pFechaH#", cFunciones.gFncConvertDateToString(pFechaH, "YYYY/MM/DD"))
 
             With Cmd
                 .Connection = lCnn

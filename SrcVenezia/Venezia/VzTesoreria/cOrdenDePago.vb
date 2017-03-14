@@ -272,7 +272,6 @@ Public Class cOrdenDePago
             Using sw As New StringWriter()
                 'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
                 Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                MsgBox Me.ToString()
                 serialitzador.Serialize(sw, Me)
                 ToXML = sw.ToString()
             End Using

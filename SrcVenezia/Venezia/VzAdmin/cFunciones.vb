@@ -108,33 +108,22 @@ Public Class cFunciones
     End Function
 
     Public Shared Function gFncConvertStringToDate(ByVal pCadena As String, ByVal pFormato As String) As Date
-        Dim Rta As String = ""
         gFncConvertStringToDate = Date.Today
         Try
             Select Case pFormato.ToUpper
                 Case "YYYY/MM/DD"
-                    Rta = pCadena.Substring(8, 2) & "/"
-                    Rta = Rta & pCadena.Substring(5, 2) & "/"
-                    Rta = Rta & pCadena.Substring(0, 4)
+                    gFncConvertStringToDate = Date.ParseExact(pCadena, "yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo)
                 Case "MM/DD/YYYY"
-                    Rta = pCadena.Substring(3, 2) & "/"
-                    Rta = Rta & pCadena.Substring(0, 2) & "/"
-                    Rta = Rta & pCadena.Substring(6, 4)
+                    gFncConvertStringToDate = Date.ParseExact(pCadena, "MM/dd/yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo)
                 Case "DD/MM/YYYY"
-                    Rta = Date.Parse(pCadena)
+                    gFncConvertStringToDate = Date.ParseExact(pCadena, "dd/MM/yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo)
                 Case "YYYYMMDD"
-                    Rta = pCadena.Substring(6, 2) & "/"
-                    Rta = Rta & pCadena.Substring(4, 2) & "/"
-                    Rta = Rta & pCadena.Substring(0, 4)
+                    gFncConvertStringToDate = Date.ParseExact(pCadena, "yyyyMMdd", System.Globalization.DateTimeFormatInfo.InvariantInfo)
                 Case "DDMMYYYY"
-                    Rta = pCadena.Substring(0, 2) & "/"
-                    Rta = Rta & pCadena.Substring(2, 2) & "/"
-                    Rta = Rta & pCadena.Substring(4, 4)
+                    gFncConvertStringToDate = Date.ParseExact(pCadena, "ddMMyyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo)
                 Case Else
                     MsgBox("El formato que pretende compartir no es soportado por esta funcion", MsgBoxStyle.Exclamation, "Formato no soportado")
             End Select
-
-            gFncConvertStringToDate = CDate(Rta)
 
         Catch ex As Exception
             MsgBox("Error al convertir fecha", MsgBoxStyle.Critical, "Error en gConvertStringToDate")

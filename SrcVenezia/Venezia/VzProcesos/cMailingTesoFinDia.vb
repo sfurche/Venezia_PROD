@@ -15,7 +15,7 @@ Public Class cMailingTesoFinDia
         Dim lHtml As String = ""
         Dim lSetting As cSetting = Nothing
         Dim lDt As DataTable = Nothing
-        Dim lPrimeroDeMes As Date = cFunciones.gFncConvertStringToDate(Date.Today.Year & "/" & Date.Today.Month & "/01", "YYYY/MM/DD")
+        Dim lPrimeroDeMes As Date = cFunciones.gFncConvertStringToDate(Date.Today.Year & "/" & Date.Today.Month.ToString("00") & "/01", "YYYY/MM/DD")
 
         Try
             lSetting = cSetting.GetSettingxCodigo(pAdmin, "Mailing_TesoFinDia")
@@ -34,18 +34,17 @@ Public Class cMailingTesoFinDia
             lHtml = lHtml & "A continuación se adjunta un breve resúmen de fin de día. <BR> <P>"
             lHtml = lHtml & "<B>TESORERIA:  <BR> <P>"
             lHtml = lHtml & "Hoy se cargaron #CantLiquidacionesDelDia# liquidaciones por un total de<B> $#SumaLiquidacionesDelDia#</B> pesos. <BR>"
-            lHtml = lHtml & "La diferencia de caja en el proceso de conciliacion fue de $#DiferenciaDeCaja# pesos. <BR> <P>"
+            lHtml = lHtml & "La diferencia de caja en el proceso de conciliacion de hoy fue de $#DiferenciaDeCaja# pesos. <BR> <P>"
             lHtml = lHtml & "#TotalLiquidacionesdelDia# <BR>"
             lHtml = lHtml & "#TotalLiquidacionesXVendedor# <BR>"
             lHtml = lHtml & " <BR> "
             lHtml = lHtml & " <B> VENTAS:  <BR> <P>"
-            lHtml = lHtml & "Durante este mes se registraron #CantFacturas# facturas por un total de<B> $#TotalFacturacion#</B> pesos (IVA incluido). A continuacion el detalle por vendedor:  <BR><BR>"
+            lHtml = lHtml & "En lo que va del mes se registraron #CantFacturas# facturas por un total de<B> $#TotalFacturacion#</B> pesos (IVA incluido). A continuación el detalle por vendedor:  <BR><BR>"
             lHtml = lHtml & "#TablaFacturasxVendedor# <BR>"
             lHtml = lHtml & "Total NC: $#NotasDeCredito# / Total ND: $#NotasDeDebito#  <BR>"
-            lHtml = lHtml & "Facturas proforma se ingresaron #CantProformas# por un total de $#TotalProformas# (IVA incluido).<BR>"
+            lHtml = lHtml & "Facturas proforma ingresaron #CantProformas# por un total de $#TotalProformas# (IVA incluido).<BR>"
             lHtml = lHtml & "<BR><BR> Muchas gracias. <BR> Sldos."
             lHtml = lHtml & "</BODY></HTML>"
-
 
             'Ahora solo reemplazo los valores en el HTML
             '-------------------------------------------
@@ -75,7 +74,7 @@ Public Class cMailingTesoFinDia
             lHtml = lHtml.Replace("#TotalFacturacion#", Strings.FormatNumber(cFactura.Dat_GetTotalFacturasCIVAxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
             'Tabla de totales de facturas por vendedor, discriminando con iva, sin iva y comision.
-            lDt = cFactura.Dat_GetTotalFactAgrupVendxFechaDH(pAdmin, pFecha, pFecha)
+            lDt = cFactura.Dat_GetTotalFactAgrupVendxFechaDH(pAdmin, lPrimeroDeMes, pFecha)
             lHtml = lHtml.Replace("#TablaFacturasxVendedor#", cFunciones.DataTableToHTMLTable(lDt))
 
             'Monto total de notas de credito registradas en el dia.

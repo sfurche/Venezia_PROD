@@ -47,7 +47,6 @@ Public Class Venezia_Scheduler
             '====================================================
 
             'Creo la conexion a la base de datos del servicio.
-
             gAdmin = New VzAdmin.cAdmin(My.Settings.DBCnn_Srv, My.Settings.DBCnn_DBName, My.Settings.DBCnn_DBPort)
 
             'pruebo la conexion y si no funciona, bajo el servicio.
@@ -180,6 +179,7 @@ Public Class Venezia_Scheduler
             End If
             If tPMailingInicioDia.Enabled = False Then
                 tPMailingInicioDia.Start()
+                lSch_MailingInicioDia.Ejecutado = False 'Seteo el ejecutado en false para que cuando corra se ejecute. 
                 EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingInicioDia fue iniciado. ")
             End If
 
@@ -203,6 +203,7 @@ Public Class Venezia_Scheduler
 
             If tPMailingFinDia.Enabled = False Then
                 tPMailingFinDia.Start()
+                lSch_MailingFinDia.Ejecutado = False 'Seteo el ejecutado en false para que cuando corra se ejecute. 
                 EventLogPpal.WriteEntry(Now.ToString & " - El timer tPMailingFinDia fue iniciado. ")
             End If
 
@@ -261,7 +262,13 @@ Public Class Venezia_Scheduler
 
     Private Sub tPMailingInicioDia_Elapsed()
         Try
+            'Como este evento debe ejecutarse una sola vez, valido si ejecuto y salgo.
+            If lSch_MailingInicioDia.Ejecutado = True Then
+                Exit Sub
+            End If
+
             EventLogPpal.WriteEntry(Now.ToString & " - Se ejecuta tPMailingInicioDia_Elapsed. ")
+
             'valido si el proceso esta corriendo
             If lSch_EnvioMailsPendientes.IsRunning = True Then
                 Exit Sub
@@ -270,6 +277,8 @@ Public Class Venezia_Scheduler
                 VzProcesos.cMailingTesoInicioDia.Ejecutar(gAdmin)
                 'Cuando termina el proceso retorno a habilitar el procso
                 lSch_MailingInicioDia.IsRunning = False
+                'Marco el proceso como ejecutado para que no vuelva a correr
+                lSch_MailingInicioDia.Ejecutado = True
             End If
 
         Catch ex As Exception
@@ -280,6 +289,12 @@ Public Class Venezia_Scheduler
 
     Private Sub tPMailingFinDia_Elapsed()
         Try
+
+            'Como este evento debe ejecutarse una sola vez, valido si ejecuto y salgo.
+            If lSch_MailingFinDia.Ejecutado = True Then
+                Exit Sub
+            End If
+
             EventLogPpal.WriteEntry(Now.ToString & " - Se ejecuta tPMailingFinDia_Elapsed. ")
             'valido si el proceso esta corriendo
             If lSch_MailingFinDia.IsRunning = True Then
@@ -289,6 +304,8 @@ Public Class Venezia_Scheduler
                 VzProcesos.cMailingTesoFinDia.Ejecutar(gAdmin, Date.Today)
                 'Cuando termina el proceso retorno a habilitar el procso
                 lSch_MailingFinDia.IsRunning = False
+                'Marco el proceso como ejecutado para que no vuelva a correr
+                lSch_MailingFinDia.Ejecutado = True
             End If
 
         Catch ex As Exception

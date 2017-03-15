@@ -15,17 +15,30 @@ Public Class cFactura
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select v.NombreVen, count(*) Cant, round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  round(Sum(f.Tot_Fact),2) TotalcIVA,  round(Sum(Tot_Comi),2) Comision "
-            Sql = Sql & " from ven_facturas as f, ven_vendedor as v"
-            Sql = Sql & " where FecEmi >= '#pFechaD#'  and FecEmi <= '#pFechaH#'  "
+            'Sql = "select v.NombreVen, count(*) Cant, round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  round(Sum(f.Tot_Fact),2) TotalcIVA,  round(Sum(Tot_Comi),2) Comision "
+            'Sql = Sql & " from ven_facturas as f, ven_vendedor as v"
+            'Sql = Sql & " where FecEmi >= '#pFechaD#'  and FecEmi <= '#pFechaH#'  "
+            'Sql = Sql & " and f.Id_Vendedor = v.Id_Vendedor "
+            'Sql = Sql & " and MarcaAnulado ='N'"
+            'Sql = Sql & " and CodForm in('0151', '0101')"
+            'Sql = Sql & " group by v.NombreVen "
+            'Sql = Sql & " order by TotalsIVA desc; "
+
+            Sql = "select v.NombreVen, count(*) Cant, round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  round(Sum(f.Tot_Fact),2) TotalcIVA,  round(Sum(Tot_Comi),2) Comision, "
+            Sql = Sql & " (select round(Sum(Tot_Fact),2) TotalcIVA from ven_facturas where FecEmi >= '#pFechaDMesAnt#'and FecEmi <'#pFechaD#' and Id_Vendedor = v.Id_Vendedor and MarcaAnulado ='N' and CodForm in('0151', '0101')) Mes_Anterior"
+            Sql = Sql & " from ven_facturas as f, ven_vendedor as v "
+            Sql = Sql & " where FecEmi >= '#pFechaD#' "
+            Sql = Sql & " and FecEmi  <= '#pFechaH#' "
             Sql = Sql & " and f.Id_Vendedor = v.Id_Vendedor "
-            Sql = Sql & " and MarcaAnulado ='N'"
-            Sql = Sql & " and CodForm in('0151', '0101')"
+            Sql = Sql & " and MarcaAnulado ='N' "
+            Sql = Sql & " and CodForm in('0151', '0101') "
             Sql = Sql & " group by v.NombreVen "
             Sql = Sql & " order by TotalsIVA desc; "
 
+
             Sql = Sql.Replace("#pFechaD#", cFunciones.gFncConvertDateToString(pFechaD, "YYYY/MM/DD"))
             Sql = Sql.Replace("#pFechaH#", cFunciones.gFncConvertDateToString(pFechaH, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#pFechaDMesAnt#", cFunciones.gFncConvertDateToString(DateAdd(DateInterval.Month, -1, pFechaD), "YYYY/MM/DD"))
 
             With Cmd
                 .Connection = lCnn

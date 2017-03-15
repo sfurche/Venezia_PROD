@@ -14,7 +14,8 @@ Public Class cSchedule
     Private _NoHabiles As Boolean
     Private _UltEjecucion As DateTime
     Private _Descripcion As String
-    Private _IsRunning As Boolean
+    Private _IsRunning As Boolean ' Este flag se activa mientras el proceso esta corriendo.
+    Private _Ejecutado As Boolean 'Este flag se utiliza para que los evento que se ejecutan una sola vez al dia o mes no lo hagan varias veces.
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -98,6 +99,15 @@ Public Class cSchedule
             _IsRunning = value
         End Set
     End Property
+
+    Public Property Ejecutado As Boolean
+        Get
+            Return _Ejecutado
+        End Get
+        Set(value As Boolean)
+            _Ejecutado = value
+        End Set
+    End Property
 #End Region
 
 #Region "Funciones"
@@ -125,6 +135,8 @@ Public Class cSchedule
                 .NoHabiles = lDr("nohabiles")
                 .UltEjecucion = lDr("ultejec")
                 .Descripcion = lDr("descripcion")
+                .IsRunning = False
+                .Ejecutado = False
             End With
 
             Load_Schedule = lSchedule

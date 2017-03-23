@@ -84,6 +84,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="cOrdenCompra.vb" />
+    <Compile Include="cOrdenCompraDet.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -108,6 +110,10 @@
     <ProjectReference Include="..\VzAdmin\VzAdmin.vbproj">
       <Project>{70d874a7-6849-41fa-92c6-ad9dac900b71}</Project>
       <Name>VzAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VzComercial\VzComercial.vbproj">
+      <Project>{80c1ccf7-48c5-4cfa-be88-75c176213e7f}</Project>
+      <Name>VzComercial</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

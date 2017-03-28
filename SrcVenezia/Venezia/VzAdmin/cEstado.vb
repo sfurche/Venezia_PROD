@@ -49,6 +49,7 @@ Public Class cEstado
         Liquidacion_Conciliacion = 4
         Transferencia = 5
         Mailing = 6
+        OrdenCompra = 7
         EstadoError = 99
     End Enum
 
@@ -68,6 +69,8 @@ Public Class cEstado
                 Return "vz_transferencias"
             Case enuTipoEstado.Mailing
                 Return "vz_mailing"
+            Case enuTipoEstado.OrdenCompra
+                Return "vz_ordencompra"
             Case Else
                 Return ""
         End Select
@@ -89,6 +92,8 @@ Public Class cEstado
                 Return enuTipoEstado.Transferencia
             Case "vz_mailing"
                 Return enuTipoEstado.Mailing
+            Case "vz_ordencompra"
+                Return enuTipoEstado.OrdenCompra
             Case Else
                 Return enuTipoEstado.EstadoError
         End Select
@@ -134,6 +139,10 @@ Public Class cEstado
 
     End Function
 
+#End Region
+
+#Region "Shared Funciones"
+
     Public Shared Function GetEstadoAllxTipoEstado(ByRef pAdmin As VzAdmin.cAdmin, ByVal pTipoEstado As enuTipoEstado) As ArrayList
         Dim lDt As DataTable
         Dim lDr As DataRow
@@ -165,6 +174,8 @@ Public Class cEstado
     End Function
 
 #End Region
+
+
 
 #Region "Base de Datos"
 

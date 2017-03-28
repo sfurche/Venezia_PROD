@@ -255,8 +255,6 @@ COMMIT;
 END //
 
 
-
-
 /*----------------------------------------------------------------------------------------*/
 
 drop procedure IF EXISTS vz_permisos_usuario_upd;
@@ -524,3 +522,6 @@ set @Clave = (select clave from sis_usuarios where idusr=19);
 update sis_usuarios
 set clave = @Clave
 where idusr=21;
+
+
+

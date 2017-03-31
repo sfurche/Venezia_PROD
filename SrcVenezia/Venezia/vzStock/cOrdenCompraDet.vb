@@ -1,5 +1,6 @@
 ﻿
 Imports MySql.Data.MySqlClient
+Imports VzAdmin
 Imports vzStock
 
 Public Class cOrdenCompraDet
@@ -11,6 +12,8 @@ Public Class cOrdenCompraDet
     Private _Articulo As cArticulo
     Private _Cantidad As Integer
     Private _PrecioUnitario As Double
+    Private _Estado As cEstado
+    Private _EsNuevo As Boolean = True
 
 #Region "Declaraciones"
 
@@ -56,6 +59,15 @@ Public Class cOrdenCompraDet
         End Get
         Set(value As Double)
             _PrecioUnitario = value
+        End Set
+    End Property
+
+    Public Property Estado As cEstado
+        Get
+            Return _Estado
+        End Get
+        Set(value As cEstado)
+            _Estado = value
         End Set
     End Property
 

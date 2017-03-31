@@ -50,6 +50,7 @@ Public Class cEstado
         Transferencia = 5
         Mailing = 6
         OrdenCompra = 7
+        OrdenCompra_Det = 8
         EstadoError = 99
     End Enum
 
@@ -71,6 +72,8 @@ Public Class cEstado
                 Return "vz_mailing"
             Case enuTipoEstado.OrdenCompra
                 Return "vz_ordencompra"
+            Case enuTipoEstado.OrdenCompra_Det
+                Return "vz_ordencompra_det"
             Case Else
                 Return ""
         End Select
@@ -94,6 +97,8 @@ Public Class cEstado
                 Return enuTipoEstado.Mailing
             Case "vz_ordencompra"
                 Return enuTipoEstado.OrdenCompra
+            Case "vz_ordencompra_det"
+                Return enuTipoEstado.OrdenCompra_Det
             Case Else
                 Return enuTipoEstado.EstadoError
         End Select

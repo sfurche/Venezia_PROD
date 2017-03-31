@@ -9,8 +9,10 @@ INSERT INTO vz_estados values(1,'vz_ordencompra','Confirmada');
 INSERT INTO vz_estados values(2,'vz_ordencompra','Recibida');
 INSERT INTO vz_estados values(99,'vz_ordencompra','Anulada');
 
-/*----------------------------------------------------------------------------------------*/
+INSERT INTO vz_estados values(0,'vz_ordencompra_det','Activo');
+INSERT INTO vz_estados values(99,'vz_ordencompra_det','Anulado');
 
+/*----------------------------------------------------------------------------------------*/
 
 drop procedure IF EXISTS vz_Facturas_GetUtilidadxIdFac;
 
@@ -61,6 +63,7 @@ CREATE TABLE `vz_ordencompra_det` (
   `CodArt` INT NOT NULL,
   `cantidad` INT NOT NULL,
   `preciounitario` DOUBLE NOT NULL,
+  `id_estado` INT NULL,
   PRIMARY KEY (`id_ordencompra_det`),
   INDEX `vzordencompradet_idordc_idx` (`id_ordencompra` ASC),
   INDEX `vzordencompradet_codart_idx` (`CodArt` ASC),
@@ -73,8 +76,12 @@ CREATE TABLE `vz_ordencompra_det` (
     FOREIGN KEY (`CodArt`)
     REFERENCES `pro_articulos` (`CodArt`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+ CONSTRAINT `fk_vz_ordencompra_det_estado`
+    FOREIGN KEY (`id_estado`)
+    REFERENCES `vz_estados` (`id_estado`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
 
 /*----------------------------------------------------------------------------------------*/
 drop procedure IF EXISTS vz_ordencompra_ins;
@@ -93,7 +100,7 @@ DECLARE v_nr INT;
 
 START TRANSACTION;
 
-SET v_nr =(select count(*) + 1 from vz_ordencompra);
+SET v_nr =IFNULL((select max(id_ordencompra) + 1 from vz_ordencompra),1);
 
 Insert INTO vz_ordencompra (
 id_ordencompra, 
@@ -177,3 +184,78 @@ COMMIT;
 END //
 
 /*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_ordencompra_det_ins;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_ordencompra_det_ins`(  
+  `_id_ordencompra` INT ,
+  `_CodArt` INT ,
+  `_cantidad` INT ,
+  `_preciounitario` DOUBLE ,
+  `_idusr` INT )
+BEGIN
+
+DECLARE v_nr INT;
+
+START TRANSACTION;
+
+SET v_nr =IFNULL((select max(id_ordencompra_det) + 1 from vz_ordencompra_det),1);
+
+Insert INTO vz_ordencompra_det (
+  `id_ordencompra_det`,
+  `id_ordencompra` ,
+  `CodArt` ,
+  `cantidad` ,
+  `preciounitario` ,
+  `id_estado` )
+
+VALUES
+(v_nr,  
+  `_id_ordencompra` ,
+  `_CodArt` ,
+  `_cantidad` ,
+  `_preciounitario`,
+0 );
+         
+CALL vz_log_ins(now(), 'INS', 'vz_ordencompra_det', v_nr,_idusr, '');
+  
+COMMIT;
+select v_nr;
+
+END //	
+
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure IF EXISTS vz_ordencompra_det_upd;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_ordencompra_det_upd`(  
+ _id_ordencompra_det INT ,  
+  _CodArt INT ,
+  _cantidad INT ,
+  _preciounitario DOUBLE ,
+  _id_estado INT,
+  _idusr INT )
+BEGIN
+
+START TRANSACTION;
+
+UPDATE vz_ordencompra_det 
+  SET CodArt =_CodArt,
+  cantidad = _cantidad,
+  preciounitario = _preciounitario ,
+  id_estado =_id_estado
+WHERE id_ordencompra_det = _id_ordencompra_det;
+         
+CALL vz_log_ins(now(), 'INS', 'vz_ordencompra_det', _id_ordencompra_det,_idusr, '');
+  
+COMMIT;
+
+END //	
+
+
+/*----------------------------------------------------------------------------------------*/3
+

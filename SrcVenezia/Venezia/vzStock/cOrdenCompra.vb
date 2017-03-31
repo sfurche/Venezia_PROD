@@ -153,14 +153,14 @@ Public Class cOrdenCompra
                 'Seteo la orden de pago en los cheques vinculados
                 For Each lOCDet In Me.Detalle
                     lOCDet.Id_OrdenDeCompra = Me.Id_OrdenDeCompra
-                    lOCDet.guardar()
+                    lOCDet.Guardar()
                 Next
 
                 Me._EsNuevo = False
 
             Else  'ACA VA EL UPDATE 
 
-                Sql = "CALL vz_ordencompra_upd(1, '2017/03/27', 16, 2000, '2017/03/31', 19);"
+                'Sql = "CALL vz_ordencompra_upd(1, '2017/03/27', 16, 2000, '2017/03/31', 19);"
                 Sql = "CALL vz_ordencompra_ins( #IdOrdenCompra#, '#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', #idusr#);"
                 Sql = Sql.Replace("#IdOrdenCompra#", Me.Proveedor.Id_Proveedor)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
@@ -195,6 +195,29 @@ Public Class cOrdenCompra
             gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.Guardar:" & ex.Message & vbCrLf & Sql)
         End Try
     End Function
+
+    Private Sub ActualizarImporteCab()
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String = ""
+        Dim lCnn As MySqlConnection = Nothing
+        Try
+            Sql = "UPDATE vz_ordencompra set importe = (SELECT SUM(cantidad * preciounitario) FROM vz_ordencompra_det where id_ordencompra = #IdOrdenCompra#) where id_ordencompra = #IdOrdenCompra#;"
+            Sql = Sql.Replace("#IdOrdenCompra#", Me.Id_OrdenDeCompra)
+
+            Cmd.Connection = lCnn
+            Cmd.CommandType = CommandType.Text
+            Cmd.CommandText = Sql
+            If lCnn.State = ConnectionState.Closed Then
+                lCnn.Open()
+            End If
+            Cmd.ExecuteNonQuery()
+            lCnn.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ActualizarImporteCab")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ActualizarImporteCab:" & ex.Message & vbCrLf & Sql)
+        End Try
+    End Sub
 
     Public Function ToXML() As String
         ToXML = ""

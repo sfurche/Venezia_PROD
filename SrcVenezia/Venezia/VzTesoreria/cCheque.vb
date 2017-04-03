@@ -1517,7 +1517,15 @@ Public Class cCheque
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select DATE_FORMAT(fecha_pago, '%d/%m/%Y') Fecha_Pago, count(*) Cantidad, round(sum(importe),2) Total from vz_cheques where id_estado =0  and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL #CantDias# DAY) group by fecha_pago order by fecha_pago ;"
+            'Sql = "select DATE_FORMAT(fecha_pago, '%d/%m/%Y') Fecha_Pago, count(*) Cantidad, round(sum(importe),2) Total from vz_cheques where id_estado =0  and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL #CantDias# DAY) group by fecha_pago order by fecha_pago ;"
+
+            Sql = "SELECT 'En fecha' as FechaPago, count(*) Cantidad, round(sum(importe),2) Total "
+            Sql = Sql & "FROM vz_cheques "
+            Sql = Sql & "WHERE id_estado =0  and fecha_pago < CURDATE() "
+            Sql = Sql & "UNION "
+            Sql = Sql & "(SELECT DATE_FORMAT(fecha_pago, '%d/%m/%Y') FechaPago, count(*) Cantidad, round(sum(importe),2) "
+            Sql = Sql & "Total FROM vz_cheques "
+            Sql = Sql & "WHERE id_estado =0 and fecha_pago >= CURDATE() and fecha_pago <= DATE_ADD(CURDATE(), INTERVAL #CantDias# DAY) group by fecha_pago order by fecha_pago); "
 
             Sql = Sql.Replace("#CantDias#", pCantDias)
 

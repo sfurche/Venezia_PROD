@@ -49,3 +49,82 @@ and Id_Vendedor = 4) and MarcaAnulado ='N'
  
  
  
+ 
+  select v.Id_Vendedor, v.NombreVen, count(*) Cant, 
+ round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  
+ round(Sum(f.Tot_Fact),2) TotalcIVA,  
+ round(Sum(Tot_Comi),2) Comision, 
+ (select round(Sum(Tot_Fact),2) TotalcIVA from ven_facturas where FecEmi >= '2017/02/01'and FecEmi >'2017/03/01' and Id_Vendedor = v.Id_Vendedor and MarcaAnulado ='N' and CodForm in('0151', '0101')) Mes_Anterior,
+ SUM(( CASE f.CodForm 
+ WHEN '0101'THEN (
+select ROUND((Sum(PcioTotal) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = f.Id_Fac and f.CodForm='0101' and MarcaAnulado ='N' 
+ ) 
+ WHEN '151' THEN (
+select ROUND((Sum(PcioTotal/1.21) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = f.Id_Fac and f.CodForm='0101' and MarcaAnulado ='N' 
+ ) end
+ )) Utilidad
+ from ven_facturas as f, ven_vendedor as v  
+ where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15'  and f.Id_Vendedor = v.Id_Vendedor  and MarcaAnulado ='N'  and CodForm in('0151', '0101')  
+ group by v.NombreVen  order by TotalsIVA desc; 
+
+
+SELECT *
+ from ven_facturas as f, ven_detfac AS d
+ where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15'  and d.MarcaAnulado ='N'  and f.MarcaAnulado ='N' and CodForm in('0151', '0101')  
+and f.Id_Fac = d.Id_Fac
+ 
+ 
+ --------------------------------------------------------------------------------------
+ 
+ ULTIMO
+ 
+  select v.Id_Vendedor, v.NombreVen, count(*) Cant, 
+ round(Sum(f.Tot_Fact_sIVA),2) TotalsIVA,  
+ round(Sum(f.Tot_Fact),2) TotalcIVA,  
+ round(Sum(Tot_Comi),2) Comision, 
+ (select round(Sum(Tot_Fact),2) TotalcIVA from ven_facturas where FecEmi >= '2017/02/01'and FecEmi >'2017/03/01' and Id_Vendedor = v.Id_Vendedor and MarcaAnulado ='N' and CodForm in('0151', '0101')) Mes_Anterior,
+ SUM(( CASE f.CodForm 
+ WHEN '0101'THEN (
+select ROUND((Sum(PcioTotal) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = f.Id_Fac and f.CodForm='0101' and MarcaAnulado ='N' 
+ ) 
+ WHEN '151' THEN (
+select ROUND((Sum(PcioTotal/1.21) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = f.Id_Fac and f.CodForm='0101' and MarcaAnulado ='N' 
+ ) end
+ )) Utilidad
+ from ven_facturas as f, ven_vendedor as v  
+ where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15'  and f.Id_Vendedor = v.Id_Vendedor  and MarcaAnulado ='N'  and CodForm in('0151', '0101')  
+ group by v.NombreVen  order by TotalsIVA desc; 
+
+
+SELECT *
+ from ven_facturas as f, ven_detfac AS d
+ where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15'  and d.MarcaAnulado ='N'  and f.MarcaAnulado ='N' and CodForm in('0151', '0101')  
+and f.Id_Fac = d.Id_Fac
+
+
+--CONTROLO LOS VALORES.
+
+select sum(Costo), Sum(Total), sum(Utilidad)
+from (
+select (CantProd*PcioCosto) Costo, (PcioTotal) Total, (PcioTotal-(CantProd*PcioCosto)) Utilidad
+from ven_detfac  where Id_Fac in(
+select Id_Fac from ven_facturas 
+where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15' and MarcaAnulado ='N'  and CodForm = '0101' 
+and Id_Vendedor = 13 ) and MarcaAnulado ='N' 
+UNION
+select (CantProd*PcioCosto) Costo, (PcioTotal/1.21) Total, ((PcioTotal/1.21)-(CantProd*PcioCosto)) Utilidad
+from ven_detfac  where Id_Fac in(
+select Id_Fac from ven_facturas 
+where FecEmi >= '2017/03/01'  and FecEmi  <= '2017/03/15' and MarcaAnulado ='N'  and CodForm ='0151'  
+and Id_Vendedor = 13) and MarcaAnulado ='N' 
+ ) as a
+
+4 184974.98000000004	334831.1453719009	149856.16537190074
+
+12 165975.56000000006	293310.1238016526	127334.56380165274
+
+13 37880	31324	-6556
+ 
+ 
+ 
+ 

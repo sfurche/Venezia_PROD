@@ -14,14 +14,25 @@ INSERT INTO vz_estados values(99,'vz_ordencompra_det','Anulado');
 
 /*----------------------------------------------------------------------------------------*/
 
+
 drop procedure IF EXISTS vz_Facturas_GetUtilidadxIdFac;
 
 DELIMITER //
 
 CREATE PROCEDURE `vz_Facturas_GetUtilidadxIdFac`(IN _Id_Fac INT)
 BEGIN
+declare vCodForm varchar(10);
+declare vRta  double;
 
-select ROUND((Sum(PcioTotal) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = _Id_Fac  ;
+set vCodForm= (select CodForm from ven_facturas where Id_Fac = _Id_Fac); 
+
+IF vCodForm = '0101' THEN
+set vRta = (select ROUND((Sum(PcioTotal) - sum(CantProd*PcioCosto)),2) Utilidad from ven_detfac  where Id_Fac = _Id_Fac );
+ELSEIF vCodForm = '0151' THEN
+set vRta = (select ROUND((Sum(PcioTotal /1.21) - sum(CantProd*PcioCosto ) ),2) Utilidad from ven_detfac  where Id_Fac = _Id_Fac );
+END IF;
+
+select round(vRta,2) as Utilidad;
 
 END //	
 

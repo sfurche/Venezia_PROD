@@ -126,5 +126,76 @@ and Id_Vendedor = 13) and MarcaAnulado ='N'
 13 37880	31324	-6556
  
  
+ ------------------------------------------------------------------------------------------------------------------------------------------------
+ 04/04/2017
+ 
+ 
+ 
+ 
+ 
+ 
+SELECT Id_Vendedor, NombreVen, COUNT(*) Cant, 
+ ROUND(SUM(Tot_Fact_sIVA),2) TotalsIVA,  
+ ROUND(SUM(Tot_Fact),2) TotalcIVA,  
+ ROUND(SUM(Tot_Comi),2) Comision, 
+ (SELECT ROUND(SUM(Tot_Fact),2) TotalcIVA FROM ven_facturas where FecEmi >= '2017/02/01'AND FecEmi >'2017/03/01' AND Id_Vendedor = v.Id_Vendedor AND MarcaAnulado ='N' AND CodForm in('0151', '0101')) Mes_Anterior,
+ ROUND(sum(Utilidad),2) Utilidad
+ FROM (
+
+ SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal-PcioCosto*CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm = '0101'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+ AND f.Id_Vendedor=2
+ UNION
+ SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal/1.21 - PcioCosto*CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm  ='0151'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+ AND f.Id_Vendedor=2
+ ORDER BY Id_DetFac
+ 
+) AS A 
+ GROUP BY v.NombreVen  ORDER BY TotalsIVA desc; 
+
+------------------------------------------------------------
+============================================================
+
+
+============================================================
+
+SELECT sum(Utilidad) FROM (
+
+ SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal-PcioCosto*CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm = '0101'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+ AND f.Id_Vendedor=2
+ UNION
+ SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal/1.21 - PcioCosto*CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm  ='0151'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+ AND f.Id_Vendedor=2
+ ORDER BY Id_DetFac
+ 
+) AS A 
+
+ 
+ 
+ 
+ 
+ select * from ven_detfac where Id_Fac=96127
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  

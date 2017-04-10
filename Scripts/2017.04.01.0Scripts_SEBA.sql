@@ -268,5 +268,53 @@ COMMIT;
 END //	
 
 
-/*----------------------------------------------------------------------------------------*/3
+/*----------------------------------------------------------------------------------------*/
+
+drop procedure if exists vz_liquidaciones_TotalDetxFecha;
+
+DELIMITER //
+
+CREATE PROCEDURE `vz_liquidaciones_TotalDetxFecha`(
+`_fecha` DATETIME 
+  )
+BEGIN
+
+DECLARE vTotalLiq DOUBLE;
+DECLARE vFechaInicio DATE;
+
+SET vTotalLiq = (Select sum(importe_cash + importe_cheques + importe_retenciones + importe_transferencias + importe_ncredito) Total from vz_liquidaciones where fecha = _fecha and id_estado=2); 
+SET vFechaInicio = (select concat(year(_fecha), '/', month(_fecha), '/01'));
+
+Select 'Efectivo', ROUND(SUM(importe_cash),2) Total, ROUND((SUM(importe_cash) * 100/ vTotalLiq),2) Porc,
+(Select ifnull(round(sum(importe_cash),2),0) Acumulado from vz_liquidaciones where fecha >= vFechaInicio AND fecha <= _fecha and id_estado= 2) Acumulado
+from vz_liquidaciones where fecha = _fecha and id_estado=2
+
+union 
+
+Select 'Cheques', ROUND(SUM(importe_cheques),2) Total, ROUND((SUM(importe_cheques) * 100/ vTotalLiq),2) Porc,
+(Select ifnull(round(sum(importe_cheques),2),0) Acumulado from vz_liquidaciones where fecha >= vFechaInicio AND fecha <= _fecha and id_estado= 2) Acumulado
+ from vz_liquidaciones where fecha = _fecha and id_estado=2 
+
+union 
+
+Select 'Transferencias', ROUND(SUM(importe_transferencias),2) Total, ROUND((SUM(importe_transferencias)* 100/ vTotalLiq),2) Porc,
+(Select ifnull(round(sum(importe_transferencias),2),0) Acumulado from vz_liquidaciones where fecha >= vFechaInicio AND fecha <= _fecha and id_estado= 2) Acumulado
+from vz_liquidaciones where fecha = _fecha and id_estado=2 
+
+union 
+
+Select 'Retenciones', ROUND(SUM(importe_retenciones),2) Total, ROUND((SUM(importe_retenciones) * 100/ vTotalLiq),2) Porc,
+(Select ifnull(round(sum(importe_retenciones),2),0) Acumulado from vz_liquidaciones where fecha >= vFechaInicio AND fecha <= _fecha and id_estado= 2) Acumulado
+from vz_liquidaciones where fecha = _fecha and id_estado=2 
+
+union 
+Select 'NCredito', ROUND(SUM(importe_ncredito),2) Total, ROUND((SUM(importe_ncredito) * 100/ vTotalLiq),2) Porc,
+(Select ifnull(round(sum(importe_ncredito),2),0) Acumulado from vz_liquidaciones where fecha >= vFechaInicio AND fecha <= _fecha and id_estado= 2) Acumulado
+from vz_liquidaciones where fecha = _fecha and id_estado=2;
+
+END //
+
+
+
+/*----------------------------------------------------------------------------------------*/
 

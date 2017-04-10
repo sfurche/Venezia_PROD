@@ -60,9 +60,11 @@ Public Class cMailingTesoFinDia
             lHtmlTotales = "<tr style='color:white ; background-color: grey; text-align:center; font-weight: bold;'>"
             lHtmlTotales = lHtmlTotales & "<td align='center'>TOTALES</td>"
             lHtmlTotales = lHtmlTotales & "<td align='right'>#Total#</td>"
-            lHtmlTotales = lHtmlTotales & "<td align='right'> </td></tr>"
-
+            lHtmlTotales = lHtmlTotales & "<td align='right'> </td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Acumulado#</td>"
+            lHtmlTotales = lHtmlTotales & "</tr>"
             lHtmlTotales = lHtmlTotales.Replace("#Total#", Strings.FormatNumber(lDt.Compute("SUM(Total)", String.Empty)))
+            lHtmlTotales = lHtmlTotales.Replace("#Acumulado#", Strings.FormatNumber(lDt.Compute("SUM(Acumulado)", String.Empty)))
 
             lHtml = lHtml.Replace("#TotalLiquidacionesdelDia#", cFunciones.DataTableToHTMLTableConTotales(lDt, lHtmlTotales))
 

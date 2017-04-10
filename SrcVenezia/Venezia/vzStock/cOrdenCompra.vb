@@ -180,9 +180,9 @@ Public Class cOrdenCompra
                 lCnn.Close()
 
                 'Seteo la orden de pago en los cheques vinculados y elimino los desvinculados.
-                If Me.Importe_cheques > 0 Then
-                    cCheque.SetOrdenDePago(gAdmin, Me.Cheques, Me.Id_Orden)
-                End If
+                'If Me.Importe_cheques > 0 Then
+                '    cCheque.SetOrdenDePago(gAdmin, Me.Cheques, Me.Id_Orden)
+                'End If
 
                 'Grabo el log de auditoria.
                 gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToXML, ObjetoInicial)

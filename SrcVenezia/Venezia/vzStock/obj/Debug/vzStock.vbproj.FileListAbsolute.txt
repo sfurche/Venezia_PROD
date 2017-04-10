@@ -76,3 +76,6 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\D
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.dll
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.xml
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\obj\Debug\vzStock.pdb
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzComercial.dll
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzComercial.pdb
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\vzStock\bin\Debug\VzComercial.xml

@@ -376,6 +376,16 @@ Public Class cFunciones
         Return dString.ToString
     End Function
 
+    Public Shared Function DataTableToHTMLTableConTotales(ByVal inTable As DataTable, ByVal pTotales As String) As String
+        Dim dString As New StringBuilder
+        dString.Append("<table border='1px' cellpadding='5' cellspacing='0' ")
+        dString.Append("style='border: solid 1px Silver; font-size: x-small;'>")
+        dString.Append(GetHeader(inTable))
+        dString.Append(GetBodyConTotales(inTable, pTotales))
+        dString.Append("</table>")
+        Return dString.ToString
+    End Function
+
     Private Shared Function GetHeader(ByVal dTable As DataTable) As String
         Dim dString As New StringBuilder
 
@@ -419,7 +429,36 @@ Public Class cFunciones
     End Function
 
     '------------------------------------------------------------------------
+    Private Shared Function GetBodyConTotales(ByVal dTable As DataTable, ByVal pTotales As String) As String
+        Dim dString As New StringBuilder
+        Dim i As Int32
+        Dim d As Double
+        dString.Append("<tbody>")
 
+        For Each dRow As DataRow In dTable.Rows
+            dString.Append("<tr>")
+            For dCount As Integer = 0 To dTable.Columns.Count - 1
+                If IsNumeric(dRow(dCount)) Then
+                    If Int32.TryParse(dRow(dCount), i) = True Then
+                        'dString.AppendFormat("<td align='right'>{0}</td>", dRow(dCount))
+                        dString.AppendFormat("<td align='right'>{0}</td>", Strings.FormatNumber(dRow(dCount), 0))
+                    ElseIf Double.TryParse(dRow(dCount), d) = True Then
+                        dString.AppendFormat("<td align='right'>{0}</td>", Strings.FormatNumber(dRow(dCount)))
+                    Else
+                        dString.AppendFormat("<td align='left'>{0}</td>", dRow(dCount))
+                    End If
+                Else
+                    dString.AppendFormat("<td align='left'>{0}</td>", dRow(dCount))
+                End If
+            Next
+            dString.Append("</tr>")
+        Next
+        dString.Append(pTotales)
+        dString.Append("</tbody>")
+
+        Return dString.ToString()
+
+    End Function
 
 
 End Class

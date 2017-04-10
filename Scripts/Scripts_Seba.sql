@@ -129,34 +129,28 @@ and Id_Vendedor = 13) and MarcaAnulado ='N'
  ------------------------------------------------------------------------------------------------------------------------------------------------
  04/04/2017
  
- 
- 
- 
- 
+#VERSION DEFINITIVA. 
  
 SELECT Id_Vendedor, NombreVen, COUNT(*) Cant, 
- ROUND(SUM(Tot_Fact_sIVA),2) TotalsIVA,  
  ROUND(SUM(Tot_Fact),2) TotalcIVA,  
- ROUND(SUM(Tot_Comi),2) Comision, 
- (SELECT ROUND(SUM(Tot_Fact),2) TotalcIVA FROM ven_facturas where FecEmi >= '2017/02/01'AND FecEmi >'2017/03/01' AND Id_Vendedor = v.Id_Vendedor AND MarcaAnulado ='N' AND CodForm in('0151', '0101')) Mes_Anterior,
+ (SELECT ROUND(SUM(Tot_Fact),2) TotalcIVA FROM ven_facturas where FecEmi >= '2017/02/01'AND FecEmi >'2017/03/01' AND Id_Vendedor = A.Id_Vendedor AND MarcaAnulado ='N' AND CodForm in('0151', '0101')) Mes_Anterior,
+ ROUND(SUM(Tot_Comi),2) Comision,
  ROUND(sum(Utilidad),2) Utilidad
  FROM (
-
  SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal-PcioCosto*CantProd),2) Utilidad
  FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
  WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm = '0101'  AND d.MarcaAnulado ='N'
  AND f.Id_Fac = d.Id_Fac
- AND f.Id_Vendedor=2
+ # AND f.Id_Vendedor=2
  UNION
  SELECT f.Id_Fac, Id_DetFac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact_sIVA, f.Tot_Fact,  f.Tot_Comi, f.CodForm, PcioUnit, PcioTotal, PcioCosto, ROUND((PcioTotal/1.21 - PcioCosto*CantProd),2) Utilidad
  FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
  WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm  ='0151'  AND d.MarcaAnulado ='N'
  AND f.Id_Fac = d.Id_Fac
- AND f.Id_Vendedor=2
+ # AND f.Id_Vendedor=2
  ORDER BY Id_DetFac
- 
-) AS A 
- GROUP BY v.NombreVen  ORDER BY TotalsIVA desc; 
+ ) AS A 
+ GROUP BY NombreVen  ORDER BY TotalcIVA desc; 
 
 ------------------------------------------------------------
 ============================================================
@@ -191,11 +185,28 @@ SELECT sum(Utilidad) FROM (
  
  
  
+  ------------------------------------------------------------------------------------------------------------------------------------------------
+ 09/04/2017 
  
+ #OTRA VERSION DEFINITIVA. 
  
- 
- 
- 
- 
- 
+ SELECT NombreVen, COUNT(*) Cant, 
+ IFNULL(ROUND(SUM(Tot_Fact),2),0) TotalcIVA,  
+ IFNULL((SELECT ROUND(SUM(Tot_Fact),2) TotalcIVA FROM ven_facturas where FecEmi >= '2017/02/01'AND FecEmi >'2017/03/01' AND Id_Vendedor = A.Id_Vendedor AND MarcaAnulado ='N' AND CodForm in('0151', '0101')),0) Mes_Anterior,
+ IFNULL(ROUND(SUM(Tot_Comi),2),0) Comision,
+ IFNULL(ROUND(sum(Utilidad),2),0) Utilidad
+ FROM (
+ SELECT f.Id_Fac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact,  f.Tot_Comi, f.CodForm, ROUND((d.PcioTotal - d.PcioCosto * d.CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm = '0101'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+ GROUP BY f.Id_Fac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact,  f.Tot_Comi, f.CodForm
+ UNION
+ SELECT f.Id_Fac,  v.Id_Vendedor, v.NombreVen, f.Tot_Fact,  f.Tot_Comi, f.CodForm, ROUND((d.PcioTotal/1.21 - d.PcioCosto * d.CantProd),2) Utilidad
+ FROM ven_facturas as f, ven_vendedor as v, ven_detfac d
+ WHERE FecEmi >= '2017/03/01'  AND FecEmi  <= '2017/03/15'  AND f.Id_Vendedor = v.Id_Vendedor  AND f.MarcaAnulado ='N'  AND CodForm  ='0151'  AND d.MarcaAnulado ='N'
+ AND f.Id_Fac = d.Id_Fac
+GROUP BY f.Id_Fac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact,  f.Tot_Comi, f.CodForm
+ ) AS A 
+ GROUP BY NombreVen  ORDER BY TotalcIVA desc; 
  

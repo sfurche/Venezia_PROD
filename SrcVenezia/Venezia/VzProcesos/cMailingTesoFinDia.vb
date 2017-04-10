@@ -15,16 +15,16 @@ Public Class cMailingTesoFinDia
         Dim lHtml As String = ""
         Dim lSetting As cSetting = Nothing
         Dim lDt As DataTable = Nothing
-        Dim lPrimeroDeMes As Date = cFunciones.gFncConvertStringToDate(Date.Today.Year & "/" & Date.Today.Month.ToString("00") & "/01", "YYYY/MM/DD")
-
+        Dim lPrimeroDeMes As Date = cFunciones.gFncConvertStringToDate(pFecha.Year & "/" & pFecha.Month.ToString("00") & "/01", "YYYY/MM/DD")
+        Dim lHtmlTotales As String = ""
         Try
             lSetting = cSetting.GetSettingxCodigo(pAdmin, "Mailing_TesoFinDia")
             lMail.Tipo_Mailing = "TesoFinDia"
-            lMail.Fecha = Date.Today
+            lMail.Fecha = pFecha
             lMail.Html = True
             lMail.Para = lSetting.Valor.ToString.Trim
             lMail.BCC = "sebastianfurche@gmail.com"
-            lMail.Asunto = "Tesoreria - Resumen Fin de Dia (" & cFunciones.gFncConvertDateToString(Date.Today, "DD/MM/YYYY") & ")"
+            lMail.Asunto = "Tesoreria - Resumen Fin de Dia (" & cFunciones.gFncConvertDateToString(pFecha, "DD/MM/YYYY") & ")"
 
 
             'Armo el HTML con los valores para reemplazar:
@@ -56,7 +56,15 @@ Public Class cMailingTesoFinDia
 
             'Tabla con los totales de las liquidaciones del dia, discriminando total cheques, efectivo, transferencias y retenciones. 
             lDt = cLiquidacion.Dat_GetTotalLiquidacionesdelDiaxFecha(pAdmin, pFecha)
-            lHtml = lHtml.Replace("#TotalLiquidacionesdelDia#", cFunciones.DataTableToHTMLTable(lDt))
+
+            lHtmlTotales = "<tr style='color:white ; background-color: grey; text-align:center; font-weight: bold;'>"
+            lHtmlTotales = lHtmlTotales & "<td align='center'>TOTALES</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Total#</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'> </td></tr>"
+
+            lHtmlTotales = lHtmlTotales.Replace("#Total#", Strings.FormatNumber(lDt.Compute("SUM(Total)", String.Empty)))
+
+            lHtml = lHtml.Replace("#TotalLiquidacionesdelDia#", cFunciones.DataTableToHTMLTableConTotales(lDt, lHtmlTotales))
 
             'Tabla con los totales de liquidaciones ingresadas en el dia por vendedor.
             lDt = cLiquidacion.Dat_GetTotLiqGroupVendedorxFechaEstado(pAdmin, pFecha, 2)
@@ -73,9 +81,25 @@ Public Class cMailingTesoFinDia
             'Monto total de facturas registradas en el dia con iva incluido.
             lHtml = lHtml.Replace("#TotalFacturacion#", Strings.FormatNumber(cFactura.Dat_GetTotalFacturasCIVAxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))
 
-            'Tabla de totales de facturas por vendedor, discriminando con iva, sin iva y comision.
+            'Tabla de totales de facturas por vendedor, discriminando con iva,comision.
             lDt = cFactura.Dat_GetTotalFactAgrupVendxFechaDH(pAdmin, lPrimeroDeMes, pFecha)
-            lHtml = lHtml.Replace("#TablaFacturasxVendedor#", cFunciones.DataTableToHTMLTable(lDt))
+
+            lHtmlTotales = "<tr style='color:white ; background-color: grey; text-align:center; font-weight: bold;'>"
+            lHtmlTotales = lHtmlTotales & "<td align='center'>TOTALES</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Cant#</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#TotalcIVA#</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Al_Mes_Anterior#</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Comision#</td>"
+            lHtmlTotales = lHtmlTotales & "<td align='right'>#Utilidad#</td></tr>"
+
+            lHtmlTotales = lHtmlTotales.Replace("#Cant#", Strings.FormatNumber(lDt.Compute("SUM(Cant)", String.Empty), 0)) 'Pongo el 0 decimales porque es int.
+            lHtmlTotales = lHtmlTotales.Replace("#TotalcIVA#", Strings.FormatNumber(lDt.Compute("SUM(TotalcIVA)", String.Empty)))
+            lHtmlTotales = lHtmlTotales.Replace("#Al_Mes_Anterior#", Strings.FormatNumber(lDt.Compute("SUM(Al_Mes_Anterior)", String.Empty)))
+            lHtmlTotales = lHtmlTotales.Replace("#Comision#", Strings.FormatNumber(lDt.Compute("SUM(Comision)", String.Empty)))
+            lHtmlTotales = lHtmlTotales.Replace("#Utilidad#", Strings.FormatNumber(lDt.Compute("SUM(Utilidad)", String.Empty)))
+
+            lHtml = lHtml.Replace("#TablaFacturasxVendedor#", cFunciones.DataTableToHTMLTableConTotales(lDt, lHtmlTotales))
+
 
             'Monto total de notas de credito registradas en el dia.
             lHtml = lHtml.Replace("#NotasDeCredito#", Strings.FormatNumber(cFactura.Dat_GetTotalNotasCreditoxFechaDH(pAdmin, lPrimeroDeMes, pFecha).ToString))

@@ -1127,4 +1127,32 @@ Public Class frmPrincipal
             gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.MailingFinDeDiaToolStripMenuItem_Click:" & ex.Message)
         End Try
     End Sub
+
+    Private Sub ConsultaDeConciliacionDeLiquidacionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Click
+        Dim Ventana As New frmTesoLiqConciliacionConsulta
+        Dim F As Form
+        Dim i As Integer
+        Dim Cant As Integer = 0
+        Try
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            Ventana.MdiParent = Me
+            If Cant > 0 Then
+                Ventana.Text = Ventana.Text & "" & Cant
+            End If
+            Ventana.TipoDeOperacion = EnuOPERACION.CONS
+            Ventana.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem_Click:" & ex.Message)
+        End Try
+    End Sub
 End Class

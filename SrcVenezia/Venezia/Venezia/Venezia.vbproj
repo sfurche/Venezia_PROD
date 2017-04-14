@@ -172,6 +172,12 @@
     <Compile Include="Tesoreria\frmTesoLiqConciliacionAnular.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacionConsulta.Designer.vb">
+      <DependentUpon>frmTesoLiqConciliacionConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tesoreria\frmTesoLiqConciliacionConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tesoreria\frmTesoOrdenDePagoAlta.Designer.vb">
       <DependentUpon>frmTesoOrdenDePagoAlta.vb</DependentUpon>
     </Compile>
@@ -381,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tesoreria\frmTesoLiqConciliacionAnular.resx">
       <DependentUpon>frmTesoLiqConciliacionAnular.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tesoreria\frmTesoLiqConciliacionConsulta.resx">
+      <DependentUpon>frmTesoLiqConciliacionConsulta.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tesoreria\frmTesoLiqRptFDHVen.resx">
       <DependentUpon>frmTesoLiqRptFDHVen.vb</DependentUpon>

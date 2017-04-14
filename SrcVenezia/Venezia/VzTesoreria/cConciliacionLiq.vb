@@ -90,8 +90,6 @@ Public Class cConciliacionLiq
         End Set
     End Property
 
-
-
     Public Property Id_Cheque As Integer
         Get
             Return _Id_Cheque
@@ -251,7 +249,54 @@ Public Class cConciliacionLiq
         End Try
     End Function
 
+    Public Shared Function Dat_GetConsultaDeConciliacionLiquidacion(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdLiquidacion As Integer) As DataTable
 
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+
+        Try
+
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "SELECT d.Descripcion Tipo, d.CompNro, d.FecEmi, d.TotalComp Importe, c.Importe Imputacion, Aplicacion, u.nombre Usuario"
+            Sql = Sql & " FROM vz_liquidaciones_conciliacion c, ven_deudores d, sis_usuarios u"
+            Sql = Sql & " WHERE c.id_liquidacion = #IdLiquidacion# "
+            Sql = Sql & " AND c.Id_Deudores=d.Id_Deudores"
+            Sql = Sql & " AND c.idusr=u.idusr"
+            Sql = Sql & " AND c.id_estado=0"
+            Sql = Sql & " UNION"
+            Sql = Sql & " SELECT 'Ajuste',  '' , c.fecha , 0, c.Importe Imputacion, ifnull(Aplicacion, 'T'), u.nombre Usuario"
+            Sql = Sql & " FROM vz_liquidaciones_conciliacion c, sis_usuarios u"
+            Sql = Sql & " WHERE c.id_liquidacion = #IdLiquidacion# "
+            Sql = Sql & " AND c.Id_Deudores is null"
+            Sql = Sql & " AND c.idusr=u.idusr"
+            Sql = Sql & " AND c.id_estado=0 "
+
+            Sql = Sql.Replace("#IdLiquidacion#", pIdLiquidacion)
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cConciliacionLiq.Dat_GetConsultaDeConciliacionLiquidacion")
+            pAdmin.Log.fncGrabarLogERR("Error en cConciliacionLiq.Dat_GetConsultaDeConciliacionLiquidacion:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
 
 #End Region
 

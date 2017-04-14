@@ -210,3 +210,30 @@ GROUP BY f.Id_Fac, v.Id_Vendedor, v.NombreVen, f.Tot_Fact,  f.Tot_Comi, f.CodFor
  ) AS A 
  GROUP BY NombreVen  ORDER BY TotalcIVA desc; 
  
+ 
+ 
+ 
+   ------------------------------------------------------------------------------------------------------------------------------------------------ 
+ 
+ 
+ SELECT d.Descripcion Tipo, d.CompNro, d.FecEmi, d.TotalComp Importe, c.Importe Imputacion, Aplicacion, u.nombre Nombre
+ FROM vz_liquidaciones_conciliacion c, ven_deudores d, sis_usuarios u
+ WHERE c.id_liquidacion = 1318
+ AND c.Id_Deudores=d.Id_Deudores
+ AND c.idusr=u.idusr
+ AND c.id_estado=0
+ UNION
+ SELECT 'Ajuste',  '' , c.fecha , 0, c.Importe Imputacion, ifnull(Aplicacion, 'T'), u.nombre Nombre
+ FROM vz_liquidaciones_conciliacion c, sis_usuarios u
+ WHERE c.id_liquidacion = 1318
+ AND c.Id_Deudores is null
+ AND c.idusr=u.idusr
+ AND c.id_estado=0 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

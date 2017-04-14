@@ -156,3 +156,4 @@ C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\bin\D
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoChkRankingxCliente.resources
 C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmBatchMailingTesoFinDia.resources
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmBatchMailingTesoFinDia.resources
+C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\Venezia\obj\Debug\Venezia.frmTesoLiqConciliacionConsulta.resources

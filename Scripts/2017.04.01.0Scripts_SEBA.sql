@@ -4,8 +4,13 @@ where id_setting = 4;
 
 /*---------------------------PERMISOS-------------------------------------------------------------*/
 insert vz_permisos(id_permiso, nombre, observaciones) values (29, 'TESO_LIQ: Consulta de Conciliacion de Liquidacion', '');
-
 insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (29,19,'S','S','S','S','S','S','S');
+
+
+insert vz_permisos(id_permiso, nombre, observaciones) values (30, 'STK_OC: Alta de Orden de Compra', '');
+insert vz_permisos_usuario (id_permiso, idusr, alta, baja, modifica, consulta, ejecuta, supervisa, admin) values (30,19,'S','S','S','S','S','S','S');
+
+
 /*---------------------------ESTADOS-------------------------------------------------------------*/
 
 INSERT INTO vz_estados values(0,'vz_ordencompra','Pendiente');

@@ -84,6 +84,15 @@ Public Class cOrdenCompra
         End Set
     End Property
 
+    Public Property EsNuevo As Boolean
+        Get
+            Return _EsNuevo
+        End Get
+        Set(value As Boolean)
+            _EsNuevo = value
+        End Set
+    End Property
+
 #End Region
 
 
@@ -107,7 +116,7 @@ Public Class cOrdenCompra
                 Me.Importe = lDr("importe")
                 Me.FechaEntrega = lDr("fecha_entrega")
                 Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.OrdenCompra)
-                Me._EsNuevo = False
+                Me.EsNuevo = False
                 Me.ObjetoInicial = Me.ToXML
             End If
 
@@ -126,7 +135,7 @@ Public Class cOrdenCompra
         Dim lOCDet As cOrdenCompraDet = Nothing
         Try
 
-            If _EsNuevo = True Then 'INSERT
+            If EsNuevo = True Then 'INSERT
 
                 ''-- Primero guardo la cabecera y luego voy por cada detalle.
                 Sql = "CALL vz_ordencompra_ins('#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', #idusr#);"
@@ -156,7 +165,7 @@ Public Class cOrdenCompra
                     lOCDet.Guardar()
                 Next
 
-                Me._EsNuevo = False
+                Me.EsNuevo = False
 
             Else  'ACA VA EL UPDATE 
 

@@ -49,6 +49,7 @@ Partial Class frmPrincipal
         Me.ConsultaDeLiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ConciliacionDeLiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AnularConciliacionDeLiquidacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ReportesDeLiquidacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -98,7 +99,8 @@ Partial Class frmPrincipal
         Me.EnviarMailASoporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVeneziaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManualOperativoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AltaOrdenDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.StBarPpal.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -109,7 +111,7 @@ Partial Class frmPrincipal
         Me.ToolStrip1.AllowItemReorder = True
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbtnSalir, Me.tbtnActualizarPermisos, Me.ToolStripSeparator1, Me.ToolStripButton2, Me.ToolStripSeparator2})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 58)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 55)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.ToolStrip1.Size = New System.Drawing.Size(2680, 48)
@@ -199,7 +201,7 @@ Partial Class frmPrincipal
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(16, 5, 0, 5)
-        Me.MenuStrip1.Size = New System.Drawing.Size(2680, 58)
+        Me.MenuStrip1.Size = New System.Drawing.Size(2680, 55)
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -292,6 +294,12 @@ Partial Class frmPrincipal
         Me.ConciliacionDeLiquidacionesToolStripMenuItem.Name = "ConciliacionDeLiquidacionesToolStripMenuItem"
         Me.ConciliacionDeLiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(661, 46)
         Me.ConciliacionDeLiquidacionesToolStripMenuItem.Text = "Conciliacion de Liquidaciones"
+        '
+        'ConsultaDeConciliacionDeLiquidacionToolStripMenuItem
+        '
+        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Name = "ConsultaDeConciliacionDeLiquidacionToolStripMenuItem"
+        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Size = New System.Drawing.Size(661, 46)
+        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Text = "Consulta de Conciliacion de Liquidacion"
         '
         'AnularConciliacionDeLiquidacionToolStripMenuItem
         '
@@ -414,14 +422,14 @@ Partial Class frmPrincipal
         '
         Me.StockToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulosToolStripMenuItem1, Me.ListasDePrecioToolStripMenuItem, Me.GestionDePedidosToolStripMenuItem})
         Me.StockToolStripMenuItem.Name = "StockToolStripMenuItem"
-        Me.StockToolStripMenuItem.Size = New System.Drawing.Size(102, 48)
+        Me.StockToolStripMenuItem.Size = New System.Drawing.Size(102, 45)
         Me.StockToolStripMenuItem.Text = "Stock"
         '
         'ArticulosToolStripMenuItem1
         '
         Me.ArticulosToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDeArticulosToolStripMenuItem})
         Me.ArticulosToolStripMenuItem1.Name = "ArticulosToolStripMenuItem1"
-        Me.ArticulosToolStripMenuItem1.Size = New System.Drawing.Size(391, 46)
+        Me.ArticulosToolStripMenuItem1.Size = New System.Drawing.Size(402, 46)
         Me.ArticulosToolStripMenuItem1.Text = "Articulos"
         '
         'ConsultaDeArticulosToolStripMenuItem
@@ -434,7 +442,7 @@ Partial Class frmPrincipal
         '
         Me.ListasDePrecioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaDePreciosXListaToolStripMenuItem, Me.ConsultaDeListasDePrecioToolStripMenuItem, Me.ToolStripMenuItem4, Me.CargaMasivaDePreciosToolStripMenuItem})
         Me.ListasDePrecioToolStripMenuItem.Name = "ListasDePrecioToolStripMenuItem"
-        Me.ListasDePrecioToolStripMenuItem.Size = New System.Drawing.Size(391, 46)
+        Me.ListasDePrecioToolStripMenuItem.Size = New System.Drawing.Size(402, 46)
         Me.ListasDePrecioToolStripMenuItem.Text = "Listas de Precio"
         '
         'ConsultaDePreciosXListaToolStripMenuItem
@@ -462,9 +470,10 @@ Partial Class frmPrincipal
         '
         'GestionDePedidosToolStripMenuItem
         '
+        Me.GestionDePedidosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AltaOrdenDeCompraToolStripMenuItem, Me.ConsultaDeOrdenesDeCompraToolStripMenuItem})
         Me.GestionDePedidosToolStripMenuItem.Name = "GestionDePedidosToolStripMenuItem"
-        Me.GestionDePedidosToolStripMenuItem.Size = New System.Drawing.Size(391, 46)
-        Me.GestionDePedidosToolStripMenuItem.Text = "Gestion de Pedidos"
+        Me.GestionDePedidosToolStripMenuItem.Size = New System.Drawing.Size(402, 46)
+        Me.GestionDePedidosToolStripMenuItem.Text = "Ordenes de Compra"
         '
         'AuditoriaToolStripMenuItem
         '
@@ -599,11 +608,17 @@ Partial Class frmPrincipal
         Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(412, 46)
         Me.ManualOperativoToolStripMenuItem.Text = "Manual Operativo"
         '
-        'ConsultaDeConciliacionDeLiquidacionToolStripMenuItem
+        'AltaOrdenDeCompraToolStripMenuItem
         '
-        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Name = "ConsultaDeConciliacionDeLiquidacionToolStripMenuItem"
-        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Size = New System.Drawing.Size(661, 46)
-        Me.ConsultaDeConciliacionDeLiquidacionToolStripMenuItem.Text = "Consulta de Conciliacion de Liquidacion"
+        Me.AltaOrdenDeCompraToolStripMenuItem.Name = "AltaOrdenDeCompraToolStripMenuItem"
+        Me.AltaOrdenDeCompraToolStripMenuItem.Size = New System.Drawing.Size(465, 46)
+        Me.AltaOrdenDeCompraToolStripMenuItem.Text = "Nueva Orden de Compra"
+        '
+        'ConsultaDeOrdenesDeCompraToolStripMenuItem
+        '
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Name = "ConsultaDeOrdenesDeCompraToolStripMenuItem"
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Size = New System.Drawing.Size(568, 46)
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Text = "Consulta de Ordenes de Compra"
         '
         'frmPrincipal
         '
@@ -708,4 +723,6 @@ Partial Class frmPrincipal
     Friend WithEvents RankingDeChequesPorClienteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MailingFinDeDiaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultaDeConciliacionDeLiquidacionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AltaOrdenDeCompraToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ConsultaDeOrdenesDeCompraToolStripMenuItem As ToolStripMenuItem
 End Class

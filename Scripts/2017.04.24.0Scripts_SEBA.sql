@@ -5,3 +5,4 @@ where id_setting = 4;
 
 /*----------------------------------------------------------------------------------------*/
 
+ALTER TABLE vz_ordencompra ADD observaciones text;

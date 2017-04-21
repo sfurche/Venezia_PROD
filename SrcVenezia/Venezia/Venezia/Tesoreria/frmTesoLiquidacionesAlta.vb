@@ -323,10 +323,10 @@ Public Class frmTesoLiquidacionesAlta
 
             lCheque.Numero = txtNroCheque.Text.Trim
             lCheque.Importe = txtImporte.Text.Trim
-            lCheque.Propio = cCheque.enuBinario.No  'Como esta cargando una liquidacion, el cheque no es propio.
-            lCheque.Directo = IIf(optDirecto.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
-            lCheque.Cruzado = IIf(chkCruzado.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
-            lCheque.Orden = IIf(optAlaOrden.Checked, cCheque.enuBinario.Si, cCheque.enuBinario.No)
+            lCheque.Propio = VzAdmin.cEnums.enuBinario.No  'Como esta cargando una liquidacion, el cheque no es propio.
+            lCheque.Directo = IIf(optDirecto.Checked, VzAdmin.cEnums.enuBinario.Si, VzAdmin.cEnums.enuBinario.No)
+            lCheque.Cruzado = IIf(chkCruzado.Checked, VzAdmin.cEnums.enuBinario.Si, VzAdmin.cEnums.enuBinario.No)
+            lCheque.Orden = IIf(optAlaOrden.Checked, VzAdmin.cEnums.enuBinario.Si, VzAdmin.cEnums.enuBinario.No)
             lCheque.Banco = cmbBanco.SelectedItem
             lCheque.Fecha_Pago = dtpFecEmision.Value
             lCheque.NroCli = DirectCast(txtCliente.Tag, cCliente).NroCli

@@ -98,7 +98,7 @@ Public Class frmTesoChkAlta
                 cmbBanco.Text = mCheque.Banco.NombreComb
 
                 'Seteo el origen del cheque
-                If mCheque.Directo = cCheque.enuBinario.Si Then
+                If mCheque.Directo = VzAdmin.cEnums.enuBinario.Si Then
                     optDirecto.Checked = True
                     optTerceros.Checked = False
                 Else
@@ -107,13 +107,13 @@ Public Class frmTesoChkAlta
                 End If
 
                 'Valido si esa cruzado
-                If mCheque.Cruzado = cCheque.enuBinario.Si Then
+                If mCheque.Cruzado = VzAdmin.cEnums.enuBinario.Si Then
                     chkCruzado.Checked = True
                 Else
                     chkCruzado.Checked = False
                 End If
 
-                If mCheque.Orden = cCheque.enuBinario.Si Then
+                If mCheque.Orden = VzAdmin.cEnums.enuBinario.Si Then
                     optAlaOrden.Checked = True
                     optNoAlaOrden.Checked = False
                     optAlPortador.Checked = False

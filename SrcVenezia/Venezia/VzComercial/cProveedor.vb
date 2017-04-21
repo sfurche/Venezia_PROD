@@ -1,7 +1,10 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Xml.Serialization
+Imports MySql.Data.MySqlClient
 Imports VzAdmin
+Imports VzAdmin.cEnums
 Imports VzComercial
-Public Class cProveedor
+
+<Serializable()> Public Class cProveedor
 
 #Region "Propiedades"
 
@@ -17,8 +20,8 @@ Public Class cProveedor
     Private _Cuit As String
     Private _SitIB As cSitIB
     Private _Nro_IB As String
-    Private _Mar_Reten As enuBinario
-    Private _Mar_Reten_ARF As enuBinario
+    Private _Mar_Reten As VzAdmin.cEnums.enuBinario
+    Private _Mar_Reten_ARF As VzAdmin.cEnums.enuBinario
     Private _Alic_Reten As Double
     Private _Alic_Reten_ARF As Double
 
@@ -112,15 +115,6 @@ Public Class cProveedor
         End Set
     End Property
 
-    Public Property Mar_Reten As enuBinario
-        Get
-            Return _Mar_Reten
-        End Get
-        Set(value As enuBinario)
-            _Mar_Reten = value
-        End Set
-    End Property
-
     Public Property Mar_Reten_ARF As enuBinario
         Get
             Return _Mar_Reten_ARF
@@ -148,15 +142,25 @@ Public Class cProveedor
         End Set
     End Property
 
+    Public Property Mar_Reten As enuBinario
+        Get
+            Return _Mar_Reten
+        End Get
+        Set(value As enuBinario)
+            _Mar_Reten = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "EnuBinario"
 
-    Public Enum enuBinario
-        Si = 1
-        No = 2
-        Null = 0
-    End Enum
+    'Public Enum enuBinario
+    '    Si = 1
+    '    No = 2
+    '    Null = 0
+    'End Enum
+
 
     Public Shared Function EnuBinarioGetCod(ByVal pTipoValor As enuBinario) As String
         Select Case pTipoValor

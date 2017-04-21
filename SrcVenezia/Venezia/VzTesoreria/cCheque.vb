@@ -1,9 +1,10 @@
 ﻿Imports VzTesoreria
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
+Imports VzAdmin.cEnums
 Imports VzComercial
 
-Public Class cCheque
+<Serializable()> Public Class cCheque
 
 #Region "Declaraciones"
 
@@ -29,11 +30,11 @@ Public Class cCheque
 
 #Region "EnuBinario"
 
-    Public Enum enuBinario
-        Si = 1
-        No = 2
-        Null = 0
-    End Enum
+    'Public Enum enuBinario
+    '    Si = 1
+    '    No = 2
+    '    Null = 0
+    'End Enum
 
     Public Shared Function EnuBinarioGetCod(ByVal pTipoValor As enuBinario) As String
         Select Case pTipoValor
@@ -390,8 +391,8 @@ Public Class cCheque
 
 
                 Cmd.Connection = lCnn
-                    Cmd.CommandType = CommandType.Text
-                    Cmd.CommandText = Sql
+                Cmd.CommandType = CommandType.Text
+                Cmd.CommandText = Sql
 
                 If lCnn.State = ConnectionState.Closed Then
                     lCnn.Open()
@@ -400,11 +401,11 @@ Public Class cCheque
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()
 
-                    Me.EsNuevo = False
+                Me.EsNuevo = False
 
-                End If
+            End If
 
-                Guardar = True
+            Guardar = True
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.Guardar")
@@ -1587,6 +1588,7 @@ Public Class cCheque
             Return Nothing
         End Try
     End Function
+
     Public Shared Function Dat_RptChequesRankingxCliente(ByRef pAdmin As VzAdmin.cAdmin) As DataTable
 
         Dim Cmd As New MySqlCommand

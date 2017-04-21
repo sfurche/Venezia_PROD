@@ -5,7 +5,8 @@ Imports VzAdmin
 Imports VzComercial
 Imports VzTesoreria
 
-Public Class cOrdenDePago
+
+<Serializable()> Public Class cOrdenDePago
 
 #Region "Propiedades"
 
@@ -271,7 +272,8 @@ Public Class cOrdenDePago
         Try
             Using sw As New StringWriter()
                 'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cCondicionIVA), GetType(cSitIB), GetType(cEstado), GetType(cAdmin), GetType(cUser), GetType(VzAdmin.cEnums.enuBinario), GetType(cProveedor)})
+
                 serialitzador.Serialize(sw, Me)
                 ToXML = sw.ToString()
             End Using
@@ -370,7 +372,7 @@ Public Class cOrdenDePago
             Else  'ACA VA EL UPDATE 
 
                 Sql = "Call vz_ordendepago_upd(#IdOrden#, '#Fecha#', #Importe_cash#, #Importe_transferencia#, #Importe_cheques#,'#Tipo_Destino#','#Destino#', #CodProve#, #Estado# , '#Observac#', #idusr#)"
-                Sql = Sql.Replace("#IdOrden#", Me.Id_orden)
+                Sql = Sql.Replace("#IdOrden#", Me.Id_Orden)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
                 Sql = Sql.Replace("#Importe_cash#", Me.Importe_cash.ToString().Replace(",", "."))
                 Sql = Sql.Replace("#Importe_transferencia#", Me.Importe_transferencia.ToString().Replace(",", "."))

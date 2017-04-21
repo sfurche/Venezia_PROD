@@ -15,6 +15,7 @@ Public Class cOrdenCompra
     Private _Importe As Double
     Private _FechaEntrega As Date
     Private _Estado As cEstado
+    Private _Observaciones As String
     Private _EsNuevo As Boolean = True
 
     Private ObjetoInicial As String = ""   'Esta es la serializacion del objeto ni bien se instancia, antes de que sea modificado por el usuario.
@@ -93,8 +94,16 @@ Public Class cOrdenCompra
         End Set
     End Property
 
-#End Region
+    Public Property Observaciones As String
+        Get
+            Return _Observaciones
+        End Get
+        Set(value As String)
+            _Observaciones = value
+        End Set
+    End Property
 
+#End Region
 
 #Region "Funciones"
 

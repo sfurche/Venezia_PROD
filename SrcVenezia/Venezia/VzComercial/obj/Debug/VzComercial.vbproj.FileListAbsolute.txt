@@ -11,3 +11,16 @@ C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.dll
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.xml
 C:\Users\sebas_000\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzComercial.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\MySql.Data.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.pdb
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\bin\Debug\VzAdmin.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.vbprojResolveAssemblyReference.cache
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.Resources.resources
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.vbproj.GenerateResource.Cache
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.dll
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.xml
+C:\Users\l0277134\Documents\GitHub\Venezia_PROD\SrcVenezia\Venezia\VzComercial\obj\Debug\VzComercial.pdb

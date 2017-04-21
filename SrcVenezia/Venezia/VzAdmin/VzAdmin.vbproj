@@ -69,6 +69,7 @@
     <Compile Include="cComment.vb" />
     <Compile Include="cDBCnn.vb" />
     <Compile Include="cEmail.vb" />
+    <Compile Include="cEnums.vb" />
     <Compile Include="cEstado.vb" />
     <Compile Include="cFeriado.vb" />
     <Compile Include="cFunciones.vb" />

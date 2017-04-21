@@ -23,6 +23,9 @@ Partial Class frmStkOrdenCompraAlta
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.imgAbrir = New System.Windows.Forms.PictureBox()
+        Me.lblNombre = New System.Windows.Forms.Label()
+        Me.dtpFechaEntrega = New System.Windows.Forms.DateTimePicker()
         Me.btnBusq = New System.Windows.Forms.Button()
         Me.lblNomProove = New System.Windows.Forms.Label()
         Me.txtProove = New System.Windows.Forms.TextBox()
@@ -32,17 +35,14 @@ Partial Class frmStkOrdenCompraAlta
         Me.lblFechaEntrega = New System.Windows.Forms.Label()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnGuardar = New System.Windows.Forms.Button()
-        Me.dtpFechaEntrega = New System.Windows.Forms.DateTimePicker()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lblProcErr = New System.Windows.Forms.Label()
         Me.lblProcOK = New System.Windows.Forms.Label()
         Me.lblTotalImp = New System.Windows.Forms.Label()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
-        Me.imgAbrir = New System.Windows.Forms.PictureBox()
-        Me.lblNombre = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -60,20 +60,50 @@ Partial Class frmStkOrdenCompraAlta
         Me.GroupBox1.Controls.Add(Me.lblFechaEntrega)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Gainsboro
         Me.GroupBox1.Location = New System.Drawing.Point(4, 5)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(1)
         Me.GroupBox1.Size = New System.Drawing.Size(710, 143)
         Me.GroupBox1.TabIndex = 28
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos de Carga"
+        '
+        'imgAbrir
+        '
+        Me.imgAbrir.Image = Global.Venezia.My.Resources.Resources.folder_view
+        Me.imgAbrir.InitialImage = Global.Venezia.My.Resources.Resources.folder_view
+        Me.imgAbrir.Location = New System.Drawing.Point(676, 11)
+        Me.imgAbrir.Name = "imgAbrir"
+        Me.imgAbrir.Size = New System.Drawing.Size(26, 22)
+        Me.imgAbrir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.imgAbrir.TabIndex = 56
+        Me.imgAbrir.TabStop = False
+        '
+        'lblNombre
+        '
+        Me.lblNombre.AutoSize = True
+        Me.lblNombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNombre.Location = New System.Drawing.Point(539, 15)
+        Me.lblNombre.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.lblNombre.Name = "lblNombre"
+        Me.lblNombre.Size = New System.Drawing.Size(133, 13)
+        Me.lblNombre.TabIndex = 54
+        Me.lblNombre.Text = "Importar desde un archivo:"
+        '
+        'dtpFechaEntrega
+        '
+        Me.dtpFechaEntrega.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpFechaEntrega.Location = New System.Drawing.Point(104, 50)
+        Me.dtpFechaEntrega.Name = "dtpFechaEntrega"
+        Me.dtpFechaEntrega.Size = New System.Drawing.Size(102, 20)
+        Me.dtpFechaEntrega.TabIndex = 53
         '
         'btnBusq
         '
         Me.btnBusq.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnBusq.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBusq.Location = New System.Drawing.Point(168, 12)
-        Me.btnBusq.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBusq.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBusq.Name = "btnBusq"
         Me.btnBusq.Size = New System.Drawing.Size(21, 21)
         Me.btnBusq.TabIndex = 51
@@ -94,7 +124,7 @@ Partial Class frmStkOrdenCompraAlta
         'txtProove
         '
         Me.txtProove.Location = New System.Drawing.Point(104, 15)
-        Me.txtProove.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.txtProove.Margin = New System.Windows.Forms.Padding(1)
         Me.txtProove.Name = "txtProove"
         Me.txtProove.Size = New System.Drawing.Size(62, 20)
         Me.txtProove.TabIndex = 49
@@ -124,7 +154,7 @@ Partial Class frmStkOrdenCompraAlta
         'txtCriterioBusq
         '
         Me.txtCriterioBusq.Location = New System.Drawing.Point(104, 90)
-        Me.txtCriterioBusq.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.txtCriterioBusq.Margin = New System.Windows.Forms.Padding(1)
         Me.txtCriterioBusq.Multiline = True
         Me.txtCriterioBusq.Name = "txtCriterioBusq"
         Me.txtCriterioBusq.Size = New System.Drawing.Size(583, 38)
@@ -145,7 +175,7 @@ Partial Class frmStkOrdenCompraAlta
         '
         Me.btnSalir.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSalir.Location = New System.Drawing.Point(614, 718)
-        Me.btnSalir.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.btnSalir.Margin = New System.Windows.Forms.Padding(1)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(95, 23)
         Me.btnSalir.TabIndex = 29
@@ -156,20 +186,12 @@ Partial Class frmStkOrdenCompraAlta
         '
         Me.btnGuardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.1!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGuardar.Location = New System.Drawing.Point(507, 718)
-        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.btnGuardar.Margin = New System.Windows.Forms.Padding(1)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(95, 23)
         Me.btnGuardar.TabIndex = 30
         Me.btnGuardar.Text = "Guardar"
         Me.btnGuardar.UseVisualStyleBackColor = False
-        '
-        'dtpFechaEntrega
-        '
-        Me.dtpFechaEntrega.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaEntrega.Location = New System.Drawing.Point(104, 50)
-        Me.dtpFechaEntrega.Name = "dtpFechaEntrega"
-        Me.dtpFechaEntrega.Size = New System.Drawing.Size(102, 20)
-        Me.dtpFechaEntrega.TabIndex = 53
         '
         'GroupBox2
         '
@@ -235,28 +257,6 @@ Partial Class frmStkOrdenCompraAlta
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
         '
-        'imgAbrir
-        '
-        Me.imgAbrir.Image = Global.Venezia.My.Resources.Resources.folder_view
-        Me.imgAbrir.InitialImage = Global.Venezia.My.Resources.Resources.folder_view
-        Me.imgAbrir.Location = New System.Drawing.Point(676, 11)
-        Me.imgAbrir.Name = "imgAbrir"
-        Me.imgAbrir.Size = New System.Drawing.Size(26, 22)
-        Me.imgAbrir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.imgAbrir.TabIndex = 56
-        Me.imgAbrir.TabStop = False
-        '
-        'lblNombre
-        '
-        Me.lblNombre.AutoSize = True
-        Me.lblNombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNombre.Location = New System.Drawing.Point(539, 15)
-        Me.lblNombre.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.lblNombre.Name = "lblNombre"
-        Me.lblNombre.Size = New System.Drawing.Size(133, 13)
-        Me.lblNombre.TabIndex = 54
-        Me.lblNombre.Text = "Importar desde un archivo:"
-        '
         'frmStkOrdenCompraAlta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -266,14 +266,14 @@ Partial Class frmStkOrdenCompraAlta
         Me.Controls.Add(Me.btnGuardar)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Margin = New System.Windows.Forms.Padding(1)
         Me.Name = "frmStkOrdenCompraAlta"
         Me.Text = "Alta de Orden de Compra"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

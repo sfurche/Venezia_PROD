@@ -136,16 +136,10 @@
     <Compile Include="Stock\frmStkListasDePrecioCons.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Stock\frmStkOrdenCompraAlta.Designer.vb">
-      <DependentUpon>frmStkOrdenCompraAlta.vb</DependentUpon>
+    <Compile Include="Stock\frmStkOrdenCompraABM.Designer.vb">
+      <DependentUpon>frmStkOrdenCompraABM.vb</DependentUpon>
     </Compile>
-    <Compile Include="Stock\frmStkOrdenCompraAlta.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Stock\frmStkOrdenCompraAlta1.Designer.vb">
-      <DependentUpon>frmStkOrdenCompraAlta1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Stock\frmStkOrdenCompraAlta1.vb">
+    <Compile Include="Stock\frmStkOrdenCompraABM.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Stock\frmStkPreciosConsxLista.Designer.vb">
@@ -376,11 +370,8 @@
     <EmbeddedResource Include="Stock\frmStkListasDePrecioCons.resx">
       <DependentUpon>frmStkListasDePrecioCons.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Stock\frmStkOrdenCompraAlta.resx">
-      <DependentUpon>frmStkOrdenCompraAlta.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Stock\frmStkOrdenCompraAlta1.resx">
-      <DependentUpon>frmStkOrdenCompraAlta1.vb</DependentUpon>
+    <EmbeddedResource Include="Stock\frmStkOrdenCompraABM.resx">
+      <DependentUpon>frmStkOrdenCompraABM.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock\frmStkPreciosConsxLista.resx">
       <DependentUpon>frmStkPreciosConsxLista.vb</DependentUpon>

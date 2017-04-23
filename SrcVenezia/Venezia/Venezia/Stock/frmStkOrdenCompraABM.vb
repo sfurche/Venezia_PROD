@@ -4,7 +4,7 @@ Imports VzAdmin
 Imports VzComercial
 Imports vzStock
 
-Public Class frmStkOrdenCompraAlta
+Public Class frmStkOrdenCompraABM
     Public mOrdenCompra As cOrdenCompra
 
     Dim mPermiso As cPermiso = Nothing
@@ -20,8 +20,8 @@ Public Class frmStkOrdenCompraAlta
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.frmStkOrdenCompraAlta_Load")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.frmStkOrdenCompraAlta_Load:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.frmStkOrdenCompraAlta_Load")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.frmStkOrdenCompraAlta_Load:" & ex.Message)
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
     End Sub
@@ -41,18 +41,18 @@ Public Class frmStkOrdenCompraAlta
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.SetPermisos")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.SetPermisos:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.SetPermisos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.SetPermisos:" & ex.Message)
         End Try
     End Sub
 
-    Private Sub btnBusq_Click(sender As Object, e As EventArgs) Handles btnBusq.Click
+    Private Sub btnBusqProv_Click(sender As Object, e As EventArgs) Handles btnBusqProv.Click
         Try
             DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Proveedores, Me)
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.btnBusq_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.btnBusq_Click:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.btnBusqProv_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.btnBusqProv_Click:" & ex.Message)
         End Try
     End Sub
 
@@ -71,8 +71,8 @@ Public Class frmStkOrdenCompraAlta
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.txtProove_LostFocus")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.txtProove_LostFocus:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.txtProove_LostFocus")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.txtProove_LostFocus:" & ex.Message)
         End Try
     End Sub
 
@@ -82,8 +82,49 @@ Public Class frmStkOrdenCompraAlta
             txtProove.Text = pProove.Id_Proveedor
             txtProove.Tag = pProove
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.SetCliente")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.SetCliente:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.SetCliente")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.SetCliente:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnBusqArt_Click(sender As Object, e As EventArgs) Handles btnBusqArt.Click
+        Try
+            DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Articulo, Me)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.btnBusqProv_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.btnBusqProv_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub txtCodArt_LostFocus(sender As Object, e As EventArgs) Handles txtCodArt.LostFocus
+        Dim pArt As cArticulo = Nothing
+        Try
+            If Not txtCodArt.Text.Trim = "" Then
+                pArt = cArticulo.GetArticuloxCod(gAdmin, txtCodArt.Text.Trim)
+                If Not IsNothing(pArt) Then
+                    SetArticulo(pArt)
+                Else
+                    txtCodArt.Text = ""
+                    lblNomProove.Text = "_____________"
+                    txtCodArt.Tag = Nothing
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.txtCodArt_LostFocus")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.txtCodArt_LostFocus:" & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub SetArticulo(ByVal pArt As cArticulo)
+        Try
+            lblDescripcionArt.Text = pArt.Descripcion
+            txtCodArt.Text = pArt.CodArt
+            txtCodArt.Tag = pArt
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.SetArticulo")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.SetArticulo:" & ex.Message)
         End Try
     End Sub
 
@@ -140,8 +181,8 @@ Public Class frmStkOrdenCompraAlta
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.imgAbrir_Click")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.imgAbrir_Click:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.imgAbrir_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.imgAbrir_Click:" & ex.Message)
         End Try
     End Sub
 
@@ -155,6 +196,7 @@ Public Class frmStkOrdenCompraAlta
         Dim lSepDec As String = ""
         Dim lSepMiles As String = ""
         Dim lPcioCompra As Double = 0
+        Dim lCosto As Double = 0
         'Cargo el separador decimal que necesita el sistema.
         Dim lSysSepDec As String = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator
         Try
@@ -188,12 +230,12 @@ Public Class frmStkOrdenCompraAlta
                     lItem.SubItems.Add("") 'Cantidad
 
                     Double.TryParse(lTxtRow(1).ToString().Replace(lSepMiles, "").Replace(lSepDec, lSysSepDec).Trim, lPcioCompra)
-                    lItem.SubItems.Add(lNuevoValor.ToString("C"))
+                    lItem.SubItems.Add(lPcioCompra.ToString("C"))
 
 
 
                     Double.TryParse(lTxtRow(1).ToString().Replace(lSepMiles, "").Replace(lSepDec, lSysSepDec).Trim, lCosto)
-                    lItem.SubItems.Add(lNuevoValor.ToString("C"))
+                    lItem.SubItems.Add(lCosto.ToString("C"))
 
                     lvwConsulta.Items.Add(lItem)
                     lCant = lCant + 1
@@ -203,8 +245,8 @@ Public Class frmStkOrdenCompraAlta
             lblTotalImp.Text = "Total Importados: " & lCant.ToString
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.LoadArchivo")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.LoadArchivo:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.LoadArchivo")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.LoadArchivo:" & ex.Message)
             SubSetCabecera() ' Si falla borro la grilla.
         End Try
         System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
@@ -274,8 +316,8 @@ Public Class frmStkOrdenCompraAlta
             AddHandler Me.lvwConsulta.ColumnClick, AddressOf lvwConsulta_ColumnClick
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraAlta.SubSetCabecera")
-            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraAlta.SubSetCabecera:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.SubSetCabecera")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.SubSetCabecera:" & ex.Message)
         End Try
     End Sub
 

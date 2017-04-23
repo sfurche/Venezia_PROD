@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("venezia_20170303")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("venezia_20170404")>  _
         Public Property DBCnn_DBName() As String
             Get
                 Return CType(Me("DBCnn_DBName"),String)

@@ -368,8 +368,8 @@ Imports VzComercial
             Return lDt
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCliente.Dat_BuscarProveedorxNroONombre")
-            pAdmin.Log.fncGrabarLogERR("Error en cCliente.Dat_BuscarProveedorxNroONombre:" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cProveedor.Dat_BuscarProveedorxNroONombre")
+            pAdmin.Log.fncGrabarLogERR("Error en cProveedor.Dat_BuscarProveedorxNroONombre:" & ex.Message)
             Return Nothing
         End Try
     End Function

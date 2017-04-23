@@ -1157,7 +1157,7 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub AltaOrdenDeCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AltaOrdenDeCompraToolStripMenuItem.Click
-        Dim Ventana As New frmStkOrdenCompraAlta
+        Dim Ventana As New frmStkOrdenCompraABM
         Dim F As Form
         Dim i As Integer
         Dim Cant As Integer = 0

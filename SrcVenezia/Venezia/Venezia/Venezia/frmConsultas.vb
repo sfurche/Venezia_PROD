@@ -1,5 +1,6 @@
 ﻿Imports VzAdmin
 Imports VzComercial
+Imports vzStock
 
 Public Class frmConsultas
 
@@ -43,7 +44,10 @@ Public Class frmConsultas
                 ElseIf Me.FrmLlamador.Tag = "STKALTAORDENDECOMPRA" Then
                     Select Case pTipoObjeto
                         Case cAdmin.EnuOBJETOS.Proveedores
-                            DirectCast(Me.FrmLlamador, frmStkOrdenCompraAlta).SetProveedor(lvwConsulta.SelectedItems(0).Tag)
+                            DirectCast(Me.FrmLlamador, frmStkOrdenCompraABM).SetProveedor(lvwConsulta.SelectedItems(0).Tag)
+                            Me.Close()
+                        Case cAdmin.EnuOBJETOS.Articulo
+                            DirectCast(Me.FrmLlamador, frmStkOrdenCompraABM).SetArticulo(lvwConsulta.SelectedItems(0).Tag)
                             Me.Close()
                     End Select
                 End If
@@ -81,6 +85,9 @@ Public Class frmConsultas
                 Case cAdmin.EnuOBJETOS.Proveedores
                     Me.Text = "Consulta de Proveedores"
                     lblNombre.Text = "Proveedor:"
+                Case cAdmin.EnuOBJETOS.Articulo
+                    Me.Text = "Consulta de Articulos"
+                    lblNombre.Text = "Articulo:"
                 Case Else
                     MsgBox("Aun no esta Definida.", MsgBoxStyle.Exclamation)
                     Me.Close()
@@ -100,6 +107,8 @@ Public Class frmConsultas
                         FncCargarGrillaClientes(cCliente.Busq_ClientexNroONombre(gAdmin, txtNombre.Text.Trim))
                     Case cAdmin.EnuOBJETOS.Proveedores
                         FncCargarGrillaProveedores(cProveedor.GetProveedorxNroONombre(gAdmin, txtNombre.Text.Trim))
+                    Case cAdmin.EnuOBJETOS.Articulo
+                        FncCargarGrillaArticulos(cArticulo.GetArticulosxConsulta(gAdmin, txtNombre.Text.Trim))
                     Case Else
                         MsgBox("Aun no esta disponible esta funcionalidad.", MsgBoxStyle.Exclamation)
                         Me.Close()
@@ -161,6 +170,32 @@ Public Class frmConsultas
         Catch ex As Exception
             MsgBox(ex.Message.Trim, MsgBoxStyle.Critical, "Error en FrmConsultas.FncCargarGrillaProveedores")
             gAdmin.Log.fncGrabarLogERR("Error en FrmConsultas.FncCargarGrillaProveedores :" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub FncCargarGrillaArticulos(ByVal pAr As ArrayList)
+        Dim lArt As cArticulo = Nothing
+        Dim lItem As ListViewItem
+        Try
+            lvwConsulta.BeginUpdate()
+            lvwConsulta.Clear()
+
+            lvwConsulta.Columns.Add("Codigo", 80, HorizontalAlignment.Center)
+            lvwConsulta.Columns.Add("Articulo", 250, HorizontalAlignment.Left)
+
+            For Each lArt In pAr
+                lItem = New ListViewItem
+                lItem.Tag = lArt
+                lItem.Text = lArt.CodArt
+                lItem.SubItems.Add(lArt.Descripcion)
+                lvwConsulta.Items.Add(lItem)
+            Next
+            lvwConsulta.EndUpdate()
+            lblCant.Text = "Cantidad encontrados : " & pAr.Count.ToString
+
+        Catch ex As Exception
+            MsgBox(ex.Message.Trim, MsgBoxStyle.Critical, "Error en FrmConsultas.FncCargarGrillaArticulos")
+            gAdmin.Log.fncGrabarLogERR("Error en FrmConsultas.FncCargarGrillaArticulos :" & ex.Message)
         End Try
     End Sub
 

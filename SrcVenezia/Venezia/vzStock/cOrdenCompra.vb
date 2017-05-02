@@ -60,6 +60,7 @@ Public Class cOrdenCompra
 
     Public Property Importe As Double
         Get
+            ActualizarImporteCabFromArr()
             Return _Importe
         End Get
         Set(value As Double)
@@ -113,6 +114,7 @@ Public Class cOrdenCompra
 
     Public Sub New(ByRef pAdmin As cAdmin)
         gAdmin = pAdmin
+        _Detalle = New ArrayList
     End Sub
 
     Public Sub Load(ByVal lDr As DataRow)
@@ -147,11 +149,12 @@ Public Class cOrdenCompra
             If EsNuevo = True Then 'INSERT
 
                 ''-- Primero guardo la cabecera y luego voy por cada detalle.
-                Sql = "CALL vz_ordencompra_ins('#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', #idusr#);"
+                Sql = "CALL vz_ordencompra_ins('#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', '#Observac#', #idusr#);"
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
                 Sql = Sql.Replace("#CodProve#", Me.Proveedor.Id_Proveedor)
                 Sql = Sql.Replace("#Importe#", Me.Importe.ToString().Replace(",", "."))
                 Sql = Sql.Replace("#FechaEntrega#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
+                Sql = Sql.Replace("#Observac#", Me.Observaciones.Trim)
                 Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
 
                 lCnn = gAdmin.DbCnn.GetInstanceCon
@@ -179,12 +182,13 @@ Public Class cOrdenCompra
             Else  'ACA VA EL UPDATE 
 
                 'Sql = "CALL vz_ordencompra_upd(1, '2017/03/27', 16, 2000, '2017/03/31', 19);"
-                Sql = "CALL vz_ordencompra_ins( #IdOrdenCompra#, '#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', #idusr#);"
+                Sql = "CALL vz_ordencompra_ins( #IdOrdenCompra#, '#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', '#Observac#', #idusr#);"
                 Sql = Sql.Replace("#IdOrdenCompra#", Me.Proveedor.Id_Proveedor)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
                 Sql = Sql.Replace("#CodProve#", Me.Proveedor.Id_Proveedor)
                 Sql = Sql.Replace("#Importe#", Me.Importe.ToString().Replace(",", "."))
                 Sql = Sql.Replace("#FechaEntrega#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
+                Sql = Sql.Replace("#Observac#", Me.Observaciones.Trim)
                 Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
 
                 Cmd.Connection = lCnn
@@ -196,11 +200,6 @@ Public Class cOrdenCompra
 
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()
-
-                'Seteo la orden de pago en los cheques vinculados y elimino los desvinculados.
-                'If Me.Importe_cheques > 0 Then
-                '    cCheque.SetOrdenDePago(gAdmin, Me.Cheques, Me.Id_Orden)
-                'End If
 
                 'Grabo el log de auditoria.
                 gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToXML, ObjetoInicial)
@@ -214,7 +213,22 @@ Public Class cOrdenCompra
         End Try
     End Function
 
-    Private Sub ActualizarImporteCab()
+    Private Sub ActualizarImporteCabFromArr()
+        Dim lOcDet As cOrdenCompraDet = Nothing
+        Dim lTotal As Double = 0
+        Try
+            For Each lOcDet In _Detalle
+                lTotal = lTotal + lOcDet.Cantidad * lOcDet.PrecioUnitario
+            Next
+            _Importe = lTotal
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ActualizarImporteCabFromArr")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ActualizarImporteCabFromArr:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ActualizarImporteCabFromBD()
         Dim Cmd As New MySqlCommand
         Dim Sql As String = ""
         Dim lCnn As MySqlConnection = Nothing
@@ -232,8 +246,8 @@ Public Class cOrdenCompra
             lCnn.Close()
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ActualizarImporteCab")
-            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ActualizarImporteCab:" & ex.Message & vbCrLf & Sql)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ActualizarImporteCabFromBD")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ActualizarImporteCabFromBD:" & ex.Message & vbCrLf & Sql)
         End Try
     End Sub
 
@@ -252,9 +266,7 @@ Public Class cOrdenCompra
             gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ToXML" & ex.Message)
         End Try
 
-
     End Function
-
 
 #End Region
 
@@ -281,6 +293,7 @@ Public Class cOrdenCompra
         Return lOC
 
     End Function
+
 #End Region
 
 #Region "Base de Datos"

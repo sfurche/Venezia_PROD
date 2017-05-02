@@ -40,12 +40,12 @@ Partial Class frmStkOrdenCompraABM
         Me.btnAgregar = New System.Windows.Forms.Button()
         Me.btnGuardar = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.lblProcErr = New System.Windows.Forms.Label()
         Me.lblProcOK = New System.Windows.Forms.Label()
         Me.lblTotalImp = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtPrecioU = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.lblDescripcionArt = New System.Windows.Forms.Label()
         Me.btnBusqArt = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -61,7 +61,7 @@ Partial Class frmStkOrdenCompraABM
         Me.btnEliminar.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnEliminar.Image = Global.Venezia.My.Resources.Resources._24x24_delete2
-        Me.btnEliminar.Location = New System.Drawing.Point(1746, 41)
+        Me.btnEliminar.Location = New System.Drawing.Point(1746, 38)
         Me.btnEliminar.Name = "btnEliminar"
         Me.btnEliminar.Size = New System.Drawing.Size(79, 57)
         Me.btnEliminar.TabIndex = 0
@@ -78,15 +78,17 @@ Partial Class frmStkOrdenCompraABM
         '
         'NumCantidad
         '
-        Me.NumCantidad.Location = New System.Drawing.Point(1129, 48)
+        Me.NumCantidad.Location = New System.Drawing.Point(1129, 47)
         Me.NumCantidad.Name = "NumCantidad"
         Me.NumCantidad.Size = New System.Drawing.Size(134, 38)
         Me.NumCantidad.TabIndex = 2
         Me.NumCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumCantidad.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'lvwConsulta
         '
         Me.lvwConsulta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwConsulta.FullRowSelect = True
         Me.lvwConsulta.GridLines = True
         Me.lvwConsulta.Location = New System.Drawing.Point(15, 113)
         Me.lvwConsulta.Name = "lvwConsulta"
@@ -108,7 +110,7 @@ Partial Class frmStkOrdenCompraABM
         '
         'txtProove
         '
-        Me.txtProove.Location = New System.Drawing.Point(299, 109)
+        Me.txtProove.Location = New System.Drawing.Point(299, 106)
         Me.txtProove.Name = "txtProove"
         Me.txtProove.Size = New System.Drawing.Size(161, 38)
         Me.txtProove.TabIndex = 5
@@ -145,7 +147,7 @@ Partial Class frmStkOrdenCompraABM
         'lblNomProove
         '
         Me.lblNomProove.AutoSize = True
-        Me.lblNomProove.Location = New System.Drawing.Point(550, 112)
+        Me.lblNomProove.Location = New System.Drawing.Point(550, 109)
         Me.lblNomProove.Name = "lblNomProove"
         Me.lblNomProove.Size = New System.Drawing.Size(525, 32)
         Me.lblNomProove.TabIndex = 11
@@ -174,7 +176,7 @@ Partial Class frmStkOrdenCompraABM
         Me.btnBusqProv.AutoSize = True
         Me.btnBusqProv.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnBusqProv.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBusqProv.Location = New System.Drawing.Point(476, 105)
+        Me.btnBusqProv.Location = New System.Drawing.Point(476, 103)
         Me.btnBusqProv.Name = "btnBusqProv"
         Me.btnBusqProv.Size = New System.Drawing.Size(56, 45)
         Me.btnBusqProv.TabIndex = 8
@@ -214,7 +216,7 @@ Partial Class frmStkOrdenCompraABM
         Me.btnAgregar.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAgregar.Image = Global.Venezia.My.Resources.Resources._24x24_add2
-        Me.btnAgregar.Location = New System.Drawing.Point(1647, 41)
+        Me.btnAgregar.Location = New System.Drawing.Point(1647, 38)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(79, 57)
         Me.btnAgregar.TabIndex = 9
@@ -233,18 +235,18 @@ Partial Class frmStkOrdenCompraABM
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.NumCantidad)
+        Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.lblProcErr)
         Me.GroupBox2.Controls.Add(Me.lblProcOK)
         Me.GroupBox2.Controls.Add(Me.lblTotalImp)
-        Me.GroupBox2.Controls.Add(Me.TextBox1)
+        Me.GroupBox2.Controls.Add(Me.txtPrecioU)
         Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.lblDescripcionArt)
         Me.GroupBox2.Controls.Add(Me.btnBusqArt)
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.txtCodArt)
         Me.GroupBox2.Controls.Add(Me.lvwConsulta)
-        Me.GroupBox2.Controls.Add(Me.NumCantidad)
         Me.GroupBox2.Controls.Add(Me.btnAgregar)
         Me.GroupBox2.Controls.Add(Me.btnEliminar)
         Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
@@ -254,6 +256,15 @@ Partial Class frmStkOrdenCompraABM
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Detalle de la Orden"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(968, 50)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(145, 32)
+        Me.Label7.TabIndex = 16
+        Me.Label7.Text = "Cantidad :"
         '
         'lblProcErr
         '
@@ -284,13 +295,13 @@ Partial Class frmStkOrdenCompraABM
         Me.lblTotalImp.TabIndex = 19
         Me.lblTotalImp.Text = "Total Importados: 0"
         '
-        'TextBox1
+        'txtPrecioU
         '
-        Me.TextBox1.Location = New System.Drawing.Point(1432, 50)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(173, 38)
-        Me.TextBox1.TabIndex = 18
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtPrecioU.Location = New System.Drawing.Point(1432, 47)
+        Me.txtPrecioU.Name = "txtPrecioU"
+        Me.txtPrecioU.Size = New System.Drawing.Size(173, 38)
+        Me.txtPrecioU.TabIndex = 18
+        Me.txtPrecioU.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label8
         '
@@ -301,19 +312,10 @@ Partial Class frmStkOrdenCompraABM
         Me.Label8.TabIndex = 17
         Me.Label8.Text = "Precio U :"
         '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(968, 50)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(145, 32)
-        Me.Label7.TabIndex = 16
-        Me.Label7.Text = "Cantidad :"
-        '
         'lblDescripcionArt
         '
         Me.lblDescripcionArt.AutoSize = True
-        Me.lblDescripcionArt.Location = New System.Drawing.Point(418, 53)
+        Me.lblDescripcionArt.Location = New System.Drawing.Point(418, 50)
         Me.lblDescripcionArt.Name = "lblDescripcionArt"
         Me.lblDescripcionArt.Size = New System.Drawing.Size(525, 32)
         Me.lblDescripcionArt.TabIndex = 15
@@ -324,7 +326,7 @@ Partial Class frmStkOrdenCompraABM
         Me.btnBusqArt.AutoSize = True
         Me.btnBusqArt.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnBusqArt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBusqArt.Location = New System.Drawing.Point(344, 46)
+        Me.btnBusqArt.Location = New System.Drawing.Point(344, 44)
         Me.btnBusqArt.Name = "btnBusqArt"
         Me.btnBusqArt.Size = New System.Drawing.Size(56, 45)
         Me.btnBusqArt.TabIndex = 14
@@ -342,7 +344,7 @@ Partial Class frmStkOrdenCompraABM
         '
         'txtCodArt
         '
-        Me.txtCodArt.Location = New System.Drawing.Point(167, 50)
+        Me.txtCodArt.Location = New System.Drawing.Point(167, 47)
         Me.txtCodArt.Name = "txtCodArt"
         Me.txtCodArt.Size = New System.Drawing.Size(161, 38)
         Me.txtCodArt.TabIndex = 13
@@ -391,7 +393,7 @@ Partial Class frmStkOrdenCompraABM
     Friend WithEvents Label6 As Label
     Friend WithEvents txtCodArt As TextBox
     Friend WithEvents txtObservac As TextBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtPrecioU As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents lblProcErr As Label

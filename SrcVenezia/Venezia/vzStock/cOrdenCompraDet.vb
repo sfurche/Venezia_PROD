@@ -1,4 +1,6 @@
 ﻿
+Imports System.IO
+Imports System.Xml.Serialization
 Imports MySql.Data.MySqlClient
 Imports VzAdmin
 Imports vzStock
@@ -14,6 +16,8 @@ Public Class cOrdenCompraDet
     Private _PrecioUnitario As Double
     Private _Estado As cEstado
     Private _EsNuevo As Boolean = True
+
+    Private ObjetoInicial As String = ""   'Esta es la serializacion del objeto ni bien se instancia, antes de que sea modificado por el usuario.
 
 #Region "Declaraciones"
 
@@ -71,6 +75,15 @@ Public Class cOrdenCompraDet
         End Set
     End Property
 
+    Public Property EsNuevo As Boolean
+        Get
+            Return _EsNuevo
+        End Get
+        Set(value As Boolean)
+            _EsNuevo = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Funciones"
@@ -79,12 +92,103 @@ Public Class cOrdenCompraDet
         gAdmin = pAdmin
     End Sub
 
-    Public Sub Load()
+    Public Sub Load(ByVal lDr As DataRow)
+        Try
+            Me.Id_OC_Detalle = lDr("id_ordencompra_det")
+            Me.Id_OrdenDeCompra = lDr("id_ordencompra ")
+            Me.Articulo = cArticulo.GetArticuloxCod(gAdmin, lDr("CodArt"))
+            Me.Cantidad = lDr("cantidad")
+            Me.PrecioUnitario = lDr("preciounitario")
+            Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.OrdenCompra_Det)
+            Me.EsNuevo = False
+            Me.ObjetoInicial = Me.ToXML
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompraDet.Guardar")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompraDet.Guardar:" & ex.Message)
+        End Try
 
     End Sub
 
     Public Function Guardar() As Boolean
+        Guardar = False
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String = ""
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection = Nothing
+        Try
 
+            If EsNuevo = True Then 'INSERT
+
+                ''-- Primero guardo la cabecera y luego voy por cada detalle.
+                Sql = "CALL vz_ordencompra_det_ins( #id_ordencompra#, #CodArt#, #cantidad#, #preciounitario#, #idusr#);"
+                Sql = Sql.Replace("#id_ordencompra#", Me.Id_OrdenDeCompra)
+                Sql = Sql.Replace("#CodArt#", Me.Articulo.CodArt)
+                Sql = Sql.Replace("#cantidad#", Me.Cantidad)
+                Sql = Sql.Replace("#preciounitario#", Me.PrecioUnitario.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+                lCnn = gAdmin.DbCnn.GetInstanceCon
+                Cmd.Connection = lCnn
+                Cmd.CommandType = CommandType.Text
+                Cmd.CommandText = Sql
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+
+                Me.EsNuevo = False
+
+            Else  'ACA VA EL UPDATE 
+
+                Sql = "CALL vz_ordencompra_det_upd( #id_ordencompra_det#, #id_ordencompra#, #CodArt#, #cantidad#, #preciounitario#, #idusr#);"
+                Sql = Sql.Replace("#id_ordencompra#", Me.Id_OC_Detalle)
+                Sql = Sql.Replace("#id_ordencompra#", Me.Id_OrdenDeCompra)
+                Sql = Sql.Replace("#CodArt#", Me.Articulo.CodArt)
+                Sql = Sql.Replace("#cantidad#", Me.Cantidad)
+                Sql = Sql.Replace("#preciounitario#", Me.PrecioUnitario.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
+
+                Cmd.Connection = lCnn
+                Cmd.CommandType = CommandType.Text
+                Cmd.CommandText = Sql
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+
+                Cmd.ExecuteNonQuery()
+                lCnn.Close()
+
+                'Grabo el log de auditoria.
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra_det", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToXML, ObjetoInicial)
+            End If
+
+            Guardar = True
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompraDet.Guardar")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompraDet.Guardar:" & ex.Message & vbCrLf & Sql)
+        End Try
+
+    End Function
+
+    Public Function ToXML() As String
+        ToXML = ""
+        Try
+            Using sw As New StringWriter()
+                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cOrdenCompraDet), New Type() {GetType(cArticulo), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                serialitzador.Serialize(sw, Me)
+                ToXML = sw.ToString()
+            End Using
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompraDet.ToXML")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompraDet.ToXML" & ex.Message)
+        End Try
 
     End Function
 
@@ -117,8 +221,8 @@ Public Class cOrdenCompraDet
         Return lArray
 
     End Function
-#End Region
 
+#End Region
 
 #Region "Base de Datos"
 
@@ -156,8 +260,6 @@ Public Class cOrdenCompraDet
             Return Nothing
         End Try
     End Function
-
-
 
 #End Region
 

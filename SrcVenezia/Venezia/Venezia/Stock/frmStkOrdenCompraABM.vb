@@ -17,6 +17,8 @@ Public Class frmStkOrdenCompraABM
             SetPermisos()
             '---------------------------------------------------------------------------------------------------
 
+            SubSetCabecera()
+
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
         Catch ex As Exception
@@ -35,7 +37,7 @@ Public Class frmStkOrdenCompraABM
                 Exit Sub
             End If
 
-            If Not (mPermiso.Admin = cPermiso.enuBinario.Si Or mPermiso.Consulta = cPermiso.enuBinario.Si) Then
+            If Not (mPermiso.Alta = cPermiso.enuBinario.Si) Then
                 MsgBox("No tiene permisos para acceder a esta opcion.", vbExclamation, "Acceso denegado")
                 Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
             End If
@@ -129,9 +131,9 @@ Public Class frmStkOrdenCompraABM
     End Sub
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        Dim lItem As ListViewItem = Nothing
+
         Try
-
-
             'VALIDACIONES
 
             If IsNothing(txtProove.Tag) Then
@@ -148,8 +150,16 @@ Public Class frmStkOrdenCompraABM
                 End If
 
                 'GUARDO LA INFORMAION
+                mOrdenCompra.Fecha = Date.Today
+                mOrdenCompra.FechaEntrega = dtpFechaEntrega.Value
+                mOrdenCompra.Proveedor = DirectCast(txtProove.Tag, cProveedor)
+                mOrdenCompra.Observaciones = txtObservac.Text.Trim
 
+                For Each lItem In lvwConsulta.Items
+                    mOrdenCompra.Detalle.Add(DirectCast(lItem.Tag, cOrdenCompraDet))
+                Next
 
+                mOrdenCompra.Guardar()
             Else 'update
 
 
@@ -159,7 +169,8 @@ Public Class frmStkOrdenCompraABM
 
             Me.Close()
         Catch ex As Exception
-
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.btnGuardar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.btnGuardar_Click:" & ex.Message)
         End Try
     End Sub
 
@@ -299,10 +310,11 @@ Public Class frmStkOrdenCompraABM
             lvwConsulta.Clear()
 
             lvwConsulta.Columns.Add(New ColHeader("CodArt", 60, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Articulo", 200, HorizontalAlignment.Left, True))
+            lvwConsulta.Columns.Add(New ColHeader("Articulo", 300, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Cantidad", 70, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("PcioCompra", 70, HorizontalAlignment.Right, True))
-            lvwConsulta.Columns.Add(New ColHeader("Costo", 65, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("Total", 75, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("UltCosto", 65, HorizontalAlignment.Right, True))
             lvwConsulta.Columns.Add(New ColHeader("%Var", 65, HorizontalAlignment.Right, True))
 
             lvwConsulta.EndUpdate()
@@ -319,6 +331,102 @@ Public Class frmStkOrdenCompraABM
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.SubSetCabecera")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.SubSetCabecera:" & ex.Message)
         End Try
+    End Sub
+
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+
+        Try
+            If lvwConsulta.SelectedItems.Count > 0 Then
+                lvwConsulta.Items.Remove(lvwConsulta.SelectedItems(0))
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.btnEliminar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.btnEliminar_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        Dim lOrdenDet As cOrdenCompraDet = Nothing
+        Dim lPrecio As Double = 0
+
+        Try
+            '----------Valido los datos ingresados -----------------------------------------------
+            If Not Double.TryParse(txtPrecioU.Text, lPrecio) Then
+                MsgBox("El precio unitario no es valido.", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            If Not NumCantidad.Value > 0 Then
+                MsgBox("La cantidad de productos debe ser mayor a cero.", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            If IsNothing(txtCodArt.Tag) Then
+                MsgBox("Debe seleccionar el articulo que desea agregar a la orden de compra.", MsgBoxStyle.Exclamation, "Error de validacion")
+                Exit Sub
+            End If
+
+            '----------------fin validaciones---------------------------------------
+
+            lOrdenDet = New cOrdenCompraDet(gAdmin)
+
+            lOrdenDet.Articulo = txtCodArt.Tag
+            lOrdenDet.Cantidad = NumCantidad.Value
+            lOrdenDet.PrecioUnitario = Double.Parse(txtPrecioU.Text)
+            lOrdenDet.EsNuevo = True
+
+            CargarItemGrilla(lOrdenDet)
+
+            'Limpio los datos de carga de articulos
+            txtCodArt.Text = ""
+            txtCodArt.Tag = Nothing
+            NumCantidad.Value = 1
+            txtPrecioU.Text = ""
+            lblDescripcionArt.Text = "__________________________________"
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.btnAgregar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.btnAgregar_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CargarItemGrilla(ByVal pOrdenDet As cOrdenCompraDet)
+        Dim lItem As ListViewItem = Nothing
+        Dim lVar As Double = 0
+        Try
+            lItem = New ListViewItem
+            lItem.UseItemStyleForSubItems = False 'Cambio la propiedad para que cada subitem tenga propiedades style.
+
+            lItem.Tag = pOrdenDet
+
+            lItem.Text = pOrdenDet.Articulo.CodArt
+            lItem.SubItems.Add(pOrdenDet.Articulo.Descripcion)
+            lItem.SubItems.Add(pOrdenDet.Cantidad)
+            lItem.SubItems.Add(pOrdenDet.PrecioUnitario.ToString("C"))
+            lItem.SubItems.Add((pOrdenDet.PrecioUnitario * pOrdenDet.Cantidad).ToString("C")) 'Total
+            lItem.SubItems.Add(pOrdenDet.Articulo.PcioCosto.ToString("C")) 'Ultimo costo conocido
+
+            'lVar = Math.Round(((pOrdenDet.PrecioUnitario - pOrdenDet.Articulo.PcioCosto) / pOrdenDet.Articulo.PcioCosto), 2)
+            lVar = Math.Round(((pOrdenDet.PrecioUnitario - pOrdenDet.Articulo.PcioCosto) / pOrdenDet.Articulo.PcioCosto), 6)
+            lItem.SubItems.Add(lVar.ToString("P"))
+
+            If lVar > 0 Then
+                lItem.SubItems(5).ForeColor = Color.Red
+            ElseIf lVar < 0 Then
+                lItem.SubItems(5).ForeColor = Color.Blue
+            End If
+
+            lvwConsulta.Items.Add(lItem)
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.CargarItemGrilla")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.CargarItemGrilla: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Me.Close()
     End Sub
 
 End Class

@@ -142,6 +142,12 @@
     <Compile Include="Stock\frmStkOrdenCompraABM.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Stock\frmStkOrdenCompraConsulta.Designer.vb">
+      <DependentUpon>frmStkOrdenCompraConsulta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\frmStkOrdenCompraConsulta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Stock\frmStkPreciosConsxLista.Designer.vb">
       <DependentUpon>frmStkPreciosConsxLista.vb</DependentUpon>
     </Compile>
@@ -372,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Stock\frmStkOrdenCompraABM.resx">
       <DependentUpon>frmStkOrdenCompraABM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\frmStkOrdenCompraConsulta.resx">
+      <DependentUpon>frmStkOrdenCompraConsulta.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock\frmStkPreciosConsxLista.resx">
       <DependentUpon>frmStkPreciosConsxLista.vb</DependentUpon>

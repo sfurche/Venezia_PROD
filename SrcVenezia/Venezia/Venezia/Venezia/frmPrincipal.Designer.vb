@@ -78,6 +78,8 @@ Partial Class frmPrincipal
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
         Me.CargaMasivaDePreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GestionDePedidosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AltaOrdenDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AuditoriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TesoreriaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComercialToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -99,8 +101,6 @@ Partial Class frmPrincipal
         Me.EnviarMailASoporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVeneziaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManualOperativoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AltaOrdenDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.StBarPpal.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -111,7 +111,7 @@ Partial Class frmPrincipal
         Me.ToolStrip1.AllowItemReorder = True
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbtnSalir, Me.tbtnActualizarPermisos, Me.ToolStripSeparator1, Me.ToolStripButton2, Me.ToolStripSeparator2})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 55)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 58)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.ToolStrip1.Size = New System.Drawing.Size(2680, 48)
@@ -201,7 +201,7 @@ Partial Class frmPrincipal
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(16, 5, 0, 5)
-        Me.MenuStrip1.Size = New System.Drawing.Size(2680, 55)
+        Me.MenuStrip1.Size = New System.Drawing.Size(2680, 58)
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -422,7 +422,7 @@ Partial Class frmPrincipal
         '
         Me.StockToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulosToolStripMenuItem1, Me.ListasDePrecioToolStripMenuItem, Me.GestionDePedidosToolStripMenuItem})
         Me.StockToolStripMenuItem.Name = "StockToolStripMenuItem"
-        Me.StockToolStripMenuItem.Size = New System.Drawing.Size(102, 45)
+        Me.StockToolStripMenuItem.Size = New System.Drawing.Size(102, 48)
         Me.StockToolStripMenuItem.Text = "Stock"
         '
         'ArticulosToolStripMenuItem1
@@ -474,6 +474,18 @@ Partial Class frmPrincipal
         Me.GestionDePedidosToolStripMenuItem.Name = "GestionDePedidosToolStripMenuItem"
         Me.GestionDePedidosToolStripMenuItem.Size = New System.Drawing.Size(402, 46)
         Me.GestionDePedidosToolStripMenuItem.Text = "Ordenes de Compra"
+        '
+        'AltaOrdenDeCompraToolStripMenuItem
+        '
+        Me.AltaOrdenDeCompraToolStripMenuItem.Name = "AltaOrdenDeCompraToolStripMenuItem"
+        Me.AltaOrdenDeCompraToolStripMenuItem.Size = New System.Drawing.Size(568, 46)
+        Me.AltaOrdenDeCompraToolStripMenuItem.Text = "Nueva Orden de Compra"
+        '
+        'ConsultaDeOrdenesDeCompraToolStripMenuItem
+        '
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Name = "ConsultaDeOrdenesDeCompraToolStripMenuItem"
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Size = New System.Drawing.Size(568, 46)
+        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Text = "Consulta de Ordenes de Compra"
         '
         'AuditoriaToolStripMenuItem
         '
@@ -607,18 +619,6 @@ Partial Class frmPrincipal
         Me.ManualOperativoToolStripMenuItem.Name = "ManualOperativoToolStripMenuItem"
         Me.ManualOperativoToolStripMenuItem.Size = New System.Drawing.Size(412, 46)
         Me.ManualOperativoToolStripMenuItem.Text = "Manual Operativo"
-        '
-        'AltaOrdenDeCompraToolStripMenuItem
-        '
-        Me.AltaOrdenDeCompraToolStripMenuItem.Name = "AltaOrdenDeCompraToolStripMenuItem"
-        Me.AltaOrdenDeCompraToolStripMenuItem.Size = New System.Drawing.Size(465, 46)
-        Me.AltaOrdenDeCompraToolStripMenuItem.Text = "Nueva Orden de Compra"
-        '
-        'ConsultaDeOrdenesDeCompraToolStripMenuItem
-        '
-        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Name = "ConsultaDeOrdenesDeCompraToolStripMenuItem"
-        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Size = New System.Drawing.Size(568, 46)
-        Me.ConsultaDeOrdenesDeCompraToolStripMenuItem.Text = "Consulta de Ordenes de Compra"
         '
         'frmPrincipal
         '

@@ -1,6 +1,6 @@
 ﻿Imports System.Xml.Serialization
 
-Public Class cEnums
+<Serializable()> Public Class cEnums
 
     Public Enum enuBinario
         <XmlEnum("Si")> Si = 1

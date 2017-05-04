@@ -1,4 +1,5 @@
 ﻿Imports VzAdmin
+Imports vzStock
 
 Public Class frmStkOrdenCompraConsulta
 
@@ -53,11 +54,11 @@ Public Class frmStkOrdenCompraConsulta
             lvwConsulta.Clear()
 
             lvwConsulta.Columns.Add(New ColHeader("Id_Orden", 60, HorizontalAlignment.Center, True))
-            lvwConsulta.Columns.Add(New ColHeader("Fecha", 300, HorizontalAlignment.Left, True))
-            lvwConsulta.Columns.Add(New ColHeader("Fecha_Entrega", 70, HorizontalAlignment.Right, True))
-            lvwConsulta.Columns.Add(New ColHeader("Proveedor", 70, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("Fecha", 70, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Fecha_Entrega", 90, HorizontalAlignment.Center, True))
+            lvwConsulta.Columns.Add(New ColHeader("Proveedor", 230, HorizontalAlignment.Left, True))
             lvwConsulta.Columns.Add(New ColHeader("Importe", 75, HorizontalAlignment.Right, True))
-            lvwConsulta.Columns.Add(New ColHeader("Estado", 65, HorizontalAlignment.Right, True))
+            lvwConsulta.Columns.Add(New ColHeader("Estado", 70, HorizontalAlignment.Center, True))
 
             lvwConsulta.EndUpdate()
 
@@ -68,6 +69,24 @@ Public Class frmStkOrdenCompraConsulta
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.SubSetCabecera")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.SubSetCabecera:" & ex.Message)
         End Try
+    End Sub
+    Public Sub CargarEnGrilla(ByVal pOrdenC As cOrdenCompra)
+        Dim lItem As New ListViewItem
+        Try
+            lItem.Tag = pOrdenC
+            lItem.Text = pOrdenC.Id_OrdenDeCompra
+            lItem.SubItems.Add(pOrdenC.Fecha.ToShortDateString)
+            lItem.SubItems.Add(pOrdenC.FechaEntrega.ToShortDateString)
+            lItem.SubItems.Add(pOrdenC.Proveedor.Nombre.Trim)
+            lItem.SubItems.Add(pOrdenC.Importe.ToString("C"))
+            lItem.SubItems.Add(pOrdenC.Estado.Estado)
+
+            lvwConsulta.Items.Add(lItem)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.CargarEnGrilla")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.CargarEnGrilla:" & ex.Message)
+        End Try
+
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -113,11 +132,22 @@ Public Class frmStkOrdenCompraConsulta
     End Sub
 
     Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+        Dim lArray As ArrayList = Nothing
+        Dim lOrden As cOrdenCompra = Nothing
         Try
+
+            lArray = cOrdenCompra.GetOrdenCompraxProvFecEntregaDH(gAdmin, dtpFechaEntregaD.Value, dtpFechaEntregaH.Value, txtProove.Tag)
+
+            SubSetCabecera()
+
+            For Each lOrden In lArray
+                CargarEnGrilla(lOrden)
+            Next
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.btnBuscar_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.btnBuscar_Click:" & ex.Message)
         End Try
     End Sub
+
 End Class

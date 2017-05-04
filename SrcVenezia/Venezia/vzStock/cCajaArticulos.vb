@@ -43,6 +43,9 @@ Public Class cCajaArticulos
 #End Region
 
 #Region "Funciones"
+    Public Sub New()
+
+    End Sub
 
     Public Sub New(ByRef pAdmin As cAdmin)
         Me.gAdmin = pAdmin

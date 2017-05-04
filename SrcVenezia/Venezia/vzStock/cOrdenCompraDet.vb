@@ -5,7 +5,7 @@ Imports MySql.Data.MySqlClient
 Imports VzAdmin
 Imports vzStock
 
-Public Class cOrdenCompraDet
+<Serializable()> Public Class cOrdenCompraDet
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -88,6 +88,11 @@ Public Class cOrdenCompraDet
 
 #Region "Funciones"
 
+
+    Public Sub New()
+
+    End Sub
+
     Public Sub New(ByRef pAdmin As cAdmin)
         gAdmin = pAdmin
     End Sub
@@ -95,7 +100,7 @@ Public Class cOrdenCompraDet
     Public Sub Load(ByVal lDr As DataRow)
         Try
             Me.Id_OC_Detalle = lDr("id_ordencompra_det")
-            Me.Id_OrdenDeCompra = lDr("id_ordencompra ")
+            Me.Id_OrdenDeCompra = lDr("id_ordencompra")
             Me.Articulo = cArticulo.GetArticuloxCod(gAdmin, lDr("CodArt"))
             Me.Cantidad = lDr("cantidad")
             Me.PrecioUnitario = lDr("preciounitario")
@@ -180,7 +185,7 @@ Public Class cOrdenCompraDet
         Try
             Using sw As New StringWriter()
                 'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                Dim serialitzador As New XmlSerializer(GetType(cOrdenCompraDet), New Type() {GetType(cArticulo), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cOrdenCompraDet), New Type() {GetType(cArticulo), GetType(cCajaArticulos), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
                 serialitzador.Serialize(sw, Me)
                 ToXML = sw.ToString()
             End Using
@@ -199,7 +204,7 @@ Public Class cOrdenCompraDet
     Public Shared Function GetOrdenCompraDetxIdOrden(ByRef pAdmin As VzAdmin.cAdmin, ByVal pIdOrdenCompra As Integer) As ArrayList
         Dim lDt As DataTable
         Dim lDr As DataRow
-        Dim lArticulo As cArticulo = Nothing
+        Dim lOrdenCompraDet As cOrdenCompraDet = Nothing
         Dim lArray As New ArrayList
 
         Try
@@ -207,9 +212,9 @@ Public Class cOrdenCompraDet
 
             If lDt.Rows.Count > 0 Then
                 For Each lDr In lDt.Rows
-                    lArticulo = New cArticulo(pAdmin)
-                    lArticulo.CargarDatos(lDr)
-                    lArray.Add(lArticulo)
+                    lOrdenCompraDet = New cOrdenCompraDet(pAdmin)
+                    lOrdenCompraDet.Load(lDr)
+                    lArray.Add(lOrdenCompraDet)
                 Next
             End If
 

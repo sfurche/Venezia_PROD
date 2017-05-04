@@ -26,6 +26,8 @@ Partial Class frmStkOrdenCompraConsulta
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtpFechaEntregaH = New System.Windows.Forms.DateTimePicker()
         Me.btnBuscar = New System.Windows.Forms.Button()
         Me.lblNomProove = New System.Windows.Forms.Label()
         Me.btnBusqProv = New System.Windows.Forms.Button()
@@ -33,8 +35,6 @@ Partial Class frmStkOrdenCompraConsulta
         Me.dtpFechaEntregaD = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtProove = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -76,7 +76,7 @@ Partial Class frmStkOrdenCompraConsulta
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
+        Me.GroupBox1.Controls.Add(Me.dtpFechaEntregaH)
         Me.GroupBox1.Controls.Add(Me.btnBuscar)
         Me.GroupBox1.Controls.Add(Me.lblNomProove)
         Me.GroupBox1.Controls.Add(Me.btnBusqProv)
@@ -92,6 +92,23 @@ Partial Class frmStkOrdenCompraConsulta
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filtros"
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(637, 43)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(100, 32)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "hasta :"
+        '
+        'dtpFechaEntregaH
+        '
+        Me.dtpFechaEntregaH.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpFechaEntregaH.Location = New System.Drawing.Point(750, 43)
+        Me.dtpFechaEntregaH.Name = "dtpFechaEntregaH"
+        Me.dtpFechaEntregaH.Size = New System.Drawing.Size(240, 38)
+        Me.dtpFechaEntregaH.TabIndex = 15
+        '
         'btnBuscar
         '
         Me.btnBuscar.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -106,7 +123,7 @@ Partial Class frmStkOrdenCompraConsulta
         'lblNomProove
         '
         Me.lblNomProove.AutoSize = True
-        Me.lblNomProove.Location = New System.Drawing.Point(465, 115)
+        Me.lblNomProove.Location = New System.Drawing.Point(468, 115)
         Me.lblNomProove.Name = "lblNomProove"
         Me.lblNomProove.Size = New System.Drawing.Size(525, 32)
         Me.lblNomProove.TabIndex = 11
@@ -158,23 +175,6 @@ Partial Class frmStkOrdenCompraConsulta
         Me.txtProove.TabIndex = 5
         Me.txtProove.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(637, 43)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(100, 32)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "hasta :"
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(750, 43)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(240, 38)
-        Me.DateTimePicker1.TabIndex = 15
-        '
         'frmStkOrdenCompraConsulta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
@@ -204,5 +204,5 @@ Partial Class frmStkOrdenCompraConsulta
     Friend WithEvents txtProove As TextBox
     Friend WithEvents btnBuscar As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents dtpFechaEntregaH As DateTimePicker
 End Class

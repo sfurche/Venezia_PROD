@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Imports VzAdmin
 Imports VzComercial
 
-Public Class cOrdenCompra
+<Serializable()> Public Class cOrdenCompra
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -110,6 +110,10 @@ Public Class cOrdenCompra
 
     Public Sub New()
 
+    End Sub
+
+    Public Sub New(ByVal lDr As DataRow)
+        Load(lDr)
     End Sub
 
     Public Sub New(ByRef pAdmin As cAdmin)
@@ -254,12 +258,12 @@ Public Class cOrdenCompra
     Public Function ToXML() As String
         ToXML = ""
         Try
-            Using sw As New StringWriter()
-                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                Dim serialitzador As New XmlSerializer(GetType(cOrdenCompra), New Type() {GetType(cOrdenCompraDet), GetType(cProveedor), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                serialitzador.Serialize(sw, Me)
-                ToXML = sw.ToString()
-            End Using
+            'Using sw As New StringWriter()
+            '    'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+            '    Dim serialitzador As New XmlSerializer(GetType(cOrdenCompra), New Type() {GetType(cOrdenCompraDet), GetType(cCondicionIVA), GetType(cSitIB), GetType(cArticulo), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+            '    serialitzador.Serialize(sw, Me)
+            ToXML = Me.ToString()
+            'End Using
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ToXML")
@@ -291,6 +295,30 @@ Public Class cOrdenCompra
         End Try
 
         Return lOC
+
+    End Function
+
+    Public Shared Function GetOrdenCompraxProvFecEntregaDH(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFEntregaD As Date, ByVal pFentregaH As Date, pProveedor As cProveedor) As ArrayList
+        Dim lDt As DataTable = Nothing
+        Dim lDr As DataRow = Nothing
+        Dim lOC As cOrdenCompra = Nothing
+        Dim lArray As New ArrayList
+
+        Try
+            lDt = Dat_GetOrdenCompraxProvFecEntregaDH(pAdmin, pFEntregaD, pFentregaH, pProveedor)
+
+            For Each lDr In lDt.Rows
+                lOC = New cOrdenCompra(pAdmin)
+                lOC.Load(lDt.Rows(0))
+                lArray.Add(lOC)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.GetOrdenCompraxProvFecEntregaDH")
+            pAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.GetOrdenCompraxProvFecEntregaDH:" & ex.Message)
+        End Try
+
+        Return lArray
 
     End Function
 
@@ -329,6 +357,48 @@ Public Class cOrdenCompra
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.Dat_GetOrdenCompraxId")
             pAdmin.Log.fncGrabarLogERR("Error en cOrdenCompr.Dat_GetOrdenCompraxId:" & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
+    Private Shared Function Dat_GetOrdenCompraxProvFecEntregaDH(ByRef pAdmin As VzAdmin.cAdmin, ByVal pFEntregaD As Date, ByVal pFentregaH As Date, pProveedor As cProveedor) As DataTable
+
+        Dim Cmd As New MySqlCommand
+        Dim Sql As String
+        Dim lDt As DataTable
+        Dim lCnn As MySqlConnection
+        Dim lArray As New ArrayList
+
+        Try
+            lCnn = pAdmin.DbCnn.GetInstanceCon
+            Sql = "SELECT * FROM vz_ordencompra WHERE fecha_entrega >= '#pfecha_entregaD#'  AND fecha_entrega <= '#pfecha_entregaH#' "
+            If Not IsNothing(pProveedor) Then
+                Sql = Sql & " And CodProve = 4 = #pIdCodProve# ;"
+                Sql = Sql.Replace("#pIdCodProve#", pProveedor.Id_Proveedor)
+            End If
+            Sql = Sql.Replace("#pfecha_entregaD#", cFunciones.gFncConvertDateToString(pFEntregaD, "YYYY/MM/DD"))
+            Sql = Sql.Replace("#pfecha_entregaH#", cFunciones.gFncConvertDateToString(pFentregaH, "YYYY/MM/DD"))
+
+            With Cmd
+                .Connection = lCnn
+                .CommandType = CommandType.Text
+                .CommandText = Sql
+
+                If lCnn.State = ConnectionState.Closed Then
+                    lCnn.Open()
+                End If
+                Dim lAdap As New MySqlDataAdapter(Cmd)
+                lDt = New DataTable
+                lAdap.Fill(lDt)
+                lCnn.Close()
+            End With
+
+            Return lDt
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.Dat_GetOrdenCompraxProvFecEntregaDH")
+            pAdmin.Log.fncGrabarLogERR("Error en cOrdenCompr.Dat_GetOrdenCompraxProvFecEntregaDH:" & ex.Message)
             Return Nothing
         End Try
     End Function

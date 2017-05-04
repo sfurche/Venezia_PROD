@@ -1,6 +1,8 @@
 ﻿Imports VzAdmin
 Imports MySql.Data.MySqlClient
 Imports vzStock
+Imports System.IO
+Imports System.Xml.Serialization
 
 Public Class cArticulo
 
@@ -156,6 +158,10 @@ Public Class cArticulo
 
 #Region "Funciones"
 
+    Public Sub New()
+
+    End Sub
+
     Public Sub New(ByRef pAdmin As cAdmin)
         gAdmin = pAdmin
     End Sub
@@ -300,7 +306,7 @@ Public Class cArticulo
 
             Sql = Sql.Replace("#pCriterio#", pCriterio.Trim)
 
-                With Cmd
+            With Cmd
                 .Connection = lCnn
                 .CommandType = CommandType.Text
                 .CommandText = Sql
@@ -391,6 +397,23 @@ Public Class cArticulo
             gAdmin.Log.fncGrabarLogERR("Error en cArticulo.Dat_Articulo_ActualizaCosto:" & ex.Message)
             Return Nothing
         End Try
+    End Function
+
+    Public Function ToXML() As String
+        ToXML = ""
+        Try
+            Using sw As New StringWriter()
+                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
+                Dim serialitzador As New XmlSerializer(GetType(cArticulo), New Type() {GetType(cCajaArticulos), GetType(cAdmin)})
+                serialitzador.Serialize(sw, Me)
+                ToXML = sw.ToString()
+            End Using
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.ToXML")
+            gAdmin.Log.fncGrabarLogERR("Error en cArticulo.ToXML" & ex.Message)
+        End Try
+
     End Function
 
 #End Region

@@ -224,7 +224,7 @@ Public Class cLiquidacion
 
             Me.ValidarCompletitudCheques()
 
-            ObjetoInicial = Me.ToXML()
+            ObjetoInicial = Me.ToString()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.subCargarDatos")
@@ -405,7 +405,7 @@ Public Class cLiquidacion
                 End If
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Me.ToXML, pLiqBkp)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Me.ToString, pLiqBkp)
 
             End If
 
@@ -636,20 +636,46 @@ Public Class cLiquidacion
 
     End Sub
 
-    Public Function ToXML() As String
-        ToXML = ""
+    Public Overrides Function ToString() As String
+        ToString = ""
+        Dim lLiqDet As cLiquidacion_Det = Nothing
+        Dim lTransf As cTransferencia = Nothing
+
         Try
-            Using sw As New StringWriter()
-                Dim serialitzador As New XmlSerializer(GetType(cLiquidacion), New Type() {GetType(cLiquidacion_Det), GetType(cTransferencia), GetType(cCheque), GetType(cEstado), GetType(cBanco), GetType(cAdmin), GetType(cUser)})
-                serialitzador.Serialize(sw, Me)
-                ToXML = sw.ToString()
-            End Using
+            ToString = Me.GetType.ToString & " Id_OrdenDeCompra = " & Me.Id_Liquidacion.ToString & vbCrLf
+
+            If IsNothing(Me.Vendedor) Then
+                ToString = Me.GetType.ToString & " Vendedor = NULL" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Vendedor = " & Me.Vendedor.ToString & vbCrLf
+            End If
+
+            ToString = Me.GetType.ToString & " Importe_Cash = " & Me.Importe_Cash.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_Cheques = " & Me.Importe_Cheques.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_NCredito = " & Me.Importe_NCredito.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_Retenciones = " & Me.Importe_Retenciones.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_Transferencias = " & Me.Importe_Transferencias.ToString("C") & vbCrLf
+
+            ToString = Me.GetType.ToString & " Observaciones = " & Me.Observaciones.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " EsNuevo = " & Me.EsNuevo.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Completa = " & Me.Completa.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Conciliada = " & Me.Conciliada & vbCrLf
+
+            ToString = Me.GetType.ToString & " Liquidacion_Det : " & vbCrLf
+            For Each lLiqDet In Me.Liquidacion_Det
+                ToString = vbTab & lLiqDet.GetType.ToString & lLiqDet.ToString
+            Next
+
+            ToString = Me.GetType.ToString & " Trasnferencias : " & vbCrLf
+            For Each lTransf In Me.Transferencias
+                ToString = vbTab & lTransf.GetType.ToString & lTransf.ToString
+            Next
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.ToXML")
-            gAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.ToXML" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cLiquidacion.ToString" & ex.Message)
         End Try
-
     End Function
 
 #End Region

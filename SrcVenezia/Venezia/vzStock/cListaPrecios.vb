@@ -189,7 +189,28 @@ Public Class cListaPrecios
         End Try
 
         Return lArray
+    End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+        Dim lListaDet As cListaPreciosDet
+
+        Try
+            ToString = Me.GetType.ToString & " IdLista = " & Me.IdLista.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " CodLista = " & Me.CodLista.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Descripcion = " & Me.Descripcion.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " FVig = " & Me.FVig.ToShortDateString & vbCrLf
+            ToString = Me.GetType.ToString & " FVto = " & Me.FVto.ToShortDateString & vbCrLf
+
+            ToString = Me.GetType.ToString & " Lista : " & vbCrLf
+            For Each lListaDet In Me.Lista
+                ToString = vbTab & lListaDet.GetType.ToString & lListaDet.ToString
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPrecios.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cListaPrecios.ToString" & ex.Message)
+        End Try
     End Function
 
 #End Region

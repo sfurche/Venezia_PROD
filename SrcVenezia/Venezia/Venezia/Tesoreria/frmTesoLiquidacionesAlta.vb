@@ -27,10 +27,10 @@ Public Class frmTesoLiquidacionesAlta
 
             Select Case Me.TipoDeOperacion
                 Case FrmBase.EnuOPERACION.MODIF
-                    mLiqBkp = mLiq.ToXML
+                    mLiqBkp = mLiq.ToString
                     SubCargarDatosLiq(mLiq)
                 Case FrmBase.EnuOPERACION.CONS
-                    mLiqBkp = mLiq.ToXML
+                    mLiqBkp = mLiq.ToString
                     SubCargarDatosLiq(mLiq)
                 Case FrmBase.EnuOPERACION.ALTA
                     mLiq = New cLiquidacion(gAdmin)

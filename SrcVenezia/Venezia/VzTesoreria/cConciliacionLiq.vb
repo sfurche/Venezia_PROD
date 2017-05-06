@@ -170,6 +170,28 @@ Public Class cConciliacionLiq
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Liq_Con = " & Me.Id_Liq_Con.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Liquidacion = " & Me.Id_Liquidacion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " _Id_Deudores = " & Me._Id_Deudores.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Importe = " & Me.Importe.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Aplicacion = " & Me.Aplicacion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha = " & Me.Fecha.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Hora = " & Me.Hora.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " IdUsr = " & Me.IdUsr.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Cheque = " & Me.Id_Cheque.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cConciliacionLiq.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cConciliacionLiq.ToString" & ex.Message)
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Base de Datos"

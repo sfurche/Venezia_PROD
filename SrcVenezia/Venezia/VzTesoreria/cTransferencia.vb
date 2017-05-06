@@ -11,7 +11,7 @@ Public Class cTransferencia
 
     Private _Id_Transferencia As Integer
     Private _Id_Liquidacion As Integer
-    Private _Fecha As String
+    Private _Fecha As Date
     Private _NroCli As String
     Private _Importe As Double
     Private _Estado As cEstado
@@ -36,11 +36,11 @@ Public Class cTransferencia
         End Set
     End Property
 
-    Public Property Fecha As String
+    Public Property Fecha As Date
         Get
             Return _Fecha
         End Get
-        Set(value As String)
+        Set(value As Date)
             _Fecha = value
         End Set
     End Property
@@ -231,6 +231,25 @@ Public Class cTransferencia
         End Try
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Transferencia = " & Me.Id_Transferencia.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Liquidacion = " & Me.Id_Liquidacion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha = " & Me.Fecha.ToShortDateString & vbCrLf
+            ToString = Me.GetType.ToString & " NroCli = " & Me.NroCli.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Importe = " & Me.Importe.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Observaciones = " & Me.Observaciones.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " EsNuevo = " & Me.EsNuevo.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cTransferencia.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cTransferencia.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Shared Functions"
@@ -245,12 +264,10 @@ Public Class cTransferencia
             lDt = Dat_GetTransferenciasxID(pAdmin, pId)
 
             If lDt.Rows.Count > 0 Then
-
                 For Each lDr In lDt.Rows
                     lTransf = New cTransferencia(pAdmin)
                     lTransf.Load(lDr)
                 Next
-
             End If
 
         Catch ex As Exception

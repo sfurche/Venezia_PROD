@@ -4,7 +4,7 @@ Imports VzAdmin
 Imports VzAdmin.cEnums
 Imports VzComercial
 
-<Serializable()> Public Class cCheque
+Public Class cCheque
 
 #Region "Declaraciones"
 
@@ -640,6 +640,36 @@ Imports VzComercial
         End Try
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Cheque = " & Me.Id_Cheque.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Liquidacion = " & Me.Id_Liquidacion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Propio = " & Me.Propio.ToString & vbCrLf
+
+            If IsNothing(Me.Banco) Then
+                ToString = Me.GetType.ToString & " Banco = NULL" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Banco = " & Me.Banco.ToString & vbCrLf
+            End If
+            ToString = Me.GetType.ToString & " Numero = " & Me.Numero.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Directo = " & Me.Directo.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Cruzado = " & Me.Cruzado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Orden = " & Me.Orden.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha_Pago = " & Me.Fecha_Pago.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha_Vencimiento = " & Me.Fecha_Vencimiento & vbCrLf
+            ToString = Me.GetType.ToString & " Importe = " & Me.Importe.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " NroCli = " & Me.NroCli.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Obaservaciones = " & Me.Obaservaciones.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Orden = " & Me.Id_Orden.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCheque.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cCheque.ToString" & ex.Message)
+        End Try
+    End Function
 
 #End Region
 
@@ -939,8 +969,6 @@ Imports VzComercial
         Return lChq
 
     End Function
-
-
 
 #End Region
 

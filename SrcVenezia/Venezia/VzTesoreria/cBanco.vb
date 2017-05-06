@@ -97,6 +97,23 @@ Public Class cBanco
         End Try
     End Sub
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Transferencia = " & Me.Id_Banco.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Liquidacion = " & Me.CodBCRA.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha = " & Me.Nombre.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " NroCli = " & Me.NombreRed.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Importe = " & Me.NombreComb.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.EsNuevo.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cBanco.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cBanco.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 

@@ -421,6 +421,32 @@ Public Class cLiquidacion_Det
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+        Dim lCheq As cCheque = Nothing
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Liq_Det = " & Me.Id_Liq_Det.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Id_Liquidacion = " & Me.Id_Liquidacion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Tipo_Valor = " & Me.Tipo_Valor.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Importe = " & Me.Importe.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Observaciones = " & Me.Observaciones.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " EsNuevo = " & Me.EsNuevo.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Completo = " & Me.Completo.ToString & vbCrLf
+
+            ToString = Me.GetType.ToString & " Detalle : " & vbCrLf
+            For Each lCheq In Me.Cheques
+                ToString = vbTab & lCheq.GetType.ToString & lCheq.ToString
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion_Det.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cLiquidacion_Det.ToString" & ex.Message)
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Shared Functions"

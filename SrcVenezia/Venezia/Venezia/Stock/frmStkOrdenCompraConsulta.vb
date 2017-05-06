@@ -1,4 +1,5 @@
 ﻿Imports VzAdmin
+Imports VzComercial
 Imports vzStock
 
 Public Class frmStkOrdenCompraConsulta
@@ -44,7 +45,6 @@ Public Class frmStkOrdenCompraConsulta
         End Try
     End Sub
 
-
     Private Sub SubSetCabecera()
         Try
 
@@ -70,6 +70,7 @@ Public Class frmStkOrdenCompraConsulta
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.SubSetCabecera:" & ex.Message)
         End Try
     End Sub
+
     Public Sub CargarEnGrilla(ByVal pOrdenC As cOrdenCompra)
         Dim lItem As New ListViewItem
         Try
@@ -147,6 +148,27 @@ Public Class frmStkOrdenCompraConsulta
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.btnBuscar_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.btnBuscar_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnBusqProv_Click(sender As Object, e As EventArgs) Handles btnBusqProv.Click
+        Try
+            DirectCast(Me.MdiParent, frmPrincipal).SubAbrirConsulta(cAdmin.EnuOBJETOS.Proveedores, Me)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.btnBusqProv_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.btnBusqProv_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub SetProveedor(ByVal pProove As cProveedor)
+        Try
+            lblNomProove.Text = pProove.Nombre
+            txtProove.Text = pProove.Id_Proveedor
+            txtProove.Tag = pProove
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.SetCliente")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.SetCliente:" & ex.Message)
         End Try
     End Sub
 

@@ -4,7 +4,7 @@ Imports VzAdmin
 Imports VzAdmin.cEnums
 Imports VzComercial
 
-<Serializable()> Public Class cProveedor
+Public Class cProveedor
 
 #Region "Propiedades"
 
@@ -161,7 +161,6 @@ Imports VzComercial
     '    Null = 0
     'End Enum
 
-
     Public Shared Function EnuBinarioGetCod(ByVal pTipoValor As enuBinario) As String
         Select Case pTipoValor
             Case enuBinario.Si
@@ -298,6 +297,42 @@ Imports VzComercial
 
         Return lArray
 
+    End Function
+
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_Proveedor = " & Me.Id_Proveedor.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Nombre = " & Me.Nombre.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Domicilio = " & Me.Domicilio.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " Localidad = " & Me.Localidad.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Cod_Post = " & Me.Cod_Post.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Telefono = " & Me.Telefono.ToString & vbCrLf
+
+            If IsNothing(Me.CatIva) Then
+                ToString = Me.GetType.ToString & " CatIva = NULL" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " CatIva = " & Me.CatIva.ToString & vbCrLf
+            End If
+
+            ToString = Me.GetType.ToString & " Cuit = " & Me.Cuit.ToString & vbCrLf
+
+            If IsNothing(Me.SitIB) Then
+                ToString = Me.GetType.ToString & " SitIB = NULL" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " SitIB = " & Me.SitIB.ToString & vbCrLf
+            End If
+            ToString = Me.GetType.ToString & " Nro_IB = " & Me.Nro_IB.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Mar_Reten = " & Me.Mar_Reten.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Mar_Reten_ARF = " & Me.Mar_Reten_ARF.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Alic_Reten = " & Me.Alic_Reten.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Alic_Reten_ARF = " & Me.Alic_Reten_ARF.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cProveedor.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cProveedor.ToString" & ex.Message)
+        End Try
     End Function
 
 #End Region

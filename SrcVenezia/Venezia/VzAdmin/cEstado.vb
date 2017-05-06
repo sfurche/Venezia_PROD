@@ -144,6 +144,20 @@ Public Class cEstado
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & "Id_Estado = " & Me.Id_Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & "TipoEstado = " & Me.TipoEstado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & "Importe = " & Me.Estado.ToString() & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Shared Funciones"

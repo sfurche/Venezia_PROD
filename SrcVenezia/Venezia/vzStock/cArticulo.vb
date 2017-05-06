@@ -254,6 +254,33 @@ Public Class cArticulo
         End Try
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_OrdenDeCompra = " & Me.CodArt.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Descripcion = " & Me.Descripcion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " PcioCosto = " & Me.PcioCosto.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " PcioVta = " & Me.PcioVta.ToString("C") & vbCrLf
+
+            If IsNothing(Me.Caja) Then
+                ToString = Me.GetType.ToString & " Caja = null" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Caja = " & Me.Caja.ToString & vbCrLf
+            End If
+            ToString = Me.GetType.ToString & " Importe = " & Me.PorComis.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " ImpStk = " & Me.ImpStk.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ArtacuStk = " & Me.ArtacuStk.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ArtRelXCaja = " & Me.ArtRelXCaja & vbCrLf
+            ToString = Me.GetType.ToString & " Marca_Baja = " & Me.Marca_Baja & vbCrLf
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cArticulo.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"
@@ -399,22 +426,7 @@ Public Class cArticulo
         End Try
     End Function
 
-    Public Function ToXML() As String
-        ToXML = ""
-        Try
-            Using sw As New StringWriter()
-                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                Dim serialitzador As New XmlSerializer(GetType(cArticulo), New Type() {GetType(cCajaArticulos), GetType(cAdmin)})
-                serialitzador.Serialize(sw, Me)
-                ToXML = sw.ToString()
-            End Using
 
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cArticulo.ToXML")
-            gAdmin.Log.fncGrabarLogERR("Error en cArticulo.ToXML" & ex.Message)
-        End Try
-
-    End Function
 
 #End Region
 

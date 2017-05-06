@@ -50,6 +50,12 @@ Public Class frmConsultas
                             DirectCast(Me.FrmLlamador, frmStkOrdenCompraABM).SetArticulo(lvwConsulta.SelectedItems(0).Tag)
                             Me.Close()
                     End Select
+                ElseIf Me.FrmLlamador.Tag = "STKCONSULTAORDENDECOMPRA" Then
+                    Select Case pTipoObjeto
+                        Case cAdmin.EnuOBJETOS.Proveedores
+                            DirectCast(Me.FrmLlamador, frmStkOrdenCompraConsulta).SetProveedor(lvwConsulta.SelectedItems(0).Tag)
+                            Me.Close()
+                    End Select
                 End If
             End If
         Catch ex As Exception
@@ -216,4 +222,5 @@ Public Class frmConsultas
                 Me.Close()
         End Select
     End Sub
+
 End Class

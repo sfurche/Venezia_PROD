@@ -143,6 +143,32 @@ Public Class cListaPreciosDet
         End Try
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " IdDetalleLista = " & Me.IdDetalleLista.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " IdLista = " & Me.IdLista & vbCrLf
+            ToString = Me.GetType.ToString & " CodLista = " & Me.CodLista & vbCrLf
+
+            If IsNothing(Me.Articulo) Then
+                ToString = Me.GetType.ToString & " Articulo = null" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Articulo = " & Me.Articulo.ToString & vbCrLf
+            End If
+
+            ToString = Me.GetType.ToString & " CodProd = " & Me.CodProd.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " PcioUnitario = " & Me.PcioUnitario.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " PcioCaja = " & Me.PcioCaja.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " PorComision = " & Me.PorComision.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Nuevo = " & Me.Nuevo.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cListaPreciosDet.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cListaPreciosDet.ToString" & ex.Message)
+        End Try
+    End Function
+
     Public Shared Function GetListaPreciosDetxIdDet(ByRef pAdmin As VzAdmin.cAdmin, ByVal pCodListaDet As Integer) As cListaPreciosDet
         Dim lDt As DataTable
         Dim lDr As DataRow

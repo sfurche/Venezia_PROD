@@ -129,6 +129,25 @@ Public Class cFormulario
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " CodForm = " & Me.CodForm.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Descripcion = " & Me.Descripcion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " DescRed = " & Me.DescRed.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ImputStock = " & Me.ImputStock.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ImputSdoCC = " & Me.ImputSdoCC.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ImputIVA = " & Me.ImputIVA.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " UltNroComp = " & Me.UltNroComp.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " ColorBack = " & Me.ColorBack.ToString & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cFormulario.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cFormulario.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"
@@ -204,4 +223,5 @@ Public Class cFormulario
     End Function
 
 #End Region
+
 End Class

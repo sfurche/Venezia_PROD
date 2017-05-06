@@ -21,10 +21,10 @@ Public Class frmTesoLiquidacionesAltaRapida
             dtpFechaLiq.Enabled = False
             Select Case Me.TipoDeOperacion
                 Case FrmBase.EnuOPERACION.MODIF
-                    mLiqBkp = mLiq.ToXML
+                    mLiqBkp = mLiq.ToString
                     SubCargarDatosLiq(mLiq)
                 Case FrmBase.EnuOPERACION.CONS
-                    mLiqBkp = mLiq.ToXML
+                    mLiqBkp = mLiq.ToString
                     SubCargarDatosLiq(mLiq)
                     'Si solo es consulta inhabilito todos los controles.
                     groupGeneral.Enabled = False

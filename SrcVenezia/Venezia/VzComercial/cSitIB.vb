@@ -101,6 +101,23 @@ Public Class cSitIB
 
     End Function
 
+
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_SitIB = " & Me.Id_SitIB.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Cod_Sit_IB = " & Me.Cod_Sit_IB.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Descripcion = " & Me.Descripcion.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " Formato_Nro_IB = " & Me.Formato_Nro_IB.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & " Tasa_Percep = " & Me.Tasa_Percep.ToString() & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCondicionIVA.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cCondicionIVA.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"

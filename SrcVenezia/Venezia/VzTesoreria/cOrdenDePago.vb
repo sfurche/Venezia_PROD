@@ -267,22 +267,38 @@ Imports VzTesoreria
 
     End Sub
 
-    Public Function ToXML() As String
-        ToXML = ""
-        Try
-            Using sw As New StringWriter()
-                'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-                Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cCondicionIVA), GetType(cSitIB), GetType(cEstado), GetType(cAdmin), GetType(cUser), GetType(VzAdmin.cEnums.enuBinario), GetType(cProveedor)})
+    Public Overrides Function ToString() As String
+        ToString = ""
+        Dim lCheq As cCheque = Nothing
 
-                serialitzador.Serialize(sw, Me)
-                ToXML = sw.ToString()
-            End Using
+        Try
+            ToString = Me.GetType.ToString & " Id_Orden = " & Me.Id_Orden.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha = " & Me.Fecha.ToShortDateString & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_cash = " & Me.Importe_cash.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_cheques = " & Me.Importe_cheques.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Importe_transferencia = " & Me.Importe_transferencia.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " Tipo_Destino = " & Me.Tipo_Destino.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Destino = " & Me.Destino.ToString & vbCrLf
+
+            If IsNothing(Me.Proveedor) Then
+                ToString = Me.GetType.ToString & " Proveedor = NULL" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Proveedor = " & Me.Proveedor.ToString & vbCrLf
+            End If
+
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Observaciones = " & Me.Observaciones.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " EsNuevo = " & Me.EsNuevo.ToString & vbCrLf
+
+            ToString = Me.GetType.ToString & " Cheques : " & vbCrLf
+            For Each lCheq In Me.Cheques
+                ToString = vbTab & lCheq.GetType.ToString & lCheq.ToString
+            Next
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenDePago.ToXML")
-            gAdmin.Log.fncGrabarLogERR("Error en cOrdenDePago.ToXML" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion_Det.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cLiquidacion_Det.ToString" & ex.Message)
         End Try
-
 
     End Function
 
@@ -301,7 +317,7 @@ Imports VzTesoreria
             _Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.Orden_De_Pago)
             _EsNuevo = False
             _Cheques = cCheque.GetChequesxOrdenDePago(gAdmin, Me.Id_Orden)
-            ObjetoInicial = Me.ToXML()
+            ObjetoInicial = Me.ToString()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenDePago.Load")
@@ -404,7 +420,7 @@ Imports VzTesoreria
                 End If
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordenes_de_pago", Me.Id_Orden, gAdmin.User.Id, Me.ToXML, ObjetoInicial)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordenes_de_pago", Me.Id_Orden, gAdmin.User.Id, Me.ToString, ObjetoInicial)
             End If
 
             Guardar = True

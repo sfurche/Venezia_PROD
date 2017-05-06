@@ -79,6 +79,20 @@ Public Class cCajaArticulos
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & " Id_OrdenDeCompra = " & Me.CodCaja.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Descripcion = " & Me.Descripcion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " PcioCosto = " & Me.CantUni.ToString() & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCajaArticulos.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cCajaArticulos.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"

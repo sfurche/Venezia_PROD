@@ -88,6 +88,21 @@ Public Class cCondicionIVA
 
     End Function
 
+    Public Overrides Function ToString() As String
+        ToString = ""
+
+        Try
+            ToString = Me.GetType.ToString & "Id_CatIva = " & Me.Id_CatIva.ToString & vbCrLf
+            ToString = Me.GetType.ToString & "Descripcion = " & Me.Descripcion.ToString & vbCrLf
+            ToString = Me.GetType.ToString & "TasaIva = " & Me.TasaIva.ToString() & vbCrLf
+            ToString = Me.GetType.ToString & "SobreTasaIva = " & Me.SobreTasaIva.ToString() & vbCrLf
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cCondicionIVA.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cCondicionIVA.ToString" & ex.Message)
+        End Try
+    End Function
+
 #End Region
 
 #Region "Base de Datos"
@@ -163,4 +178,5 @@ Public Class cCondicionIVA
     End Function
 
 #End Region
+
 End Class

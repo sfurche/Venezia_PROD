@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Imports VzAdmin
 Imports VzComercial
 
-<Serializable()> Public Class cOrdenCompra
+Public Class cOrdenCompra
 
     Private gAdmin As VzAdmin.cAdmin
 
@@ -132,7 +132,7 @@ Imports VzComercial
                 Me.FechaEntrega = lDr("fecha_entrega")
                 Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.OrdenCompra)
                 Me.EsNuevo = False
-                Me.ObjetoInicial = Me.ToXML
+                Me.ObjetoInicial = Me.ToString
             End If
 
         Catch ex As Exception
@@ -206,7 +206,7 @@ Imports VzComercial
                 lCnn.Close()
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToXML, ObjetoInicial)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToString, ObjetoInicial)
             End If
 
             Guardar = True
@@ -255,19 +255,31 @@ Imports VzComercial
         End Try
     End Sub
 
-    Public Function ToXML() As String
-        ToXML = ""
+    Public Overrides Function ToString() As String
+        ToString = ""
+        Dim lOCdet As cOrdenCompraDet = Nothing
+
         Try
-            'Using sw As New StringWriter()
-            '    'Dim serialitzador As New XmlSerializer(GetType(cOrdenDePago), New Type() {GetType(cCheque), GetType(cProveedor), New Type() {GetType(cCondicionIVA), GetType(cSitIB)}, GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-            '    Dim serialitzador As New XmlSerializer(GetType(cOrdenCompra), New Type() {GetType(cOrdenCompraDet), GetType(cCondicionIVA), GetType(cSitIB), GetType(cArticulo), GetType(cEstado), GetType(cAdmin), GetType(cUser)})
-            '    serialitzador.Serialize(sw, Me)
-            ToXML = Me.ToString()
-            'End Using
+            ToString = Me.GetType.ToString & " Id_OrdenDeCompra = " & Me.Id_OrdenDeCompra.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Fecha = " & Me.Fecha.ToShortDateString & vbCrLf
+            If IsNothing(Me.Proveedor) Then
+                ToString = Me.GetType.ToString & " Proveedor = null" & vbCrLf
+            Else
+                ToString = Me.GetType.ToString & " Proveedor = " & Me.Proveedor.ToString & vbCrLf
+            End If
+            ToString = Me.GetType.ToString & " Importe = " & Me.Importe.ToString("C") & vbCrLf
+            ToString = Me.GetType.ToString & " FechaEntrega = " & Me.FechaEntrega.ToShortDateString & vbCrLf
+            ToString = Me.GetType.ToString & " Estado = " & Me.Estado.ToString & vbCrLf
+            ToString = Me.GetType.ToString & " Observaciones = " & Me.Observaciones & vbCrLf
+
+            ToString = Me.GetType.ToString & " Detalle : " & vbCrLf
+            For Each lOCdet In Me.Detalle
+                ToString = vbTab & lOCdet.GetType.ToString & lOCdet.ToString
+            Next
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ToXML")
-            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ToXML" & ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.ToString")
+            gAdmin.Log.fncGrabarLogERR("Error en cOrdenCompra.ToString" & ex.Message)
         End Try
 
     End Function

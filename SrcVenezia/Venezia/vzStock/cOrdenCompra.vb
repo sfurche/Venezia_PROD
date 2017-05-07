@@ -130,6 +130,7 @@ Public Class cOrdenCompra
                 Me.Detalle = cOrdenCompraDet.GetOrdenCompraDetxIdOrden(Me.gAdmin, lDr("id_ordencompra"))
                 Me.Importe = lDr("importe")
                 Me.FechaEntrega = lDr("fecha_entrega")
+                Me.FechaEntrega = lDr("observaciones")
                 Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.OrdenCompra)
                 Me.EsNuevo = False
                 Me.ObjetoInicial = Me.ToString
@@ -175,7 +176,7 @@ Public Class cOrdenCompra
 
                 Me.Id_OrdenDeCompra = lDt(0)(0)
 
-                'Seteo la orden de pago en los cheques vinculados
+                'Seteo la orden en el detalle
                 For Each lOCDet In Me.Detalle
                     lOCDet.Id_OrdenDeCompra = Me.Id_OrdenDeCompra
                     lOCDet.Guardar()
@@ -185,8 +186,7 @@ Public Class cOrdenCompra
 
             Else  'ACA VA EL UPDATE 
 
-                'Sql = "CALL vz_ordencompra_upd(1, '2017/03/27', 16, 2000, '2017/03/31', 19);"
-                Sql = "CALL vz_ordencompra_ins( #IdOrdenCompra#, '#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', '#Observac#', #idusr#);"
+                Sql = "CALL vz_ordencompra_upd( #IdOrdenCompra#, '#Fecha#', #CodProve#, #Importe#, '#FechaEntrega#', '#Observac#', #idusr#);"
                 Sql = Sql.Replace("#IdOrdenCompra#", Me.Proveedor.Id_Proveedor)
                 Sql = Sql.Replace("#Fecha#", cFunciones.gFncConvertDateToString(Me.Fecha, "YYYY/MM/DD"))
                 Sql = Sql.Replace("#CodProve#", Me.Proveedor.Id_Proveedor)
@@ -202,11 +202,14 @@ Public Class cOrdenCompra
                     lCnn.Open()
                 End If
 
+
+                'FALTA AJUSTAR EL DETALLE DE ABM
+
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToString, ObjetoInicial)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToString, Me.ObjetoInicial)
             End If
 
             Guardar = True
@@ -321,7 +324,7 @@ Public Class cOrdenCompra
 
             For Each lDr In lDt.Rows
                 lOC = New cOrdenCompra(pAdmin)
-                lOC.Load(lDt.Rows(0))
+                lOC.Load(lDr)
                 lArray.Add(lOC)
             Next
 
@@ -385,7 +388,7 @@ Public Class cOrdenCompra
             lCnn = pAdmin.DbCnn.GetInstanceCon
             Sql = "SELECT * FROM vz_ordencompra WHERE fecha_entrega >= '#pfecha_entregaD#'  AND fecha_entrega <= '#pfecha_entregaH#' "
             If Not IsNothing(pProveedor) Then
-                Sql = Sql & " And CodProve = 4 = #pIdCodProve# ;"
+                Sql = Sql & " And CodProve = #pIdCodProve# ;"
                 Sql = Sql.Replace("#pIdCodProve#", pProveedor.Id_Proveedor)
             End If
             Sql = Sql.Replace("#pfecha_entregaD#", cFunciones.gFncConvertDateToString(pFEntregaD, "YYYY/MM/DD"))
@@ -406,7 +409,6 @@ Public Class cOrdenCompra
             End With
 
             Return lDt
-
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cOrdenCompra.Dat_GetOrdenCompraxProvFecEntregaDH")

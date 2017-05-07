@@ -6,6 +6,7 @@ Imports vzStock
 
 Public Class frmStkOrdenCompraABM
     Public mOrdenCompra As cOrdenCompra
+    Private mObjetoOriginal As String
 
     Dim mPermiso As cPermiso = Nothing
 
@@ -20,6 +21,18 @@ Public Class frmStkOrdenCompraABM
             SubSetCabecera()
 
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            Select Case Me.TipoDeOperacion
+                Case FrmBase.EnuOPERACION.MODIF
+                    mObjetoOriginal = mOrdenCompra.ToString
+                    CargarDatos(mOrdenCompra)
+                Case FrmBase.EnuOPERACION.CONS
+                    CargarDatos(mOrdenCompra)
+                Case FrmBase.EnuOPERACION.ALTA
+                    mOrdenCompra = New cOrdenCompra(gAdmin)
+                Case Else
+                    Me.Close()
+            End Select
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.frmStkOrdenCompraAlta_Load")
@@ -58,6 +71,23 @@ Public Class frmStkOrdenCompraABM
         End Try
     End Sub
 
+    Public Sub CargarDatos(ByRef pOrdenC As cOrdenCompra)
+        Dim lDet As cOrdenCompraDet = Nothing
+        Try
+            dtpFechaEntrega.Value = pOrdenC.FechaEntrega
+            SetProveedor(pOrdenC.Proveedor)
+            txtObservac.Text = pOrdenC.Observaciones
+
+            For Each lDet In pOrdenC.Detalle
+                CargarItemGrilla(lDet)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.CargarDatos")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.CargarDatos:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub txtProove_LostFocus(sender As Object, e As EventArgs) Handles txtProove.LostFocus
         Dim pProove As cProveedor = Nothing
         Try
@@ -70,6 +100,10 @@ Public Class frmStkOrdenCompraABM
                     lblNomProove.Text = "_____________"
                     txtProove.Tag = Nothing
                 End If
+            Else
+                txtProove.Text = ""
+                lblNomProove.Text = "_____________"
+                txtProove.Tag = Nothing
             End If
 
         Catch ex As Exception

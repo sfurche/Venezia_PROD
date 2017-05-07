@@ -90,6 +90,17 @@ Public Class frmStkOrdenCompraConsulta
 
     End Sub
 
+    Private Sub lvwConsulta_DoubleClick(sender As Object, e As EventArgs) Handles lvwConsulta.DoubleClick
+        Try
+
+            frmPrincipal.SubArirCOrdenDeCompra(lvwConsulta.SelectedItems(0).Tag, Me.FrmLlamador, EnuOPERACION.CONS)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.lvwConsulta_DoubleClick")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.lvwConsulta_DoubleClick:" & ex.Message)
+        End Try
+    End Sub
+
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
@@ -158,6 +169,30 @@ Public Class frmStkOrdenCompraConsulta
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.btnBusqProv_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.btnBusqProv_Click:" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub txtProove_LostFocus(sender As Object, e As EventArgs) Handles txtProove.LostFocus
+        Dim pProove As cProveedor = Nothing
+        Try
+            If Not txtProove.Text.Trim = "" Then
+                pProove = cProveedor.GetProveedorxNro(gAdmin, txtProove.Text.Trim)
+                If Not IsNothing(pProove) Then
+                    SetProveedor(pProove)
+                Else
+                    txtProove.Text = ""
+                    lblNomProove.Text = "_____________"
+                    txtProove.Tag = Nothing
+                End If
+            Else
+                txtProove.Text = ""
+                lblNomProove.Text = "_____________"
+                txtProove.Tag = Nothing
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.txtProove_LostFocus")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.txtProove_LostFocus:" & ex.Message)
         End Try
     End Sub
 

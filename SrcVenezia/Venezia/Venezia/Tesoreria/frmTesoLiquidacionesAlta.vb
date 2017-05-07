@@ -32,6 +32,7 @@ Public Class frmTesoLiquidacionesAlta
                 Case FrmBase.EnuOPERACION.CONS
                     mLiqBkp = mLiq.ToString
                     SubCargarDatosLiq(mLiq)
+                    SetReadOnly()
                 Case FrmBase.EnuOPERACION.ALTA
                     mLiq = New cLiquidacion(gAdmin)
                     SubSetCabeceraCheque()

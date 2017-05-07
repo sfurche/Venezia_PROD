@@ -2,6 +2,7 @@
 Imports VzTesoreria
 Imports VzAdmin
 Imports VzProcesos
+Imports vzStock
 
 Public Class frmPrincipal
     'Inherits System.Windows.Forms.Form
@@ -121,6 +122,33 @@ Public Class frmPrincipal
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "FrmPrincipal.SubArirCheque")
             gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.SubArirCheque:" & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub SubArirCOrdenDeCompra(ByRef pOrden As cOrdenCompra, ByRef pFrmLlamador As TemplateForm, ByVal pModo As FrmBase.EnuOPERACION)
+        Dim Ventana As New frmStkOrdenCompraABM
+        Dim F As Form
+        Dim i As Integer
+        Try
+            Ventana.Text = "Orden de Compra " & pOrden.Id_OrdenDeCompra.ToString
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
+                    End If
+                End If
+            Next
+            Ventana.MdiParent = Me
+            Ventana.FrmLlamador = pFrmLlamador
+            Ventana.TipoDeOperacion = pModo
+            Ventana.mOrdenCompra = pOrden
+            Ventana.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "FrmPrincipal.SubArirCOrdenDeCompra")
+            gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.SubArirCOrdenDeCompra:" & ex.Message)
         End Try
     End Sub
 
@@ -1020,27 +1048,27 @@ Public Class frmPrincipal
     Private Sub EnviarMailingPendienteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnviarMailingPendienteToolStripMenuItem.Click
 
         Dim Ventana As New frmBatchMailingAutomatico
-            Dim F As Form
-            Dim i As Integer
-            Dim Cant As Integer = 0
-            Try
-                For i = 0 To Me.MdiChildren.Length - 1
-                    F = Me.MdiChildren.GetValue(i)
-                    If F.GetType Is Ventana.GetType Then
-                        If F.Text = Ventana.Text Then
-                            F.WindowState = FormWindowState.Normal
-                            F.Focus()
-                            Exit Sub
-                        End If
+        Dim F As Form
+        Dim i As Integer
+        Dim Cant As Integer = 0
+        Try
+            For i = 0 To Me.MdiChildren.Length - 1
+                F = Me.MdiChildren.GetValue(i)
+                If F.GetType Is Ventana.GetType Then
+                    If F.Text = Ventana.Text Then
+                        F.WindowState = FormWindowState.Normal
+                        F.Focus()
+                        Exit Sub
                     End If
-                Next
-                Ventana.MdiParent = Me
-                If Cant > 0 Then
-                    Ventana.Text = Ventana.Text & "" & Cant
                 End If
-                Ventana.TipoDeOperacion = EnuOPERACION.ALTA
-                Ventana.Show()
-            Catch ex As Exception
+            Next
+            Ventana.MdiParent = Me
+            If Cant > 0 Then
+                Ventana.Text = Ventana.Text & "" & Cant
+            End If
+            Ventana.TipoDeOperacion = EnuOPERACION.ALTA
+            Ventana.Show()
+        Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmPrincipal.EnviarMailingPendienteToolStripMenuItem_Click")
             gAdmin.Log.fncGrabarLogERR("Error en frmPrincipal.EnviarMailingPendienteToolStripMenuItem_Click:" & ex.Message)
         End Try

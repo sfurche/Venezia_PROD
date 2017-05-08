@@ -29,7 +29,11 @@ Public Class frmStkOrdenCompraABM
                 Case FrmBase.EnuOPERACION.CONS
                     CargarDatos(mOrdenCompra)
                 Case FrmBase.EnuOPERACION.ALTA
-                    mOrdenCompra = New cOrdenCompra(gAdmin)
+                    If IsNothing(mOrdenCompra) Then
+                        mOrdenCompra = New cOrdenCompra(gAdmin)
+                    Else 'Si es enuoperacion alta y tengo un objeto en mordencoompra estan clonando la orden.
+                        CargarClon()
+                    End If
                 Case Else
                     Me.Close()
             End Select
@@ -85,6 +89,25 @@ Public Class frmStkOrdenCompraABM
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.CargarDatos")
             gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.CargarDatos:" & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub CargarClon()
+        Dim lDet As cOrdenCompraDet = Nothing
+        Try
+
+            SetProveedor(mOrdenCompra.Proveedor)
+            txtObservac.Text = mOrdenCompra.Observaciones
+
+            For Each lDet In mOrdenCompra.Detalle
+                CargarItemGrilla(lDet)
+            Next
+
+            mOrdenCompra = Nothing
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraABM.CargarClon")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraABM.CargarClon:" & ex.Message)
         End Try
     End Sub
 

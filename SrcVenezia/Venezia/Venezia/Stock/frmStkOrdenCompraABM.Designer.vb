@@ -165,11 +165,11 @@ Partial Class frmStkOrdenCompraABM
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(76, 171)
+        Me.Label3.Location = New System.Drawing.Point(69, 171)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(204, 32)
+        Me.Label3.Size = New System.Drawing.Size(211, 32)
         Me.Label3.TabIndex = 9
-        Me.Label3.Text = "Obsevaciones:"
+        Me.Label3.Text = "Obsevaciones :"
         '
         'btnBusqProv
         '

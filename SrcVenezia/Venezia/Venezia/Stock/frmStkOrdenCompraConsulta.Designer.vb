@@ -22,6 +22,7 @@ Partial Class frmStkOrdenCompraConsulta
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.btnSalir = New System.Windows.Forms.Button()
@@ -35,8 +36,11 @@ Partial Class frmStkOrdenCompraConsulta
         Me.dtpFechaEntregaD = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtProove = New System.Windows.Forms.TextBox()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmsBtnClonar = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -175,6 +179,19 @@ Partial Class frmStkOrdenCompraConsulta
         Me.txtProove.TabIndex = 5
         Me.txtProove.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(40, 40)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmsBtnClonar})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(312, 50)
+        '
+        'cmsBtnClonar
+        '
+        Me.cmsBtnClonar.Name = "cmsBtnClonar"
+        Me.cmsBtnClonar.Size = New System.Drawing.Size(311, 46)
+        Me.cmsBtnClonar.Text = "Clonar Orden"
+        '
         'frmStkOrdenCompraConsulta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
@@ -188,6 +205,7 @@ Partial Class frmStkOrdenCompraConsulta
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -205,4 +223,6 @@ Partial Class frmStkOrdenCompraConsulta
     Friend WithEvents btnBuscar As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents dtpFechaEntregaH As DateTimePicker
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents cmsBtnClonar As ToolStripMenuItem
 End Class

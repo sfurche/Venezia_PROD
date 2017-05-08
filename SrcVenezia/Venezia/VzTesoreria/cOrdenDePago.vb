@@ -420,7 +420,7 @@ Imports VzTesoreria
                 End If
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordenes_de_pago", Me.Id_Orden, gAdmin.User.Id, Me.ToString, ObjetoInicial)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordenes_de_pago", Me.Id_Orden, gAdmin.User.Id, Sql, Me.ToString, ObjetoInicial)
             End If
 
             Guardar = True

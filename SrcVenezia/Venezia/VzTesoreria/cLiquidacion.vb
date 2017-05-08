@@ -405,7 +405,7 @@ Public Class cLiquidacion
                 End If
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Me.ToString, pLiqBkp)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_liquidaciones", Me.Id_Liquidacion, gAdmin.User.Id, Sql, Me.ToString, pLiqBkp)
 
             End If
 

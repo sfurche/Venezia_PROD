@@ -168,7 +168,7 @@ Public Class cOrdenCompraDet
                 lCnn.Close()
 
                 'Grabo el log de auditoria.
-                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra_det", Me.Id_OrdenDeCompra, gAdmin.User.Id, Me.ToString, ObjetoInicial)
+                gAdmin.Log.fncGrabarLogAuditoria("UPD", "vz_ordencompra_det", Me.Id_OrdenDeCompra, gAdmin.User.Id, Sql, Me.ToString, ObjetoInicial)
             End If
 
             Guardar = True

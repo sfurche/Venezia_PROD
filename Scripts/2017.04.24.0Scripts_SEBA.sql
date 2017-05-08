@@ -2,7 +2,6 @@ update vz_settings
 set valor = '17.4.24.0'
 where id_setting = 4;
 
-
 /*----------------------------------------------------------------------------------------*/
 
 ALTER TABLE vz_ordencompra ADD observaciones text;
@@ -59,8 +58,25 @@ END //
 
 /*----------------------------------------------------------------------------------------*/
 
+DROP PROCEDURE IF EXISTS vz_log_ins_audit;
 
+DELIMITER //
 
+CREATE PROCEDURE `vz_log_ins_audit`( 
+  IN _fecha_log TIMESTAMP ,
+  IN _evento VARCHAR(100) ,
+  IN _tipo_obj VARCHAR(100) ,
+  IN _id_obj INT ,
+  IN _idusr INT  ,
+  IN _informacion TEXT,
+  IN _old_value TEXT,
+  IN _new_value TEXT)
+BEGIN
+ 
+ INSERT INTO vz_log (fecha_log, evento, tipo_obj, id_obj,idusr, informacion, old_value, new_value)
+ VALUES (_fecha_log, _evento, _tipo_obj, _id_obj,_idusr, _informacion,_old_value, _new_value);
+
+END //
 
 /*----------------------------------------------------------------------------------------*/
 drop procedure IF EXISTS vz_ordencompra_ins;

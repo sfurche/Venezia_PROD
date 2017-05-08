@@ -51,7 +51,7 @@ Public Class cAdmin
 
         'gDbCnn = New cDBCnn(pBdServer, pBdName, "sebastian", "furche.1", pBdPort)
         gDbCnn = New cDBCnn(pBdServer, pBdName, "venezia", "metallica.1979", pBdPort)
-        gLog = New cLog()
+        gLog = New cLog(Me)
         gUser = New cUser(Me)
 
         _DbCnn = gDbCnn

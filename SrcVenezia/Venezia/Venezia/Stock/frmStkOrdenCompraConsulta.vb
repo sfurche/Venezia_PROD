@@ -207,4 +207,18 @@ Public Class frmStkOrdenCompraConsulta
         End Try
     End Sub
 
+    Private Sub cmsBtnClonar_Click(sender As Object, e As EventArgs) Handles cmsBtnClonar.Click
+        Dim lOrdenC As cOrdenCompra = Nothing
+        Dim lOrdenCDet As cOrdenCompraDet = Nothing
+        Try
+            lOrdenC = lvwConsulta.SelectedItems(0).Tag
+
+            frmPrincipal.SubArirCOrdenDeCompra(lOrdenC, Me.FrmLlamador, EnuOPERACION.ALTA)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "frmStkOrdenCompraConsulta.cmsBtnClonar_Click")
+            gAdmin.Log.fncGrabarLogERR("Error en frmStkOrdenCompraConsulta.cmsBtnClonar_Click:" & ex.Message)
+        End Try
+    End Sub
+
 End Class

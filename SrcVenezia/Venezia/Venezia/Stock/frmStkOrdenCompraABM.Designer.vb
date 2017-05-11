@@ -92,7 +92,7 @@ Partial Class frmStkOrdenCompraABM
         Me.lvwConsulta.GridLines = True
         Me.lvwConsulta.Location = New System.Drawing.Point(15, 113)
         Me.lvwConsulta.Name = "lvwConsulta"
-        Me.lvwConsulta.Size = New System.Drawing.Size(1824, 646)
+        Me.lvwConsulta.Size = New System.Drawing.Size(1894, 646)
         Me.lvwConsulta.TabIndex = 3
         Me.lvwConsulta.UseCompatibleStateImageBehavior = False
         Me.lvwConsulta.View = System.Windows.Forms.View.Details
@@ -101,7 +101,7 @@ Partial Class frmStkOrdenCompraABM
         '
         Me.imgAbrir.Image = Global.Venezia.My.Resources.Resources.folder_view
         Me.imgAbrir.InitialImage = Global.Venezia.My.Resources.Resources.folder_view
-        Me.imgAbrir.Location = New System.Drawing.Point(1741, 43)
+        Me.imgAbrir.Location = New System.Drawing.Point(1843, 37)
         Me.imgAbrir.Name = "imgAbrir"
         Me.imgAbrir.Size = New System.Drawing.Size(60, 60)
         Me.imgAbrir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -131,7 +131,7 @@ Partial Class frmStkOrdenCompraABM
         Me.GroupBox1.ForeColor = System.Drawing.Color.Gainsboro
         Me.GroupBox1.Location = New System.Drawing.Point(17, 16)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1845, 274)
+        Me.GroupBox1.Size = New System.Drawing.Size(1909, 274)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos de la Orden"
@@ -141,7 +141,7 @@ Partial Class frmStkOrdenCompraABM
         Me.txtObservac.Location = New System.Drawing.Point(299, 171)
         Me.txtObservac.Multiline = True
         Me.txtObservac.Name = "txtObservac"
-        Me.txtObservac.Size = New System.Drawing.Size(1507, 86)
+        Me.txtObservac.Size = New System.Drawing.Size(1604, 86)
         Me.txtObservac.TabIndex = 12
         '
         'lblNomProove
@@ -156,7 +156,7 @@ Partial Class frmStkOrdenCompraABM
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(1385, 62)
+        Me.Label4.Location = New System.Drawing.Point(1487, 56)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(350, 32)
         Me.Label4.TabIndex = 10
@@ -204,7 +204,7 @@ Partial Class frmStkOrdenCompraABM
         '
         Me.btnSalir.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSalir.Location = New System.Drawing.Point(1680, 1155)
+        Me.btnSalir.Location = New System.Drawing.Point(1746, 1151)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(180, 61)
         Me.btnSalir.TabIndex = 7
@@ -226,7 +226,7 @@ Partial Class frmStkOrdenCompraABM
         '
         Me.btnGuardar.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnGuardar.Location = New System.Drawing.Point(1491, 1155)
+        Me.btnGuardar.Location = New System.Drawing.Point(1557, 1151)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(179, 61)
         Me.btnGuardar.TabIndex = 10
@@ -252,7 +252,7 @@ Partial Class frmStkOrdenCompraABM
         Me.GroupBox2.ForeColor = System.Drawing.Color.Gainsboro
         Me.GroupBox2.Location = New System.Drawing.Point(17, 294)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(1845, 837)
+        Me.GroupBox2.Size = New System.Drawing.Size(1913, 837)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Detalle de la Orden"
@@ -354,7 +354,7 @@ Partial Class frmStkOrdenCompraABM
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1875, 1240)
+        Me.ClientSize = New System.Drawing.Size(1938, 1240)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnGuardar)
         Me.Controls.Add(Me.btnSalir)

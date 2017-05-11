@@ -130,7 +130,7 @@ Public Class cOrdenCompra
                 Me.Detalle = cOrdenCompraDet.GetOrdenCompraDetxIdOrden(Me.gAdmin, lDr("id_ordencompra"))
                 Me.Importe = lDr("importe")
                 Me.FechaEntrega = lDr("fecha_entrega")
-                Me.FechaEntrega = lDr("observaciones")
+                Me.Observaciones = lDr("observaciones")
                 Me.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, lDr("id_estado"), cEstado.enuTipoEstado.OrdenCompra)
                 Me.EsNuevo = False
                 Me.ObjetoInicial = Me.ToString
@@ -202,8 +202,11 @@ Public Class cOrdenCompra
                     lCnn.Open()
                 End If
 
-
-                'FALTA AJUSTAR EL DETALLE DE ABM
+                'Seteo la orden en el detalle
+                For Each lOCDet In Me.Detalle
+                    lOCDet.Id_OrdenDeCompra = Me.Id_OrdenDeCompra
+                    lOCDet.Guardar()
+                Next
 
                 Cmd.ExecuteNonQuery()
                 lCnn.Close()

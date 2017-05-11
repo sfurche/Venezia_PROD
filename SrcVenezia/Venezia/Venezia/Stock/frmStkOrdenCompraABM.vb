@@ -189,6 +189,7 @@ Public Class frmStkOrdenCompraABM
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         Dim lItem As ListViewItem = Nothing
+        Dim lOcDet As cOrdenCompraDet = Nothing
 
         Try
             'VALIDACIONES
@@ -206,19 +207,21 @@ Public Class frmStkOrdenCompraABM
                     mOrdenCompra.EsNuevo = True
                 End If
 
+                'Cargo el detalle de los articulos
+                For Each lItem In lvwConsulta.Items
+                    lOcDet = DirectCast(lItem.Tag, cOrdenCompraDet)
+                    If lOcDet.EsNuevo = True Then
+                        mOrdenCompra.Detalle.Add(lOcDet)
+                    End If
+                Next
+
                 'GUARDO LA INFORMAION
                 mOrdenCompra.Fecha = Date.Today
                 mOrdenCompra.FechaEntrega = dtpFechaEntrega.Value
                 mOrdenCompra.Proveedor = DirectCast(txtProove.Tag, cProveedor)
                 mOrdenCompra.Observaciones = txtObservac.Text.Trim
 
-                For Each lItem In lvwConsulta.Items
-                    mOrdenCompra.Detalle.Add(DirectCast(lItem.Tag, cOrdenCompraDet))
-                Next
-
                 mOrdenCompra.Guardar()
-            Else 'update
-
 
             End If
 
@@ -239,7 +242,7 @@ Public Class frmStkOrdenCompraABM
         Try
 
             openFD.Title = "Seleccionar archivos"
-            openFD.Filter = "Archivos Excel(*.txt)|*.txt|Todos los archivos(*.*)|*.*"
+            openFD.Filter = "Archivos Texto(*.txt)|*.txt|Todos los archivos(*.*)|*.*"
             openFD.Multiselect = False
             openFD.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
 
@@ -299,8 +302,6 @@ Public Class frmStkOrdenCompraABM
 
                     Double.TryParse(lTxtRow(1).ToString().Replace(lSepMiles, "").Replace(lSepDec, lSysSepDec).Trim, lPcioCompra)
                     lItem.SubItems.Add(lPcioCompra.ToString("C"))
-
-
 
                     Double.TryParse(lTxtRow(1).ToString().Replace(lSepMiles, "").Replace(lSepDec, lSysSepDec).Trim, lCosto)
                     lItem.SubItems.Add(lCosto.ToString("C"))
@@ -391,9 +392,17 @@ Public Class frmStkOrdenCompraABM
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
+        Dim lOcDet As cOrdenCompraDet = Nothing
         Try
             If lvwConsulta.SelectedItems.Count > 0 Then
+                If (DirectCast(lvwConsulta.SelectedItems(0).Tag, cOrdenCompraDet).EsNuevo = False) Then 'Si ya estan en la bd lo marco como anulado.
+                    For Each lOcDet In mOrdenCompra.Detalle
+                        If lOcDet.Id_OC_Detalle = DirectCast(lvwConsulta.SelectedItems(0).Tag, cOrdenCompraDet).Id_OC_Detalle Then
+                            lOcDet.Estado = cEstado.GetEstadoxIdTipoEstado(gAdmin, 99, cEstado.enuTipoEstado.OrdenCompra_Det)
+                        End If
+                    Next
+                End If
+
                 lvwConsulta.Items.Remove(lvwConsulta.SelectedItems(0))
             End If
         Catch ex As Exception
@@ -468,9 +477,9 @@ Public Class frmStkOrdenCompraABM
             lItem.SubItems.Add(lVar.ToString("P"))
 
             If lVar > 0 Then
-                lItem.SubItems(5).ForeColor = Color.Red
+                lItem.SubItems(6).ForeColor = Color.Red
             ElseIf lVar < 0 Then
-                lItem.SubItems(5).ForeColor = Color.Blue
+                lItem.SubItems(6).ForeColor = Color.Blue
             End If
 
             lvwConsulta.Items.Add(lItem)

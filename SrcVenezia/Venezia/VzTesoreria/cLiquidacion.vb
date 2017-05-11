@@ -662,15 +662,19 @@ Public Class cLiquidacion
             ToString = Me.GetType.ToString & " Completa = " & Me.Completa.ToString & vbCrLf
             ToString = Me.GetType.ToString & " Conciliada = " & Me.Conciliada & vbCrLf
 
-            ToString = Me.GetType.ToString & " Liquidacion_Det : " & vbCrLf
-            For Each lLiqDet In Me.Liquidacion_Det
-                ToString = vbTab & lLiqDet.GetType.ToString & lLiqDet.ToString
-            Next
+            If Not IsNothing(Me.Liquidacion_Det) Then
+                ToString = Me.GetType.ToString & " Liquidacion_Det : " & vbCrLf
+                For Each lLiqDet In Me.Liquidacion_Det
+                    ToString = vbTab & lLiqDet.GetType.ToString & lLiqDet.ToString
+                Next
+            End If
 
-            ToString = Me.GetType.ToString & " Trasnferencias : " & vbCrLf
-            For Each lTransf In Me.Transferencias
-                ToString = vbTab & lTransf.GetType.ToString & lTransf.ToString
-            Next
+            If Not IsNothing(Me.Transferencias) Then
+                ToString = Me.GetType.ToString & " Trasnferencias : " & vbCrLf
+                For Each lTransf In Me.Transferencias
+                    ToString = vbTab & lTransf.GetType.ToString & lTransf.ToString
+                Next
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion.ToString")

@@ -149,12 +149,12 @@ Public Class cOrdenCompraDet
 
             Else  'ACA VA EL UPDATE 
 
-                Sql = "CALL vz_ordencompra_det_upd( #id_ordencompra_det#, #id_ordencompra#, #CodArt#, #cantidad#, #preciounitario#, #idusr#);"
+                Sql = "CALL vz_ordencompra_det_upd( #id_ordencompra_det#, #CodArt#, #cantidad#, #preciounitario#, #id_estado#, #idusr#);"
                 Sql = Sql.Replace("#id_ordencompra#", Me.Id_OC_Detalle)
-                Sql = Sql.Replace("#id_ordencompra#", Me.Id_OrdenDeCompra)
                 Sql = Sql.Replace("#CodArt#", Me.Articulo.CodArt)
                 Sql = Sql.Replace("#cantidad#", Me.Cantidad)
                 Sql = Sql.Replace("#preciounitario#", Me.PrecioUnitario.ToString().Replace(",", "."))
+                Sql = Sql.Replace("#id_estado#", Me.Estado.Id_Estado)
                 Sql = Sql.Replace("#idusr#", gAdmin.User.Id)
 
                 Cmd.Connection = lCnn
@@ -249,7 +249,7 @@ Public Class cOrdenCompraDet
 
         Try
             lCnn = pAdmin.DbCnn.GetInstanceCon
-            Sql = "select * from vz_ordencompra_det where id_ordencompra = #pIdOrdenCompra# ;"
+            Sql = "select * from vz_ordencompra_det where id_ordencompra = #pIdOrdenCompra# and id_estado =0 ;" 'traigo solo las que no estan anuladas.
             Sql = Sql.Replace("#pIdOrdenCompra#", pIdOrdenCompra)
 
             With Cmd

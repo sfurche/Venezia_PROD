@@ -183,7 +183,6 @@ Public Class cLiquidacion_Det
 
 #Region "Funciones"
 
-
     Public Sub New()
 
     End Sub
@@ -435,10 +434,12 @@ Public Class cLiquidacion_Det
             ToString = Me.GetType.ToString & " EsNuevo = " & Me.EsNuevo.ToString & vbCrLf
             ToString = Me.GetType.ToString & " Completo = " & Me.Completo.ToString & vbCrLf
 
-            ToString = Me.GetType.ToString & " Detalle : " & vbCrLf
-            For Each lCheq In Me.Cheques
-                ToString = vbTab & lCheq.GetType.ToString & lCheq.ToString
-            Next
+            If Not IsNothing(Me.Cheques) Then
+                ToString = Me.GetType.ToString & " Detalle : " & vbCrLf
+                For Each lCheq In Me.Cheques
+                    ToString = vbTab & lCheq.GetType.ToString & lCheq.ToString
+                Next
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "cLiquidacion_Det.ToString")

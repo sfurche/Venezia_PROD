@@ -40,6 +40,7 @@ Partial Class frmStkCargaPrecios
         Me.lvwConsulta = New System.Windows.Forms.ListView()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.tsmCambiarPrecio = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
         CType(Me.imgAbrir, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -224,7 +225,7 @@ Partial Class frmStkCargaPrecios
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(40, 40)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmCambiarPrecio})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(334, 105)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(334, 50)
         '
         'tsmCambiarPrecio
         '
@@ -271,4 +272,5 @@ Partial Class frmStkCargaPrecios
     Friend WithEvents lblTotalImp As Label
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents tsmCambiarPrecio As ToolStripMenuItem
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
